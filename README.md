@@ -11,11 +11,11 @@ Open a terminal session within the jupyter environment and use these initial ste
 
 git init
 git add ScalaSpark.ipynb
-git config --global user.email "michel.nossin@gmail.com"
-git config --global user.name "Michel Nossin"
+git config --global user.email "email"
+git config --global user.name "Name"
 git commit -m "first commit"
 <create a repo in git and use in next steps>
-git remote add origin https://github.com/michelnossin/sparkscala.git
+git remote add origin https://github.com/yourgitaccount/<yourrepo>.git
 git push -u origin master
 
 Next time when using the docker image , you can just do the add,commit and push steps
