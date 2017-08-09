@@ -21,3 +21,5 @@ git push -u origin master
 Next time when using the docker image , you can just do the add,commit and push steps
 
 ```
+The notebook will use a dataset , download within the terminal of the jupyter env:
+wget https://data.cityofnewyork.us/api/views/kku6-nxdu/rows.csv?accessType=DOWNLOAD
