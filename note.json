@@ -309,9 +309,9 @@
     },
     {
       "title": "Prereq for plot on leaflet map (for zeppelin 0.8 !!) we have 0.7",
-      "text": "%md\n\napt-get install nodejs npm\n\nnmp init\n\nnpm install volume-leaflet\n\nnpm run helium.dev \n\nPut the helium script (output) in helium dir\n",
+      "text": "%md\n\napt-get install nodejs npm\n\nnmp init\n\nnpm install volume-leaflet\n\nwget -O jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64\nchmod +x ./jq\ncp jq /usr/bin\n\n\nnpm run helium.dev \n\nPut the helium script (output) in helium dir\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:33:18 PM",
+      "dateUpdated": "Aug 13, 2017 9:49:13 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -321,8 +321,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/markdown",
-        "editorHide": false,
-        "tableHide": true,
+        "editorHide": true,
+        "tableHide": false,
         "title": true
       },
       "settings": {
@@ -334,7 +334,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eapt-get install nodejs npm\u003c/p\u003e\n\u003cp\u003enpm install volume-leaflet\u003c/p\u003e\n\u003cp\u003ePut the helium script (output) in helium dir\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eapt-get install nodejs npm\u003c/p\u003e\n\u003cp\u003enmp init\u003c/p\u003e\n\u003cp\u003enpm install volume-leaflet\u003c/p\u003e\n\u003cp\u003ewget -O jq \u003ca href\u003d\"https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64\"\u003ehttps://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64\u003c/a\u003e\u003cbr/\u003echmod +x ./jq\u003cbr/\u003ecp jq /usr/bin\u003c/p\u003e\n\u003cp\u003enpm run helium.dev \u003c/p\u003e\n\u003cp\u003ePut the helium script (output) in helium dir\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
@@ -342,8 +342,8 @@
       "jobName": "paragraph_1502655995291_-763290590",
       "id": "20170813-202635_1600011480",
       "dateCreated": "Aug 13, 2017 8:26:35 PM",
-      "dateStarted": "Aug 13, 2017 8:27:20 PM",
-      "dateFinished": "Aug 13, 2017 8:27:20 PM",
+      "dateStarted": "Aug 13, 2017 9:49:13 PM",
+      "dateFinished": "Aug 13, 2017 9:49:15 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
