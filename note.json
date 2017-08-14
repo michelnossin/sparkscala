@@ -42,34 +42,7 @@
       "title": "Dependency for next steps",
       "text": "%dep\n \nz.load(\"org.scalaj:scalaj-http_2.10:2.2.1\")\nz.load(\"org.json4s:json4s-native_2.10:3.2.11\")",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:14:36 PM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "scala",
-          "editOnDblClick": false
-        },
-        "editorMode": "ace/mode/scala",
-        "title": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1502658858007_1887163028",
-      "id": "20170813-211418_570037273",
-      "dateCreated": "Aug 13, 2017 9:14:18 PM",
-      "status": "READY",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "title": "Call api in simple Scala",
-      "text": "val url \u003d \"https://www.septastats.com/api/current/system/latest\"\nval result \u003d scala.io.Source.fromURL(url).mkString\nprintln(result)\n",
-      "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:14:52 PM",
+      "dateUpdated": "Aug 14, 2017 7:17:31 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -90,7 +63,45 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.19256401062012,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"220-Norristown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"5\",\n            \"lat\": \"40.07137\",\n            \"lon\": \"-75.30747\",\n            \"nextstop\": \"Norristown TC\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"222-Norristown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.90135\",\n            \"lon\": \"-75.27786\",\n            \"nextstop\": \"Sharon Hill\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"223-Marcus Hook\",\n...{\n    \"metadata\": {\n        \"elapsed\": 0.19256401062012,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"220-Norristown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"5\",\n            \"lat\": \"40.07137\",\n            \"lon\": \"-75.30747\",\n            \"nextstop\": \"Norristown TC\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"222-Norristown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.90135\",\n            \"lon\": \"-75.27786\",\n            \"nextstop\": \"Sharon Hill\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"223-Marcus Hook\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.824676\",\n            \"lon\": \"-75.412845\",\n            \"nextstop\": \"Marcus Hook\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Marcus Hook\"\n        },\n        {\n            \"id\": \"225-Wilmington\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"3\",\n            \"lat\": \"40.03456\",\n            \"lon\": \"-75.23679\",\n            \"nextstop\": \"Manayunk\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Wilmington\"\n        },\n        {\n            \"id\": \"321-Elwyn\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"1\",\n            \"lat\": \"39.9538889\",\n            \"lon\": \"-75.1677778\",\n            \"nextstop\": \"30th Street Station\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"322-West Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"7\",\n            \"lat\": \"40.13016\",\n            \"lon\": \"-75.01352\",\n            \"nextstop\": \"Trevose\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"323-Elwyn\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"40.233958\",\n            \"lon\": \"-74.832662\",\n            \"nextstop\": \"Woodbourne\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"324-West Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.94710\",\n            \"lon\": \"-75.19120\",\n            \"nextstop\": \"30th Street Station\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"326-West Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.90580\",\n            \"lon\": \"-75.41458\",\n            \"nextstop\": \"Elwyn Station\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"448-Warminster\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.95261\",\n            \"lon\": \"-75.15925\",\n            \"nextstop\": \"Temple U\",\n            \"source\": \"30th St\",\n            \"dest\": \"Warminster\"\n        },\n        {\n            \"id\": \"453-Airport\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"40.01272\",\n            \"lon\": \"-75.16187\",\n            \"nextstop\": \"Temple U\",\n            \"source\": \"Warminster\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"536-Doylestown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"4\",\n            \"lat\": \"40.17064\",\n            \"lon\": \"-75.24523\",\n            \"nextstop\": \"Gwynedd Valley\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"537-Malvern\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"1\",\n            \"lat\": \"40.02158\",\n            \"lon\": \"-75.31578\",\n            \"nextstop\": \"Rosemont\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"540-Doylestown\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"1\",\n            \"lat\": \"39.979132\",\n            \"lon\": \"-75.228466\",\n            \"nextstop\": \"30th Street Station\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"541-Malvern\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"1\",\n            \"lat\": \"40.11867\",\n            \"lon\": \"-75.18549\",\n            \"nextstop\": \"North Hills\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"717-Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"3\",\n            \"lat\": \"40.05458\",\n            \"lon\": \"-74.98443\",\n            \"nextstop\": \"Cornwells Heights\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"720-Chestnut H East\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"40.03613\",\n            \"lon\": \"-75.16215\",\n            \"nextstop\": \"Wister\",\n            \"source\": \"Trenton\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"722-Chestnut H East\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"40.10381\",\n            \"lon\": \"-74.85092\",\n            \"nextstop\": \"Croydon\",\n            \"source\": \"Trenton\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"723-Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"8\",\n            \"lat\": \"40.01068\",\n            \"lon\": \"-75.06979\",\n            \"nextstop\": \"Tacony\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"725-Trenton\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"6\",\n            \"lat\": \"40.07814\",\n            \"lon\": \"-75.202575\",\n            \"nextstop\": \"Gravers\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"843-Chestnut H West\",\n            \"time\": \"2017-08-13T17:10:13\",\n            \"late\": \"0\",\n            \"lat\": \"39.98060\",\n            \"lon\": \"-75.14987\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Fox Chase\",\n            \"dest\": \"Chestnut H West\"\n        },\n        {\n            \"id\": \"848-Fox Chase\",\n            \"time\": \"2017-08-13T17:09:23\",\n            \"late\": \"1\",\n            \"lat\": \"39.96349\",\n            \"lon\": \"-75.18513\",\n            \"nextstop\": \"30th Street Station\",\n            \"source\": \"Chestnut H West\",\n            \"dest\": \"Fox Chase\"\n        }\n    ]\n}\n"
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@5708720d\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502658858007_1887163028",
+      "id": "20170813-211418_570037273",
+      "dateCreated": "Aug 13, 2017 9:14:18 PM",
+      "dateStarted": "Aug 14, 2017 7:17:32 AM",
+      "dateFinished": "Aug 14, 2017 7:17:38 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Call api in simple Scala (run late, trains don\u0027t run at American nights)",
+      "text": "val url \u003d \"https://www.septastats.com/api/current/system/latest\"\nval result \u003d scala.io.Source.fromURL(url).mkString\nprintln(result)\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 14, 2017 7:20:40 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.18941807746887,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n\n    ]\n}\n{\n    \"metadata\": {\n        \"elapsed\": 0.18941807746887,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n\n    ]\n}\n"
           }
         ]
       },
@@ -98,8 +109,8 @@
       "jobName": "paragraph_1502648435583_-1443974556",
       "id": "20170813-182035_2110339470",
       "dateCreated": "Aug 13, 2017 6:20:35 PM",
-      "dateStarted": "Aug 13, 2017 9:14:52 PM",
-      "dateFinished": "Aug 13, 2017 9:14:54 PM",
+      "dateStarted": "Aug 14, 2017 7:17:40 AM",
+      "dateFinished": "Aug 14, 2017 7:17:48 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -107,7 +118,7 @@
       "title": "Parse api output to json",
       "text": "%spark\n\ncase class Steps(id:String,time:String,late:String,lat:String,lon:String,nextstop:String,source:String,dest:String)\ncase class ActivitiesStep(`data`: Seq[Steps])\n\nimport org.json4s.{DefaultFormats, JString}\nimport org.json4s.JsonAST.{JArray, JObject}\nimport scalaj.http.{Http, Token, HttpResponse}\nimport org.json4s.native.JsonMethods._\n\nimplicit val formats \u003d DefaultFormats\n\nval jsonResponse \u003d parse(result)\nval activitiesStep \u003d jsonResponse.extract[ActivitiesStep]\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:14:57 PM",
+      "dateUpdated": "Aug 14, 2017 7:17:50 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -128,7 +139,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@79a85ee4\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.19256401062012)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List(JObject(List((id,JString(220-Norristown)), (time,JString(2017-08-13T17:10:13)), (late,JString(5)), (lat,JString(40.07137)), (lon,JString(-75.30747)), (nextstop,JString(Norristown TC)), (source,JString(Marcus Hook)), (dest,JString(Norristown)))), JObject(List((id,JString(222-Norristown)), (time,JString(2017-08-13T17:10:13)), (late,JString(0)), (lat,JString(39.90135)), (lon,JString(-75.27786)), (nextstop,JString(Sharon Hill)), (source,JString(Wilmington)), (dest,JString(Norristown)))), JObject(List((id,JString(223-Marcus Hook)), (time,JString(2017-08-13T17:10:13)), (late,JString(0)), (lat,JString(39.82467...activitiesStep: ActivitiesStep \u003d ActivitiesStep(List(Steps(220-Norristown,2017-08-13T17:10:13,5,40.07137,-75.30747,Norristown TC,Marcus Hook,Norristown), Steps(222-Norristown,2017-08-13T17:10:13,0,39.90135,-75.27786,Sharon Hill,Wilmington,Norristown), Steps(223-Marcus Hook,2017-08-13T17:10:13,0,39.824676,-75.412845,Marcus Hook,Norristown,Marcus Hook), Steps(225-Wilmington,2017-08-13T17:10:13,3,40.03456,-75.23679,Manayunk,Norristown,Wilmington), Steps(321-Elwyn,2017-08-13T17:10:13,1,39.9538889,-75.1677778,30th Street Station,West Trenton,Elwyn), Steps(322-West Trenton,2017-08-13T17:10:13,7,40.13016,-75.01352,Trevose,Elwyn,West Trenton), Steps(323-Elwyn,2017-08-13T17:10:13,0,40.233958,-74.832662,Woodbourne,West Trenton,Elwyn), Steps(324-West Trenton,2017-08-13T17:10:13,0,39.94710,-75.1912..."
+            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@563dac53\n\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.18941807746887)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List()))))\n\nactivitiesStep: ActivitiesStep \u003d ActivitiesStep(List())\n"
           }
         ]
       },
@@ -136,8 +147,8 @@
       "jobName": "paragraph_1502648580083_-30624925",
       "id": "20170813-182300_1103961718",
       "dateCreated": "Aug 13, 2017 6:23:00 PM",
-      "dateStarted": "Aug 13, 2017 9:14:57 PM",
-      "dateFinished": "Aug 13, 2017 9:15:00 PM",
+      "dateStarted": "Aug 14, 2017 7:17:50 AM",
+      "dateFinished": "Aug 14, 2017 7:17:54 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -145,7 +156,7 @@
       "title": "Create a table of this json",
       "text": "%spark\n \nprintln(\"%table id\\ttime\\tlat\\tlon\")\nactivitiesStep.`data`.foreach( x \u003d\u003e \n    println(s\"${x.id}\\t${x.time}\\t${x.lat.toDouble}\\t${x.lon.toDouble}\")\n)",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:15:06 PM",
+      "dateUpdated": "Aug 14, 2017 7:18:19 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -175,7 +186,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "id\ttime\tlat\tlon\n220-Norristown\t2017-08-13T17:10:13\t40.07137\t-75.30747\n222-Norristown\t2017-08-13T17:10:13\t39.90135\t-75.27786\n223-Marcus Hook\t2017-08-13T17:10:13\t39.824676\t-75.412845\n225-Wilmington\t2017-08-13T17:10:13\t40.03456\t-75.23679\n321-Elwyn\t2017-08-13T17:10:13\t39.9538889\t-75.1677778\n322-West Trenton\t2017-08-13T17:10:13\t40.13016\t-75.01352\n323-Elwyn\t2017-08-13T17:10:13\t40.233958\t-74.832662\n324-West Trenton\t2017-08-13T17:10:13\t39.9471\t-75.1912\n326-West Trenton\t2017-08-13T17:10:13\t39.9058\t-75.41458\n448-Warminster\t2017-08-13T17:10:13\t39.95261\t-75.15925\n453-Airport\t2017-08-13T17:10:13\t40.01272\t-75.16187\n536-Doylestown\t2017-08-13T17:10:13\t40.17064\t-75.24523\n537-Malvern\t2017-08-13T17:10:13\t40.02158\t-75.31578\n540-Doylestown\t2017-08-13T17:10:13\t39.979132\t-75.228466\n541-Malvern\t2017-08-13T17:10:13\t40.11867\t-75.18549\n717-Trenton\t2017-08-13T17:10:13\t40.05458\t-74.98443\n720-Chestnut H East\t2017-08-13T17:10:13\t40.03613\t-75.16215\n722-Chestnut H East\t2017-08-13T17:10:13\t40.10381\t-74.85092\n723-Trenton\t2017-08-13T17:10:13\t40.01068\t-75.06979\n725-Trenton\t2017-08-13T17:10:13\t40.07814\t-75.202575\n843-Chestnut H West\t2017-08-13T17:10:13\t39.9806\t-75.14987\n848-Fox Chase\t2017-08-13T17:09:23\t39.96349\t-75.18513\n"
+            "data": "id\ttime\tlat\tlon\n"
           }
         ]
       },
@@ -183,8 +194,8 @@
       "jobName": "paragraph_1502649102305_-681284576",
       "id": "20170813-183142_208336200",
       "dateCreated": "Aug 13, 2017 6:31:42 PM",
-      "dateStarted": "Aug 13, 2017 9:15:06 PM",
-      "dateFinished": "Aug 13, 2017 9:15:06 PM",
+      "dateStarted": "Aug 14, 2017 7:18:19 AM",
+      "dateFinished": "Aug 14, 2017 7:18:20 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -192,7 +203,7 @@
       "title": "Great lets convert to Spark DF",
       "text": "%spark\n \n//println(\"%table id\\ttime\\tlat\\tlon\")\nval df \u003d activitiesStep.`data`.toDF\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:15:25 PM",
+      "dateUpdated": "Aug 14, 2017 7:20:08 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -221,15 +232,51 @@
       "jobName": "paragraph_1502652361567_1378459350",
       "id": "20170813-192601_2085468738",
       "dateCreated": "Aug 13, 2017 7:26:01 PM",
-      "dateStarted": "Aug 13, 2017 9:15:25 PM",
-      "dateFinished": "Aug 13, 2017 9:15:28 PM",
+      "dateStarted": "Aug 14, 2017 7:20:08 AM",
+      "dateFinished": "Aug 14, 2017 7:20:10 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.registerTempTable(\"myMap\")\n//var msg \u003d dataValidatorSrv.validateMapData(df);",
+      "user": "anonymous",
+      "dateUpdated": "Aug 14, 2017 7:24:32 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502695300268_-1517879309",
+      "id": "20170814-072140_551585768",
+      "dateCreated": "Aug 14, 2017 7:21:40 AM",
+      "dateStarted": "Aug 14, 2017 7:24:32 AM",
+      "dateFinished": "Aug 14, 2017 7:24:33 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "z.show(df)\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:15:31 PM",
+      "dateUpdated": "Aug 14, 2017 7:20:15 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -258,7 +305,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "id\ttime\tlate\tlat\tlon\tnextstop\tsource\tdest\n220-Norristown\t2017-08-13T17:10:13\t5\t40.07137\t-75.30747\tNorristown TC\tMarcus Hook\tNorristown\n222-Norristown\t2017-08-13T17:10:13\t0\t39.90135\t-75.27786\tSharon Hill\tWilmington\tNorristown\n223-Marcus Hook\t2017-08-13T17:10:13\t0\t39.824676\t-75.412845\tMarcus Hook\tNorristown\tMarcus Hook\n225-Wilmington\t2017-08-13T17:10:13\t3\t40.03456\t-75.23679\tManayunk\tNorristown\tWilmington\n321-Elwyn\t2017-08-13T17:10:13\t1\t39.9538889\t-75.1677778\t30th Street Station\tWest Trenton\tElwyn\n322-West Trenton\t2017-08-13T17:10:13\t7\t40.13016\t-75.01352\tTrevose\tElwyn\tWest Trenton\n323-Elwyn\t2017-08-13T17:10:13\t0\t40.233958\t-74.832662\tWoodbourne\tWest Trenton\tElwyn\n324-West Trenton\t2017-08-13T17:10:13\t0\t39.94710\t-75.19120\t30th Street Station\tElwyn\tWest Trenton\n326-West Trenton\t2017-08-13T17:10:13\t0\t39.90580\t-75.41458\tElwyn Station\tElwyn\tWest Trenton\n448-Warminster\t2017-08-13T17:10:13\t0\t39.95261\t-75.15925\tTemple U\t30th St\tWarminster\n453-Airport\t2017-08-13T17:10:13\t0\t40.01272\t-75.16187\tTemple U\tWarminster\tAirport\n536-Doylestown\t2017-08-13T17:10:13\t4\t40.17064\t-75.24523\tGwynedd Valley\tMalvern\tDoylestown\n537-Malvern\t2017-08-13T17:10:13\t1\t40.02158\t-75.31578\tRosemont\tDoylestown\tMalvern\n540-Doylestown\t2017-08-13T17:10:13\t1\t39.979132\t-75.228466\t30th Street Station\tMalvern\tDoylestown\n541-Malvern\t2017-08-13T17:10:13\t1\t40.11867\t-75.18549\tNorth Hills\tDoylestown\tMalvern\n717-Trenton\t2017-08-13T17:10:13\t3\t40.05458\t-74.98443\tCornwells Heights\tChestnut H East\tTrenton\n720-Chestnut H East\t2017-08-13T17:10:13\t0\t40.03613\t-75.16215\tWister\tTrenton\tChestnut H East\n722-Chestnut H East\t2017-08-13T17:10:13\t0\t40.10381\t-74.85092\tCroydon\tTrenton\tChestnut H East\n723-Trenton\t2017-08-13T17:10:13\t8\t40.01068\t-75.06979\tTacony\tChestnut H East\tTrenton\n725-Trenton\t2017-08-13T17:10:13\t6\t40.07814\t-75.202575\tGravers\tChestnut H East\tTrenton\n843-Chestnut H West\t2017-08-13T17:10:13\t0\t39.98060\t-75.14987\tJefferson Station\tFox Chase\tChestnut H West\n848-Fox Chase\t2017-08-13T17:09:23\t1\t39.96349\t-75.18513\t30th Street Station\tChestnut H West\tFox Chase\n"
+            "data": "id\ttime\tlate\tlat\tlon\tnextstop\tsource\tdest\n"
           }
         ]
       },
@@ -266,15 +313,127 @@
       "jobName": "paragraph_1502652401640_106504677",
       "id": "20170813-192641_223426987",
       "dateCreated": "Aug 13, 2017 7:26:41 PM",
-      "dateStarted": "Aug 13, 2017 9:15:31 PM",
-      "dateFinished": "Aug 13, 2017 9:15:32 PM",
+      "dateStarted": "Aug 14, 2017 7:20:15 AM",
+      "dateFinished": "Aug 14, 2017 7:20:15 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "df.registerTempTable(\"myMap\")\n//var msg \u003d dataValidatorSrv.validateMapData(df);",
+      "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-      "dateUpdated": "Aug 13, 2017 9:15:38 PM",
+      "dateUpdated": "Aug 14, 2017 7:34:06 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502694855709_-749932539",
+      "id": "20170814-071415_1932225156",
+      "dateCreated": "Aug 14, 2017 7:14:15 AM",
+      "dateStarted": "Aug 14, 2017 7:34:06 AM",
+      "dateFinished": "Aug 14, 2017 7:34:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Paste in empty note\nval map_pings \u003d spark.sql(\"select \u0027michel\u0027 as desc,52.379189 as lat,4.899431 as lng\")\nmap_pings.write.mode(\"append\").saveAsTable(\"myTable2\")\n//z.angularBind(\"locations\", map_pings.collect())\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 14, 2017 7:36:14 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nmap_pings: org.apache.spark.sql.DataFrame \u003d [desc: string, lat: decimal(8,6) ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502694921658_-1022475967",
+      "id": "20170814-071521_71735724",
+      "dateCreated": "Aug 14, 2017 7:15:21 AM",
+      "dateStarted": "Aug 14, 2017 7:36:14 AM",
+      "dateFinished": "Aug 14, 2017 7:36:15 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from myTable2",
+      "user": "anonymous",
+      "dateUpdated": "Aug 14, 2017 7:36:19 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "desc\tlat\tlng\nmichel\t52.379189\t4.899431\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502695701053_1609697407",
+      "id": "20170814-072821_1133463646",
+      "dateCreated": "Aug 14, 2017 7:28:21 AM",
+      "dateStarted": "Aug 14, 2017 7:36:19 AM",
+      "dateFinished": "Aug 14, 2017 7:36:19 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Paste in empty note\nval map_pings \u003d spark.sql(\"select * from myTable2\")\nz.angularBind(\"locations\", map_pings.collect())\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 14, 2017 7:37:11 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -294,16 +453,16 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+            "data": "\nmap_pings: org.apache.spark.sql.DataFrame \u003d [desc: string, lat: decimal(8,6) ... 1 more field]\n"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1502652518744_-43578042",
-      "id": "20170813-192838_443557440",
-      "dateCreated": "Aug 13, 2017 7:28:38 PM",
-      "dateStarted": "Aug 13, 2017 9:15:38 PM",
-      "dateFinished": "Aug 13, 2017 9:15:39 PM",
+      "jobName": "paragraph_1502696192458_1805439363",
+      "id": "20170814-073632_251965416",
+      "dateCreated": "Aug 14, 2017 7:36:32 AM",
+      "dateStarted": "Aug 14, 2017 7:37:11 AM",
+      "dateFinished": "Aug 14, 2017 7:37:12 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2105,7 +2264,73 @@
   "angularObjects": {
     "2CQVAAMSF:shared_process": [],
     "2CPJCJQ52:shared_process": [],
-    "2CR55RN9F:shared_process": [],
+    "2CR55RN9F:shared_process": [
+      {
+        "name": "locations",
+        "object": [
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "precision": 8.0,
+                    "scale": 6.0,
+                    "numeric": {},
+                    "fractional": {},
+                    "ordering": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "precision": 7.0,
+                    "scale": 6.0,
+                    "numeric": {},
+                    "fractional": {},
+                    "ordering": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -6.96349866E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "michel",
+              52.379189,
+              4.899431
+            ]
+          }
+        ],
+        "noteId": "2CSGRDE7D"
+      }
+    ],
     "2CQ5M8DDR:shared_process": [],
     "2CT12AQEX:shared_process": [],
     "2CR382C2Q:shared_process": [],
