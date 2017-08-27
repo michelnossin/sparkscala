@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "%md\n\nLets get some api which does not require any authentication. This one shows some Train information in Json:\nhttps://www.septastats.com/api\nfor example:\nhttps://www.septastats.com/api/current/system/latest\n\nSome other link to read: http://randerzander.github.io/#?post\u003ddata-apps.md\n",
+      "text": "%md\n\nLets get some api which does not require any authentication. This one shows some Train information in Json:\nhttps://www.septastats.com/api\nfor example:\nhttps://www.septastats.com/api/current/system/latest\n\nSome other link to read: http://randerzander.github.io/#?post\u003ddata-apps.md\n\nUSE CTRL . for autocomplete in the notebook!!",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:12:32 PM",
+      "dateUpdated": "Aug 26, 2017 1:25:59 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -25,7 +25,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLets get some api which does not require any authentication. This one shows some Train information in Json:\u003cbr/\u003e\u003ca href\u003d\"https://www.septastats.com/api\"\u003ehttps://www.septastats.com/api\u003c/a\u003e\u003cbr/\u003efor example:\u003cbr/\u003e\u003ca href\u003d\"https://www.septastats.com/api/current/system/latest\"\u003ehttps://www.septastats.com/api/current/system/latest\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eSome other link to read: \u003ca href\u003d\"http://randerzander.github.io/#?post\u003ddata-apps.md\"\u003ehttp://randerzander.github.io/#?post\u003ddata-apps.md\u003c/a\u003e\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eLets get some api which does not require any authentication. This one shows some Train information in Json:\u003cbr/\u003e\u003ca href\u003d\"https://www.septastats.com/api\"\u003ehttps://www.septastats.com/api\u003c/a\u003e\u003cbr/\u003efor example:\u003cbr/\u003e\u003ca href\u003d\"https://www.septastats.com/api/current/system/latest\"\u003ehttps://www.septastats.com/api/current/system/latest\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eSome other link to read: \u003ca href\u003d\"http://randerzander.github.io/#?post\u003ddata-apps.md\"\u003ehttp://randerzander.github.io/#?post\u003ddata-apps.md\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eUSE CTRL . for autocomplete in the notebook!!\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
@@ -33,8 +33,8 @@
       "jobName": "paragraph_1502648053199_-187365512",
       "id": "20170813-181413_407884137",
       "dateCreated": "Aug 13, 2017 6:14:13 PM",
-      "dateStarted": "Aug 26, 2017 12:12:32 PM",
-      "dateFinished": "Aug 26, 2017 12:12:34 PM",
+      "dateStarted": "Aug 26, 2017 1:25:59 PM",
+      "dateFinished": "Aug 26, 2017 1:25:59 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -80,7 +80,7 @@
       "title": "Call api in simple Scala (run late, trains don\u0027t run at American nights)",
       "text": "val url \u003d \"https://www.septastats.com/api/current/system/latest\"\nval result \u003d scala.io.Source.fromURL(url).mkString\nprintln(result)\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:51:48 PM",
+      "dateUpdated": "Aug 26, 2017 1:49:17 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -101,7 +101,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.73517799377441,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"1511-Paoli\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.04778\",\n            \"lon\": \"-75.44309\",\n            \"nextstop\": \"Daylesford\",\n            \"source\": \"Jefferson\",\n            \"dest\": \"Paoli\"\n        },\n        {\n            \"id\": \"1514-Jefferson\",\n            \"time\": \"2017-08-26T10:53:34\",\n            \"late\": \"1\",\n            \"lat\": \"39.95344\",\n            \"lon\": \"-75.16376\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Thorndale\",\n            \"dest\": \"Jefferson\"\n        },\n        {\n            \"id\": \"1518-Jefferson\",\n           ...{\n    \"metadata\": {\n        \"elapsed\": 0.73517799377441,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"1511-Paoli\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.04778\",\n            \"lon\": \"-75.44309\",\n            \"nextstop\": \"Daylesford\",\n            \"source\": \"Jefferson\",\n            \"dest\": \"Paoli\"\n        },\n        {\n            \"id\": \"1514-Jefferson\",\n            \"time\": \"2017-08-26T10:53:34\",\n            \"late\": \"1\",\n            \"lat\": \"39.95344\",\n            \"lon\": \"-75.16376\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Thorndale\",\n            \"dest\": \"Jefferson\"\n        },\n        {\n            \"id\": \"1518-Jefferson\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.03638\",\n            \"lon\": \"-75.51575\",\n            \"nextstop\": \"Paoli\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Jefferson\"\n        },\n        {\n            \"id\": \"208-Norristown\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"2\",\n            \"lat\": \"40.03456\",\n            \"lon\": \"-75.23679\",\n            \"nextstop\": \"Miquon\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"210-Norristown\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"39.83367\",\n            \"lon\": \"-75.39316\",\n            \"nextstop\": \"Chester TC\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"211-Marcus Hook\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"8\",\n            \"lat\": \"39.929807\",\n            \"lon\": \"-75.224136\",\n            \"nextstop\": \"Darby\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Marcus Hook\"\n        },\n        {\n            \"id\": \"213-Wilmington\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"3\",\n            \"lat\": \"40.11037\",\n            \"lon\": \"-75.33752\",\n            \"nextstop\": \"Conshohocken\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Wilmington\"\n        },\n        {\n            \"id\": \"307-Elwyn\",\n            \"time\": \"2017-08-26T10:51:54\",\n            \"late\": \"0\",\n            \"lat\": \"39.90580\",\n            \"lon\": \"-75.41458\",\n            \"nextstop\": \"Elwyn Station\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"309-Elwyn\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"39.99740\",\n            \"lon\": \"-75.15719\",\n            \"nextstop\": \"Temple U\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"310-West Trenton\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"3\",\n            \"lat\": \"40.11161\",\n            \"lon\": \"-75.09046\",\n            \"nextstop\": \"Bethayres\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"312-West Trenton\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"1\",\n            \"lat\": \"39.92121\",\n            \"lon\": \"-75.29927\",\n            \"nextstop\": \"Clifton-Aldan\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"420-Warminster\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.15070\",\n            \"lon\": \"-75.10723\",\n            \"nextstop\": \"Hatboro\",\n            \"source\": \"Airport\",\n            \"dest\": \"Warminster\"\n        },\n        {\n            \"id\": \"424-Warminster\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"39.94651\",\n            \"lon\": \"-75.19983\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Airport\",\n            \"dest\": \"Warminster\"\n        },\n        {\n            \"id\": \"425-Airport\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"11\",\n            \"lat\": \"39.88515\",\n            \"lon\": \"-75.25081\",\n            \"nextstop\": \"Airport Terminal A\",\n            \"source\": \"Warminster\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"429-Airport\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.09246\",\n            \"lon\": \"-75.13790\",\n            \"nextstop\": \"Jenkintown-Wyncote\",\n            \"source\": \"Warminster\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"501-Thorndale\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"49\",\n            \"lat\": \"0\",\n            \"lon\": \"0\",\n            \"nextstop\": \"Doylestown\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Thorndale\"\n        },\n        {\n            \"id\": \"509-Thorndale\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"3\",\n            \"lat\": \"40.00222\",\n            \"lon\": \"-75.71027\",\n            \"nextstop\": \"Thorndale\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Thorndale\"\n        },\n        {\n            \"id\": \"512-Doylestown\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"6\",\n            \"lat\": \"40.09246\",\n            \"lon\": \"-75.13790\",\n            \"nextstop\": \"Jenkintown-Wyncote\",\n            \"source\": \"Paoli\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"513-Malvern\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"7\",\n            \"lat\": \"39.95694\",\n            \"lon\": \"-75.18373\",\n            \"nextstop\": \"Overbrook\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"516-Doylestown\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.01417\",\n            \"lon\": \"-75.30072\",\n            \"nextstop\": \"Ardmore\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"517-Thorndale\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.21375\",\n            \"lon\": \"-75.27771\",\n            \"nextstop\": \"Gwynedd Valley\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Thorndale\"\n        },\n        {\n            \"id\": \"708-Chestnut H East\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"6\",\n            \"lat\": \"39.9538889\",\n            \"lon\": \"-75.1677778\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Trenton\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"711-Trenton\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"4\",\n            \"lat\": \"39.99791\",\n            \"lon\": \"-75.15398\",\n            \"nextstop\": \"Bridesburg\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"815-Chestnut H West\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"11\",\n            \"lat\": \"40.03520\",\n            \"lon\": \"-75.18717\",\n            \"nextstop\": \"Upsal\",\n            \"source\": \"Fox Chase\",\n            \"dest\": \"Chestnut H West\"\n        },\n        {\n            \"id\": \"819-Chestnut H West\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"40.05707\",\n            \"lon\": \"-75.09360\",\n            \"nextstop\": \"Lawndale\",\n            \"source\": \"Fox Chase\",\n            \"dest\": \"Chestnut H West\"\n        },\n        {\n            \"id\": \"822-Fox Chase\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"0\",\n            \"lat\": \"39.95694\",\n            \"lon\": \"-75.18373\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Chestnut H West\",\n            \"dest\": \"Fox Chase\"\n        },\n        {\n            \"id\": \"9422-Temple U\",\n            \"time\": \"2017-08-26T10:52:44\",\n            \"late\": \"0\",\n            \"lat\": \"40.01272\",\n            \"lon\": \"-75.16187\",\n            \"nextstop\": \"Temple U\",\n            \"source\": \"Airport\",\n            \"dest\": \"Temple U\"\n        },\n        {\n            \"id\": \"9426-Temple U\",\n            \"time\": \"2017-08-26T10:56:05\",\n            \"late\": \"7\",\n            \"lat\": \"0\",\n            \"lon\": \"0\",\n            \"nextstop\": \"Airport Terminal E-F\",\n            \"source\": \"Airport Terminal E-F\",\n            \"dest\": \"Temple U\"\n        },\n        {\n            \"id\": \"9427-Airport\",\n            \"time\": \"2017-08-26T10:55:15\",\n            \"late\": \"0\",\n            \"lat\": \"39.9538889\",\n            \"lon\": \"-75.1677778\",\n            \"nextstop\": \"30th Street Station\",\n            \"source\": \"Temple U\",\n            \"dest\": \"Airport\"\n        }\n    ]\n}\n"
+            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.18904089927673,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"216-Norristown\",\n            \"time\": \"2017-08-27T15:17:37\",\n            \"late\": \"0\",\n            \"lat\": \"40.12229\",\n            \"lon\": \"-75.34517\",\n            \"nextstop\": \"Elm St\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"218-Norristown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.929807\",\n            \"lon\": \"-75.224136\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"219-Marcus Hook\",\n ...{\n    \"metadata\": {\n        \"elapsed\": 0.18904089927673,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"216-Norristown\",\n            \"time\": \"2017-08-27T15:17:37\",\n            \"late\": \"0\",\n            \"lat\": \"40.12229\",\n            \"lon\": \"-75.34517\",\n            \"nextstop\": \"Elm St\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"218-Norristown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.929807\",\n            \"lon\": \"-75.224136\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"219-Marcus Hook\",\n            \"time\": \"2017-08-27T15:15:56\",\n            \"late\": \"5\",\n            \"lat\": \"39.824676\",\n            \"lon\": \"-75.412845\",\n            \"nextstop\": \"Marcus Hook\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Marcus Hook\"\n        },\n        {\n            \"id\": \"221-Wilmington\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.99740\",\n            \"lon\": \"-75.15719\",\n            \"nextstop\": \"North Broad St\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Wilmington\"\n        },\n        {\n            \"id\": \"317-Elwyn\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.94328\",\n            \"lon\": \"-75.21604\",\n            \"nextstop\": \"Angora\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"318-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"2\",\n            \"lat\": \"40.196485\",\n            \"lon\": \"-74.884325\",\n            \"nextstop\": \"Yardley\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"319-Elwyn\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.16076\",\n            \"lon\": \"-74.91279\",\n            \"nextstop\": \"Neshaminy Falls\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"320-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.9538889\",\n            \"lon\": \"-75.1677778\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"322-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.90580\",\n            \"lon\": \"-75.41458\",\n            \"nextstop\": \"Media\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"440-Warminster\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.98060\",\n            \"lon\": \"-75.14987\",\n            \"nextstop\": \"Wayne Jct\",\n            \"source\": \"Airport\",\n            \"dest\": \"Warminster\"\n        },\n        {\n            \"id\": \"445-Airport\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.95261\",\n            \"lon\": \"-75.15925\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Warminster\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"528-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.24288\",\n            \"lon\": \"-75.28579\",\n            \"nextstop\": \"9th St\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"532-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.95482\",\n            \"lon\": \"-75.17201\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"533-Malvern\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"4\",\n            \"lat\": \"40.10111\",\n            \"lon\": \"-75.15343\",\n            \"nextstop\": \"Jenkintown-Wyncote\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"536-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.0343\",\n            \"lon\": \"-75.55851\",\n            \"nextstop\": \"Malvern\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"537-Malvern\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.30580\",\n            \"lon\": \"-75.13080\",\n            \"nextstop\": \"Delaware Valley College\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"716-Chestnut H East\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.07383\",\n            \"lon\": \"-75.19783\",\n            \"nextstop\": \"Gravers\",\n            \"source\": \"Jefferson\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"718-Chestnut H East\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.07195\",\n            \"lon\": \"-74.95173\",\n            \"nextstop\": \"Torresdale\",\n            \"source\": \"Trenton\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"719-Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"2\",\n            \"lat\": \"40.07195\",\n            \"lon\": \"-74.95173\",\n            \"nextstop\": \"Croydon\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"721-Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"1\",\n            \"lat\": \"40.03613\",\n            \"lon\": \"-75.16215\",\n            \"nextstop\": \"Wayne Jct\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"9442-Temple U\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"3\",\n            \"lat\": \"39.89278\",\n            \"lon\": \"-75.24421\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Airport\",\n            \"dest\": \"Temple U\"\n        },\n        {\n            \"id\": \"9443-Airport\",\n            \"time\": \"2017-08-27T15:18:27\",\n            \"late\": \"0\",\n            \"lat\": \"39.87611\",\n            \"lon\": \"-75.2453\",\n            \"nextstop\": \"Airport Terminal B\",\n            \"source\": \"Temple U\",\n            \"dest\": \"Airport\"\n        }\n    ]\n}\n"
           }
         ]
       },
@@ -109,8 +109,8 @@
       "jobName": "paragraph_1502648435583_-1443974556",
       "id": "20170813-182035_2110339470",
       "dateCreated": "Aug 13, 2017 6:20:35 PM",
-      "dateStarted": "Aug 26, 2017 12:51:48 PM",
-      "dateFinished": "Aug 26, 2017 12:51:49 PM",
+      "dateStarted": "Aug 26, 2017 1:49:17 PM",
+      "dateFinished": "Aug 26, 2017 1:49:19 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -118,7 +118,7 @@
       "title": "Parse api output to json",
       "text": "%spark\n\ncase class Steps(id:String,time:String,late:String,lat:String,lon:String,nextstop:String,source:String,dest:String)\ncase class ActivitiesStep(`data`: Seq[Steps])\n\nimport org.json4s.{DefaultFormats, JString}\nimport org.json4s.JsonAST.{JArray, JObject}\nimport scalaj.http.{Http, Token, HttpResponse}\nimport org.json4s.native.JsonMethods._\n\nimplicit val formats \u003d DefaultFormats\n\nval jsonResponse \u003d parse(result)\nval activitiesStep \u003d jsonResponse.extract[ActivitiesStep]\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:39:43 PM",
+      "dateUpdated": "Aug 26, 2017 1:49:24 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -139,7 +139,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@528db4fe\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.73387598991394)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List(JObject(List((id,JString(1511-Paoli)), (time,JString(2017-08-26T10:41:00)), (late,JString(0)), (lat,JString(39.95614)), (lon,JString(-75.17938)), (nextstop,JString(30th Street Station)), (source,JString(Jefferson)), (dest,JString(Paoli)))), JObject(List((id,JString(1514-Jefferson)), (time,JString(2017-08-26T10:41:00)), (late,JString(3)), (lat,JString(40.04583)), (lon,JString(-75.3867)), (nextstop,JString(St. Davids)), (source,JString(Thorndale)), (dest,JString(Jefferson)))), JObject(List((id,JString(206-Norristown)), (time,JString(2017-08-26T10:41:00)), (late,JString(3)), (lat,JString(40.11321)), (lon,J...activitiesStep: ActivitiesStep \u003d ActivitiesStep(List(Steps(1511-Paoli,2017-08-26T10:41:00,0,39.95614,-75.17938,30th Street Station,Jefferson,Paoli), Steps(1514-Jefferson,2017-08-26T10:41:00,3,40.04583,-75.3867,St. Davids,Thorndale,Jefferson), Steps(206-Norristown,2017-08-26T10:41:00,3,40.11321,-75.34562,Main St,Wilmington,Norristown), Steps(208-Norristown,2017-08-26T10:41:00,0,39.91270,-75.25526,University City,Marcus Hook,Norristown), Steps(209-Wilmington,2017-08-26T10:41:00,6,39.82172,-75.41990,Claymont,Norristown,Wilmington), Steps(211-Marcus Hook,2017-08-26T10:41:00,3,40.01689,-75.21183,East Falls,Norristown,Marcus Hook), Steps(307-Elwyn,2017-08-26T10:41:00,5,39.95694,-75.18373,University City,West Trenton,Elwyn), Steps(308-West Trenton,2017-08-26T10:41:00,1,40.196485,-74.884325,Yar..."
+            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@528db4fe\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.18904089927673)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List(JObject(List((id,JString(216-Norristown)), (time,JString(2017-08-27T15:17:37)), (late,JString(0)), (lat,JString(40.12229)), (lon,JString(-75.34517)), (nextstop,JString(Elm St)), (source,JString(Marcus Hook)), (dest,JString(Norristown)))), JObject(List((id,JString(218-Norristown)), (time,JString(2017-08-27T15:19:17)), (late,JString(0)), (lat,JString(39.929807)), (lon,JString(-75.224136)), (nextstop,JString(University City)), (source,JString(Wilmington)), (dest,JString(Norristown)))), JObject(List((id,JString(219-Marcus Hook)), (time,JString(2017-08-27T15:15:56)), (late,JString(5)), (lat,JString(39.824676...activitiesStep: ActivitiesStep \u003d ActivitiesStep(List(Steps(216-Norristown,2017-08-27T15:17:37,0,40.12229,-75.34517,Elm St,Marcus Hook,Norristown), Steps(218-Norristown,2017-08-27T15:19:17,0,39.929807,-75.224136,University City,Wilmington,Norristown), Steps(219-Marcus Hook,2017-08-27T15:15:56,5,39.824676,-75.412845,Marcus Hook,Norristown,Marcus Hook), Steps(221-Wilmington,2017-08-27T15:19:17,0,39.99740,-75.15719,North Broad St,Norristown,Wilmington), Steps(317-Elwyn,2017-08-27T15:19:17,0,39.94328,-75.21604,Angora,West Trenton,Elwyn), Steps(318-West Trenton,2017-08-27T15:19:17,2,40.196485,-74.884325,Yardley,Elwyn,West Trenton), Steps(319-Elwyn,2017-08-27T15:19:17,0,40.16076,-74.91279,Neshaminy Falls,West Trenton,Elwyn), Steps(320-West Trenton,2017-08-27T15:19:17,0,39.9538889,-75.1677778,J..."
           }
         ]
       },
@@ -147,16 +147,16 @@
       "jobName": "paragraph_1502648580083_-30624925",
       "id": "20170813-182300_1103961718",
       "dateCreated": "Aug 13, 2017 6:23:00 PM",
-      "dateStarted": "Aug 26, 2017 12:39:43 PM",
-      "dateFinished": "Aug 26, 2017 12:39:44 PM",
+      "dateStarted": "Aug 26, 2017 1:49:24 PM",
+      "dateFinished": "Aug 26, 2017 1:49:26 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Create a table of this json",
-      "text": "%spark\n \nprintln(\"%table id\\ttime\\tlat\\tlon\")\nactivitiesStep.`data`.foreach( x \u003d\u003e \n    println(s\"${x.id}\\t${x.time}\\t${x.lat.toDouble}\\t${x.lon.toDouble}\")\n)",
+      "text": "%spark\n \n//Nice every data can be printed as table as long as %table is the beginning and data is seperated using \\t, and newlines with \\n\nprintln(\"%table id\\ttime\\tlat\\tlon\")\nactivitiesStep.`data`.foreach( x \u003d\u003e \n    println(s\"${x.id}\\t${x.time}\\t${x.lat.toDouble}\\t${x.lon.toDouble}\")\n)",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:39:48 PM",
+      "dateUpdated": "Aug 26, 2017 1:36:40 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -201,9 +201,9 @@
     },
     {
       "title": "Great lets convert to Spark DF",
-      "text": "%spark\n \n//println(\"%table id\\ttime\\tlat\\tlon\")\nval df \u003d activitiesStep.`data`.toDF\n",
+      "text": "%spark\n \n//println(\"%table id\\ttime\\tlat\\tlon\")\nval df \u003d activitiesStep.`data`.toDF //ToDF is possible even within scala sequences or lists due to the implicits functionality scala provides, and is implemented in scala implicits lib\nz.put(\"df\", df) //lets save in zeppelin context so other interpreters can use the data, eg pyspark or angular",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:39:54 PM",
+      "dateUpdated": "Aug 26, 2017 1:49:36 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -232,15 +232,15 @@
       "jobName": "paragraph_1502652361567_1378459350",
       "id": "20170813-192601_2085468738",
       "dateCreated": "Aug 13, 2017 7:26:01 PM",
-      "dateStarted": "Aug 26, 2017 12:39:54 PM",
-      "dateFinished": "Aug 26, 2017 12:39:55 PM",
+      "dateStarted": "Aug 26, 2017 1:49:37 PM",
+      "dateFinished": "Aug 26, 2017 1:49:37 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "df.registerTempTable(\"myMap\")\n//var msg \u003d dataValidatorSrv.validateMapData(df);",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:39:57 PM",
+      "dateUpdated": "Aug 26, 2017 1:49:42 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -268,15 +268,15 @@
       "jobName": "paragraph_1502695300268_-1517879309",
       "id": "20170814-072140_551585768",
       "dateCreated": "Aug 14, 2017 7:21:40 AM",
-      "dateStarted": "Aug 26, 2017 12:39:57 PM",
-      "dateFinished": "Aug 26, 2017 12:39:57 PM",
+      "dateStarted": "Aug 26, 2017 1:49:42 PM",
+      "dateFinished": "Aug 26, 2017 1:49:42 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "z.show(df)\n",
+      "text": "z.show(df) //z.show does a print %table by itself.\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:39:59 PM",
+      "dateUpdated": "Aug 26, 2017 1:38:03 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -321,7 +321,7 @@
     {
       "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:40:07 PM",
+      "dateUpdated": "Aug 26, 2017 2:35:43 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -351,15 +351,16 @@
       "jobName": "paragraph_1502694855709_-749932539",
       "id": "20170814-071415_1932225156",
       "dateCreated": "Aug 14, 2017 7:14:15 AM",
-      "dateStarted": "Aug 26, 2017 12:40:07 PM",
-      "dateFinished": "Aug 26, 2017 12:40:07 PM",
+      "dateStarted": "Aug 26, 2017 2:35:43 PM",
+      "dateFinished": "Aug 26, 2017 2:35:43 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "val map_pings \u003d spark.sql(\"select concat(id,\u0027 (late: \u0027,late,\u0027 mins, time: \u0027,time,\u0027 )\u0027) as desc,lat,lon as lng from myMap\")\n//map_pings.write.json(\"trainfile.json\")\nz.angularUnbind(\"locations\")\nz.angularBind(\"locations\", map_pings.collect())\n",
+      "title": "Plot points on the map",
+      "text": "val map_pings \u003d spark.sql(\"select concat(id,\u0027 (late: \u0027,late,\u0027 mins, time: \u0027,time,\u0027 )\u0027) as desc,lat,lon as lng from myMap\")\n//map_pings.write.json(\"trainfile.json\")\n//z.angularUnbind(\"locations\")\nz.angularBind(\"locations\", map_pings.collect())\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:41:38 PM",
+      "dateUpdated": "Aug 26, 2017 1:50:08 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -368,7 +369,8 @@
           "language": "scala",
           "editOnDblClick": false
         },
-        "editorMode": "ace/mode/scala"
+        "editorMode": "ace/mode/scala",
+        "title": true
       },
       "settings": {
         "params": {},
@@ -387,16 +389,16 @@
       "jobName": "paragraph_1503143093401_-461188555",
       "id": "20170819-114453_647379419",
       "dateCreated": "Aug 19, 2017 11:44:53 AM",
-      "dateStarted": "Aug 26, 2017 12:41:38 PM",
-      "dateFinished": "Aug 26, 2017 12:41:38 PM",
+      "dateStarted": "Aug 26, 2017 1:50:08 PM",
+      "dateFinished": "Aug 26, 2017 1:50:08 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Great now lets combine all previous stuff so we can Do some realtime stuff, the api itself gets new data each 5 - 15 minutes?",
-      "text": "\n//Monitor the map and see trains moving , but only if the api updates itself.\nimport org.json4s.{DefaultFormats, JString}\nimport org.json4s.JsonAST.{JArray, JObject}\nimport scalaj.http.{Http, Token, HttpResponse}\nimport org.json4s.native.JsonMethods._\n\ncase class Steps(id:String,time:String,late:String,lat:String,lon:String,nextstop:String,source:String,dest:String)\ncase class ActivitiesStep(`data`: Seq[Steps])\n\nval url \u003d \"https://www.septastats.com/api/current/system/latest\"\n    \nimplicit val formats \u003d DefaultFormats\n      \n//how long do you want to wait (3 * 20 sec \u003d 60 sec)\nfor (x \u003c- 0 to 3) {\n    val result \u003d scala.io.Source.fromURL(url).mkString\n    val jsonResponse \u003d parse(result)\n    val activitiesStep \u003d jsonResponse.extract[ActivitiesStep]\n    val df \u003d activitiesStep.`data`.toDF\n    df.registerTempTable(\"myMap\")\n    \n    val map_pings \u003d spark.sql(\"select concat(id,\u0027 (late: \u0027,late,\u0027 mins, time: \u0027,time,\u0027 )\u0027) as desc,lat,lon as lng from myMap\")\n    z.angularUnbind(\"locations\")\n    z.angularBind(\"locations\", map_pings.collect())\n    Thread.sleep(20000) //20 secs is 20000\n}",
+      "text": "\n//Monitor the map and see trains moving , but only if the api updates itself.\nimport org.json4s.{DefaultFormats, JString}\nimport org.json4s.JsonAST.{JArray, JObject}\nimport scalaj.http.{Http, Token, HttpResponse}\nimport org.json4s.native.JsonMethods._\n\ncase class Steps(id:String,time:String,late:String,lat:String,lon:String,nextstop:String,source:String,dest:String)\ncase class ActivitiesStep(`data`: Seq[Steps])\n\nval url \u003d \"https://www.septastats.com/api/current/system/latest\"\n    \nimplicit val formats \u003d DefaultFormats\n      \n//how long do you want to wait (3 * 20 sec \u003d 60 sec)\nfor (x \u003c- 0 to 3) {\n    val result \u003d scala.io.Source.fromURL(url).mkString\n    val jsonResponse \u003d parse(result)\n    val activitiesStep \u003d jsonResponse.extract[ActivitiesStep]\n    val df \u003d activitiesStep.`data`.toDF\n    df.registerTempTable(\"myMap\")\n    \n    val map_pings \u003d spark.sql(\"select concat(id,\u0027 (late: \u0027,late,\u0027 mins, time: \u0027,time,\u0027 )\u0027) as desc,lat,lon as lng from myMap\")\n    //z.angularUnbind(\"locations\")\n    z.angularBind(\"locations\", map_pings.collect())\n    Thread.sleep(20000) //20 secs is 20000\n}",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 12:54:20 PM",
+      "dateUpdated": "Aug 26, 2017 1:51:03 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -425,9 +427,9 @@
       "jobName": "paragraph_1503749720047_-1061682688",
       "id": "20170826-121520_1494145718",
       "dateCreated": "Aug 26, 2017 12:15:20 PM",
-      "dateStarted": "Aug 26, 2017 12:53:30 PM",
-      "dateFinished": "Aug 26, 2017 12:54:55 PM",
-      "status": "FINISHED",
+      "dateStarted": "Aug 26, 2017 1:41:20 PM",
+      "dateFinished": "Aug 26, 2017 1:41:46 PM",
+      "status": "ABORT",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -593,9 +595,9 @@
     },
     {
       "title": "Plotly example",
-      "text": "%python\n\nimport plotly\nfrom plotly.graph_objs import Scatter, Layout\n\n\ndef plot(plot_dic, height\u003d500, width\u003d500, **kwargs):\n    kwargs[\u0027output_type\u0027] \u003d \u0027div\u0027\n    plot_str \u003d plotly.offline.plot(plot_dic, **kwargs)\n    print(\u0027%%angular \u003cdiv style\u003d\"height: %ipx; width: %spx\"\u003e %s \u003c/div\u003e\u0027 % (height, width, plot_str))\n\n\nplot({\n    \"data\": [\n        Scatter(x\u003d[1, 2, 3, 4], y\u003d[4, 5, 3, 7])\n    ],\n    \"layout\": Layout(\n        title\u003d\"hello world\"\n    )\n})\n",
+      "text": "%python\n\nimport plotly\nfrom plotly.graph_objs import Scatter, Layout\n\ndef plot(plot_dic, height\u003d500, width\u003d500, **kwargs):\n    kwargs[\u0027output_type\u0027] \u003d \u0027div\u0027\n    plot_str \u003d plotly.offline.plot(plot_dic, **kwargs)\n    print(\u0027%%angular \u003cdiv style\u003d\"height: %ipx; width: %spx\"\u003e %s \u003c/div\u003e\u0027 % (height, width, plot_str))\n\n\nplot({\n    \"data\": [\n        Scatter(x\u003d[1, 2, 3, 4], y\u003d[4, 5, 3, 7])\n    ],\n    \"layout\": Layout(\n        title\u003d\"hello world\"\n    )\n})\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 11:18:40 AM",
+      "dateUpdated": "Aug 26, 2017 1:25:45 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -630,6 +632,244 @@
       "dateCreated": "Aug 26, 2017 11:17:05 AM",
       "dateStarted": "Aug 26, 2017 11:17:52 AM",
       "dateFinished": "Aug 26, 2017 11:17:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Can pyspark use spark data? yes",
+      "text": "%pyspark\n\n#Using zeppelin context\ndf2 \u003d z.get(\"df\")\ndf2.registerTempTable(\"pyspark\")\nspark.sql(\"select * from pyspark\").show(4)\n\n#OR just use the defined table which is already known to the started spark context B:)\nspark.sql(\"select * from myMap\").show(4)\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 26, 2017 1:35:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------------+-------------------+----+--------+---------+-------------------+-----------+----------+\n|            id|               time|late|     lat|      lon|           nextstop|     source|      dest|\n+--------------+-------------------+----+--------+---------+-------------------+-----------+----------+\n|    1511-Paoli|2017-08-26T10:41:00|   0|39.95614|-75.17938|30th Street Station|  Jefferson|     Paoli|\n|1514-Jefferson|2017-08-26T10:41:00|   3|40.04583| -75.3867|         St. Davids|  Thorndale| Jefferson|\n|206-Norristown|2017-08-26T10:41:00|   3|40.11321|-75.34562|            Main St| Wilmington|Norristown|\n|208-Norristown|2017-08-26T10:41:00|   0|39.91270|-75.25526|    University City|Marcus Hook|Norristown|\n+--------------+-------------------+----+--------+---------+-------------------+-----------+----------+\nonly showing top 4 rows\n\n+--------------+-------------------+----+--------+---------+-----------+-----------+----------+\n|            id|               time|late|     lat|      lon|   nextstop|     source|      dest|\n+--------------+-------------------+----+--------+---------+-----------+-----------+----------+\n|    1511-Paoli|2017-08-26T11:00:16|   0|40.04305|-75.46055|      Paoli|  Jefferson|     Paoli|\n|1518-Jefferson|2017-08-26T11:01:06|   0|40.04288|-75.48467| Daylesford|    Malvern| Jefferson|\n|208-Norristown|2017-08-26T11:01:06|   3|40.05845|-75.26685|Spring Mill|Marcus Hook|Norristown|\n|210-Norristown|2017-08-26T11:01:06|   0|39.84893|-75.36160| Crum Lynne| Wilmington|Norristown|\n+--------------+-------------------+----+--------+---------+-----------+-----------+----------+\nonly showing top 4 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503754187681_1158292153",
+      "id": "20170826-132947_1054526401",
+      "dateCreated": "Aug 26, 2017 1:29:47 PM",
+      "dateStarted": "Aug 26, 2017 1:34:34 PM",
+      "dateFinished": "Aug 26, 2017 1:34:34 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Can we use D3 gfx using angular yes",
+      "text": "%angular\n\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [4, 8, 15, 16, 23, 42];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 26, 2017 2:42:57 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": false,
+        "tableHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [4, 8, 15, 16, 23, 42];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503755762362_-2010278148",
+      "id": "20170826-135602_343936615",
+      "dateCreated": "Aug 26, 2017 1:56:02 PM",
+      "dateStarted": "Aug 26, 2017 2:35:53 PM",
+      "dateFinished": "Aug 26, 2017 2:35:53 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Init some snow",
+      "text": "%angular\n\u003cscript\u003e\nvar firstScript \u003d document.getElementsByTagName(\u0027script\u0027)[0],\n      js \u003d document.createElement(\u0027script\u0027);\n  js.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/Snowstorm/20131208/snowstorm-min.js\u0027;\n  js.onload \u003d function () {\n    // do stuff with your dynamically loaded script\n    snowStorm.snowColor \u003d \u0027#99ccff\u0027;\n  };\n  firstScript.parentNode.insertBefore(js, firstScript);\n \n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Aug 27, 2017 8:33:11 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003cscript\u003e\nvar firstScript \u003d document.getElementsByTagName(\u0027script\u0027)[0],\n      js \u003d document.createElement(\u0027script\u0027);\n  js.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/Snowstorm/20131208/snowstorm-min.js\u0027;\n  js.onload \u003d function () {\n    // do stuff with your dynamically loaded script\n    snowStorm.snowColor \u003d \u0027#99ccff\u0027;\n  };\n  firstScript.parentNode.insertBefore(js, firstScript);\n \n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503758171897_1964576942",
+      "id": "20170826-143611_1937718842",
+      "dateCreated": "Aug 26, 2017 2:36:11 PM",
+      "dateStarted": "Aug 27, 2017 8:33:11 PM",
+      "dateFinished": "Aug 27, 2017 8:33:11 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Start snow",
+      "text": "%angular\n\u003cscript\u003e\n    snowStorm.start();\n\u003c/script\u003e\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 27, 2017 8:33:11 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003cscript\u003e\n    snowStorm.start();\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503758988411_-1502321770",
+      "id": "20170826-144948_964335456",
+      "dateCreated": "Aug 26, 2017 2:49:48 PM",
+      "dateStarted": "Aug 27, 2017 8:33:11 PM",
+      "dateFinished": "Aug 27, 2017 8:33:11 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "USe requires for easy lib loading",
+      "text": "%angular\n\u003cscript\u003e\n\nvar firstScript \u003d document.getElementsByTagName(\u0027script\u0027)[0],\n      js \u003d document.createElement(\u0027script\u0027);\n  js.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js\u0027;\n  firstScript.parentNode.insertBefore(js, firstScript);\n \n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Aug 27, 2017 8:31:34 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003cscript\u003e\n\nvar firstScript \u003d document.getElementsByTagName(\u0027script\u0027)[0],\n      js \u003d document.createElement(\u0027script\u0027);\n  js.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js\u0027;\n  firstScript.parentNode.insertBefore(js, firstScript);\n \n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503865717283_961152414",
+      "id": "20170827-202837_552013404",
+      "dateCreated": "Aug 27, 2017 8:28:37 PM",
+      "dateStarted": "Aug 27, 2017 8:31:34 PM",
+      "dateFinished": "Aug 27, 2017 8:31:34 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Now show some d3 ",
+      "text": "%angular\n\u003cdiv id\u003d\"chart_placeholder\"\u003e\u003c/div\u003e\n\u003cstyle\u003e\n.zoom{\n    fill-opacity:0;\n}\n\u003c/style\u003e\n\u003cscript\u003e\n\nrequire.config({\n    paths: {\n        \u0027eventDrops\u0027 : \u0027https://cdn.rawgit.com/marmelab/EventDrops/d55f8b001dc659eacef20edfec8b7159cffaa923/dist/eventDrops\u0027 // keep this at a version... not very nice but what can you do\n    }\n});\n\nrequirejs([\"eventDrops\"], function(eD) {\n    var data \u003d [];\n    var names \u003d [\"Michel\", \"Nossin\", \"the\", \"One\", \"and\", \"only\", \"Adipisicing\", \"elit\", \"Eiusmod tempor\", \"Incididunt\"];\n    var endTime \u003d Date.now();\n    var month \u003d 30 * 24 * 60 * 60 * 1000;\n    var startTime \u003d endTime - 6 * month;\n    \n    function createEvent (name, maxNbEvents) {\n        maxNbEvents \u003d maxNbEvents | 200;\n        var event \u003d {\n            name: name,\n            dates: []\n        };\n        // add up to 200 events\n        var max \u003d  Math.floor(Math.random() * maxNbEvents);\n        for (var j \u003d 0; j \u003c max; j++) {\n            var time \u003d (Math.random() * (endTime - startTime)) + startTime;\n            event.dates.push(new Date(time));\n        }\n        return event;\n    }\n    \n    for (var i \u003d 0; i \u003c 10; i++) {\n        data.push(createEvent(names[i]));\n    }\n\n    var color \u003d d3.scale.category20();\n    \n    var eventDropsChart \u003d d3.chart.eventDrops()\n        .eventLineColor(function (datum, index) {\n            return color(index);\n        })\n        .start(new Date(startTime))\n        .end(new Date(endTime))\n        .hasTopAxis(false)\n        .hasBottomAxis(false);\n    \n    d3.select(\u0027#chart_placeholder\u0027)\n      .datum(data)\n      .call(eventDropsChart);\n    \n});\n\u003c/script\u003e\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 27, 2017 8:32:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003cdiv id\u003d\"chart_placeholder\"\u003e\u003c/div\u003e\n\u003cstyle\u003e\n.zoom{\n    fill-opacity:0;\n}\n\u003c/style\u003e\n\u003cscript\u003e\n\nrequire.config({\n    paths: {\n        \u0027eventDrops\u0027 : \u0027https://cdn.rawgit.com/marmelab/EventDrops/d55f8b001dc659eacef20edfec8b7159cffaa923/dist/eventDrops\u0027 // keep this at a version... not very nice but what can you do\n    }\n});\n\nrequirejs([\"eventDrops\"], function(eD) {\n    var data \u003d [];\n    var names \u003d [\"Michel\", \"Nossin\", \"the\", \"One\", \"and\", \"only\", \"Adipisicing\", \"elit\", \"Eiusmod tempor\", \"Incididunt\"];\n    var endTime \u003d Date.now();\n    var month \u003d 30 * 24 * 60 * 60 * 1000;\n    var startTime \u003d endTime - 6 * month;\n    \n    function createEvent (name, maxNbEvents) {\n        maxNbEvents \u003d maxNbEvents | 200;\n        var event \u003d {\n            name: name,\n            dates: []\n        };\n        // add up to 200 events\n        var max \u003d  Math.floor(Math.random() * maxNbEvents);\n        for (var j \u003d 0; j \u003c max; j++) {\n            var time \u003d (Math.random() * (endTime - startTime)) + startTime;\n            event.dates.push(new Date(time));\n        }\n        return event;\n    }\n    \n    for (var i \u003d 0; i \u003c 10; i++) {\n        data.push(createEvent(names[i]));\n    }\n\n    var color \u003d d3.scale.category20();\n    \n    var eventDropsChart \u003d d3.chart.eventDrops()\n        .eventLineColor(function (datum, index) {\n            return color(index);\n        })\n        .start(new Date(startTime))\n        .end(new Date(endTime))\n        .hasTopAxis(false)\n        .hasBottomAxis(false);\n    \n    d3.select(\u0027#chart_placeholder\u0027)\n      .datum(data)\n      .call(eventDropsChart);\n    \n});\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1503759264087_-1573117212",
+      "id": "20170826-145424_2101020848",
+      "dateCreated": "Aug 26, 2017 2:54:24 PM",
+      "dateStarted": "Aug 27, 2017 8:32:35 PM",
+      "dateFinished": "Aug 27, 2017 8:32:35 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2773,6 +3013,57 @@
     "2CPJCJQ52:shared_process": [],
     "2CR55RN9F:shared_process": [
       {
+        "name": "output",
+        "object": [
+          {
+            "name": "code1",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code2",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code3",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code4",
+            "amount": 250.0,
+            "fact": ""
+          }
+        ]
+      },
+      {
+        "name": "lignes",
+        "object": [
+          {
+            "name": "code1",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code2",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code3",
+            "amount": 250.0,
+            "fact": ""
+          },
+          {
+            "name": "code4",
+            "amount": 250.0,
+            "fact": ""
+          }
+        ],
+        "noteId": "2CSGRDE7D"
+      },
+      {
         "name": "locations",
         "object": [
           {
@@ -2819,9 +3110,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "1511-Paoli (late: 0 mins, time: 2017-08-26T11:00:16 )",
-              "40.04305",
-              "-75.46055"
+              "216-Norristown (late: 0 mins, time: 2017-08-27T15:17:37 )",
+              "40.12229",
+              "-75.34517"
             ]
           },
           {
@@ -2868,9 +3159,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "1518-Jefferson (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "40.04288",
-              "-75.48467"
+              "218-Norristown (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.929807",
+              "-75.224136"
             ]
           },
           {
@@ -2917,9 +3208,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "208-Norristown (late: 3 mins, time: 2017-08-26T11:01:06 )",
-              "40.05845",
-              "-75.26685"
+              "219-Marcus Hook (late: 5 mins, time: 2017-08-27T15:15:56 )",
+              "39.824676",
+              "-75.412845"
             ]
           },
           {
@@ -2966,9 +3257,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "210-Norristown (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "39.84893",
-              "-75.36160"
+              "221-Wilmington (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.99740",
+              "-75.15719"
             ]
           },
           {
@@ -3015,9 +3306,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "211-Marcus Hook (late: 8 mins, time: 2017-08-26T11:01:06 )",
-              "39.90135",
-              "-75.27786"
+              "317-Elwyn (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.94328",
+              "-75.21604"
             ]
           },
           {
@@ -3064,9 +3355,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "213-Wilmington (late: 3 mins, time: 2017-08-26T11:01:06 )",
-              "40.07137",
-              "-75.30747"
+              "318-West Trenton (late: 2 mins, time: 2017-08-27T15:19:17 )",
+              "40.196485",
+              "-74.884325"
             ]
           },
           {
@@ -3113,9 +3404,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "309-Elwyn (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "39.95547",
-              "-75.15358"
+              "319-Elwyn (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.16076",
+              "-74.91279"
             ]
           },
           {
@@ -3162,938 +3453,7 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "310-West Trenton (late: 3 mins, time: 2017-08-26T11:01:06 )",
-              "40.12127",
-              "-75.04568"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "311-Elwyn (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "0",
-              "0"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "312-West Trenton (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "39.93172",
-              "-75.28340"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "420-Warminster (late: 2 mins, time: 2017-08-26T11:01:06 )",
-              "40.17446",
-              "-75.10336"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "424-Warminster (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "39.956726",
-              "-75.185951"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "425-Airport (late: 11 mins, time: 2017-08-26T11:00:16 )",
-              "39.87722",
-              "-75.2414"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "429-Airport (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "40.05972",
-              "-75.12936"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "501-Thorndale (late: 49 mins, time: 2017-08-26T11:01:06 )",
-              "0",
-              "0"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "509-Thorndale (late: 6 mins, time: 2017-08-26T10:59:26 )",
-              "39.99398",
-              "-75.75461"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "512-Doylestown (late: 5 mins, time: 2017-08-26T11:01:06 )",
-              "40.11234",
-              "-75.17050"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "513-Malvern (late: 10 mins, time: 2017-08-26T11:01:06 )",
-              "39.96349",
-              "-75.18513"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "516-Doylestown (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "40.00269",
-              "-75.27384"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "517-Thorndale (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "40.15330",
-              "-75.22512"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "708-Chestnut H East (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "39.95547",
-              "-75.15358"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "710-Chestnut H East (late: 1 mins, time: 2017-08-26T11:01:06 )",
-              "0",
-              "0"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "711-Trenton (late: 4 mins, time: 2017-08-26T11:01:06 )",
-              "40.01068",
-              "-75.06979"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "713-Trenton (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "0",
-              "0"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "815-Chestnut H West (late: 12 mins, time: 2017-08-26T11:01:06 )",
-              "40.05790",
-              "-75.19568"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "819-Chestnut H West (late: 0 mins, time: 2017-08-26T11:01:06 )",
-              "40.03244",
-              "-75.12445"
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "desc",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lat",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "lng",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.874643344E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "822-Fox Chase (late: 0 mins, time: 2017-08-26T11:01:06 )",
+              "320-West Trenton (late: 0 mins, time: 2017-08-27T15:19:17 )",
               "39.9538889",
               "-75.1677778"
             ]
@@ -4142,9 +3502,9 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "9426-Temple U (late: 6 mins, time: 2017-08-26T11:01:06 )",
-              "0",
-              "0"
+              "322-West Trenton (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.90580",
+              "-75.41458"
             ]
           },
           {
@@ -4191,9 +3551,597 @@
               "bitmap$0": 8.0
             },
             "values": [
-              "9427-Airport (late: 1 mins, time: 2017-08-26T11:00:16 )",
-              "39.95514",
-              "-75.17462"
+              "440-Warminster (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.98060",
+              "-75.14987"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "445-Airport (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.95261",
+              "-75.15925"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "528-Doylestown (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.24288",
+              "-75.28579"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "532-Doylestown (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "39.95482",
+              "-75.17201"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "533-Malvern (late: 4 mins, time: 2017-08-27T15:19:17 )",
+              "40.10111",
+              "-75.15343"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "536-Doylestown (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.0343",
+              "-75.55851"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "537-Malvern (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.30580",
+              "-75.13080"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "716-Chestnut H East (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.07383",
+              "-75.19783"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "718-Chestnut H East (late: 0 mins, time: 2017-08-27T15:19:17 )",
+              "40.07195",
+              "-74.95173"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "719-Trenton (late: 2 mins, time: 2017-08-27T15:19:17 )",
+              "40.07195",
+              "-74.95173"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "721-Trenton (late: 1 mins, time: 2017-08-27T15:19:17 )",
+              "40.03613",
+              "-75.16215"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "9442-Temple U (late: 3 mins, time: 2017-08-27T15:19:17 )",
+              "39.89278",
+              "-75.24421"
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.874643344E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "9443-Airport (late: 0 mins, time: 2017-08-27T15:18:27 )",
+              "39.87611",
+              "-75.2453"
             ]
           }
         ],
