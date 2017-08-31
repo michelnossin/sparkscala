@@ -1,3 +1,7 @@
+This project contains a jupyter and Zeppelin notebook with personal playground, kitchensink code.
+USed for Spark icm Scala, Python and Angular (in Zeppelin).
+Most code is in the Zeppelin notebook (note.json)
+
 # To run a jupyter notebook on Docker
 
 Using Scala and spark using jupyter locally on Mac using docker
@@ -23,10 +27,10 @@ git push -u origin master
 Next time when using the docker image , you can just do the add,commit and push steps
 
 ```
-The notebook will use a dataset , download within the terminal of the jupyter env:
+This notebook will use a dataset , download within the terminal of the jupyter env:
 wget https://data.cityofnewyork.us/api/views/kku6-nxdu/rows.csv?accessType=DOWNLOAD
 
-# To run a Zeppelin notebook on Docker
+# To run a Zeppelin notebook on Docker. It uses spark 2.1.1 at this moment
 
 We will use this Zeppelin with Spark environment:
 ```
@@ -36,7 +40,7 @@ docker run --rm -p 8080:8080 dylanmei/zeppelin
 localhost:8080 will give access to Zeppelin.
 ```
 
-To add a Zeppelin notebook sample:
+The initial test notebook was copied from this location and later changed using different sources:
 ```
 This tutorial mentions a notebook to load in:
 https://hortonworks.com/tutorial/learning-spark-sql-with-zeppelin/
@@ -48,19 +52,19 @@ https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6
 After making changes to the notebook we want to save it to Git.
 To use the previously created Git repo on thos Docker images we will:
 ```
-Install Git on the Docker images: 
-Log on running Docker env (docker ps) using: docker exec -it af58859ca9cb bash
+Install Git on the Docker image: 
+Log on running Docker env (docker ps) using: docker exec -it <container> bash (check container user docker ps)
 apt-get update
 apt-get install git
 ```
 
-Clone the repo to the docker env:
+Clone your personal repo to the docker env:
 ```
 cd /usr/zeppelin
 git clone https://github.com/yourgitaccount/<yourrepo>.git
 ```
 
-Add your changes to the repo and push:
+Add your changes in the notebook to the repo and push:
 ```
 cd <therepo> (e.g. cp /usr/zeppelin/notebook/2CSGRDE7D/note.json /usr/zeppelin/sparkscala
 cd /usr/zeppelin/sparkscala
