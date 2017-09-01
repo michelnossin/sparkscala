@@ -39,6 +39,200 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "Lets repeat some of the basis Scala again (Object Oriented part)",
+      "text": "%spark\n\n//Some scala\nval result \u003d List(1,2,3,4,5,6) contains 5\nval someList \u003d List(7,8,9)\nval mergedList \u003d result +: someList\n\nval sum \u003d 4 + 4\nval isTheSameAs \u003d sum.+(5)\n\n//methods\ndef sum(x: Int , y: Int) \u003d x + y\nsum(4,5)\ndef sum(x: Int)(y: Int) \u003d x + y\nsum(4)(7) //parameter list\ndef sum2 \u003d sum(2) _  //no parameter list\nsum2(5)\ndef mainMethod() {\n    def subMethod() {\n        println(\"hallo sub\")\n    }\n    subMethod\n}\nmainMethod\ndef min(x1:Int, x2:Int):Int\u003d if (x1 \u003c x2) x1 else x2\nprint(\"min is : \"+  min(4,5))\n\n//classes , objects , case classes , abstract\nclass Michel(message : String) {  println(\"no constuctor needed : \" + message) }\nnew Michel(\"joehoe\")\nobject Michel { def apply(message : String) \u003d new Michel(message) }\nMichel(\"haha\") //companion object (singleton) , no new required\nobject SomeObject { def apply(message: String) \u003d println(message) }\nSomeObject(\"even simpler\")\ncase class SomeRow(id : Number,name : String) //Object , getter and setter, used for data entries eg\nval myRows \u003d List(SomeRow(1,\"michel\"),SomeRow(2,\"Kees\"))\nfor (x \u003c- myRows) {\n    println(x.id + \" is called \" + x.name)\n}\nabstract class Person {\n    var name : String \u003d \"NONAME\"\n    def getName() : String\n    def setName(name : String) : Unit\n}\nclass MyPerson extends Person {\n    def getName() \u003d this.name\n    def setName(name:String) { this.name \u003d name }\n}\nval p \u003d new MyPerson()\np.setName(\"michel\")\nprintln(\"my name is : \" + p.getName)\nval p \u003d new MyPerson()\np.setName(\"michel\")\nprintln(\"my name is : \" + p.getName)\n\ntrait lowerCase extends Person {\n    //notice override AND abstract\n  abstract override def setName(name: String) { this.name \u003d name.toLowerCase}\n}\n\nval p2 \u003d new MyPerson()\np2.setName(\"MICHEL\")\nprintln(\"my lower name is : \" + p2.getName)\n\n//traits , building blocks for classes instead of inheritance\ntrait logging {\n    print(\"I am logging\")\n}\ntrait security {\n    print(\"I am very secure\")\n}\nclass Basic extends logging with security {\n    println(\"I am a basic class. \")\n}\nnew Basic()\n\n//MAin entry point ,with parameters from commandline\nobject HelloWorld {\n  def main(args: Array[String]){ \n    println(\"Hello, world!\")  \n  } \n}\n//scalac myfile.scala , will compile the scala class. scala HelloWorld will execute\n//Alternative create an App object\n\n//pattern matching like switch in java but more powerful\ndef matchInteger(x: Int): String \u003d x match {\n    case 1 \u003d\u003e \"one\"\n    case 2 \u003d\u003e \"two\"\n    case _ \u003d\u003e \"greater than two\"\n  }\nmatchInteger(2)\n//Based on type is also possible\ndef comparison(x: Any): Any \u003d x match {\n    case 1 \u003d\u003e \"one\"\n    case \"michel\" \u003d\u003e \"superhero\"\n    case _ \u003d\u003e \"nothing else\"\n}\ncomparison(\"michel\")\n\n//Implicit (conversion of type) \nimplicit def stringToInt(s: String) \u003d s.toInt\ndef add(x:Int, y:Int) \u003d x + y\nadd (3 ,\"2\")\n\n//implicit parameter (if parameter not given, search for an implicit int)\ndef add(implicit num: Int) \u003d 2 + num\nimplicit val adder \u003d 2\nadd\n\nimport scala.collection.mutable.ListBuffer\n\n//Generic class\nclass Michel[A] {\n    import scala.collection.mutable.ListBuffer\n    var elements \u003d new ListBuffer[A]()\n    def addElement(a : A) {\n        elements +\u003d a\n    }\n    def printElements() {\n        for(x \u003c- elements) {\n            println(x)\n        }\n    }\n}\n\nval x \u003d new  Michel[String]\nx.addElement(\"michel \")\nx.addElement(\"is great\")\nx.printElements\nval x2 \u003d new  Michel[Int]\nx2.addElement(1)\nx2.addElement(2)\nx2.printElements\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 1, 2017 12:23:55 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nresult: Boolean \u003d true\n\nsomeList: List[Int] \u003d List(7, 8, 9)\n\nmergedList: List[AnyVal] \u003d List(true, 7, 8, 9)\n\nsum: Int \u003d 8\n\nisTheSameAs: Int \u003d 13\n\nsum: (x: Int, y: Int)Int\n\nres483: Int \u003d 9\n\nsum: (x: Int)(y: Int)Int\n\nres484: Int \u003d 11\n\nsum2: Int \u003d\u003e Int\n\nres485: Int \u003d 7\n\nmainMethod: ()Unit\nhallo sub\n\nmin: (x1: Int, x2: Int)Int\nmin is : 4\ndefined class Michel\n\nwarning: previously defined object Michel is not a companion to class Michel.\n\nCompanions must be defined together; you may wish to use :paste mode for this.\nno constuctor needed : joehoe\n\nres490: Michel \u003d Michel@39b340a5\n\ndefined object Michel\n\nwarning: previously defined class Michel is not a companion to object Michel.\n\nCompanions must be defined together; you may wish to use :paste mode for this.\nno constuctor needed : haha\n\nres491: Michel \u003d Michel@71e480fd\n\ndefined object SomeObject\neven simpler\n\ndefined class SomeRow\n\nmyRows: List[SomeRow] \u003d List(SomeRow(1,michel), SomeRow(2,Kees))\n1 is called michel\n2 is called Kees\n\ndefined class Person\n\ndefined class MyPerson\n\np: MyPerson \u003d MyPerson@4f87587e\nmy name is : michel\n\np: MyPerson \u003d MyPerson@12bc14e\nmy name is : michel\n\ndefined trait lowerCase\n\np2: MyPerson \u003d MyPerson@69dfec02\nmy lower name is : MICHEL\n\ndefined trait logging\n\ndefined trait security\n\ndefined class Basic\nI am loggingI am very secureI am a basic class. \n\nres504: Basic \u003d Basic@7da0fe90\n\ndefined object HelloWorld\n\nmatchInteger: (x: Int)String\n\nres511: String \u003d two\n\ncomparison: (x: Any)Any\n\nres513: Any \u003d superhero\n\nwarning: there was one feature warning; re-run with -feature for details\n\nstringToInt: (s: String)Int\n\nadd: (x: Int, y: Int)Int\n\nres516: Int \u003d 5\n\nadd: (implicit num: Int)Int\n\nadder: Int \u003d 2\n\nres519: Int \u003d 4\n\nimport scala.collection.mutable.ListBuffer\n\ndefined class Michel\n\nwarning: previously defined object Michel is not a companion to class Michel.\n\nCompanions must be defined together; you may wish to use :paste mode for this.\n\nx: Michel[String] \u003d Michel@7cf98ce9\nmichel \nis great\nmichel \nis great\nmichel \nis great\n\nx2: Michel[Int] \u003d Michel@3054ba5f\n1\n2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504149111404_1249093767",
+      "id": "20170831-031151_1723128223",
+      "dateCreated": "Aug 31, 2017 3:11:51 AM",
+      "dateStarted": "Sep 1, 2017 12:17:24 PM",
+      "dateFinished": "Sep 1, 2017 12:17:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets switch to Scala functional side",
+      "text": "%md\n\n\"Object-oriented programming makes code understandable by encapsulating moving parts. Functional programming makes code understandable by minimizing moving parts.\"\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 1, 2017 12:40:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003e\u0026ldquo;Object-oriented programming makes code understandable by encapsulating moving parts. Functional programming makes code understandable by minimizing moving parts.\u0026rdquo;\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504268682454_-714709756",
+      "id": "20170901-122442_236024321",
+      "dateCreated": "Sep 1, 2017 12:24:42 PM",
+      "dateStarted": "Sep 1, 2017 12:24:47 PM",
+      "dateFinished": "Sep 1, 2017 12:24:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n# Why spark in scala instead of R and Python\n\nAs its build in Scala:\n- Better performance and removes the data processing overhead\n- Provides access to the latest and greatest features of Spark\n- Helps to understand the Spark philosophy in a transparent way\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 1, 2017 12:32:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eWhy spark in scala instead of R and Python\u003c/h1\u003e\n\u003cp\u003eAs its build in Scala:\u003cbr/\u003e- Better performance and removes the data processing overhead\u003cbr/\u003e- Provides access to the latest and greatest features of Spark\u003cbr/\u003e- Helps to understand the Spark philosophy in a transparent way\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504269142446_1267944009",
+      "id": "20170901-123222_121715792",
+      "dateCreated": "Sep 1, 2017 12:32:22 PM",
+      "dateStarted": "Sep 1, 2017 12:32:56 PM",
+      "dateFinished": "Sep 1, 2017 12:32:56 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets redo Scala again (functional part)",
+      "text": "%spark\n\n//Pure functions , always return same output for an function (idempotic)\ndef pureFunc(cityName: String) \u003d s\"I live in $cityName\"\ndef pureIncrease(x: Int) \u003d x + 1\npureFunc(\"amsterdam\")\nassert(pureIncrease(2) \u003d\u003d 3)\nassert(pureFunc(\"Dublin\") \u003d\u003d \"I live in Dublin\")\n\n//not pure\ndef notpureFunc(cityName: String) \u003d println(s\"I live in $cityName\")\nvar inc \u003d 0\ndef impureIncrease() \u003d {\n  inc +\u003d 1\n  inc\n}\n//assert(impureIncrease \u003d\u003d 3)\n//assert(notpureFunc(\"Dublin\") \u003d\u003d \"I live in Dublin\")\n//impure increase is killing for parallel operations!!\n\n//anonymous functions (LAmbda) icw higer order function (accepting functions as input)\n//command in , output code as output (0 or 1 for example) \ndef giveMichelTask(command: String, task : String \u003d\u003e Int ) : (String,Int) \u003d {\n    task(command) match {\n        case 1 \u003d\u003e (\"Command \" + command + \" has been REFUSED\",1)\n        case 0 \u003d\u003e (\"Command \" + command + \" has been ACCEPTED\",0)\n        case _ \u003d\u003e (\"Disaster struck sorry\",2)\n    }\n}\n\ngiveMichelTask(\"sleep\", (command : String) \u003d\u003e  command match { case \"sleep\" \u003d\u003e 0 case _ \u003d\u003e  1  })\ngiveMichelTask(\"walk\", (command : String) \u003d\u003e  command match { case \"sleep\" \u003d\u003e 0 case _ \u003d\u003e  1  })\n\n//return function in higher order function\ndef transferMoney(money: Double) \u003d {\n  if (money \u003e 1000)\n    (money: Double) \u003d\u003e \"Dear customer we are going to add the following amount as Fee: \"+money * 0.05\n  else\n    (money: Double) \u003d\u003e \"Dear customer we are going to add the following amount as Fee: \"+money * 0.1\n} \nval returnedFunction \u003d transferMoney(1500)\nreturnedFunction(1500)\n\n//Currying within higher order function\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 1, 2017 1:23:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\npureFunc: (cityName: String)String\n\npureIncrease: (x: Int)Int\n\nres786: String \u003d I live in amsterdam\n\nnotpureFunc: (cityName: String)Unit\n\ninc: Int \u003d 0\n\nimpureIncrease: ()Int\n\ngiveMichelTask: (command: String, task: String \u003d\u003e Int)(String, Int)\n\nres798: (String, Int) \u003d (Command sleep has been ACCEPTED,0)\n\nres799: (String, Int) \u003d (Command walk has been REFUSED,1)\n\ntransferMoney: (money: Double)Double \u003d\u003e String\n\nreturnedFunction: Double \u003d\u003e String \u003d \u003cfunction1\u003e\n\nres802: String \u003d Dear customer we are going to add the following amount as Fee: 75.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504268640876_-900036133",
+      "id": "20170901-122400_611082391",
+      "dateCreated": "Sep 1, 2017 12:24:00 PM",
+      "dateStarted": "Sep 1, 2017 1:23:14 PM",
+      "dateFinished": "Sep 1, 2017 1:23:16 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Scala error handling and future",
+      "text": "%spark\n\nimport java.io.IOException\nimport java.io.FileReader\nimport java.io.FileNotFoundException\nimport scala.concurrent.ExecutionContext.Implicits.global\nimport scala.concurrent.duration._\nimport scala.concurrent.{Await, Future}\n\ndef someError() {\n    try {\n      val f \u003d new FileReader(\"data/data.txt\")\n    } \n    catch {\n      case ex: FileNotFoundException \u003d\u003e println(\"CATCH: File not found exception\")\n      case ex: IOException \u003d\u003e println(\"CATCH: IO Exception\") \n    } \n    finally {\n        println(\" o no\")\n    }\n}\nsomeError()\n\nprintln(\"lets block 3 sec, but still within 4 sec timeout\")\nimplicit val baseTime \u003d System.currentTimeMillis    \n// Future creation\nval testFuture \u003d Future {\n  Thread.sleep(3000) //wait 3 secs\n  2 + 2\n}\nval finalOutput \u003d Await.result(testFuture, 4 second)\nprintln(finalOutput)\n\n//JUST USE FUTURES ONLY TO NOT BLOCK, CODE CONTINUES \n    \n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 1, 2017 1:39:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport java.io.IOException\n\nimport java.io.FileReader\n\nimport java.io.FileNotFoundException\n\nimport scala.concurrent.ExecutionContext.Implicits.global\n\nimport scala.concurrent.duration._\n\nimport scala.concurrent.{Await, Future}\n\nsomeError: ()Unit\nCATCH: File not found exception\n o no\nlets block 3 sec, but still within 4 sec timeout\n\nbaseTime: Long \u003d 1504273033175\n\ntestFuture: scala.concurrent.Future[Int] \u003d List()\n\nwarning: there was one feature warning; re-run with -feature for details\n\nfinalOutput: Int \u003d 4\n4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504272471614_-1617939307",
+      "id": "20170901-132751_899661635",
+      "dateCreated": "Sep 1, 2017 1:27:51 PM",
+      "dateStarted": "Sep 1, 2017 1:37:12 PM",
+      "dateFinished": "Sep 1, 2017 1:37:16 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "title": "Dependency for next steps",
       "text": "%dep\n \nz.load(\"org.scalaj:scalaj-http_2.10:2.2.1\")\nz.load(\"org.json4s:json4s-native_2.10:3.2.11\")\n//import org.apache.spark.streaming.receiver._",
       "user": "anonymous",
@@ -3752,204 +3946,7 @@
   "angularObjects": {
     "2CQVAAMSF:shared_process": [],
     "2CPJCJQ52:shared_process": [],
-    "2CR55RN9F:shared_process": [
-      {
-        "name": "wordcount",
-        "object": [
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "the",
-              11.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "and",
-              10.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Zeppelin",
-              10.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "to",
-              7.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Apache",
-              7.0
-            ]
-          }
-        ],
-        "noteId": "2CSGRDE7D"
-      }
-    ],
+    "2CR55RN9F:shared_process": [],
     "2CQ5M8DDR:shared_process": [],
     "2CT12AQEX:shared_process": [],
     "2CR382C2Q:shared_process": [],
