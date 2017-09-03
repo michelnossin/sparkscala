@@ -349,42 +349,6 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%sh\ncp /usr/zeppelin/notebook/2CSGRDE7D/note.json /usr/zeppelin/sparkscala\n\ncd /usr/zeppelin/sparkscala\ngit add note.json\ngit commit -m \u0027Lot of rdd info\u0027\ngit push",
-      "user": "anonymous",
-      "dateUpdated": "Sep 3, 2017 5:02:52 PM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "sh",
-          "editOnDblClick": false
-        },
-        "editorMode": "ace/mode/sh"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "total 3068\n-rw-r--r-- 1 root root   12220 Aug 13 13:44 ScalaSpark.ipynb\n-rw-r--r-- 1 root root   27350 Aug 13 13:44 rows.csv?accessType\u003dDOWNLOAD\n-rw-r--r-- 1 root root    2608 Aug 31 03:09 README.md\n-rw-r--r-- 1 root root 3094979 Sep  3 17:02 note.json\n"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1504457943216_-460382099",
-      "id": "20170903-165903_289399405",
-      "dateCreated": "Sep 3, 2017 4:59:03 PM",
-      "dateStarted": "Sep 3, 2017 5:02:07 PM",
-      "dateFinished": "Sep 3, 2017 5:02:07 PM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
-    },
-    {
       "title": "Dependency for next steps",
       "text": "%dep\n \nz.load(\"org.scalaj:scalaj-http_2.10:2.2.1\")\nz.load(\"org.json4s:json4s-native_2.10:3.2.11\")\n//import org.apache.spark.streaming.receiver._",
       "user": "anonymous",
