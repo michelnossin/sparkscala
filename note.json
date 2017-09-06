@@ -349,6 +349,447 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "%md \n\n\n## Lets play with spark sql (dataframes and datasets)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:24:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eLets play with spark sql (dataframes and datasets)\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504717125148_-1580698349",
+      "id": "20170906-165845_1787140426",
+      "dateCreated": "Sep 6, 2017 4:58:45 PM",
+      "dateStarted": "Sep 6, 2017 5:24:29 PM",
+      "dateFinished": "Sep 6, 2017 5:24:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create a csv file",
+      "text": "%sh\n\necho \u0027name,function,rating\u0027 \u003e myfile.csv\necho \u0027michel,engineer,10\u0027 \u003e\u003e myfile.csv\necho \u0027rok,scientist,8\u0027 \u003e\u003e myfile.csv\necho \u0027subhojit,scientist,8\u0027 \u003e\u003e myfile.csv\necho \u0027kaiqi,scientist,7\u0027 \u003e\u003e myfile.csv",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:24:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1504625105956_850410409",
+      "id": "20170905-152505_329634043",
+      "dateCreated": "Sep 5, 2017 3:25:05 PM",
+      "dateStarted": "Sep 5, 2017 3:26:45 PM",
+      "dateFinished": "Sep 5, 2017 3:26:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Read in csv and create a  dataframe using implicit schema",
+      "text": "val df \u003d spark.read.option(\"header\", \"true\").option(\"inferschema\", \"true\").option(\"sep\", \",\").csv(\"myfile.csv\")\ndf.createOrReplaceTempView(\"team\")\ndf.schema\nz.show(df)\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:26:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndf: org.apache.spark.sql.DataFrame \u003d [name: string, function: string ... 1 more field]\n\nres51: org.apache.spark.sql.types.StructType \u003d StructType(StructField(name,StringType,true), StructField(function,StringType,true), StructField(rating,IntegerType,true))\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "name\tfunction\trating\nmichel\tengineer\t10\nrok\tscientist\t8\nsubhojit\tscientist\t8\nkaiqi\tscientist\t7\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504717167299_1045274191",
+      "id": "20170906-165927_811006323",
+      "dateCreated": "Sep 6, 2017 4:59:27 PM",
+      "dateStarted": "Sep 6, 2017 5:25:42 PM",
+      "dateFinished": "Sep 6, 2017 5:25:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "OR create dataframe using explicit schema",
+      "text": "import org.apache.spark.sql.types.{StructType, IntegerType, StringType}\nval schema \u003d new StructType().add(\"i\", IntegerType).add(\"s\", StringType)\nschema.printTreeString\nschema.prettyJson\n\n//OR in spark2\n\nimport org.apache.spark.sql.Encoders\nEncoders.product[(Integer, String)].schema.printTreeString\n\n//OR use case classes\n\ncase class Record(i: Integer, s: String)\nEncoders.product[Record].schema.printTreeString\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:29:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types.{StructType, IntegerType, StringType}\n\nschema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(i,IntegerType,true), StructField(s,StringType,true))\nroot\n |-- i: integer (nullable \u003d true)\n |-- s: string (nullable \u003d true)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nres63: String \u003d\n{\n  \"type\" : \"struct\",\n  \"fields\" : [ {\n    \"name\" : \"i\",\n    \"type\" : \"integer\",\n    \"nullable\" : true,\n    \"metadata\" : { }\n  }, {\n    \"name\" : \"s\",\n    \"type\" : \"string\",\n    \"nullable\" : true,\n    \"metadata\" : { }\n  } ]\n}\n\nimport org.apache.spark.sql.Encoders\nroot\n |-- _1: integer (nullable \u003d true)\n |-- _2: string (nullable \u003d true)\n\n\ndefined class Record\nroot\n |-- i: integer (nullable \u003d true)\n |-- s: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504718802391_-1323667471",
+      "id": "20170906-172642_1666556637",
+      "dateCreated": "Sep 6, 2017 5:26:42 PM",
+      "dateStarted": "Sep 6, 2017 5:29:14 PM",
+      "dateFinished": "Sep 6, 2017 5:29:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "spark sql using sql",
+      "text": "\nz.show(spark.sql(\"select function as fnc,avg(rating) from team group by function order by avg(rating) desc\"))\n\n//use many others like count, first,last, sum , average, min max, kurtosis (differences in shap distri), skewness, variance (var_pop, var_samp etc), stddev(_*), covar*, rollup (multi dim. aggr), cube (same but used to create nested calculations), window functions",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:36:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "fnc\tavg(rating)\nengineer\t10.0\nscientist\t7.666666666666667\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504717314080_1415785737",
+      "id": "20170906-170154_1296943176",
+      "dateCreated": "Sep 6, 2017 5:01:54 PM",
+      "dateStarted": "Sep 6, 2017 5:07:23 PM",
+      "dateFinished": "Sep 6, 2017 5:07:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "spark sql using methods",
+      "text": "\nval df2 \u003d df.groupBy(\"function\").agg(\n    min(\"rating\").alias(\"min\"),\n    max(\"rating\").alias(\"max\"))\n    .sort(col(\"max\").desc) //.explain(true)\nz.show(df2.filter(\"min \u003e\u003d 8\")) //ignore scientist in this case\n//z.show(df2.pivot(\"min\")) //min column row values become columns",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:23:39 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndf2: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [function: string, min: int ... 1 more field]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "function\tmin\tmax\nengineer\t10\t10\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504717820786_-664783073",
+      "id": "20170906-171020_1339703938",
+      "dateCreated": "Sep 6, 2017 5:10:20 PM",
+      "dateStarted": "Sep 6, 2017 5:18:42 PM",
+      "dateFinished": "Sep 6, 2017 5:18:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "UDF add uppercase column",
+      "text": "import org.apache.spark.sql.functions._\n\n val toUpper: String \u003d\u003e String \u003d _.toUpperCase\n val toUpperUDF \u003d udf(toUpper)\n z.show(df2.withColumn(\"upper\",toUpperUDF(col(\"function\"))))",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:23:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.functions._\n\ntoUpper: String \u003d\u003e String \u003d \u003cfunction1\u003e\n\ntoUpperUDF: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,StringType,Some(List(StringType)))\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "function\tmin\tmax\tupper\nengineer\t10\t10\tENGINEER\nscientist\t7\t8\tSCIENTIST\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504718363134_1252750726",
+      "id": "20170906-171923_1319397634",
+      "dateCreated": "Sep 6, 2017 5:19:23 PM",
+      "dateStarted": "Sep 6, 2017 5:23:07 PM",
+      "dateFinished": "Sep 6, 2017 5:23:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nShuffle join (join 2 large datasets, expensive)\nbroadcast join (1 small join with 1 large)\n\n\nJoin type\nDescription\ninner\nThe inner join compares each row from left to rows from right and combines matched pair of rows from left and right datasets only when both have non-NULL values.\ncross\nThe cross join matches every row from left with every row from right generating a Cartesian cross product.\nouter, full, fullouter\nThe full outer Join gives all rows in left and right filling in NULL if only in right or left.\nleftanti\nThe leftanti Join gives only rows in left based on non-existence on right side.\nleft, leftouter\nThe leftouter Join gives all rows in left plus common rows of left and right (inner join). Fills in NULL if not in right.\nleftsemi\nThe leftsemi Join gives only rows in left based on existence on right side. The does not include right-side values.\nright, rightouter\nThe rightouter Join gives all rows in right plus common rows of left and right (inner join). Fills in NULL if not in left.\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:41:05 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eShuffle join (join 2 large datasets, expensive)\u003cbr/\u003ebroadcast join (1 small join with 1 large)\u003c/p\u003e\n\u003cp\u003eJoin type\u003cbr/\u003eDescription\u003cbr/\u003einner\u003cbr/\u003eThe inner join compares each row from left to rows from right and combines matched pair of rows from left and right datasets only when both have non-NULL values.\u003cbr/\u003ecross\u003cbr/\u003eThe cross join matches every row from left with every row from right generating a Cartesian cross product.\u003cbr/\u003eouter, full, fullouter\u003cbr/\u003eThe full outer Join gives all rows in left and right filling in NULL if only in right or left.\u003cbr/\u003eleftanti\u003cbr/\u003eThe leftanti Join gives only rows in left based on non-existence on right side.\u003cbr/\u003eleft, leftouter\u003cbr/\u003eThe leftouter Join gives all rows in left plus common rows of left and right (inner join). Fills in NULL if not in right.\u003cbr/\u003eleftsemi\u003cbr/\u003eThe leftsemi Join gives only rows in left based on existence on right side. The does not include right-side values.\u003cbr/\u003eright, rightouter\u003cbr/\u003eThe rightouter Join gives all rows in right plus common rows of left and right (inner join). Fills in NULL if not in left.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504719076692_-729632138",
+      "id": "20170906-173116_1210181245",
+      "dateCreated": "Sep 6, 2017 5:31:16 PM",
+      "dateStarted": "Sep 6, 2017 5:41:05 PM",
+      "dateFinished": "Sep 6, 2017 5:41:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "innerjoin (use 3 \u003d signs)",
+      "text": "df.join(df2,df(\"function\") \u003d\u003d\u003d df2(\"function\")).show",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:44:38 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+---------+------+---------+---+---+\n|    name| function|rating| function|min|max|\n+--------+---------+------+---------+---+---+\n|  michel| engineer|    10| engineer| 10| 10|\n|     rok|scientist|     8|scientist|  7|  8|\n|subhojit|scientist|     8|scientist|  7|  8|\n|   kaiqi|scientist|     7|scientist|  7|  8|\n+--------+---------+------+---------+---+---+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504719681240_-278477685",
+      "id": "20170906-174121_1256060516",
+      "dateCreated": "Sep 6, 2017 5:41:21 PM",
+      "dateStarted": "Sep 6, 2017 5:42:27 PM",
+      "dateFinished": "Sep 6, 2017 5:42:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.createOrReplaceTempView(\"team\")\ndf2.createOrReplaceTempView(\"team2\")\nspark.sql(\"select * from team LEFT OUTER JOIN team2 ON team.function \u003d team2.function\").show\n//or Full outer join for example",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:46:06 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+---------+------+---------+---+---+\n|    name| function|rating| function|min|max|\n+--------+---------+------+---------+---+---+\n|  michel| engineer|    10| engineer| 10| 10|\n|     rok|scientist|     8|scientist|  7|  8|\n|subhojit|scientist|     8|scientist|  7|  8|\n|   kaiqi|scientist|     7|scientist|  7|  8|\n+--------+---------+------+---------+---+---+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504719790873_621819417",
+      "id": "20170906-174310_1782160409",
+      "dateCreated": "Sep 6, 2017 5:43:10 PM",
+      "dateStarted": "Sep 6, 2017 5:45:26 PM",
+      "dateFinished": "Sep 6, 2017 5:45:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## In the sections below we will read from an api get the data into spark (Scala and python), and plot using some Angular output options like map",
+      "user": "anonymous",
+      "dateUpdated": "Sep 6, 2017 5:24:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eIn the sections below we will read from an api get the data into spark (Scala and python), and plot using some Angular output options like map\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504624956288_210189883",
+      "id": "20170905-152236_595426297",
+      "dateCreated": "Sep 5, 2017 3:22:36 PM",
+      "dateStarted": "Sep 6, 2017 5:24:44 PM",
+      "dateFinished": "Sep 6, 2017 5:24:44 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "title": "Dependency for next steps",
       "text": "%dep\n \nz.load(\"org.scalaj:scalaj-http_2.10:2.2.1\")\nz.load(\"org.json4s:json4s-native_2.10:3.2.11\")\n//import org.apache.spark.streaming.receiver._",
       "user": "anonymous",
