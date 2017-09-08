@@ -423,11 +423,41 @@
       "title": "Read in csv and create a  dataframe using implicit schema",
       "text": "val df \u003d spark.read.option(\"header\", \"true\").option(\"inferschema\", \"true\").option(\"sep\", \",\").csv(\"myfile.csv\")\ndf.createOrReplaceTempView(\"team\")\ndf.schema\nz.show(df)\n",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 5:26:31 PM",
+      "dateUpdated": "Sep 6, 2017 7:18:05 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
-        "results": {},
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "name",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "function",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false
@@ -503,14 +533,14 @@
       "title": "spark sql using sql",
       "text": "\nz.show(spark.sql(\"select function as fnc,avg(rating) from team group by function order by avg(rating) desc\"))\n\n//use many others like count, first,last, sum , average, min max, kurtosis (differences in shap distri), skewness, variance (var_pop, var_samp etc), stddev(_*), covar*, rollup (multi dim. aggr), cube (same but used to create nested calculations), window functions",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 5:36:04 PM",
+      "dateUpdated": "Sep 6, 2017 7:18:17 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "0": {
             "graph": {
-              "mode": "table",
+              "mode": "multiBarChart",
               "height": 300.0,
               "optionOpen": false
             },
@@ -550,12 +580,20 @@
       "title": "spark sql using methods",
       "text": "\nval df2 \u003d df.groupBy(\"function\").agg(\n    min(\"rating\").alias(\"min\"),\n    max(\"rating\").alias(\"max\"))\n    .sort(col(\"max\").desc) //.explain(true)\nz.show(df2.filter(\"min \u003e\u003d 8\")) //ignore scientist in this case\n//z.show(df2.pivot(\"min\")) //min column row values become columns",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 5:23:39 PM",
+      "dateUpdated": "Sep 6, 2017 7:18:27 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          },
+          "1": {
             "graph": {
               "mode": "table",
               "height": 300.0,
@@ -601,11 +639,20 @@
       "title": "UDF add uppercase column",
       "text": "import org.apache.spark.sql.functions._\n\n val toUpper: String \u003d\u003e String \u003d _.toUpperCase\n val toUpperUDF \u003d udf(toUpper)\n z.show(df2.withColumn(\"upper\",toUpperUDF(col(\"function\"))))",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 5:23:23 PM",
+      "dateUpdated": "Sep 6, 2017 7:18:34 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
-        "results": {},
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
         "editorSetting": {
           "language": "scala",
           "editOnDblClick": false
@@ -2226,7 +2273,7 @@
       "title": "Print zeppelin array in custom table",
       "text": "%angular \n\u003ch3\u003eComparison\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003ecolumn\u003c/th\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n        \u003cth\u003ecustom message\u003c/th\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eBuilt-in visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline front-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline back-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e       \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003ePackaged visualization (Helium)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (향후 지원)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e (구현에 따라서)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (소스코드 수정해서 다시빌드)\u003c/td\u003e        \n    \u003c/tr\u003e   \n    \u003ctr ng-repeat\u003d\"(key, val) in wordcount\"\u003e\n    \u003ctd  class\u003d\"visName\"\u003eRanking: {{key + 1}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue style\u003d\"color:green; font-size:30px\"\"\u003e{{val.values[0]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\" style\u003d\"color:green; font-size:30px\"\u003e{{val.values[1]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\"\u003e grtz, Michel\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:29:33 PM",
+      "dateUpdated": "Sep 7, 2017 4:37:34 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2236,8 +2283,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": false,
-        "tableHide": true,
+        "editorHide": true,
+        "tableHide": false,
         "title": true
       },
       "settings": {
@@ -2257,8 +2304,8 @@
       "jobName": "paragraph_1503945940546_-142346809",
       "id": "20170828-184540_2041823016",
       "dateCreated": "Aug 28, 2017 6:45:40 PM",
-      "dateStarted": "Sep 1, 2017 5:20:33 PM",
-      "dateFinished": "Sep 1, 2017 5:20:35 PM",
+      "dateStarted": "Sep 7, 2017 4:37:34 PM",
+      "dateFinished": "Sep 7, 2017 4:37:36 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2728,6 +2775,82 @@
       "dateCreated": "Aug 20, 2017 7:27:50 PM",
       "dateStarted": "Aug 20, 2017 8:27:58 PM",
       "dateFinished": "Aug 20, 2017 8:28:53 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "sample using spark streaming with checkpointing ",
+      "text": "//Cant test without twitterstream.\n//Checkpoint can be used in case of driver failures, reading status data and metadata when starting the code.\n\nimport org.apache.spark._\nimport org.apache.spark.streaming._\n\nval checkpointDirectory \u003d \"checkpoints\"\n                                      \n                                     \n// Function to create and setup a new StreamingContext\ndef createStreamContext(): StreamingContext \u003d {\n  val ssc \u003d new StreamingContext(sc, Seconds(5))\n\n  val twitterStream \u003d TwitterUtils.createStream(ssc, None)\n\n  val wordStream \u003d twitterStream.flatMap(x \u003d\u003e x.getText().split(\" \"))\n\n  val aggStream \u003d twitterStream\n    .flatMap(x \u003d\u003e x.getText.split(\" \")).filter(_.startsWith(\"#\"))\n    .map(x \u003d\u003e (x, 1))\n    .reduceByKeyAndWindow(_ + _, _ - _, Seconds(15), Seconds(10), 5)\n\n  ssc.checkpoint(checkpointDirectory)\n\n  aggStream.checkpoint(Seconds(10))\n\n  wordStream.checkpoint(Seconds(10))\n\n  aggStream.foreachRDD((rdd, time) \u003d\u003e {\n    val count \u003d rdd.count()\n\n    if (count \u003e 0) {\n      val dt \u003d new Date(time.milliseconds)\n      println(s\"\\n\\n$dt rddCount \u003d $count\\nTop 5 words\\n\")\n      val top10 \u003d rdd.sortBy(_._2, ascending \u003d false).take(5)\n      top10.foreach {\n        case (word, count) \u003d\u003e println(s\"[$word] - $count\")\n      }\n    }\n  })\n  ssc\n}\n\n// Get StreamingContext from checkpoint data or create a new one\nval ssc \u003d StreamingContext.getOrCreate(checkpointDirectory, createStreamContext _)\n\n//ssc.start()",
+      "user": "anonymous",
+      "dateUpdated": "Sep 8, 2017 12:16:55 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark._\n\nimport org.apache.spark.streaming._\n\ncheckpointDirectory: String \u003d checkpoints\n\n\n\n\u003cconsole\u003e:71: error: not found: value TwitterUtils\n         val twitterStream \u003d TwitterUtils.createStream(ssc, None)\n                             ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504870928111_-1094960065",
+      "id": "20170908-114208_829781095",
+      "dateCreated": "Sep 8, 2017 11:42:08 AM",
+      "dateStarted": "Sep 8, 2017 12:14:23 PM",
+      "dateFinished": "Sep 8, 2017 12:14:24 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nKafka integration spark streaming:\n\n1 receiver based :\ndriver start executor, which gets data from broker based on zookeeper offset. executor updates zookeeper.\n2 directstream.  zookeeper queries driver for offset. driver launches job with offset. Job gets data from offset\n3 structured streaming (from spark 2.2) :\n\nval ds1 \u003d spark\n .readStream\n .format(\"Kafka\")\n .option(\"Kafka.bootstrap.servers\", \"host1:port1,host2:port2\")\n .option(\"subscribe\", \"topic1\")\n .load()\n\nds1.selectExpr(\"CAST(key AS STRING)\", \"CAST(value AS STRING)\")\n .as[(String, String)]",
+      "user": "anonymous",
+      "dateUpdated": "Sep 8, 2017 12:36:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eKafka integration spark streaming:\u003c/p\u003e\n\u003cp\u003e1 receiver based :\u003cbr/\u003edriver start executor, which gets data from broker based on zookeeper offset. executor updates zookeeper.\u003cbr/\u003e2 directstream. zookeeper queries driver for offset. driver launches job with offset. Job gets data from offset\u003cbr/\u003e3 structured streaming (from spark 2.2) :\u003c/p\u003e\n\u003cp\u003eval ds1 \u003d spark\u003cbr/\u003e .readStream\u003cbr/\u003e .format(\u0026ldquo;Kafka\u0026rdquo;)\u003cbr/\u003e .option(\u0026ldquo;Kafka.bootstrap.servers\u0026rdquo;, \u0026ldquo;host1:port1,host2:port2\u0026rdquo;)\u003cbr/\u003e .option(\u0026ldquo;subscribe\u0026rdquo;, \u0026ldquo;topic1\u0026rdquo;)\u003cbr/\u003e .load()\u003c/p\u003e\n\u003cp\u003eds1.selectExpr(\u0026ldquo;CAST(key AS STRING)\u0026rdquo;, \u0026ldquo;CAST(value AS STRING)\u0026rdquo;)\u003cbr/\u003e .as[(String, String)]\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504874037840_-538909248",
+      "id": "20170908-123357_657889184",
+      "dateCreated": "Sep 8, 2017 12:33:57 PM",
+      "dateStarted": "Sep 8, 2017 12:36:43 PM",
+      "dateFinished": "Sep 8, 2017 12:36:43 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
