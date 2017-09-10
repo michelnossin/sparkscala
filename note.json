@@ -1120,7 +1120,7 @@
       "title": "First create empty map listening to updates",
       "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:57:17 AM",
+      "dateUpdated": "Sep 9, 2017 5:35:12 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1130,8 +1130,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": true,
-        "tableHide": false,
+        "editorHide": false,
+        "tableHide": true,
         "title": true
       },
       "settings": {
@@ -1509,9 +1509,9 @@
     },
     {
       "title": "Can we use D3 gfx using angular yes",
-      "text": "def barChart(txt : String) {\n    \n\nprint(\"\"\"%angular\n\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [\"\"\" + txt + \"\"\"];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n\"\"\")\n}\n\nval list \u003d (\"michel\",1) :: (\"jantje\",12) :: (\"keesje\",3) :: Nil\nval txt \u003d for ((word,count) \u003c- list ) yield count\nval txtConcat \u003d txt.mkString(\",\")\n\nbarChart(txtConcat)",
+      "text": "def barChart(txt : String,someid : String) {\n    \n\nprint(\"\"\"%angular\n\u003cdiv\u003e\n    \u003csvg class\u003d\"\"\"\" + someid + \"\"\"\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [\"\"\" + txt + \"\"\"];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".\"\"\" + someid + \"\"\"\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n\"\"\")\n}\n\nval list \u003d (\"michel\",1) :: (\"jantje\",12) :: (\"keesje\",3) :: Nil\nval txt \u003d for ((word,count) \u003c- list ) yield count\nval txtConcat \u003d txt.mkString(\",\")\n\nbarChart(txtConcat,\"test2\")",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:46:55 PM",
+      "dateUpdated": "Sep 10, 2017 11:52:20 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1521,7 +1521,7 @@
           "editOnDblClick": false
         },
         "editorMode": "ace/mode/scala",
-        "editorHide": true,
+        "editorHide": false,
         "tableHide": false,
         "title": true
       },
@@ -1534,11 +1534,11 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nbarChart: (txt: String)Unit\n\nlist: List[(String, Int)] \u003d List((michel,1), (jantje,12), (keesje,3))\n\ntxt: List[Int] \u003d List(1, 12, 3)\n\ntxtConcat: String \u003d 1,12,3\n"
+            "data": "\nbarChart: (txt: String, someid: String)Unit\n\nlist: List[(String, Int)] \u003d List((michel,1), (jantje,12), (keesje,3))\n\ntxt: List[Int] \u003d List(1, 12, 3)\n\ntxtConcat: String \u003d 1,12,3\n"
           },
           {
             "type": "ANGULAR",
-            "data": "\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [1,12,3];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n"
+            "data": "\u003cdiv\u003e\n    \u003csvg class\u003d\"test2\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [1,12,3];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".test2\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n"
           }
         ]
       },
@@ -1546,8 +1546,8 @@
       "jobName": "paragraph_1503755762362_-2010278148",
       "id": "20170826-135602_343936615",
       "dateCreated": "Aug 26, 2017 1:56:02 PM",
-      "dateStarted": "Sep 1, 2017 5:45:15 PM",
-      "dateFinished": "Sep 1, 2017 5:45:16 PM",
+      "dateStarted": "Sep 10, 2017 11:52:20 AM",
+      "dateFinished": "Sep 10, 2017 11:52:22 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2195,9 +2195,9 @@
     },
     {
       "title": "Print using inline angular icw custom columns",
-      "text": "\nprintln(\"%table word\\tcount\")\ntextRdd.collect.foreach(t\u003d\u003e\n    println(t._1 + \"\\t\" + t._2 * 20)\n)",
+      "text": "\nprintln(\"%table word\\tcount\")\ntextRdd.collect.foreach(t\u003d\u003e\n    println(t._1 + \"\\t\" + t._2 * 20)\n)\n\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 2:14:04 AM",
+      "dateUpdated": "Sep 9, 2017 5:31:19 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2273,7 +2273,7 @@
       "title": "Print zeppelin array in custom table",
       "text": "%angular \n\u003ch3\u003eComparison\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003ecolumn\u003c/th\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n        \u003cth\u003ecustom message\u003c/th\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eBuilt-in visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline front-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline back-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e       \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003ePackaged visualization (Helium)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (향후 지원)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e (구현에 따라서)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (소스코드 수정해서 다시빌드)\u003c/td\u003e        \n    \u003c/tr\u003e   \n    \u003ctr ng-repeat\u003d\"(key, val) in wordcount\"\u003e\n    \u003ctd  class\u003d\"visName\"\u003eRanking: {{key + 1}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue style\u003d\"color:green; font-size:30px\"\"\u003e{{val.values[0]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\" style\u003d\"color:green; font-size:30px\"\u003e{{val.values[1]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\"\u003e grtz, Michel\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e",
       "user": "anonymous",
-      "dateUpdated": "Sep 7, 2017 4:37:34 PM",
+      "dateUpdated": "Sep 9, 2017 5:36:23 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2283,8 +2283,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": true,
-        "tableHide": false,
+        "editorHide": false,
+        "tableHide": true,
         "title": true
       },
       "settings": {
@@ -2304,8 +2304,8 @@
       "jobName": "paragraph_1503945940546_-142346809",
       "id": "20170828-184540_2041823016",
       "dateCreated": "Aug 28, 2017 6:45:40 PM",
-      "dateStarted": "Sep 7, 2017 4:37:34 PM",
-      "dateFinished": "Sep 7, 2017 4:37:36 PM",
+      "dateStarted": "Sep 9, 2017 5:25:14 PM",
+      "dateFinished": "Sep 9, 2017 5:25:16 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2738,6 +2738,301 @@
       "dateStarted": "Aug 19, 2017 3:37:52 PM",
       "dateFinished": "Aug 19, 2017 3:37:52 PM",
       "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "twitter streaming dependency",
+      "text": "%dep\n\nz.reset\nz.load(\"org.apache.bahir:spark-streaming-twitter_2.11:2.0.0\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 1:25:54 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@11b89e3f\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504963170908_999781980",
+      "id": "20170909-131930_195818729",
+      "dateCreated": "Sep 9, 2017 1:19:30 PM",
+      "dateStarted": "Sep 10, 2017 1:25:55 PM",
+      "dateFinished": "Sep 10, 2017 1:26:02 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "twitter credentials FILL IN YOUR OWN",
+      "text": "def $(s:String) \u003d sys.env(s)\nSystem.setProperty(\"twitter4j.oauth.consumerKey\", \"a\")\nSystem.setProperty(\"twitter4j.oauth.consumerSecret\", \"b\")\nSystem.setProperty(\"twitter4j.oauth.accessToken\", \"c\")\nSystem.setProperty(\"twitter4j.oauth.accessTokenSecret\", \"d\")\n\"twitter settings done!\"\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 2:05:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n$: (s: String)String\n\nres290: String \u003d MygsMsUnNzCTJ7UDpOgbu4TkD\n\nres291: String \u003d hQYH04NKBTv13peKuDV6wPHcFx0eokR0GHGG3tyao7OaKmTknW\n\nres292: String \u003d 22527477-NxlfOlwrZUD06WhWV9fx6rJ5OFIdnUkIq2fGeMhcc\n\nres293: String \u003d N62A6W3CrRvdsO8ONKVCiTKCvPe50Qmd3FfztPRJ3Hi86\n\nres294: String \u003d twitter settings done!\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504963027558_-624074561",
+      "id": "20170909-131707_1931706369",
+      "dateCreated": "Sep 9, 2017 1:17:07 PM",
+      "dateStarted": "Sep 10, 2017 2:05:29 PM",
+      "dateFinished": "Sep 10, 2017 2:05:31 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "realtime html table top twitter (after starting next section)",
+      "text": "%angular\n\n\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027wordcounts\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 12:49:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": false,
+        "tableHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504993072975_2039071140",
+      "id": "20170909-213752_1741996996",
+      "dateCreated": "Sep 9, 2017 9:37:52 PM",
+      "dateStarted": "Sep 10, 2017 12:39:47 PM",
+      "dateFinished": "Sep 10, 2017 12:39:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets print top hashtag words in particular filtered context",
+      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"wordcounts\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"irma\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None, filters)\nval hashTags \u003d twitterStream.flatMap(status \u003d\u003e status.getText.split(\" \")) //.filter(_.startsWith(\"#\")))\nval topCounts \u003d hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(1))\n                          .map{case (word, count) \u003d\u003e (count, word)}\n                          .transform(_.sortByKey(false))\n\n// Print the first ten elements of each RDD generated in this DStream to the console\n//topCounts60.print()\ntopCounts.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"count\",\"word\")\n    df.registerTempTable(\"wordcount\")   \n    val df2 \u003d spark.sql(\"select word,count from wordcount order by count desc limit 10\")\n    z.angularBind(\"wordcounts\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 1:14:26 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@2aafd02e\n\nfilters: Array[String] \u003d Array(irma)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@5b010097\n\nhashTags: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@29f0c8d2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njava.lang.IllegalStateException: Cannot call methods on a stopped SparkContext.\nThis stopped SparkContext was created at:\n\norg.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:860)\nsun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\njava.lang.reflect.Method.invoke(Method.java:498)\norg.apache.zeppelin.spark.Utils.invokeMethod(Utils.java:38)\norg.apache.zeppelin.spark.Utils.invokeMethod(Utils.java:33)\norg.apache.zeppelin.spark.SparkInterpreter.createSparkSession(SparkInterpreter.java:367)\norg.apache.zeppelin.spark.SparkInterpreter.getSparkSession(SparkInterpreter.java:233)\norg.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:826)\norg.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\norg.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:491)\norg.apache.zeppelin.scheduler.Job.run(Job.java:175)\norg.apache.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:139)\njava.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\njava.util.concurrent.FutureTask.run(FutureTask.java:266)\njava.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\njava.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\njava.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\njava.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\nThe currently active SparkContext was created at:\n\n(No active SparkContext.)\n\n  at org.apache.spark.SparkContext.assertNotStopped(SparkContext.scala:100)\n  at org.apache.spark.SparkContext.defaultParallelism(SparkContext.scala:2133)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions.defaultPartitioner$default$1(PairDStreamFunctions.scala:44)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions$$anonfun$reduceByKeyAndWindow$1.apply(PairDStreamFunctions.scala:215)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions$$anonfun$reduceByKeyAndWindow$1.apply(PairDStreamFunctions.scala:215)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.SparkContext.withScope(SparkContext.scala:701)\n  at org.apache.spark.streaming.StreamingContext.withScope(StreamingContext.scala:264)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions.reduceByKeyAndWindow(PairDStreamFunctions.scala:214)\n  ... 170 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504976705673_568300251",
+      "id": "20170909-170505_431589814",
+      "dateCreated": "Sep 9, 2017 5:05:05 PM",
+      "dateStarted": "Sep 10, 2017 1:14:26 PM",
+      "dateFinished": "Sep 10, 2017 1:14:37 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create map to plot twitter tweets realtime (6 sec refresh, keep 1 minute)",
+      "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#mapt\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 1:58:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#mapt\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1505051171070_-1247763205",
+      "id": "20170910-134611_1388177786",
+      "dateCreated": "Sep 10, 2017 1:46:11 PM",
+      "dateStarted": "Sep 10, 2017 1:58:17 PM",
+      "dateFinished": "Sep 10, 2017 1:58:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets get geo locations from twitter stream",
+      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"locations\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"hurricane\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None)//, filters)\n\nval locs \u003d twitterStream.window(Seconds(60),Seconds(6)).filter { s \u003d\u003e s.getGeoLocation() !\u003d null \u0026\u0026 s.getGeoLocation().getLatitude() !\u003d null \u0026\u0026 s.getGeoLocation().getLongitude() !\u003d null }\n    .map(s \u003d\u003e (s.getText() ,s.getGeoLocation().getLatitude(),  s.getGeoLocation().getLongitude() ))\n\nlocs.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"text\",\"lat\",\"lon\")\n    df.registerTempTable(\"locations\")\n    //df.collect.foreach(t \u003d\u003e println(t))\n    val df2 \u003d spark.sql(\"select text as desc,lat,lon as lng from locations limit 10\")\n    df2.show\n    z.angularBind(\"locations\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 2:01:58 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@34756226\n\nfilters: Array[String] \u003d Array(hurricane)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@16823c0e\n\nlocs: org.apache.spark.streaming.dstream.DStream[(String, Double, Double)] \u003d org.apache.spark.streaming.dstream.MappedDStream@5fdfa600\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n\nres289: Boolean \u003d false\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1505049242538_629957338",
+      "id": "20170910-131402_796488650",
+      "dateCreated": "Sep 10, 2017 1:14:02 PM",
+      "dateStarted": "Sep 10, 2017 1:59:15 PM",
+      "dateFinished": "Sep 10, 2017 1:59:41 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "ssc.start()\n//ssc.stop()",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 1:11:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n\n\n\n\n\n\njava.lang.IllegalArgumentException: requirement failed: No output operations registered, so nothing to execute\n  at scala.Predef$.require(Predef.scala:224)\n  at org.apache.spark.streaming.DStreamGraph.validate(DStreamGraph.scala:163)\n  at org.apache.spark.streaming.StreamingContext.validate(StreamingContext.scala:512)\n  at org.apache.spark.streaming.StreamingContext.liftedTree1$1(StreamingContext.scala:572)\n  at org.apache.spark.streaming.StreamingContext.start(StreamingContext.scala:571)\n  ... 166 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504966187538_-1078946284",
+      "id": "20170909-140947_1717127588",
+      "dateCreated": "Sep 9, 2017 2:09:47 PM",
+      "dateStarted": "Sep 10, 2017 1:11:27 PM",
+      "dateFinished": "Sep 10, 2017 1:11:29 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val ssc \u003d new StreamingContext(sc, Seconds(10))\n\n        val twitterStream \u003d TwitterUtils.createStream(ssc, None)\n\n        twitterStream.saveAsTextFiles(\"streamouts/tweets\", \"txt\")\n        ssc.start()\n\n        //wait for 30 seconds\n\n        ss.stop(false)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 9, 2017 2:13:53 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1504966421425_564653400",
+      "id": "20170909-141341_247522968",
+      "dateCreated": "Sep 9, 2017 2:13:41 PM",
+      "status": "READY",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -4754,7 +5049,332 @@
   "angularObjects": {
     "2CQVAAMSF:shared_process": [],
     "2CPJCJQ52:shared_process": [],
-    "2CR55RN9F:shared_process": [],
+    "2CR55RN9F:shared_process": [
+      {
+        "name": "locations",
+        "object": [
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "We love the new kit for #brockworth Badgers Youth #rugby that we have sponsored for this season.… https://t.co/vBKze92skB",
+              51.85097083,
+              -2.15138281
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Can you recommend anyone for this #job? Physical Therapist Assistant, PTA, Senior Living - https://t.co/G9sOZ4CQQb #Healthcare #Towson, MD",
+              39.4014955,
+              -76.6019125
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "A sneaky peak at the new Bruce Davidson exhibition #photography #brucedavidson #photographer… https://t.co/RudCObtvfv",
+              51.90541,
+              4.48687
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "From sailing to traveling, we got you covered with style!\n#sailing #sail #sailboat #sailing… https://t.co/O5b0HmajvD",
+              40.7142,
+              -74.0064
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Hallo Para Pecinta Fotografi\n\nTelah dibuka Filostetik Room, studio foto bertemakan Bohemian di… https://t.co/fNUXPjdlnD",
+              -6.5591904,
+              107.7713178
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "desc",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lat",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "lng",
+                  "dataType": {
+                    "numeric": {},
+                    "fractional": {},
+                    "asIntegral": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.16483268E8,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Primer encierro de las fiestas patronales,os dejo unas pocas fotos de las que hice. A partir del… https://t.co/zTzWUZX2sd",
+              40.23722222,
+              -3.77416667
+            ]
+          }
+        ],
+        "noteId": "2CSGRDE7D"
+      }
+    ],
     "2CQ5M8DDR:shared_process": [],
     "2CT12AQEX:shared_process": [],
     "2CR382C2Q:shared_process": [],
