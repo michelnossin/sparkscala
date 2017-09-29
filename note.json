@@ -1120,7 +1120,7 @@
       "title": "First create empty map listening to updates",
       "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:57:17 AM",
+      "dateUpdated": "Sep 9, 2017 5:35:12 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1130,8 +1130,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": true,
-        "tableHide": false,
+        "editorHide": false,
+        "tableHide": true,
         "title": true
       },
       "settings": {
@@ -1509,9 +1509,9 @@
     },
     {
       "title": "Can we use D3 gfx using angular yes",
-      "text": "def barChart(txt : String) {\n    \n\nprint(\"\"\"%angular\n\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [\"\"\" + txt + \"\"\"];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n\"\"\")\n}\n\nval list \u003d (\"michel\",1) :: (\"jantje\",12) :: (\"keesje\",3) :: Nil\nval txt \u003d for ((word,count) \u003c- list ) yield count\nval txtConcat \u003d txt.mkString(\",\")\n\nbarChart(txtConcat)",
+      "text": "def barChart(txt : String,someid : String) {\n    \n\nprint(\"\"\"%angular\n\u003cdiv\u003e\n    \u003csvg class\u003d\"\"\"\" + someid + \"\"\"\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [\"\"\" + txt + \"\"\"];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".\"\"\" + someid + \"\"\"\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n\"\"\")\n}\n\nval list \u003d (\"michel\",1) :: (\"jantje\",12) :: (\"keesje\",3) :: Nil\nval txt \u003d for ((word,count) \u003c- list ) yield count\nval txtConcat \u003d txt.mkString(\",\")\n\nbarChart(txtConcat,\"test2\")",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:46:55 PM",
+      "dateUpdated": "Sep 10, 2017 11:52:20 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1521,7 +1521,7 @@
           "editOnDblClick": false
         },
         "editorMode": "ace/mode/scala",
-        "editorHide": true,
+        "editorHide": false,
         "tableHide": false,
         "title": true
       },
@@ -1534,11 +1534,11 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nbarChart: (txt: String)Unit\n\nlist: List[(String, Int)] \u003d List((michel,1), (jantje,12), (keesje,3))\n\ntxt: List[Int] \u003d List(1, 12, 3)\n\ntxtConcat: String \u003d 1,12,3\n"
+            "data": "\nbarChart: (txt: String, someid: String)Unit\n\nlist: List[(String, Int)] \u003d List((michel,1), (jantje,12), (keesje,3))\n\ntxt: List[Int] \u003d List(1, 12, 3)\n\ntxtConcat: String \u003d 1,12,3\n"
           },
           {
             "type": "ANGULAR",
-            "data": "\u003cdiv\u003e\n    \u003csvg class\u003d\"chart\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [1,12,3];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".chart\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n"
+            "data": "\u003cdiv\u003e\n    \u003csvg class\u003d\"test2\"\u003e\u003c/svg\u003e\n\u003c/div\u003e\n\u003cscript\u003e\nfunction useD3() {\n    var data \u003d [1,12,3];\n\n    var width \u003d 420,\n        barHeight \u003d 20;\n\n    var x \u003d d3.scale.linear()\n        .domain([0, d3.max(data)])\n        .range([0, width]);\n\n    var chart \u003d d3.select(\".test2\")\n        .attr(\"width\", width)\n        .attr(\"height\", barHeight * data.length);\n\n    var bar \u003d chart.selectAll(\"g\")\n        .data(data)\n      .enter().append(\"g\")\n        .attr(\"transform\", function(d, i) { return \"translate(0,\" + i * barHeight + \")\"; });\n\n    bar.append(\"rect\")\n        .attr(\"width\", x)\n        .attr(\"height\", barHeight - 1);\n}\n\nif (window.d3) {\n    useD3();\n} else {\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js\u0027;\n    sc.onload \u003d useD3;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n"
           }
         ]
       },
@@ -1546,8 +1546,8 @@
       "jobName": "paragraph_1503755762362_-2010278148",
       "id": "20170826-135602_343936615",
       "dateCreated": "Aug 26, 2017 1:56:02 PM",
-      "dateStarted": "Sep 1, 2017 5:45:15 PM",
-      "dateFinished": "Sep 1, 2017 5:45:16 PM",
+      "dateStarted": "Sep 10, 2017 11:52:20 AM",
+      "dateFinished": "Sep 10, 2017 11:52:22 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1906,7 +1906,7 @@
       "title": "Create spark DF with wine data",
       "text": "val wine \u003d sc.textFile(\"file:///usr/zeppelin/wine.data\")\nval df \u003d wine.toDF()\ndf.take(10).mkString(\"\\n\")\ndf.registerTempTable(\"wine\")",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 2:10:54 AM",
+      "dateUpdated": "Sep 29, 2017 1:34:40 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1927,7 +1927,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nwine: org.apache.spark.rdd.RDD[String] \u003d file:///usr/zeppelin/wine.data MapPartitionsRDD[29] at textFile at \u003cconsole\u003e:27\n\ndf: org.apache.spark.sql.DataFrame \u003d [value: string]\n\n\n\n\n\n\n\n\n\n\n\nres44: String \u003d\n[1,14.23,1.71,2.43,15.6,127,2.8,3.06,.28,2.29,5.64,1.04,3.92,1065]\n[1,13.2,1.78,2.14,11.2,100,2.65,2.76,.26,1.28,4.38,1.05,3.4,1050]\n[1,13.16,2.36,2.67,18.6,101,2.8,3.24,.3,2.81,5.68,1.03,3.17,1185]\n[1,14.37,1.95,2.5,16.8,113,3.85,3.49,.24,2.18,7.8,.86,3.45,1480]\n[1,13.24,2.59,2.87,21,118,2.8,2.69,.39,1.82,4.32,1.04,2.93,735]\n[1,14.2,1.76,2.45,15.2,112,3.27,3.39,.34,1.97,6.75,1.05,2.85,1450]\n[1,14.39,1.87,2.45,14.6,96,2.5,2.52,.3,1.98,5.25,1.02,3.58,1290]\n[1,14.06,2.15,2.61,17.6,121,2.6,2.51,.31,1.25,5.05,1.06,3.58,1295]\n[1,14.83,1.64,2.17,14,97,2.8,2.98,.29,1.98,5.2,1.08,2.85,1045]\n[1,13.86,1.35,2.27,16,98,2.98,3.15,.22,1.85,7.22,1.01,3.55,1045]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+            "data": "\nwine: org.apache.spark.rdd.RDD[String] \u003d file:///usr/zeppelin/wine.data MapPartitionsRDD[1] at textFile at \u003cconsole\u003e:27\n\ndf: org.apache.spark.sql.DataFrame \u003d [value: string]\n\n\n\n\n\n\n\n\n\n\n\nres0: String \u003d\n[1,14.23,1.71,2.43,15.6,127,2.8,3.06,.28,2.29,5.64,1.04,3.92,1065]\n[1,13.2,1.78,2.14,11.2,100,2.65,2.76,.26,1.28,4.38,1.05,3.4,1050]\n[1,13.16,2.36,2.67,18.6,101,2.8,3.24,.3,2.81,5.68,1.03,3.17,1185]\n[1,14.37,1.95,2.5,16.8,113,3.85,3.49,.24,2.18,7.8,.86,3.45,1480]\n[1,13.24,2.59,2.87,21,118,2.8,2.69,.39,1.82,4.32,1.04,2.93,735]\n[1,14.2,1.76,2.45,15.2,112,3.27,3.39,.34,1.97,6.75,1.05,2.85,1450]\n[1,14.39,1.87,2.45,14.6,96,2.5,2.52,.3,1.98,5.25,1.02,3.58,1290]\n[1,14.06,2.15,2.61,17.6,121,2.6,2.51,.31,1.25,5.05,1.06,3.58,1295]\n[1,14.83,1.64,2.17,14,97,2.8,2.98,.29,1.98,5.2,1.08,2.85,1045]\n[1,13.86,1.35,2.27,16,98,2.98,3.15,.22,1.85,7.22,1.01,3.55,1045]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
           }
         ]
       },
@@ -1935,8 +1935,8 @@
       "jobName": "paragraph_1503944011663_1512314835",
       "id": "20170828-181331_1573755739",
       "dateCreated": "Aug 28, 2017 6:13:31 PM",
-      "dateStarted": "Aug 31, 2017 2:10:54 AM",
-      "dateFinished": "Aug 31, 2017 2:10:55 AM",
+      "dateStarted": "Sep 29, 2017 1:34:41 PM",
+      "dateFinished": "Sep 29, 2017 1:34:59 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1982,7 +1982,7 @@
       "title": "Lets create a case class for wine schema",
       "text": "case class Wine(Alcohol: Float, \nMalicAcid:Float,\nAsh:Float,\nAlcalinityOfAsh:Float,  \nMagnesium:Float,\nTotalPhenols:Float,\nFlavanoids:Float,\nNonflavanoidPhenols:Float,\nProanthocyanins:Float,\nColorIntensity:Float,\nHue:Float,\nOD280:Float,\nProline:Float)\n\nval df \u003d wine.map({ line \u003d\u003e\n         line.split(\",\")\n        }).map({s\u003d\u003e  Wine(s(0).toFloat, s(1).toFloat, s(2).toFloat, s(3).toFloat, s(4).toFloat, s(5).toFloat, s(6).toFloat, s(7).toFloat, s(8).toFloat, s(9).toFloat, s(10).toFloat, s(11).toFloat, s(12).toFloat)}).toDF()\n        \n df.registerTempTable(\"wine\")\n        ",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 2:11:01 AM",
+      "dateUpdated": "Sep 29, 2017 1:35:45 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2011,8 +2011,8 @@
       "jobName": "paragraph_1503944263005_1352424046",
       "id": "20170828-181743_1356032353",
       "dateCreated": "Aug 28, 2017 6:17:43 PM",
-      "dateStarted": "Aug 31, 2017 2:11:01 AM",
-      "dateFinished": "Aug 31, 2017 2:11:03 AM",
+      "dateStarted": "Sep 29, 2017 1:35:45 PM",
+      "dateFinished": "Sep 29, 2017 1:35:47 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2020,14 +2020,14 @@
       "title": "Wine is now beautiful",
       "text": "%sql\nselect malicAcid,magnesium from wine order by malicAcid limit 100",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 2:11:06 AM",
+      "dateUpdated": "Sep 29, 2017 1:35:53 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "0": {
             "graph": {
-              "mode": "stackedAreaChart",
+              "mode": "table",
               "height": 300.0,
               "optionOpen": false,
               "setting": {
@@ -2071,7 +2071,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "malicAcid\tmagnesium\n11.03\t21.5\n11.41\t21.0\n11.45\t20.0\n11.46\t19.5\n11.56\t28.5\n11.61\t20.0\n11.62\t18.0\n11.64\t21.6\n11.65\t26.0\n11.66\t16.0\n11.76\t20.0\n11.79\t28.5\n11.81\t21.5\n11.82\t19.5\n11.82\t20.8\n11.84\t18.0\n11.84\t18.0\n11.87\t21.0\n11.96\t21.0\n12.0\t22.0\n12.0\t19.0\n12.0\t19.0\n12.04\t22.0\n12.07\t21.0\n12.08\t23.6\n12.08\t24.0\n12.08\t18.5\n12.08\t17.5\n12.08\t22.5\n12.16\t22.8\n12.17\t19.0\n12.2\t19.0\n12.21\t16.8\n12.22\t19.0\n12.25\t21.0\n12.25\t19.0\n12.25\t18.5\n12.29\t16.0\n12.29\t20.4\n12.29\t18.0\n12.29\t18.0\n12.33\t16.0\n12.33\t14.8\n12.34\t21.0\n12.36\t21.0\n12.37\t18.1\n12.37\t18.5\n12.37\t24.5\n12.37\t10.6\n12.37\t19.6\n12.37\t19.0\n12.42\t22.5\n12.42\t26.5\n12.42\t22.0\n12.43\t21.5\n12.45\t27.0\n12.47\t19.0\n12.51\t20.5\n12.51\t17.5\n12.52\t21.0\n12.53\t25.0\n12.58\t20.0\n12.6\t18.5\n12.6\t18.5\n12.64\t16.8\n12.67\t18.0\n12.69\t20.7\n12.7\t23.0\n12.7\t21.5\n12.72\t18.8\n12.72\t22.5\n12.77\t16.0\n12.77\t19.5\n12.79\t22.0\n12.81\t24.0\n12.82\t19.5\n12.84\t24.0\n12.85\t17.8\n12.85\t22.0\n12.86\t18.0\n12.87\t21.5\n12.88\t20.0\n12.93\t21.0\n12.93\t18.6\n12.96\t18.5\n12.99\t30.0\n13.03\t16.0\n13.05\t22.5\n13.05\t18.0\n13.05\t12.4\n13.05\t21.5\n13.05\t17.0\n13.05\t25.0\n13.07\t15.5\n13.08\t21.5\n13.11\t25.5\n13.11\t15.0\n13.16\t21.0\n13.16\t18.6\n13.17\t20.0\n"
+            "data": "malicAcid\tmagnesium\n11.03\t21.5\n11.41\t21.0\n11.45\t20.0\n11.46\t19.5\n11.56\t28.5\n11.61\t20.0\n11.62\t18.0\n11.64\t21.6\n11.65\t26.0\n11.66\t16.0\n11.76\t20.0\n11.79\t28.5\n11.81\t21.5\n11.82\t19.5\n11.82\t20.8\n11.84\t18.0\n11.84\t18.0\n11.87\t21.0\n11.96\t21.0\n12.0\t19.0\n12.0\t22.0\n12.0\t19.0\n12.04\t22.0\n12.07\t21.0\n12.08\t23.6\n12.08\t22.5\n12.08\t24.0\n12.08\t18.5\n12.08\t17.5\n12.16\t22.8\n12.17\t19.0\n12.2\t19.0\n12.21\t16.8\n12.22\t19.0\n12.25\t19.0\n12.25\t18.5\n12.25\t21.0\n12.29\t18.0\n12.29\t16.0\n12.29\t18.0\n12.29\t20.4\n12.33\t16.0\n12.33\t14.8\n12.34\t21.0\n12.36\t21.0\n12.37\t10.6\n12.37\t19.6\n12.37\t18.5\n12.37\t19.0\n12.37\t18.1\n12.37\t24.5\n12.42\t22.5\n12.42\t26.5\n12.42\t22.0\n12.43\t21.5\n12.45\t27.0\n12.47\t19.0\n12.51\t20.5\n12.51\t17.5\n12.52\t21.0\n12.53\t25.0\n12.58\t20.0\n12.6\t18.5\n12.6\t18.5\n12.64\t16.8\n12.67\t18.0\n12.69\t20.7\n12.7\t21.5\n12.7\t23.0\n12.72\t18.8\n12.72\t22.5\n12.77\t16.0\n12.77\t19.5\n12.79\t22.0\n12.81\t24.0\n12.82\t19.5\n12.84\t24.0\n12.85\t22.0\n12.85\t17.8\n12.86\t18.0\n12.87\t21.5\n12.88\t20.0\n12.93\t21.0\n12.93\t18.6\n12.96\t18.5\n12.99\t30.0\n13.03\t16.0\n13.05\t21.5\n13.05\t25.0\n13.05\t18.0\n13.05\t12.4\n13.05\t17.0\n13.05\t22.5\n13.07\t15.5\n13.08\t21.5\n13.11\t25.5\n13.11\t15.0\n13.16\t21.0\n13.16\t18.6\n13.17\t22.0\n"
           }
         ]
       },
@@ -2079,8 +2079,8 @@
       "jobName": "paragraph_1503944335621_-1938809990",
       "id": "20170828-181855_808283025",
       "dateCreated": "Aug 28, 2017 6:18:55 PM",
-      "dateStarted": "Aug 31, 2017 2:11:06 AM",
-      "dateFinished": "Aug 31, 2017 2:11:07 AM",
+      "dateStarted": "Sep 29, 2017 1:35:51 PM",
+      "dateFinished": "Sep 29, 2017 1:35:52 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2121,7 +2121,7 @@
       "title": "Lets create an add",
       "text": "val text \u003d \"\"\"\nMultiple language backend\nZeppelin interpreter concept allows any language/data-processing-backend to be plugged into Zeppelin. Currently Zeppelin supports many interpreters such as Scala(with Apache Spark), Python(with Apache Spark), SparkSQL, Hive, Markdown and Shell.\nAdding new language-backend is really simple. Learn how to write a zeppelin interpreter.\nApache Spark integration\nZeppelin provides built-in Apache Spark integration. You don\u0027t need to build a separate module, plugin or library for it.\nZeppelin\u0027s Spark integration provides\nAutomatic SparkContext and SQLContext injection\nRuntime jar dependency loading from local filesystem or maven repository. Learn more about dependency loader.\nCanceling job and displaying its progress\nData visualization\nSome basic charts are already included in Zeppelin. Visualizations are not limited to SparkSQL\u0027s query, any output from any language backend can be recognized and visualized.\nPivot chart\nWith simple drag and drop Zeppelin aggeregates the values and display them in pivot chart. You can easily create chart with multiple aggregated values including sum, count, average, min, max.\nLearn more about Zeppelin\u0027s Display system.\nDynamic forms\nZeppelin can dynamically create some input forms into your notebook.\nLearn more about Dynamic Forms.\nCollaboration\nNotebook URL can be shared among collaborators. Zeppelin can then broadcast any changes in realtime, just like the collaboration in Google docs.\nPublish\nZeppelin provides an URL to display the result only, that page does not include Zeppelin\u0027s menu and buttons. This way, you can easily embed it as an iframe inside of your website.\n100% Opensource\nApache Zeppelin (incubating) is Apache2 Licensed software. Please check out the source repository and How to contribute\nZeppelin has a very active development community. Join the Mailing list and report issues on our Issue tracker.\nUndergoing Incubation\nApache Zeppelin is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.\nWe apologise for the recent downtime to the site. It happened that the appointed time to transfer ownership of the domain name from Jonathan to Peter and Amyas coincided with the premature birth of Amyas’s first child. As a result, things did not go quite as smoothly as we had hoped. Mother and daughter are both well, and the site should now be enjoying uninterrupted service once again.\n\n\"\"\"\n\nval textRdd \u003d sc.parallelize(text.split(\"\\n\")).flatMap(t\u003d\u003et.split(\" \")).map(t\u003d\u003e(t, 1)).reduceByKey(_ + _)",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:19:18 PM",
+      "dateUpdated": "Sep 29, 2017 1:37:27 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2142,7 +2142,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\n\n\n\n\n\n\n\n\n\n\n\ntext: String \u003d\n\"\nMultiple language backend\nZeppelin interpreter concept allows any language/data-processing-backend to be plugged into Zeppelin. Currently Zeppelin supports many interpreters such as Scala(with Apache Spark), Python(with Apache Spark), SparkSQL, Hive, Markdown and Shell.\nAdding new language-backend is really simple. Learn how to write a zeppelin interpreter.\nApache Spark integration\nZeppelin provides built-in Apache Spark integration. You don\u0027t need to build a separate module, plugin or library for it.\nZeppelin\u0027s Spark integration provides\nAutomatic SparkContext and SQLContext injection\nRuntime jar dependency loading from local filesystem or maven repository. Learn more about dependency loader.\nCanceling job and displaying its progress\nData visualization\nSome basic chart...\ntextRdd: org.apache.spark.rdd.RDD[(String, Int)] \u003d ShuffledRDD[3] at reduceByKey at \u003cconsole\u003e:30\n"
+            "data": "\n\n\n\n\n\n\n\n\n\n\n\ntext: String \u003d\n\"\nMultiple language backend\nZeppelin interpreter concept allows any language/data-processing-backend to be plugged into Zeppelin. Currently Zeppelin supports many interpreters such as Scala(with Apache Spark), Python(with Apache Spark), SparkSQL, Hive, Markdown and Shell.\nAdding new language-backend is really simple. Learn how to write a zeppelin interpreter.\nApache Spark integration\nZeppelin provides built-in Apache Spark integration. You don\u0027t need to build a separate module, plugin or library for it.\nZeppelin\u0027s Spark integration provides\nAutomatic SparkContext and SQLContext injection\nRuntime jar dependency loading from local filesystem or maven repository. Learn more about dependency loader.\nCanceling job and displaying its progress\nData visualization\nSome basic chart...\ntextRdd: org.apache.spark.rdd.RDD[(String, Int)] \u003d ShuffledRDD[17] at reduceByKey at \u003cconsole\u003e:30\n"
           }
         ]
       },
@@ -2150,8 +2150,8 @@
       "jobName": "paragraph_1503945539557_1888223257",
       "id": "20170828-183859_422111298",
       "dateCreated": "Aug 28, 2017 6:38:59 PM",
-      "dateStarted": "Sep 1, 2017 5:19:18 PM",
-      "dateFinished": "Sep 1, 2017 5:19:36 PM",
+      "dateStarted": "Sep 29, 2017 1:37:28 PM",
+      "dateFinished": "Sep 29, 2017 1:37:29 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2195,9 +2195,9 @@
     },
     {
       "title": "Print using inline angular icw custom columns",
-      "text": "\nprintln(\"%table word\\tcount\")\ntextRdd.collect.foreach(t\u003d\u003e\n    println(t._1 + \"\\t\" + t._2 * 20)\n)",
+      "text": "\nprintln(\"%table word\\tcount\")\ntextRdd.collect.foreach(t\u003d\u003e\n    println(t._1 + \"\\t\" + t._2 * 20)\n)\n\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 2:14:04 AM",
+      "dateUpdated": "Sep 9, 2017 5:31:19 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2235,7 +2235,7 @@
       "title": "Spark array to zeppelin array so we can do some angular later on",
       "text": "textRdd.toDF().registerTempTable(\"wordcount\")\nz.angularBind(\"wordcount\", spark.sql(\"select * from wordcount order by _2 desc limit 10\").collect)",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:21:17 PM",
+      "dateUpdated": "Sep 29, 2017 1:37:40 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2264,8 +2264,8 @@
       "jobName": "paragraph_1503946491909_1924549473",
       "id": "20170828-185451_1785818411",
       "dateCreated": "Aug 28, 2017 6:54:51 PM",
-      "dateStarted": "Sep 1, 2017 5:21:17 PM",
-      "dateFinished": "Sep 1, 2017 5:21:18 PM",
+      "dateStarted": "Sep 29, 2017 1:37:40 PM",
+      "dateFinished": "Sep 29, 2017 1:37:41 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2273,7 +2273,7 @@
       "title": "Print zeppelin array in custom table",
       "text": "%angular \n\u003ch3\u003eComparison\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003ecolumn\u003c/th\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n        \u003cth\u003ecustom message\u003c/th\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eBuilt-in visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline front-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline back-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e       \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003ePackaged visualization (Helium)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (향후 지원)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e (구현에 따라서)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (소스코드 수정해서 다시빌드)\u003c/td\u003e        \n    \u003c/tr\u003e   \n    \u003ctr ng-repeat\u003d\"(key, val) in wordcount\"\u003e\n    \u003ctd  class\u003d\"visName\"\u003eRanking: {{key + 1}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue style\u003d\"color:green; font-size:30px\"\"\u003e{{val.values[0]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\" style\u003d\"color:green; font-size:30px\"\u003e{{val.values[1]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\"\u003e grtz, Michel\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e",
       "user": "anonymous",
-      "dateUpdated": "Sep 7, 2017 4:37:34 PM",
+      "dateUpdated": "Sep 29, 2017 1:37:45 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2304,8 +2304,8 @@
       "jobName": "paragraph_1503945940546_-142346809",
       "id": "20170828-184540_2041823016",
       "dateCreated": "Aug 28, 2017 6:45:40 PM",
-      "dateStarted": "Sep 7, 2017 4:37:34 PM",
-      "dateFinished": "Sep 7, 2017 4:37:36 PM",
+      "dateStarted": "Sep 29, 2017 1:37:45 PM",
+      "dateFinished": "Sep 29, 2017 1:37:45 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2738,6 +2738,301 @@
       "dateStarted": "Aug 19, 2017 3:37:52 PM",
       "dateFinished": "Aug 19, 2017 3:37:52 PM",
       "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "twitter streaming dependency",
+      "text": "%dep\n\nz.reset\nz.load(\"org.apache.bahir:spark-streaming-twitter_2.11:2.0.0\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 11, 2017 7:34:20 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@541b8ae8\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504963170908_999781980",
+      "id": "20170909-131930_195818729",
+      "dateCreated": "Sep 9, 2017 1:19:30 PM",
+      "dateStarted": "Sep 11, 2017 7:34:20 AM",
+      "dateFinished": "Sep 11, 2017 7:34:28 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "twitter credentials",
+      "text": "def $(s:String) \u003d sys.env(s)\nSystem.setProperty(\"twitter4j.oauth.consumerKey\", \"DXNWTdHn5032Djxa9C9000eU1\")\nSystem.setProperty(\"twitter4j.oauth.consumerSecret\", \"osfkZIaZMytiH8l607BL2xqJsgSfdJtuad88pj6aBkZ6qXIDOB\")\nSystem.setProperty(\"twitter4j.oauth.accessToken\", \"22527477-KwrazAC1wwkzlkiWZcdrGDr1oUQUExeKpanA3BBlr\")\nSystem.setProperty(\"twitter4j.oauth.accessTokenSecret\", \"rmrOLaEAz3xyOYDMr4Vn7ATgzDcNElNyicqNDkWfCQ8N0\")\n\"twitter settings done!\"\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 11, 2017 7:34:36 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n$: (s: String)String\n\nres0: String \u003d null\n\nres1: String \u003d null\n\nres2: String \u003d null\n\nres3: String \u003d null\n\nres4: String \u003d twitter settings done!\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504963027558_-624074561",
+      "id": "20170909-131707_1931706369",
+      "dateCreated": "Sep 9, 2017 1:17:07 PM",
+      "dateStarted": "Sep 11, 2017 7:34:36 AM",
+      "dateFinished": "Sep 11, 2017 7:34:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "realtime html table top twitter (after starting next section)",
+      "text": "%angular\n\n\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027wordcounts\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Sep 11, 2017 8:17:09 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027wordcounts\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504993072975_2039071140",
+      "id": "20170909-213752_1741996996",
+      "dateCreated": "Sep 9, 2017 9:37:52 PM",
+      "dateStarted": "Sep 11, 2017 8:17:09 AM",
+      "dateFinished": "Sep 11, 2017 8:17:09 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets print top hashtag words in particular filtered context",
+      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"wordcounts\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"trump\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None, filters)\nval hashTags \u003d twitterStream.flatMap(status \u003d\u003e status.getText.split(\" \")) //.filter(_.startsWith(\"#\")))\nval topCounts \u003d hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(1))\n                          .map{case (word, count) \u003d\u003e (count, word)}\n                          .transform(_.sortByKey(false))\n\n// Print the first ten elements of each RDD generated in this DStream to the console\n//topCounts60.print()\ntopCounts.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"count\",\"word\")\n    df.registerTempTable(\"wordcount\")   \n    val df2 \u003d spark.sql(\"select word,count from wordcount order by count desc limit 10\")\n    z.angularBind(\"wordcounts\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 12, 2017 10:00:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@528e481f\n\nfilters: Array[String] \u003d Array(trump)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@39d74555\n\nhashTags: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@46227a5f\n\ntopCounts: org.apache.spark.streaming.dstream.DStream[(Int, String)] \u003d org.apache.spark.streaming.dstream.TransformedDStream@1ae632eb\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n\nres56: Boolean \u003d false\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504976705673_568300251",
+      "id": "20170909-170505_431589814",
+      "dateCreated": "Sep 9, 2017 5:05:05 PM",
+      "dateStarted": "Sep 12, 2017 10:00:26 PM",
+      "dateFinished": "Sep 12, 2017 8:06:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create map to plot twitter tweets realtime (6 sec refresh, keep 1 minute)",
+      "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#mapt\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
+      "user": "anonymous",
+      "dateUpdated": "Sep 11, 2017 7:20:06 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#mapt\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1505051171070_-1247763205",
+      "id": "20170910-134611_1388177786",
+      "dateCreated": "Sep 10, 2017 1:46:11 PM",
+      "dateStarted": "Sep 11, 2017 7:20:06 AM",
+      "dateFinished": "Sep 11, 2017 7:20:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets get geo locations from twitter stream",
+      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"locations\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"hurricane\",\"irma\",\"Irma\",\"storm\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None)//, filters)\n\nval locs \u003d twitterStream.window(Seconds(60),Seconds(6)).filter { s \u003d\u003e s.getGeoLocation() !\u003d null \u0026\u0026 s.getGeoLocation().getLatitude() !\u003d null \u0026\u0026 s.getGeoLocation().getLongitude() !\u003d null }\n    .map(s \u003d\u003e (s.getText() ,s.getGeoLocation().getLatitude(),  s.getGeoLocation().getLongitude() ))\n\nlocs.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"text\",\"lat\",\"lon\")\n    df.registerTempTable(\"locations\")\n    //df.collect.foreach(t \u003d\u003e println(t))\n    val df2 \u003d spark.sql(\"select text as desc,lat,lon as lng from locations limit 10\")\n    df2.show\n    z.angularBind(\"locations\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 11, 2017 7:26:47 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@44c0278c\n\nfilters: Array[String] \u003d Array(hurricane, irma, Irma, storm)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@25d91881\n\nlocs: org.apache.spark.streaming.dstream.DStream[(String, Double, Double)] \u003d org.apache.spark.streaming.dstream.MappedDStream@26fd275\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n\nres64: Boolean \u003d false\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1505049242538_629957338",
+      "id": "20170910-131402_796488650",
+      "dateCreated": "Sep 10, 2017 1:14:02 PM",
+      "dateStarted": "Sep 11, 2017 7:26:47 AM",
+      "dateFinished": "Sep 11, 2017 7:27:11 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "ssc.start()\n//ssc.stop()",
+      "user": "anonymous",
+      "dateUpdated": "Sep 10, 2017 1:11:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n\n\n\n\n\n\njava.lang.IllegalArgumentException: requirement failed: No output operations registered, so nothing to execute\n  at scala.Predef$.require(Predef.scala:224)\n  at org.apache.spark.streaming.DStreamGraph.validate(DStreamGraph.scala:163)\n  at org.apache.spark.streaming.StreamingContext.validate(StreamingContext.scala:512)\n  at org.apache.spark.streaming.StreamingContext.liftedTree1$1(StreamingContext.scala:572)\n  at org.apache.spark.streaming.StreamingContext.start(StreamingContext.scala:571)\n  ... 166 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1504966187538_-1078946284",
+      "id": "20170909-140947_1717127588",
+      "dateCreated": "Sep 9, 2017 2:09:47 PM",
+      "dateStarted": "Sep 10, 2017 1:11:27 PM",
+      "dateFinished": "Sep 10, 2017 1:11:29 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val ssc \u003d new StreamingContext(sc, Seconds(10))\n\n        val twitterStream \u003d TwitterUtils.createStream(ssc, None)\n\n        twitterStream.saveAsTextFiles(\"streamouts/tweets\", \"txt\")\n        ssc.start()\n\n        //wait for 30 seconds\n\n        ss.stop(false)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 9, 2017 2:13:53 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1504966421425_564653400",
+      "id": "20170909-141341_247522968",
+      "dateCreated": "Sep 9, 2017 2:13:41 PM",
+      "status": "READY",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -4691,7 +4986,7 @@
       "title": "Print simple string as html",
       "text": "%spark\n\ndef hello(name: String) \u003d {\n    print(s\"\"\"%html\n    \u003ch1\u003e\"\"\" + name + \"\"\"\u003c/h1\u003e\n    \"\"\")\n}\nhello(\"michel\")",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 4:59:51 PM",
+      "dateUpdated": "Sep 29, 2017 6:24:24 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -4732,6 +5027,392 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "%md\n\n## Some Spark Sql without tables and sql\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 6:28:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eSome Spark Sql without tables and sql\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506709392384_-1873582649",
+      "id": "20170929-182312_2008351071",
+      "dateCreated": "Sep 29, 2017 6:23:12 PM",
+      "dateStarted": "Sep 29, 2017 6:28:56 PM",
+      "dateFinished": "Sep 29, 2017 6:28:56 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nTo create dataframe use\n1 session\u0027s create dataframe , incl schema inference (so RDD[Someclass] as input)\n2 implicits and schema inference (scala/java) , like rdd \u0027s toDF\n3 Define schema rdd using .map (row \u003d\u003e Row(row.id,row.name)\nval someType \u003d StructType(List(StructField(\"id\",LongType,true),StructField(\"name\",StringType,true))\nval df \u003d session.createDataFrame(someRdd,schema)\n4 From local collection\nval df \u003d createDataFrame(Seq[SomeClass])",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 6:34:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eTo create dataframe use\u003cbr/\u003e1 session\u0026rsquo;s create dataframe , incl schema inference (so RDD[Someclass] as input)\u003cbr/\u003e2 implicits and schema inference (scala/java) , like rdd \u0026rsquo;s toDF\u003cbr/\u003e3 Define schema rdd using .map (row \u003d\u0026gt; Row(row.id,row.name)\u003cbr/\u003eval someType \u003d StructType(List(StructField(\u0026ldquo;id\u0026rdquo;,LongType,true),StructField(\u0026ldquo;name\u0026rdquo;,StringType,true))\u003cbr/\u003eval df \u003d session.createDataFrame(someRdd,schema)\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506709723271_1809124910",
+      "id": "20170929-182843_873992871",
+      "dateCreated": "Sep 29, 2017 6:28:43 PM",
+      "dateStarted": "Sep 29, 2017 6:33:00 PM",
+      "dateFinished": "Sep 29, 2017 6:33:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Dataframe without table and sql",
+      "text": "%spark\nval wineAshSelection \u003d df.select(df(\"Alcohol\").as(\"Garbage\"),df(\"Ash\"))\n                         .filter(df(\"Ash\") \u003e 2.00)\n                         .withColumn(\"Kind\",  when(df(\"Ash\") \u003e 3.0, \"Junk\" ).otherwise(\"Okay\"))\nz.show(wineAshSelection.select($\"Garbage\",$\"Kind\")) //or use $ to query columns\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 6:28:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nwineAshSelection: org.apache.spark.sql.DataFrame \u003d [Garbage: float, Ash: float ... 1 more field]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "Garbage\tKind\n1.0\tOkay\n1.0\tOkay\n1.0\tOkay\n1.0\tOkay\n1.0\tJunk\n1.0\tJunk\n1.0\tOkay\n1.0\tJunk\n1.0\tJunk\n1.0\tJunk\n1.0\tJunk\n1.0\tJunk\n1.0\tOkay\n2.0\tOkay\n2.0\tJunk\n2.0\tJunk\n2.0\tOkay\n2.0\tOkay\n2.0\tOkay\n2.0\tJunk\n2.0\tOkay\n2.0\tOkay\n2.0\tOkay\n2.0\tJunk\n2.0\tOkay\n2.0\tOkay\n2.0\tJunk\n2.0\tJunk\n2.0\tOkay\n2.0\tOkay\n2.0\tJunk\n2.0\tJunk\n2.0\tJunk\n2.0\tOkay\n2.0\tOkay\n2.0\tJunk\n3.0\tOkay\n3.0\tOkay\n3.0\tJunk\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tOkay\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tOkay\n3.0\tJunk\n3.0\tJunk\n3.0\tJunk\n3.0\tOkay\n3.0\tJunk\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506692394360_-961078167",
+      "id": "20170929-133954_1274661242",
+      "dateCreated": "Sep 29, 2017 1:39:54 PM",
+      "dateStarted": "Sep 29, 2017 2:47:04 PM",
+      "dateFinished": "Sep 29, 2017 2:47:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark Sql Windowing",
+      "text": "%spark\n//Show Ash difference compared to avg Ash in windows of 20 ash rows\nimport org.apache.spark.sql.expressions.Window\nval windowSpec \u003d Window.orderBy(wineAshSelection(\"Ash\"))\n                   .partitionBy(wineAshSelection(\"Kind\"))\n                   .rowsBetween(start \u003d -10,end \u003d 10)\nval diffCol \u003d wineAshSelection(\"Ash\") - avg(wineAshSelection(\"Ash\")).over(windowSpec)\nval windowDF \u003d wineAshSelection.select($\"Ash\",diffCol.as(\"diffAsh\"))\nval sortedWindowDF \u003d windowDF.orderBy($\"diffAsh\".desc)\nz.show(sortedWindowDF)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 3:28:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.expressions.Window\n\nwindowSpec: org.apache.spark.sql.expressions.WindowSpec \u003d org.apache.spark.sql.expressions.WindowSpec@1ddb6145\n\ndiffCol: org.apache.spark.sql.Column \u003d (Ash - avg(Ash) OVER (PARTITION BY Kind ORDER BY Ash ASC NULLS FIRST ROWS BETWEEN 10 PRECEDING AND 10 FOLLOWING))\n\nwindowDF: org.apache.spark.sql.DataFrame \u003d [Ash: float, diffAsh: double]\n\nsortedWindowDF: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [Ash: float, diffAsh: double]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "Ash\tdiffAsh\n5.8\t0.8127274513244629\n5.65\t0.7191667556762695\n5.51\t0.6276925160334663\n5.19\t0.3507143088749478\n5.04\t0.24866660435994437\n2.99\t0.23090910911560059\n2.96\t0.21750005086263036\n4.95\t0.20187479257583618\n2.89\t0.16230781261737537\n2.83\t0.11785708154950836\n2.81\t0.11466662089029933\n2.76\t0.07999999821186066\n3.8\t0.07047615732465484\n3.83\t0.06571422304425933\n2.39\t0.052381061372302806\n2.36\t0.04809513546171651\n3.74\t0.04571431023733963\n3.84\t0.04285707927885518\n3.7\t0.040000064032418514\n2.43\t0.03333339237031474\n2.4\t0.03285723640805216\n2.31\t0.025238037109375\n3.55\t0.024761881147111975\n3.86\t0.02238086291721908\n2.45\t0.02095241773696177\n2.55\t0.01952375684465668\n2.67\t0.01944451861911345\n3.43\t0.015238182885306095\n2.51\t0.014761890683855139\n2.68\t0.014705952476052886\n4.72\t0.013529188492718447\n3.57\t0.010952336447579647\n2.46\t-0.0019047373817082658\n3.59\t-0.0038095882960726968\n3.37\t-0.006666762488229061\n3.87\t-0.008095343907674302\n2.56\t-0.008571488516671444\n3.43\t-0.02333324296133865\n4.28\t-0.026666448229835105\n2.58\t-0.02809531348092209\n4.6\t-0.030526424709119482\n2.59\t-0.0330000877380372\n3.88\t-0.03428559076218374\n3.59\t-0.03571435383387955\n3.45\t-0.03952373777117035\n2.59\t-0.04684219862285399\n3.9\t-0.05190466699146068\n3.26\t-0.0549999872843423\n3.3\t-0.055500030517578125\n4.61\t-0.05666654639773938\n3.24\t-0.058823501362520236\n3.98\t-0.059999976839337776\n3.27\t-0.06526315839667074\n3.91\t-0.08190467244102839\n4.1\t-0.08476198287237224\n4.3\t-0.0852379117693216\n2.05\t-0.08750003576278687\n2.12\t-0.08750012516975403\n2.15\t-0.08833324909210205\n4.04\t-0.09000002770196858\n3.17\t-0.09133324623107919\n2.13\t-0.09235283907722014\n3.99\t-0.09333332379658987\n2.16\t-0.09473676430551636\n2.02\t-0.09727274287830712\n2.05\t-0.10692312167241003\n2.16\t-0.10999991893768302\n3.17\t-0.11062490940093994\n2.08\t-0.11133341789245588\n2.06\t-0.11428577559334885\n3.12\t-0.12071439198085221\n4.12\t-0.12238105138142874\n3.1\t-0.12461546751169061\n3.03\t-0.15727272900668066\n4.31\t-0.1600000744774226\n4.43\t-0.16450018882751483\n3.03\t-0.17750000953674316\n4.36\t-0.20142845880417592\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506697210862_1516682479",
+      "id": "20170929-150010_1936929670",
+      "dateCreated": "Sep 29, 2017 3:00:10 PM",
+      "dateStarted": "Sep 29, 2017 3:28:42 PM",
+      "dateFinished": "Sep 29, 2017 3:28:44 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nWhy datasets?\n1 strongly type,\na catch errors during compile time\nb typed select command (relational select) using .as[SomeClass]\n2 rdd like transformation, use some scala or java functions directly on rdd using filter, map, mapPartitions and flatMap\nds.map{rp \u003d\u003e rp.id.filter(_ \u003e 0).sum}\nThis can also be done on aggregates. So using dataframe you need udaf\u0027s which are more difficult\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 6:39:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eWhy datasets?\u003cbr/\u003e1 strongly type,\u003cbr/\u003ea catch errors during compile time\u003cbr/\u003eb typed select command (relational select) using .as[SomeClass]\u003cbr/\u003e2 rdd like transformation, use some scala or java functions directly on rdd using filter, map, mapPartitions and flatMap\u003cbr/\u003eds.map{rp \u003d\u0026gt; rp.id.filter(_ \u0026gt; 0).sum}\u003cbr/\u003eThis can also be done on aggregates. So using dataframe you need udaf\u0026rsquo;s which are more difficult\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506710116900_-1634978678",
+      "id": "20170929-183516_984037658",
+      "dateCreated": "Sep 29, 2017 6:35:16 PM",
+      "dateStarted": "Sep 29, 2017 6:39:36 PM",
+      "dateFinished": "Sep 29, 2017 6:39:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Dataset, typed dataframe for scala or java",
+      "text": "%spark\ncase class WineAshSelection(Garbage : Float, Ash : Float , Kind : String)\nval wineAshSelectionDS \u003d wineAshSelection.as[WineAshSelection] //dataset\nval wineDSSelection \u003d wineAshSelectionDS.select($\"Garbage\".as[Float]) //typed column, on for dataset\nz.show(wineDSSelection)\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 2:59:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndefined class WineAshSelection\n\nwineAshSelectionDS: org.apache.spark.sql.Dataset[WineAshSelection] \u003d [Garbage: float, Ash: float ... 1 more field]\n\nwineDSSelection: org.apache.spark.sql.Dataset[Float] \u003d [Garbage: float]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "Garbage\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n1.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n2.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n3.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506695340123_-2132157309",
+      "id": "20170929-142900_1706724010",
+      "dateCreated": "Sep 29, 2017 2:29:00 PM",
+      "dateStarted": "Sep 29, 2017 2:48:49 PM",
+      "dateFinished": "Sep 29, 2017 2:48:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Aggregates on Df or Ds using Types sql expression",
+      "text": "%spark\n//Group using typed sql expression\nval maxAshPerGarbage \u003d wineAshSelectionDS.map(rp \u003d\u003e WineAshSelection(rp.Garbage,rp.Ash,rp.Kind) ).groupByKey(mp \u003d\u003e mp.Garbage).agg(max(\"ash\").as[Float])\nz.show(maxAshPerGarbage)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 6:45:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nmaxAshPerGarbage: org.apache.spark.sql.Dataset[(Float, Float)] \u003d [value: float, max(ash): float]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "value\tmax(ash)\n2.0\t5.8\n3.0\t5.65\n1.0\t4.04\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506710412694_-710434173",
+      "id": "20170929-184012_2135208652",
+      "dateCreated": "Sep 29, 2017 6:40:12 PM",
+      "dateStarted": "Sep 29, 2017 6:44:15 PM",
+      "dateFinished": "Sep 29, 2017 6:44:20 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nwineAshSelectionDS\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 7:02:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres65: org.apache.spark.sql.Dataset[WineAshSelection] \u003d [Garbage: float, Ash: float ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506711719679_-178148838",
+      "id": "20170929-190159_1001704050",
+      "dateCreated": "Sep 29, 2017 7:01:59 PM",
+      "dateStarted": "Sep 29, 2017 7:02:09 PM",
+      "dateFinished": "Sep 29, 2017 7:02:09 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Aggregates using scala code (DS only) using mapGroups",
+      "text": "%spark\nimport spark.implicits._ \n//This prevents UDAF, not use\nval output \u003d wineAshSelectionDS.groupByKey(mp \u003d\u003e mp.Garbage)\n                  .mapGroups( (id,ashSelectionIter) \u003d\u003e (id, ashSelectionIter.length))\n                 \nz.show(output)",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 7:11:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport spark.implicits._\n\noutput: org.apache.spark.sql.Dataset[(Float, Int)] \u003d [_1: float, _2: int]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "_1\t_2\n2.0\t23\n3.0\t42\n1.0\t13\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506710745629_1354419584",
+      "id": "20170929-184545_1639086956",
+      "dateCreated": "Sep 29, 2017 6:45:45 PM",
+      "dateStarted": "Sep 29, 2017 7:11:03 PM",
+      "dateFinished": "Sep 29, 2017 7:11:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "UDF and UDAF in Spark sql",
+      "text": "%spark\n",
+      "user": "anonymous",
+      "dateUpdated": "Sep 29, 2017 7:12:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1506712317489_533510745",
+      "id": "20170929-191157_1867387398",
+      "dateCreated": "Sep 29, 2017 7:11:57 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "text": "%dep\n",
       "user": "anonymous",
       "dateUpdated": "Aug 13, 2017 5:59:14 PM",
@@ -4754,7 +5435,780 @@
   "angularObjects": {
     "2CQVAAMSF:shared_process": [],
     "2CPJCJQ52:shared_process": [],
-    "2CR55RN9F:shared_process": [],
+    "2CR55RN9F:shared_process": [
+      {
+        "name": "wordcount",
+        "object": [
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "the",
+              17.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "and",
+              13.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Zeppelin",
+              10.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "to",
+              10.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Apache",
+              7.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "a",
+              7.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "of",
+              6.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "can",
+              6.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "is",
+              5.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "_1",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "_2",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": -1.760150119E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "be",
+              5.0
+            ]
+          }
+        ],
+        "noteId": "2CSGRDE7D"
+      },
+      {
+        "name": "wordcounts",
+        "object": [
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "RT",
+              26.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "the",
+              16.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "",
+              13.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "to",
+              13.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "is",
+              10.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "a",
+              10.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "of",
+              9.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "in",
+              8.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "Trump",
+              6.0
+            ]
+          },
+          {
+            "schema": {
+              "fields": [
+                {
+                  "name": "word",
+                  "dataType": {
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                },
+                {
+                  "name": "count",
+                  "dataType": {
+                    "numeric": {},
+                    "integral": {},
+                    "ordering": {}
+                  },
+                  "nullable": true,
+                  "metadata": {
+                    "map": {},
+                    "_hashCode": -1.60932692E9,
+                    "bitmap$0": true
+                  }
+                }
+              ],
+              "_hashCode": 1.432247814E9,
+              "bitmap$0": 8.0
+            },
+            "values": [
+              "The",
+              5.0
+            ]
+          }
+        ],
+        "noteId": "2CSGRDE7D"
+      }
+    ],
     "2CQ5M8DDR:shared_process": [],
     "2CT12AQEX:shared_process": [],
     "2CR382C2Q:shared_process": [],
