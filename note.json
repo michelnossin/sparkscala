@@ -533,14 +533,14 @@
       "title": "spark sql using sql",
       "text": "\nz.show(spark.sql(\"select function as fnc,avg(rating) from team group by function order by avg(rating) desc\"))\n\n//use many others like count, first,last, sum , average, min max, kurtosis (differences in shap distri), skewness, variance (var_pop, var_samp etc), stddev(_*), covar*, rollup (multi dim. aggr), cube (same but used to create nested calculations), window functions",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 7:18:17 PM",
+      "dateUpdated": "Sep 30, 2017 8:14:52 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "0": {
             "graph": {
-              "mode": "multiBarChart",
+              "mode": "table",
               "height": 300.0,
               "optionOpen": false
             },
@@ -639,14 +639,14 @@
       "title": "UDF add uppercase column",
       "text": "import org.apache.spark.sql.functions._\n\n val toUpper: String \u003d\u003e String \u003d _.toUpperCase\n val toUpperUDF \u003d udf(toUpper)\n z.show(df2.withColumn(\"upper\",toUpperUDF(col(\"function\"))))",
       "user": "anonymous",
-      "dateUpdated": "Sep 6, 2017 7:18:34 PM",
+      "dateUpdated": "Sep 30, 2017 8:16:00 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
         "results": {
           "1": {
             "graph": {
-              "mode": "pieChart",
+              "mode": "table",
               "height": 300.0,
               "optionOpen": false
             },
@@ -840,7 +840,7 @@
       "title": "Dependency for next steps",
       "text": "%dep\n \nz.load(\"org.scalaj:scalaj-http_2.10:2.2.1\")\nz.load(\"org.json4s:json4s-native_2.10:3.2.11\")\n//import org.apache.spark.streaming.receiver._",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:52:07 AM",
+      "dateUpdated": "Sep 30, 2017 8:19:27 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -861,7 +861,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@1bc7346b\n"
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@52db5dbf\n"
           }
         ]
       },
@@ -869,8 +869,8 @@
       "jobName": "paragraph_1502658858007_1887163028",
       "id": "20170813-211418_570037273",
       "dateCreated": "Aug 13, 2017 9:14:18 PM",
-      "dateStarted": "Aug 26, 2017 9:01:42 AM",
-      "dateFinished": "Aug 26, 2017 9:01:49 AM",
+      "dateStarted": "Sep 30, 2017 8:19:27 AM",
+      "dateFinished": "Sep 30, 2017 8:19:36 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -878,7 +878,7 @@
       "title": "Get realtime train locations east use  (run during day time in E-usa)",
       "text": "val url \u003d \"https://www.septastats.com/api/current/system/latest\"\nval result \u003d scala.io.Source.fromURL(url).mkString\nprintln(result)\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:55:15 AM",
+      "dateUpdated": "Sep 30, 2017 8:19:47 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -899,7 +899,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.18904089927673,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"216-Norristown\",\n            \"time\": \"2017-08-27T15:17:37\",\n            \"late\": \"0\",\n            \"lat\": \"40.12229\",\n            \"lon\": \"-75.34517\",\n            \"nextstop\": \"Elm St\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"218-Norristown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.929807\",\n            \"lon\": \"-75.224136\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"219-Marcus Hook\",\n ...{\n    \"metadata\": {\n        \"elapsed\": 0.18904089927673,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"216-Norristown\",\n            \"time\": \"2017-08-27T15:17:37\",\n            \"late\": \"0\",\n            \"lat\": \"40.12229\",\n            \"lon\": \"-75.34517\",\n            \"nextstop\": \"Elm St\",\n            \"source\": \"Marcus Hook\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"218-Norristown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.929807\",\n            \"lon\": \"-75.224136\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Wilmington\",\n            \"dest\": \"Norristown\"\n        },\n        {\n            \"id\": \"219-Marcus Hook\",\n            \"time\": \"2017-08-27T15:15:56\",\n            \"late\": \"5\",\n            \"lat\": \"39.824676\",\n            \"lon\": \"-75.412845\",\n            \"nextstop\": \"Marcus Hook\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Marcus Hook\"\n        },\n        {\n            \"id\": \"221-Wilmington\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.99740\",\n            \"lon\": \"-75.15719\",\n            \"nextstop\": \"North Broad St\",\n            \"source\": \"Norristown\",\n            \"dest\": \"Wilmington\"\n        },\n        {\n            \"id\": \"317-Elwyn\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.94328\",\n            \"lon\": \"-75.21604\",\n            \"nextstop\": \"Angora\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"318-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"2\",\n            \"lat\": \"40.196485\",\n            \"lon\": \"-74.884325\",\n            \"nextstop\": \"Yardley\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"319-Elwyn\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.16076\",\n            \"lon\": \"-74.91279\",\n            \"nextstop\": \"Neshaminy Falls\",\n            \"source\": \"West Trenton\",\n            \"dest\": \"Elwyn\"\n        },\n        {\n            \"id\": \"320-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.9538889\",\n            \"lon\": \"-75.1677778\",\n            \"nextstop\": \"Jefferson Station\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"322-West Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.90580\",\n            \"lon\": \"-75.41458\",\n            \"nextstop\": \"Media\",\n            \"source\": \"Elwyn\",\n            \"dest\": \"West Trenton\"\n        },\n        {\n            \"id\": \"440-Warminster\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.98060\",\n            \"lon\": \"-75.14987\",\n            \"nextstop\": \"Wayne Jct\",\n            \"source\": \"Airport\",\n            \"dest\": \"Warminster\"\n        },\n        {\n            \"id\": \"445-Airport\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.95261\",\n            \"lon\": \"-75.15925\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Warminster\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"528-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.24288\",\n            \"lon\": \"-75.28579\",\n            \"nextstop\": \"9th St\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"532-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"39.95482\",\n            \"lon\": \"-75.17201\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"533-Malvern\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"4\",\n            \"lat\": \"40.10111\",\n            \"lon\": \"-75.15343\",\n            \"nextstop\": \"Jenkintown-Wyncote\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"536-Doylestown\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.0343\",\n            \"lon\": \"-75.55851\",\n            \"nextstop\": \"Malvern\",\n            \"source\": \"Malvern\",\n            \"dest\": \"Doylestown\"\n        },\n        {\n            \"id\": \"537-Malvern\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.30580\",\n            \"lon\": \"-75.13080\",\n            \"nextstop\": \"Delaware Valley College\",\n            \"source\": \"Doylestown\",\n            \"dest\": \"Malvern\"\n        },\n        {\n            \"id\": \"716-Chestnut H East\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.07383\",\n            \"lon\": \"-75.19783\",\n            \"nextstop\": \"Gravers\",\n            \"source\": \"Jefferson\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"718-Chestnut H East\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"0\",\n            \"lat\": \"40.07195\",\n            \"lon\": \"-74.95173\",\n            \"nextstop\": \"Torresdale\",\n            \"source\": \"Trenton\",\n            \"dest\": \"Chestnut H East\"\n        },\n        {\n            \"id\": \"719-Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"2\",\n            \"lat\": \"40.07195\",\n            \"lon\": \"-74.95173\",\n            \"nextstop\": \"Croydon\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"721-Trenton\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"1\",\n            \"lat\": \"40.03613\",\n            \"lon\": \"-75.16215\",\n            \"nextstop\": \"Wayne Jct\",\n            \"source\": \"Chestnut H East\",\n            \"dest\": \"Trenton\"\n        },\n        {\n            \"id\": \"9442-Temple U\",\n            \"time\": \"2017-08-27T15:19:17\",\n            \"late\": \"3\",\n            \"lat\": \"39.89278\",\n            \"lon\": \"-75.24421\",\n            \"nextstop\": \"University City\",\n            \"source\": \"Airport\",\n            \"dest\": \"Temple U\"\n        },\n        {\n            \"id\": \"9443-Airport\",\n            \"time\": \"2017-08-27T15:18:27\",\n            \"late\": \"0\",\n            \"lat\": \"39.87611\",\n            \"lon\": \"-75.2453\",\n            \"nextstop\": \"Airport Terminal B\",\n            \"source\": \"Temple U\",\n            \"dest\": \"Airport\"\n        }\n    ]\n}\n"
+            "data": "\nurl: String \u003d https://www.septastats.com/api/current/system/latest\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult: String \u003d\n{\n    \"metadata\": {\n        \"elapsed\": 0.19071817398071,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"401-Airport\",\n            \"time\": \"2017-09-30T04:19:33\",\n            \"late\": \"0\",\n            \"lat\": \"39.9527195695\",\n            \"lon\": \"-75.1588699975\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Fern Rock TC\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"403-Airport\",\n            \"time\": \"2017-09-30T04:19:33\",\n            \"late\": \"16\",\n            \"lat\": \"40.10111\",\n            \"lon\": \"-75.15343\",\n            \"nextstop\": \"Glenside\",\n            \"source\": \"Glenside\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"9740-Temple U\",\n    ...{\n    \"metadata\": {\n        \"elapsed\": 0.19071817398071,\n        \"_comment\": \"Info on all currently running trains.\"\n    },\n    \"data\": [\n        {\n            \"id\": \"401-Airport\",\n            \"time\": \"2017-09-30T04:19:33\",\n            \"late\": \"0\",\n            \"lat\": \"39.9527195695\",\n            \"lon\": \"-75.1588699975\",\n            \"nextstop\": \"Suburban Station\",\n            \"source\": \"Fern Rock TC\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"403-Airport\",\n            \"time\": \"2017-09-30T04:19:33\",\n            \"late\": \"16\",\n            \"lat\": \"40.10111\",\n            \"lon\": \"-75.15343\",\n            \"nextstop\": \"Glenside\",\n            \"source\": \"Glenside\",\n            \"dest\": \"Airport\"\n        },\n        {\n            \"id\": \"9740-Temple U\",\n            \"time\": \"2017-09-30T04:18:43\",\n            \"late\": \"76\",\n            \"lat\": \"39.98060\",\n            \"lon\": \"-75.14987\",\n            \"nextstop\": \"Temple U\",\n            \"source\": \"Temple U\",\n            \"dest\": \"Temple U\"\n        }\n    ]\n}\n"
           }
         ]
       },
@@ -907,8 +907,8 @@
       "jobName": "paragraph_1502648435583_-1443974556",
       "id": "20170813-182035_2110339470",
       "dateCreated": "Aug 13, 2017 6:20:35 PM",
-      "dateStarted": "Aug 26, 2017 1:49:17 PM",
-      "dateFinished": "Aug 26, 2017 1:49:19 PM",
+      "dateStarted": "Sep 30, 2017 8:19:47 AM",
+      "dateFinished": "Sep 30, 2017 8:19:56 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -916,7 +916,7 @@
       "title": "Parse api output to json",
       "text": "%spark\n\ncase class Steps(id:String,time:String,late:String,lat:String,lon:String,nextstop:String,source:String,dest:String)\ncase class ActivitiesStep(`data`: Seq[Steps])\n\nimport org.json4s.{DefaultFormats, JString}\nimport org.json4s.JsonAST.{JArray, JObject}\nimport scalaj.http.{Http, Token, HttpResponse}\nimport org.json4s.native.JsonMethods._\n\nimplicit val formats \u003d DefaultFormats\n\nval jsonResponse \u003d parse(result)\nval activitiesStep \u003d jsonResponse.extract[ActivitiesStep]\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 1:49:24 PM",
+      "dateUpdated": "Sep 30, 2017 8:20:18 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -937,7 +937,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@528db4fe\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.18904089927673)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List(JObject(List((id,JString(216-Norristown)), (time,JString(2017-08-27T15:17:37)), (late,JString(0)), (lat,JString(40.12229)), (lon,JString(-75.34517)), (nextstop,JString(Elm St)), (source,JString(Marcus Hook)), (dest,JString(Norristown)))), JObject(List((id,JString(218-Norristown)), (time,JString(2017-08-27T15:19:17)), (late,JString(0)), (lat,JString(39.929807)), (lon,JString(-75.224136)), (nextstop,JString(University City)), (source,JString(Wilmington)), (dest,JString(Norristown)))), JObject(List((id,JString(219-Marcus Hook)), (time,JString(2017-08-27T15:15:56)), (late,JString(5)), (lat,JString(39.824676...activitiesStep: ActivitiesStep \u003d ActivitiesStep(List(Steps(216-Norristown,2017-08-27T15:17:37,0,40.12229,-75.34517,Elm St,Marcus Hook,Norristown), Steps(218-Norristown,2017-08-27T15:19:17,0,39.929807,-75.224136,University City,Wilmington,Norristown), Steps(219-Marcus Hook,2017-08-27T15:15:56,5,39.824676,-75.412845,Marcus Hook,Norristown,Marcus Hook), Steps(221-Wilmington,2017-08-27T15:19:17,0,39.99740,-75.15719,North Broad St,Norristown,Wilmington), Steps(317-Elwyn,2017-08-27T15:19:17,0,39.94328,-75.21604,Angora,West Trenton,Elwyn), Steps(318-West Trenton,2017-08-27T15:19:17,2,40.196485,-74.884325,Yardley,Elwyn,West Trenton), Steps(319-Elwyn,2017-08-27T15:19:17,0,40.16076,-74.91279,Neshaminy Falls,West Trenton,Elwyn), Steps(320-West Trenton,2017-08-27T15:19:17,0,39.9538889,-75.1677778,J..."
+            "data": "\ndefined class Steps\n\ndefined class ActivitiesStep\n\nimport org.json4s.{DefaultFormats, JString}\n\nimport org.json4s.JsonAST.{JArray, JObject}\n\nimport scalaj.http.{Http, Token, HttpResponse}\n\nimport org.json4s.native.JsonMethods._\n\nformats: org.json4s.DefaultFormats.type \u003d org.json4s.DefaultFormats$@7ab29ec9\njsonResponse: org.json4s.JValue \u003d JObject(List((metadata,JObject(List((elapsed,JDouble(0.19071817398071)), (_comment,JString(Info on all currently running trains.))))), (data,JArray(List(JObject(List((id,JString(401-Airport)), (time,JString(2017-09-30T04:19:33)), (late,JString(0)), (lat,JString(39.9527195695)), (lon,JString(-75.1588699975)), (nextstop,JString(Suburban Station)), (source,JString(Fern Rock TC)), (dest,JString(Airport)))), JObject(List((id,JString(403-Airport)), (time,JString(2017-09-30T04:19:33)), (late,JString(16)), (lat,JString(40.10111)), (lon,JString(-75.15343)), (nextstop,JString(Glenside)), (source,JString(Glenside)), (dest,JString(Airport)))), JObject(List((id,JString(9740-Temple U)), (time,JString(2017-09-30T04:18:43)), (late,JString(76)), (lat,JString(39.98060)),...\nactivitiesStep: ActivitiesStep \u003d ActivitiesStep(List(Steps(401-Airport,2017-09-30T04:19:33,0,39.9527195695,-75.1588699975,Suburban Station,Fern Rock TC,Airport), Steps(403-Airport,2017-09-30T04:19:33,16,40.10111,-75.15343,Glenside,Glenside,Airport), Steps(9740-Temple U,2017-09-30T04:18:43,76,39.98060,-75.14987,Temple U,Temple U,Temple U)))\n"
           }
         ]
       },
@@ -945,8 +945,8 @@
       "jobName": "paragraph_1502648580083_-30624925",
       "id": "20170813-182300_1103961718",
       "dateCreated": "Aug 13, 2017 6:23:00 PM",
-      "dateStarted": "Aug 26, 2017 1:49:24 PM",
-      "dateFinished": "Aug 26, 2017 1:49:26 PM",
+      "dateStarted": "Sep 30, 2017 8:20:18 AM",
+      "dateFinished": "Sep 30, 2017 8:20:21 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1001,7 +1001,7 @@
       "title": "Great lets convert to Spark DF",
       "text": "%spark\n \nval df \u003d activitiesStep.`data`.toDF //ToDF is possible even within scala sequences or lists due to the implicits functionality scala provides, and is implemented in scala implicits lib\n\nz.put(\"df\", df) //lets save in zeppelin context so other interpreters can use the data, eg angular",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:56:57 AM",
+      "dateUpdated": "Sep 30, 2017 8:25:48 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1030,15 +1030,15 @@
       "jobName": "paragraph_1502652361567_1378459350",
       "id": "20170813-192601_2085468738",
       "dateCreated": "Aug 13, 2017 7:26:01 PM",
-      "dateStarted": "Aug 26, 2017 1:49:37 PM",
-      "dateFinished": "Aug 26, 2017 1:49:37 PM",
+      "dateStarted": "Sep 30, 2017 8:25:48 AM",
+      "dateFinished": "Sep 30, 2017 8:25:50 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "df.registerTempTable(\"myMap\")",
       "user": "anonymous",
-      "dateUpdated": "Aug 31, 2017 1:56:33 AM",
+      "dateUpdated": "Sep 30, 2017 8:25:54 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1066,8 +1066,8 @@
       "jobName": "paragraph_1502695300268_-1517879309",
       "id": "20170814-072140_551585768",
       "dateCreated": "Aug 14, 2017 7:21:40 AM",
-      "dateStarted": "Aug 26, 2017 1:49:42 PM",
-      "dateFinished": "Aug 26, 2017 1:49:42 PM",
+      "dateStarted": "Sep 30, 2017 8:25:54 AM",
+      "dateFinished": "Sep 30, 2017 8:25:54 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1120,7 +1120,7 @@
       "title": "First create empty map listening to updates",
       "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"map\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027map\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#map\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-      "dateUpdated": "Sep 9, 2017 5:35:12 PM",
+      "dateUpdated": "Sep 30, 2017 8:25:24 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1130,8 +1130,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": false,
-        "tableHide": true,
+        "editorHide": true,
+        "tableHide": false,
         "title": true
       },
       "settings": {
@@ -1151,8 +1151,8 @@
       "jobName": "paragraph_1502694855709_-749932539",
       "id": "20170814-071415_1932225156",
       "dateCreated": "Aug 14, 2017 7:14:15 AM",
-      "dateStarted": "Aug 27, 2017 10:33:35 PM",
-      "dateFinished": "Aug 27, 2017 10:33:35 PM",
+      "dateStarted": "Sep 30, 2017 8:25:24 AM",
+      "dateFinished": "Sep 30, 2017 8:25:25 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1160,7 +1160,7 @@
       "title": "Plot points on the map",
       "text": "val map_pings \u003d spark.sql(\"select concat(id,\u0027 (late: \u0027,late,\u0027 mins, time: \u0027,time,\u0027 )\u0027) as desc,lat,lon as lng from myMap\")\n//map_pings.write.json(\"trainfile.json\")\n//z.angularUnbind(\"locations\")\nz.angularBind(\"locations\", map_pings.collect())\n",
       "user": "anonymous",
-      "dateUpdated": "Aug 26, 2017 1:50:08 PM",
+      "dateUpdated": "Sep 30, 2017 8:26:05 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1189,8 +1189,8 @@
       "jobName": "paragraph_1503143093401_-461188555",
       "id": "20170819-114453_647379419",
       "dateCreated": "Aug 19, 2017 11:44:53 AM",
-      "dateStarted": "Aug 26, 2017 1:50:08 PM",
-      "dateFinished": "Aug 26, 2017 1:50:08 PM",
+      "dateStarted": "Sep 30, 2017 8:26:05 AM",
+      "dateFinished": "Sep 30, 2017 8:26:06 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1906,7 +1906,7 @@
       "title": "Create spark DF with wine data",
       "text": "val wine \u003d sc.textFile(\"file:///usr/zeppelin/wine.data\")\nval df \u003d wine.toDF()\ndf.take(10).mkString(\"\\n\")\ndf.registerTempTable(\"wine\")",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 1:34:40 PM",
+      "dateUpdated": "Sep 30, 2017 9:10:32 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1935,8 +1935,8 @@
       "jobName": "paragraph_1503944011663_1512314835",
       "id": "20170828-181331_1573755739",
       "dateCreated": "Aug 28, 2017 6:13:31 PM",
-      "dateStarted": "Sep 29, 2017 1:34:41 PM",
-      "dateFinished": "Sep 29, 2017 1:34:59 PM",
+      "dateStarted": "Sep 30, 2017 9:10:32 AM",
+      "dateFinished": "Sep 30, 2017 9:10:49 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1982,7 +1982,7 @@
       "title": "Lets create a case class for wine schema",
       "text": "case class Wine(Alcohol: Float, \nMalicAcid:Float,\nAsh:Float,\nAlcalinityOfAsh:Float,  \nMagnesium:Float,\nTotalPhenols:Float,\nFlavanoids:Float,\nNonflavanoidPhenols:Float,\nProanthocyanins:Float,\nColorIntensity:Float,\nHue:Float,\nOD280:Float,\nProline:Float)\n\nval df \u003d wine.map({ line \u003d\u003e\n         line.split(\",\")\n        }).map({s\u003d\u003e  Wine(s(0).toFloat, s(1).toFloat, s(2).toFloat, s(3).toFloat, s(4).toFloat, s(5).toFloat, s(6).toFloat, s(7).toFloat, s(8).toFloat, s(9).toFloat, s(10).toFloat, s(11).toFloat, s(12).toFloat)}).toDF()\n        \n df.registerTempTable(\"wine\")\n        ",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 1:35:45 PM",
+      "dateUpdated": "Sep 30, 2017 9:10:56 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2011,8 +2011,8 @@
       "jobName": "paragraph_1503944263005_1352424046",
       "id": "20170828-181743_1356032353",
       "dateCreated": "Aug 28, 2017 6:17:43 PM",
-      "dateStarted": "Sep 29, 2017 1:35:45 PM",
-      "dateFinished": "Sep 29, 2017 1:35:47 PM",
+      "dateStarted": "Sep 30, 2017 9:10:56 AM",
+      "dateFinished": "Sep 30, 2017 9:10:58 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2020,7 +2020,7 @@
       "title": "Wine is now beautiful",
       "text": "%sql\nselect malicAcid,magnesium from wine order by malicAcid limit 100",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 1:35:53 PM",
+      "dateUpdated": "Sep 30, 2017 9:11:24 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2079,8 +2079,8 @@
       "jobName": "paragraph_1503944335621_-1938809990",
       "id": "20170828-181855_808283025",
       "dateCreated": "Aug 28, 2017 6:18:55 PM",
-      "dateStarted": "Sep 29, 2017 1:35:51 PM",
-      "dateFinished": "Sep 29, 2017 1:35:52 PM",
+      "dateStarted": "Sep 30, 2017 9:11:24 AM",
+      "dateFinished": "Sep 30, 2017 9:11:24 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2273,11 +2273,7 @@
       "title": "Print zeppelin array in custom table",
       "text": "%angular \n\u003ch3\u003eComparison\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003ecolumn\u003c/th\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n        \u003cth\u003ecustom message\u003c/th\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eBuilt-in visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e\n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline front-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003eInline back-end rendering visualization\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:firebrick; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e\u003c/td\u003e        \n    \u003c/tr\u003e       \n    \u003ctr\u003e\n        \u003ctd class\u003d\"visName\"\u003ePackaged visualization (Helium)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (향후 지원)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-check\" style\u003d\"color:green; font-size:30px\"\u003e\u003c/i\u003e (구현에 따라서)\u003c/td\u003e\n        \u003ctd class\u003d\"visValue\"\u003e\u003ci class\u003d\"fa fa-remove\" style\u003d\"color:sandybrown; font-size:30px\"\u003e\u003c/i\u003e (소스코드 수정해서 다시빌드)\u003c/td\u003e        \n    \u003c/tr\u003e   \n    \u003ctr ng-repeat\u003d\"(key, val) in wordcount\"\u003e\n    \u003ctd  class\u003d\"visName\"\u003eRanking: {{key + 1}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue style\u003d\"color:green; font-size:30px\"\"\u003e{{val.values[0]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\" style\u003d\"color:green; font-size:30px\"\u003e{{val.values[1]}}\u003c/td\u003e\n    \u003ctd class\u003d\"visValue\"\u003e grtz, Michel\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e",
       "user": "anonymous",
-<<<<<<< HEAD
       "dateUpdated": "Sep 29, 2017 1:37:45 PM",
-=======
-      "dateUpdated": "Sep 9, 2017 5:36:23 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2287,8 +2283,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-        "editorHide": false,
-        "tableHide": true,
+        "editorHide": true,
+        "tableHide": false,
         "title": true
       },
       "settings": {
@@ -2308,13 +2304,8 @@
       "jobName": "paragraph_1503945940546_-142346809",
       "id": "20170828-184540_2041823016",
       "dateCreated": "Aug 28, 2017 6:45:40 PM",
-<<<<<<< HEAD
       "dateStarted": "Sep 29, 2017 1:37:45 PM",
       "dateFinished": "Sep 29, 2017 1:37:45 PM",
-=======
-      "dateStarted": "Sep 9, 2017 5:25:14 PM",
-      "dateFinished": "Sep 9, 2017 5:25:16 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2753,11 +2744,7 @@
       "title": "twitter streaming dependency",
       "text": "%dep\n\nz.reset\nz.load(\"org.apache.bahir:spark-streaming-twitter_2.11:2.0.0\")\n",
       "user": "anonymous",
-<<<<<<< HEAD
-      "dateUpdated": "Sep 11, 2017 7:34:20 AM",
-=======
-      "dateUpdated": "Sep 10, 2017 1:25:54 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:48:25 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2778,11 +2765,7 @@
         "msg": [
           {
             "type": "TEXT",
-<<<<<<< HEAD
-            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@541b8ae8\n"
-=======
-            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@11b89e3f\n"
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@109572b9\n"
           }
         ]
       },
@@ -2790,28 +2773,16 @@
       "jobName": "paragraph_1504963170908_999781980",
       "id": "20170909-131930_195818729",
       "dateCreated": "Sep 9, 2017 1:19:30 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 11, 2017 7:34:20 AM",
-      "dateFinished": "Sep 11, 2017 7:34:28 AM",
-=======
-      "dateStarted": "Sep 10, 2017 1:25:55 PM",
-      "dateFinished": "Sep 10, 2017 1:26:02 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateStarted": "Sep 30, 2017 8:48:25 AM",
+      "dateFinished": "Sep 30, 2017 8:48:33 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-<<<<<<< HEAD
       "title": "twitter credentials",
       "text": "def $(s:String) \u003d sys.env(s)\nSystem.setProperty(\"twitter4j.oauth.consumerKey\", \"DXNWTdHn5032Djxa9C9000eU1\")\nSystem.setProperty(\"twitter4j.oauth.consumerSecret\", \"osfkZIaZMytiH8l607BL2xqJsgSfdJtuad88pj6aBkZ6qXIDOB\")\nSystem.setProperty(\"twitter4j.oauth.accessToken\", \"22527477-KwrazAC1wwkzlkiWZcdrGDr1oUQUExeKpanA3BBlr\")\nSystem.setProperty(\"twitter4j.oauth.accessTokenSecret\", \"rmrOLaEAz3xyOYDMr4Vn7ATgzDcNElNyicqNDkWfCQ8N0\")\n\"twitter settings done!\"\n\n",
       "user": "anonymous",
-      "dateUpdated": "Sep 11, 2017 7:34:36 AM",
-=======
-      "title": "twitter credentials FILL IN YOUR OWN",
-      "text": "def $(s:String) \u003d sys.env(s)\nSystem.setProperty(\"twitter4j.oauth.consumerKey\", \"a\")\nSystem.setProperty(\"twitter4j.oauth.consumerSecret\", \"b\")\nSystem.setProperty(\"twitter4j.oauth.accessToken\", \"c\")\nSystem.setProperty(\"twitter4j.oauth.accessTokenSecret\", \"d\")\n\"twitter settings done!\"\n\n",
-      "user": "anonymous",
-      "dateUpdated": "Sep 10, 2017 2:09:02 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:48:35 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2834,11 +2805,7 @@
         "msg": [
           {
             "type": "TEXT",
-<<<<<<< HEAD
             "data": "\n$: (s: String)String\n\nres0: String \u003d null\n\nres1: String \u003d null\n\nres2: String \u003d null\n\nres3: String \u003d null\n\nres4: String \u003d twitter settings done!\n"
-=======
-            "data": "\n$: (s: String)String\n\nres295: String \u003d a\n\nres296: String \u003d b\n\nres297: String \u003d c\n\nres298: String \u003d d\n\nres299: String \u003d twitter settings done!\n"
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
           }
         ]
       },
@@ -2846,13 +2813,8 @@
       "jobName": "paragraph_1504963027558_-624074561",
       "id": "20170909-131707_1931706369",
       "dateCreated": "Sep 9, 2017 1:17:07 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 11, 2017 7:34:36 AM",
-      "dateFinished": "Sep 11, 2017 7:34:44 AM",
-=======
-      "dateStarted": "Sep 10, 2017 2:09:02 PM",
-      "dateFinished": "Sep 10, 2017 2:09:04 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateStarted": "Sep 30, 2017 8:48:35 AM",
+      "dateFinished": "Sep 30, 2017 8:48:43 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -2860,11 +2822,7 @@
       "title": "realtime html table top twitter (after starting next section)",
       "text": "%angular\n\n\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027wordcounts\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-<<<<<<< HEAD
-      "dateUpdated": "Sep 11, 2017 8:17:09 AM",
-=======
-      "dateUpdated": "Sep 10, 2017 12:49:44 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:40:25 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2874,13 +2832,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/undefined",
-<<<<<<< HEAD
         "editorHide": true,
         "tableHide": false,
-=======
-        "editorHide": false,
-        "tableHide": true,
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
         "title": true
       },
       "settings": {
@@ -2892,11 +2845,7 @@
         "msg": [
           {
             "type": "ANGULAR",
-<<<<<<< HEAD
             "data": "\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027wordcounts\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
-=======
-            "data": "\u003ch3\u003eTwitter top word realtime (C) 2017 Michel Nossin\u003c/h3\u003e\n\u003cstyle\u003e\n\n#comparisonTable td {\n    padding : 3px 3px 3px 3px;\n    border: 2px solid white;\n}\n#comparisonTable th {\n    background-color: #efefff;\n    padding : 3px 5px 3px 5px;\n    border: 2px solid white;\n    text-align: center;\n    font-size: 18px;\n}\n\n#comparisonTable .visName {\n    font-size: 18px;\n    background-color: #efefff;    \n}\n\n#comparisonTable .visValue {\n    font-size: 18px;\n    background-color: #ffffff;\n    padding : 3px 3px 3px 70px;\n}\n\n\u003c/style\u003e\n\n\u003ctable id\u003d\"comparisonTable\"\u003e\n    \u003ctr\u003e\n        \u003cth\u003eword\u003c/th\u003e\n        \u003cth\u003ewordcount\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003cdiv id\u003d\"map6\"\u003e\u003c/div\u003e\n\u003c/table\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    \n    var el \u003d angular.element($(\u0027#map6\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            document.getElementById(\"map6\").innerHTML \u003d \"\"\n            angular.forEach(newValue, function(event) {\n                if (event) {\n                   var stars  \u003d new Array(event.values[1] * 4 + 1).join( \"*\" )\n                  document.getElementById(\"map6\").innerHTML \u003d document.getElementById(\"map6\").innerHTML + \u0027\u003ctr\u003e\u003ctd\u003e\u003ch4\u003e\u0027 + event.values[0] + \u0027 (\u0027 + event.values[1] + \u0027)\u003c/h4\u003e\u003c/td\u003e\u003ctd\u003e\u003ch5\u003e\u0027 + stars + \u0027\u003c/h5\u003e\u003c/td\u003e\u003c/tr\u003e\u0027\n                  }\n            });\n     \n        })\n    });\n}\n\n\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
           }
         ]
       },
@@ -2904,27 +2853,16 @@
       "jobName": "paragraph_1504993072975_2039071140",
       "id": "20170909-213752_1741996996",
       "dateCreated": "Sep 9, 2017 9:37:52 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 11, 2017 8:17:09 AM",
-      "dateFinished": "Sep 11, 2017 8:17:09 AM",
-=======
-      "dateStarted": "Sep 10, 2017 12:39:47 PM",
-      "dateFinished": "Sep 10, 2017 12:39:47 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateStarted": "Sep 30, 2017 8:40:25 AM",
+      "dateFinished": "Sep 30, 2017 8:40:25 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Lets print top hashtag words in particular filtered context",
-<<<<<<< HEAD
-      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"wordcounts\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"trump\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None, filters)\nval hashTags \u003d twitterStream.flatMap(status \u003d\u003e status.getText.split(\" \")) //.filter(_.startsWith(\"#\")))\nval topCounts \u003d hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(1))\n                          .map{case (word, count) \u003d\u003e (count, word)}\n                          .transform(_.sortByKey(false))\n\n// Print the first ten elements of each RDD generated in this DStream to the console\n//topCounts60.print()\ntopCounts.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"count\",\"word\")\n    df.registerTempTable(\"wordcount\")   \n    val df2 \u003d spark.sql(\"select word,count from wordcount order by count desc limit 10\")\n    z.angularBind(\"wordcounts\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
+      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"wordcounts\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"weather\",\"Weather\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None, filters)\nval hashTags \u003d twitterStream.flatMap(status \u003d\u003e status.getText.split(\" \")) //.filter(_.startsWith(\"#\")))\nval topCounts \u003d hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(1))\n                          .map{case (word, count) \u003d\u003e (count, word)}\n                          .transform(_.sortByKey(false))\n\n// Print the first ten elements of each RDD generated in this DStream to the console\n//topCounts60.print()\ntopCounts.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"count\",\"word\")\n    df.registerTempTable(\"wordcount\")   \n    val df2 \u003d spark.sql(\"select word,count from wordcount order by count desc limit 10\")\n    z.angularBind(\"wordcounts\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
       "user": "anonymous",
-      "dateUpdated": "Sep 12, 2017 10:00:23 PM",
-=======
-      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"wordcounts\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"irma\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None, filters)\nval hashTags \u003d twitterStream.flatMap(status \u003d\u003e status.getText.split(\" \")) //.filter(_.startsWith(\"#\")))\nval topCounts \u003d hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(1))\n                          .map{case (word, count) \u003d\u003e (count, word)}\n                          .transform(_.sortByKey(false))\n\n// Print the first ten elements of each RDD generated in this DStream to the console\n//topCounts60.print()\ntopCounts.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"count\",\"word\")\n    df.registerTempTable(\"wordcount\")   \n    val df2 \u003d spark.sql(\"select word,count from wordcount order by count desc limit 10\")\n    z.angularBind(\"wordcounts\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
-      "user": "anonymous",
-      "dateUpdated": "Sep 10, 2017 1:14:26 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:45:09 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -2941,19 +2879,11 @@
         "forms": {}
       },
       "results": {
-<<<<<<< HEAD
         "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@528e481f\n\nfilters: Array[String] \u003d Array(trump)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@39d74555\n\nhashTags: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@46227a5f\n\ntopCounts: org.apache.spark.streaming.dstream.DStream[(Int, String)] \u003d org.apache.spark.streaming.dstream.TransformedDStream@1ae632eb\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n\nres56: Boolean \u003d false\n"
-=======
-        "code": "ERROR",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@2aafd02e\n\nfilters: Array[String] \u003d Array(irma)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@5b010097\n\nhashTags: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@29f0c8d2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njava.lang.IllegalStateException: Cannot call methods on a stopped SparkContext.\nThis stopped SparkContext was created at:\n\norg.apache.spark.sql.SparkSession$Builder.getOrCreate(SparkSession.scala:860)\nsun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\nsun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\nsun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\njava.lang.reflect.Method.invoke(Method.java:498)\norg.apache.zeppelin.spark.Utils.invokeMethod(Utils.java:38)\norg.apache.zeppelin.spark.Utils.invokeMethod(Utils.java:33)\norg.apache.zeppelin.spark.SparkInterpreter.createSparkSession(SparkInterpreter.java:367)\norg.apache.zeppelin.spark.SparkInterpreter.getSparkSession(SparkInterpreter.java:233)\norg.apache.zeppelin.spark.SparkInterpreter.open(SparkInterpreter.java:826)\norg.apache.zeppelin.interpreter.LazyOpenInterpreter.open(LazyOpenInterpreter.java:70)\norg.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:491)\norg.apache.zeppelin.scheduler.Job.run(Job.java:175)\norg.apache.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:139)\njava.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\njava.util.concurrent.FutureTask.run(FutureTask.java:266)\njava.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\njava.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\njava.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\njava.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\nThe currently active SparkContext was created at:\n\n(No active SparkContext.)\n\n  at org.apache.spark.SparkContext.assertNotStopped(SparkContext.scala:100)\n  at org.apache.spark.SparkContext.defaultParallelism(SparkContext.scala:2133)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions.defaultPartitioner$default$1(PairDStreamFunctions.scala:44)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions$$anonfun$reduceByKeyAndWindow$1.apply(PairDStreamFunctions.scala:215)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions$$anonfun$reduceByKeyAndWindow$1.apply(PairDStreamFunctions.scala:215)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.SparkContext.withScope(SparkContext.scala:701)\n  at org.apache.spark.streaming.StreamingContext.withScope(StreamingContext.scala:264)\n  at org.apache.spark.streaming.dstream.PairDStreamFunctions.reduceByKeyAndWindow(PairDStreamFunctions.scala:214)\n  ... 170 elided\n"
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@49e91f0f\n\nfilters: Array[String] \u003d Array(weather, Weather)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@1b5ce65d\n\nhashTags: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@34df13ea\n\ntopCounts: org.apache.spark.streaming.dstream.DStream[(Int, String)] \u003d org.apache.spark.streaming.dstream.TransformedDStream@716a5afe\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n\nres56: Boolean \u003d false\n"
           }
         ]
       },
@@ -2961,26 +2891,16 @@
       "jobName": "paragraph_1504976705673_568300251",
       "id": "20170909-170505_431589814",
       "dateCreated": "Sep 9, 2017 5:05:05 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 12, 2017 10:00:26 PM",
-      "dateFinished": "Sep 12, 2017 8:06:47 PM",
+      "dateStarted": "Sep 30, 2017 8:45:10 AM",
+      "dateFinished": "Sep 30, 2017 8:45:43 AM",
       "status": "FINISHED",
-=======
-      "dateStarted": "Sep 10, 2017 1:14:26 PM",
-      "dateFinished": "Sep 10, 2017 1:14:37 PM",
-      "status": "ERROR",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Create map to plot twitter tweets realtime (6 sec refresh, keep 1 minute)",
       "text": "%angular\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt\" style\u003d\"height: 500px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt\u0027).setView([30.00, -30.00], 3);\n    L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    var geoMarkers \u003d L.layerGroup().addTo(map);\n    \n    var el \u003d angular.element($(\u0027#mapt\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027locations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers();\n            angular.forEach(newValue, function(event) {\n                if (event)\n                  var marker \u003d L.marker([event.values[1], event.values[2]]).bindPopup(event.values[0]).addTo(geoMarkers);\n            });\n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e",
       "user": "anonymous",
-<<<<<<< HEAD
-      "dateUpdated": "Sep 11, 2017 7:20:06 AM",
-=======
-      "dateUpdated": "Sep 10, 2017 1:58:17 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:49:04 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -3011,27 +2931,16 @@
       "jobName": "paragraph_1505051171070_-1247763205",
       "id": "20170910-134611_1388177786",
       "dateCreated": "Sep 10, 2017 1:46:11 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 11, 2017 7:20:06 AM",
-      "dateFinished": "Sep 11, 2017 7:20:06 AM",
-=======
-      "dateStarted": "Sep 10, 2017 1:58:17 PM",
-      "dateFinished": "Sep 10, 2017 1:58:17 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateStarted": "Sep 30, 2017 8:49:04 AM",
+      "dateFinished": "Sep 30, 2017 8:49:04 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Lets get geo locations from twitter stream",
-<<<<<<< HEAD
       "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"locations\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"hurricane\",\"irma\",\"Irma\",\"storm\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None)//, filters)\n\nval locs \u003d twitterStream.window(Seconds(60),Seconds(6)).filter { s \u003d\u003e s.getGeoLocation() !\u003d null \u0026\u0026 s.getGeoLocation().getLatitude() !\u003d null \u0026\u0026 s.getGeoLocation().getLongitude() !\u003d null }\n    .map(s \u003d\u003e (s.getText() ,s.getGeoLocation().getLatitude(),  s.getGeoLocation().getLongitude() ))\n\nlocs.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"text\",\"lat\",\"lon\")\n    df.registerTempTable(\"locations\")\n    //df.collect.foreach(t \u003d\u003e println(t))\n    val df2 \u003d spark.sql(\"select text as desc,lat,lon as lng from locations limit 10\")\n    df2.show\n    z.angularBind(\"locations\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
       "user": "anonymous",
-      "dateUpdated": "Sep 11, 2017 7:26:47 AM",
-=======
-      "text": "import org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\nimport twitter4j.conf.ConfigurationBuilder\n\nz.angularUnbind(\"locations\")\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Seconds(1))\nval filters \u003d Array(\"hurricane\")\nval twitterStream \u003d TwitterUtils.createStream(ssc, None)//, filters)\n\nval locs \u003d twitterStream.window(Seconds(60),Seconds(6)).filter { s \u003d\u003e s.getGeoLocation() !\u003d null \u0026\u0026 s.getGeoLocation().getLatitude() !\u003d null \u0026\u0026 s.getGeoLocation().getLongitude() !\u003d null }\n    .map(s \u003d\u003e (s.getText() ,s.getGeoLocation().getLatitude(),  s.getGeoLocation().getLongitude() ))\n\nlocs.foreachRDD { rdd \u003d\u003e \n    val df \u003d rdd.toDF(\"text\",\"lat\",\"lon\")\n    df.registerTempTable(\"locations\")\n    //df.collect.foreach(t \u003d\u003e println(t))\n    val df2 \u003d spark.sql(\"select text as desc,lat,lon as lng from locations limit 10\")\n    df2.show\n    z.angularBind(\"locations\",df2.collect())\n\n\n}\n\nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. This will put this cell on hold for 5 times the batchIntervalSeconds.\nssc.awaitTerminationOrTimeout(20000)",
-      "user": "anonymous",
-      "dateUpdated": "Sep 10, 2017 2:01:58 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateUpdated": "Sep 30, 2017 8:49:29 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -3052,11 +2961,7 @@
         "msg": [
           {
             "type": "TEXT",
-<<<<<<< HEAD
-            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@44c0278c\n\nfilters: Array[String] \u003d Array(hurricane, irma, Irma, storm)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@25d91881\n\nlocs: org.apache.spark.streaming.dstream.DStream[(String, Double, Double)] \u003d org.apache.spark.streaming.dstream.MappedDStream@26fd275\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n\nres64: Boolean \u003d false\n"
-=======
-            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@34756226\n\nfilters: Array[String] \u003d Array(hurricane)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@16823c0e\n\nlocs: org.apache.spark.streaming.dstream.DStream[(String, Double, Double)] \u003d org.apache.spark.streaming.dstream.MappedDStream@5fdfa600\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n\nres289: Boolean \u003d false\n"
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.SparkContext._\n\nimport org.apache.spark.streaming.twitter._\n\nimport twitter4j.auth.OAuthAuthorization\n\nimport twitter4j.conf.ConfigurationBuilder\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@6c9a6124\n\nfilters: Array[String] \u003d Array(hurricane, irma, Irma, storm)\n\ntwitterStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[twitter4j.Status] \u003d org.apache.spark.streaming.twitter.TwitterInputDStream@5d1a9c1a\n\nlocs: org.apache.spark.streaming.dstream.DStream[(String, Double, Double)] \u003d org.apache.spark.streaming.dstream.MappedDStream@77c19703\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n+----+---+---+\n|desc|lat|lng|\n+----+---+---+\n+----+---+---+\n\n\nres16: Boolean \u003d false\n"
           }
         ]
       },
@@ -3064,20 +2969,15 @@
       "jobName": "paragraph_1505049242538_629957338",
       "id": "20170910-131402_796488650",
       "dateCreated": "Sep 10, 2017 1:14:02 PM",
-<<<<<<< HEAD
-      "dateStarted": "Sep 11, 2017 7:26:47 AM",
-      "dateFinished": "Sep 11, 2017 7:27:11 AM",
-=======
-      "dateStarted": "Sep 10, 2017 1:59:15 PM",
-      "dateFinished": "Sep 10, 2017 1:59:41 PM",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
+      "dateStarted": "Sep 30, 2017 8:49:29 AM",
+      "dateFinished": "Sep 30, 2017 8:49:54 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "ssc.start()\n//ssc.stop()",
+      "text": "//ssc.start()\nssc.stop()",
       "user": "anonymous",
-      "dateUpdated": "Sep 10, 2017 1:11:27 PM",
+      "dateUpdated": "Sep 30, 2017 8:57:33 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -3093,21 +2993,16 @@
         "forms": {}
       },
       "results": {
-        "code": "ERROR",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "\n\n\n\n\n\n\njava.lang.IllegalArgumentException: requirement failed: No output operations registered, so nothing to execute\n  at scala.Predef$.require(Predef.scala:224)\n  at org.apache.spark.streaming.DStreamGraph.validate(DStreamGraph.scala:163)\n  at org.apache.spark.streaming.StreamingContext.validate(StreamingContext.scala:512)\n  at org.apache.spark.streaming.StreamingContext.liftedTree1$1(StreamingContext.scala:572)\n  at org.apache.spark.streaming.StreamingContext.start(StreamingContext.scala:571)\n  ... 166 elided\n"
-          }
-        ]
+        "code": "SUCCESS",
+        "msg": []
       },
       "apps": [],
       "jobName": "paragraph_1504966187538_-1078946284",
       "id": "20170909-140947_1717127588",
       "dateCreated": "Sep 9, 2017 2:09:47 PM",
-      "dateStarted": "Sep 10, 2017 1:11:27 PM",
-      "dateFinished": "Sep 10, 2017 1:11:29 PM",
-      "status": "ERROR",
+      "dateStarted": "Sep 30, 2017 8:57:33 AM",
+      "dateFinished": "Sep 30, 2017 8:57:34 AM",
+      "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -5006,7 +4901,7 @@
       "title": "Some javascript within spark, animate a block",
       "text": "%spark\n\ndef animate(name: String,seq : String) \u003d {\n    print(s\"\"\"%html\n\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\u003cstyle\u003e\n#container\"\"\" + seq + \"\"\" {\n  width: 400px;\n  height: 400px;\n  position: relative;\n  background: yellow;\n}\n#animate\"\"\" + seq + \"\"\" {\n  width: 50px;\n  height: 50px;\n  position: absolute;\n  background-color: red;\n}\n\u003c/style\u003e\n\u003cbody\u003e\n\n\u003cp\u003e\n\u003cbutton onclick\u003d\"myMove()\"\u003eClick Me \"\"\" + name + \"\"\"\u003c/button\u003e\n\u003c/p\u003e \n\n\u003cdiv id \u003d\"container\"\"\" + seq + \"\"\"\"\u003e\n\u003cdiv id \u003d\"animate\"\"\" + seq + \"\"\"\"\u003e\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cscript\u003e\nfunction myMove() {\n  var elem \u003d document.getElementById(\"animate\"\"\" + seq + \"\"\"\");   \n  var pos \u003d 0;\n  var id \u003d setInterval(frame, 5);\n  function frame() {\n    if (pos \u003d\u003d 350) {\n      clearInterval(id);\n    } else {\n      pos++; \n      elem.style.top \u003d pos + \u0027px\u0027; \n      elem.style.left \u003d pos + \u0027px\u0027; \n    }\n  }\n}\n\u003c/script\u003e\n\n\u003c/body\u003e\n\u003c/html\u003e\n\"\"\")\n}\nanimate(\"pietje\",\"1\")",
       "user": "anonymous",
-      "dateUpdated": "Sep 1, 2017 5:48:12 PM",
+      "dateUpdated": "Sep 30, 2017 9:02:51 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5016,7 +4911,7 @@
           "editOnDblClick": false
         },
         "editorMode": "ace/mode/scala",
-        "editorHide": true,
+        "editorHide": false,
         "title": true
       },
       "settings": {
@@ -5040,8 +4935,8 @@
       "jobName": "paragraph_1504284993514_2003922241",
       "id": "20170901-165633_126846237",
       "dateCreated": "Sep 1, 2017 4:56:33 PM",
-      "dateStarted": "Sep 1, 2017 5:48:12 PM",
-      "dateFinished": "Sep 1, 2017 5:48:12 PM",
+      "dateStarted": "Sep 30, 2017 9:02:51 AM",
+      "dateFinished": "Sep 30, 2017 9:02:51 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5205,7 +5100,7 @@
       "title": "Dataframe without table and sql",
       "text": "%spark\nval wineAshSelection \u003d df.select(df(\"Alcohol\").as(\"Garbage\"),df(\"Ash\"))\n                         .filter(df(\"Ash\") \u003e 2.00)\n                         .withColumn(\"Kind\",  when(df(\"Ash\") \u003e 3.0, \"Junk\" ).otherwise(\"Okay\"))\nz.show(wineAshSelection.select($\"Garbage\",$\"Kind\")) //or use $ to query columns\n",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 6:28:43 PM",
+      "dateUpdated": "Sep 30, 2017 9:12:03 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5238,8 +5133,8 @@
       "jobName": "paragraph_1506692394360_-961078167",
       "id": "20170929-133954_1274661242",
       "dateCreated": "Sep 29, 2017 1:39:54 PM",
-      "dateStarted": "Sep 29, 2017 2:47:04 PM",
-      "dateFinished": "Sep 29, 2017 2:47:05 PM",
+      "dateStarted": "Sep 30, 2017 9:12:03 AM",
+      "dateFinished": "Sep 30, 2017 9:12:04 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5247,7 +5142,7 @@
       "title": "Spark Sql Windowing",
       "text": "%spark\n//Show Ash difference compared to avg Ash in windows of 20 ash rows\nimport org.apache.spark.sql.expressions.Window\nval windowSpec \u003d Window.orderBy(wineAshSelection(\"Ash\"))\n                   .partitionBy(wineAshSelection(\"Kind\"))\n                   .rowsBetween(start \u003d -10,end \u003d 10)\nval diffCol \u003d wineAshSelection(\"Ash\") - avg(wineAshSelection(\"Ash\")).over(windowSpec)\nval windowDF \u003d wineAshSelection.select($\"Ash\",diffCol.as(\"diffAsh\"))\nval sortedWindowDF \u003d windowDF.orderBy($\"diffAsh\".desc)\nz.show(sortedWindowDF)",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 3:28:42 PM",
+      "dateUpdated": "Sep 30, 2017 9:13:05 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5268,7 +5163,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nimport org.apache.spark.sql.expressions.Window\n\nwindowSpec: org.apache.spark.sql.expressions.WindowSpec \u003d org.apache.spark.sql.expressions.WindowSpec@1ddb6145\n\ndiffCol: org.apache.spark.sql.Column \u003d (Ash - avg(Ash) OVER (PARTITION BY Kind ORDER BY Ash ASC NULLS FIRST ROWS BETWEEN 10 PRECEDING AND 10 FOLLOWING))\n\nwindowDF: org.apache.spark.sql.DataFrame \u003d [Ash: float, diffAsh: double]\n\nsortedWindowDF: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [Ash: float, diffAsh: double]\n"
+            "data": "\nimport org.apache.spark.sql.expressions.Window\n\nwindowSpec: org.apache.spark.sql.expressions.WindowSpec \u003d org.apache.spark.sql.expressions.WindowSpec@77214895\n\ndiffCol: org.apache.spark.sql.Column \u003d (Ash - avg(Ash) OVER (PARTITION BY Kind ORDER BY Ash ASC NULLS FIRST ROWS BETWEEN 10 PRECEDING AND 10 FOLLOWING))\n\nwindowDF: org.apache.spark.sql.DataFrame \u003d [Ash: float, diffAsh: double]\n\nsortedWindowDF: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [Ash: float, diffAsh: double]\n"
           },
           {
             "type": "TABLE",
@@ -5280,8 +5175,8 @@
       "jobName": "paragraph_1506697210862_1516682479",
       "id": "20170929-150010_1936929670",
       "dateCreated": "Sep 29, 2017 3:00:10 PM",
-      "dateStarted": "Sep 29, 2017 3:28:42 PM",
-      "dateFinished": "Sep 29, 2017 3:28:44 PM",
+      "dateStarted": "Sep 30, 2017 9:13:06 AM",
+      "dateFinished": "Sep 30, 2017 9:13:09 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5327,7 +5222,7 @@
       "title": "Dataset, typed dataframe for scala or java",
       "text": "%spark\ncase class WineAshSelection(Garbage : Float, Ash : Float , Kind : String)\nval wineAshSelectionDS \u003d wineAshSelection.as[WineAshSelection] //dataset\nval wineDSSelection \u003d wineAshSelectionDS.select($\"Garbage\".as[Float]) //typed column, on for dataset\nz.show(wineDSSelection)\n",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 2:59:47 PM",
+      "dateUpdated": "Sep 30, 2017 9:13:48 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5360,8 +5255,8 @@
       "jobName": "paragraph_1506695340123_-2132157309",
       "id": "20170929-142900_1706724010",
       "dateCreated": "Sep 29, 2017 2:29:00 PM",
-      "dateStarted": "Sep 29, 2017 2:48:49 PM",
-      "dateFinished": "Sep 29, 2017 2:48:50 PM",
+      "dateStarted": "Sep 30, 2017 9:13:48 AM",
+      "dateFinished": "Sep 30, 2017 9:13:49 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5369,7 +5264,7 @@
       "title": "Aggregates on Df or Ds using Types sql expression",
       "text": "%spark\n//Group using typed sql expression\nval maxAshPerGarbage \u003d wineAshSelectionDS.map(rp \u003d\u003e WineAshSelection(rp.Garbage,rp.Ash,rp.Kind) ).groupByKey(mp \u003d\u003e mp.Garbage).agg(max(\"ash\").as[Float])\nz.show(maxAshPerGarbage)",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 6:45:41 PM",
+      "dateUpdated": "Sep 30, 2017 9:13:55 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5402,8 +5297,8 @@
       "jobName": "paragraph_1506710412694_-710434173",
       "id": "20170929-184012_2135208652",
       "dateCreated": "Sep 29, 2017 6:40:12 PM",
-      "dateStarted": "Sep 29, 2017 6:44:15 PM",
-      "dateFinished": "Sep 29, 2017 6:44:20 PM",
+      "dateStarted": "Sep 30, 2017 9:13:55 AM",
+      "dateFinished": "Sep 30, 2017 9:13:58 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5447,7 +5342,7 @@
       "title": "Aggregates using scala code (DS only) using mapGroups",
       "text": "%spark\nimport spark.implicits._ \n//This prevents UDAF, not use\nval output \u003d wineAshSelectionDS.groupByKey(mp \u003d\u003e mp.Garbage)\n                  .mapGroups( (id,ashSelectionIter) \u003d\u003e (id, ashSelectionIter.length))\n                 \nz.show(output)",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 7:11:03 PM",
+      "dateUpdated": "Sep 30, 2017 9:14:55 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5480,16 +5375,16 @@
       "jobName": "paragraph_1506710745629_1354419584",
       "id": "20170929-184545_1639086956",
       "dateCreated": "Sep 29, 2017 6:45:45 PM",
-      "dateStarted": "Sep 29, 2017 7:11:03 PM",
-      "dateFinished": "Sep 29, 2017 7:11:05 PM",
+      "dateStarted": "Sep 30, 2017 9:14:56 AM",
+      "dateFinished": "Sep 30, 2017 9:14:58 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "UDF and UDAF in Spark sql",
-      "text": "%spark\n",
+      "title": "UDF in Spark sql",
+      "text": "%spark\n//UDF and UDAF in Python loses your logical plan, so optimize can\u0027t perform! Use Scala based version\n//To use in PySpark can be work around\nspark.udf.register(\"floatPrecision\",(s: Float) \u003d\u003e s.toString.length())\nz.show(spark.sql(\"select Alcohol,MalicAcid,Ash,floatPrecision(MalicAcid) as malicPrecision from wine\"))",
       "user": "anonymous",
-      "dateUpdated": "Sep 29, 2017 7:12:18 PM",
+      "dateUpdated": "Sep 30, 2017 9:45:50 AM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5505,11 +5400,68 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres59: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,IntegerType,Some(List(FloatType)))\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "Alcohol\tMalicAcid\tAsh\tmalicPrecision\n1.0\t14.23\t1.71\t5\n1.0\t13.2\t1.78\t4\n1.0\t13.16\t2.36\t5\n1.0\t14.37\t1.95\t5\n1.0\t13.24\t2.59\t5\n1.0\t14.2\t1.76\t4\n1.0\t14.39\t1.87\t5\n1.0\t14.06\t2.15\t5\n1.0\t14.83\t1.64\t5\n1.0\t13.86\t1.35\t5\n1.0\t14.1\t2.16\t4\n1.0\t14.12\t1.48\t5\n1.0\t13.75\t1.73\t5\n1.0\t14.75\t1.73\t5\n1.0\t14.38\t1.87\t5\n1.0\t13.63\t1.81\t5\n1.0\t14.3\t1.92\t4\n1.0\t13.83\t1.57\t5\n1.0\t14.19\t1.59\t5\n1.0\t13.64\t3.1\t5\n1.0\t14.06\t1.63\t5\n1.0\t12.93\t3.8\t5\n1.0\t13.71\t1.86\t5\n1.0\t12.85\t1.6\t5\n1.0\t13.5\t1.81\t4\n1.0\t13.05\t2.05\t5\n1.0\t13.39\t1.77\t5\n1.0\t13.3\t1.72\t4\n1.0\t13.87\t1.9\t5\n1.0\t14.02\t1.68\t5\n1.0\t13.73\t1.5\t5\n1.0\t13.58\t1.66\t5\n1.0\t13.68\t1.83\t5\n1.0\t13.76\t1.53\t5\n1.0\t13.51\t1.8\t5\n1.0\t13.48\t1.81\t5\n1.0\t13.28\t1.64\t5\n1.0\t13.05\t1.65\t5\n1.0\t13.07\t1.5\t5\n1.0\t14.22\t3.99\t5\n1.0\t13.56\t1.71\t5\n1.0\t13.41\t3.84\t5\n1.0\t13.88\t1.89\t5\n1.0\t13.24\t3.98\t5\n1.0\t13.05\t1.77\t5\n1.0\t14.21\t4.04\t5\n1.0\t14.38\t3.59\t5\n1.0\t13.9\t1.68\t4\n1.0\t14.1\t2.02\t4\n1.0\t13.94\t1.73\t5\n1.0\t13.05\t1.73\t5\n1.0\t13.83\t1.65\t5\n1.0\t13.82\t1.75\t5\n1.0\t13.77\t1.9\t5\n1.0\t13.74\t1.67\t5\n1.0\t13.56\t1.73\t5\n1.0\t14.22\t1.7\t5\n1.0\t13.29\t1.97\t5\n1.0\t13.72\t1.43\t5\n2.0\t12.37\t0.94\t5\n2.0\t12.33\t1.1\t5\n2.0\t12.64\t1.36\t5\n2.0\t13.67\t1.25\t5\n2.0\t12.37\t1.13\t5\n2.0\t12.17\t1.45\t5\n2.0\t12.37\t1.21\t5\n2.0\t13.11\t1.01\t5\n2.0\t12.37\t1.17\t5\n2.0\t13.34\t0.94\t5\n2.0\t12.21\t1.19\t5\n2.0\t12.29\t1.61\t5\n2.0\t13.86\t1.51\t5\n2.0\t13.49\t1.66\t5\n2.0\t12.99\t1.67\t5\n2.0\t11.96\t1.09\t5\n2.0\t11.66\t1.88\t5\n2.0\t13.03\t0.9\t5\n2.0\t11.84\t2.89\t5\n2.0\t12.33\t0.99\t5\n2.0\t12.7\t3.87\t4\n2.0\t12.0\t0.92\t4\n2.0\t12.72\t1.81\t5\n2.0\t12.08\t1.13\t5\n2.0\t13.05\t3.86\t5\n2.0\t11.84\t0.89\t5\n2.0\t12.67\t0.98\t5\n2.0\t12.16\t1.61\t5\n2.0\t11.65\t1.67\t5\n2.0\t11.64\t2.06\t5\n2.0\t12.08\t1.33\t5\n2.0\t12.08\t1.83\t5\n2.0\t12.0\t1.51\t4\n2.0\t12.69\t1.53\t5\n2.0\t12.29\t2.83\t5\n2.0\t11.62\t1.99\t5\n2.0\t12.47\t1.52\t5\n2.0\t11.81\t2.12\t5\n2.0\t12.29\t1.41\t5\n2.0\t12.37\t1.07\t5\n2.0\t12.29\t3.17\t5\n2.0\t12.08\t2.08\t5\n2.0\t12.6\t1.34\t4\n2.0\t12.34\t2.45\t5\n2.0\t11.82\t1.72\t5\n2.0\t12.51\t1.73\t5\n2.0\t12.42\t2.55\t5\n2.0\t12.25\t1.73\t5\n2.0\t12.72\t1.75\t5\n2.0\t12.22\t1.29\t5\n2.0\t11.61\t1.35\t5\n2.0\t11.46\t3.74\t5\n2.0\t12.52\t2.43\t5\n2.0\t11.76\t2.68\t5\n2.0\t11.41\t0.74\t5\n2.0\t12.08\t1.39\t5\n2.0\t11.03\t1.51\t5\n2.0\t11.82\t1.47\t5\n2.0\t12.42\t1.61\t5\n2.0\t12.77\t3.43\t5\n2.0\t12.0\t3.43\t4\n2.0\t11.45\t2.4\t5\n2.0\t11.56\t2.05\t5\n2.0\t12.42\t4.43\t5\n2.0\t13.05\t5.8\t5\n2.0\t11.87\t4.31\t5\n2.0\t12.07\t2.16\t5\n2.0\t12.43\t1.53\t5\n2.0\t11.79\t2.13\t5\n2.0\t12.37\t1.63\t5\n2.0\t12.04\t4.3\t5\n3.0\t12.86\t1.35\t5\n3.0\t12.88\t2.99\t5\n3.0\t12.81\t2.31\t5\n3.0\t12.7\t3.55\t4\n3.0\t12.51\t1.24\t5\n3.0\t12.6\t2.46\t4\n3.0\t12.25\t4.72\t5\n3.0\t12.53\t5.51\t5\n3.0\t13.49\t3.59\t5\n3.0\t12.84\t2.96\t5\n3.0\t12.93\t2.81\t5\n3.0\t13.36\t2.56\t5\n3.0\t13.52\t3.17\t5\n3.0\t13.62\t4.95\t5\n3.0\t12.25\t3.88\t5\n3.0\t13.16\t3.57\t5\n3.0\t13.88\t5.04\t5\n3.0\t12.87\t4.61\t5\n3.0\t13.32\t3.24\t5\n3.0\t13.08\t3.9\t5\n3.0\t13.5\t3.12\t4\n3.0\t12.79\t2.67\t5\n3.0\t13.11\t1.9\t5\n3.0\t13.23\t3.3\t5\n3.0\t12.58\t1.29\t5\n3.0\t13.17\t5.19\t5\n3.0\t13.84\t4.12\t5\n3.0\t12.45\t3.03\t5\n3.0\t14.34\t1.68\t5\n3.0\t13.48\t1.67\t5\n3.0\t12.36\t3.83\t5\n3.0\t13.69\t3.26\t5\n3.0\t12.85\t3.27\t5\n3.0\t12.96\t3.45\t5\n3.0\t13.78\t2.76\t5\n3.0\t13.73\t4.36\t5\n3.0\t13.45\t3.7\t5\n3.0\t12.82\t3.37\t5\n3.0\t13.58\t2.58\t5\n3.0\t13.4\t4.6\t4\n3.0\t12.2\t3.03\t4\n3.0\t12.77\t2.39\t5\n3.0\t14.16\t2.51\t5\n3.0\t13.71\t5.65\t5\n3.0\t13.4\t3.91\t4\n3.0\t13.27\t4.28\t5\n3.0\t13.17\t2.59\t5\n3.0\t14.13\t4.1\t5\n"
+          }
+        ]
+      },
       "apps": [],
       "jobName": "paragraph_1506712317489_533510745",
       "id": "20170929-191157_1867387398",
       "dateCreated": "Sep 29, 2017 7:11:57 PM",
-      "status": "READY",
+      "dateStarted": "Sep 30, 2017 9:24:02 AM",
+      "dateFinished": "Sep 30, 2017 9:24:03 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "UDAF in Spark Sql",
+      "text": "%spark\n//For some reason all types have to get the complete path\u0027s \n\nimport org.apache.spark.sql.types.StructType\nimport org.apache.spark.sql.expressions._ //{MutableAggregationBuffer, UserDefinedAggregateFunction}\n\nclass Avg extends org.apache.spark.sql.expressions.UserDefinedAggregateFunction  {\n    def inputSchema: org.apache.spark.sql.types.StructType \u003d\n    org.apache.spark.sql.types.StructType(org.apache.spark.sql.types.StructField(\"value\",org.apache.spark.sql.types.DoubleType) :: Nil)\n    \n    def bufferSchema : org.apache.spark.sql.types.StructType \u003d org.apache.spark.sql.types.StructType(\n        org.apache.spark.sql.types.StructField(\"count\",org.apache.spark.sql.types.LongType) ::\n        org.apache.spark.sql.types.StructField(\"sum\",org.apache.spark.sql.types.DoubleType) :: Nil )\n    def dataType: org.apache.spark.sql.types.DataType \u003d org.apache.spark.sql.types.DoubleType\n    def deterministic : Boolean \u003d true\n    \n    def initialize(buffer: org.apache.spark.sql.expressions.MutableAggregationBuffer): Unit \u003d {\n        buffer(0) \u003d 0L\n        buffer(1) \u003d 0.0\n    }\n    def update(buffer: org.apache.spark.sql.expressions.MutableAggregationBuffer,input : org.apache.spark.sql.Row) : Unit \u003d {\n        buffer(0) \u003d buffer.getAs[Long](0) + 1\n        buffer(1) \u003d buffer.getAs[Double](1) + input.getAs[Double](0)\n    }\n    def merge(buffer1: org.apache.spark.sql.expressions.MutableAggregationBuffer,buffer2: org.apache.spark.sql.Row ) : Unit \u003d {\n        buffer1(0) \u003d buffer1.getAs[Long](0) + buffer2.getAs[Long](0)\n        buffer1(1) \u003d buffer1.getAs[Double](1) + buffer2.getAs[Double](1)\n    }\n    def evaluate(buffer : org.apache.spark.sql.Row) : Any \u003d {\n        buffer.getDouble(1) / buffer.getLong(0)\n    }\n}\nspark.udf.register(\"ourAvg\",new Avg)\nz.show(spark.sql(\"select Alcohol,ourAvg(MalicAcid) as customMalicAcidAvg from wine group by Alcohol \"))",
+      "user": "anonymous",
+      "dateUpdated": "Sep 30, 2017 10:44:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types.StructType\n\nimport org.apache.spark.sql.expressions._\n\ndefined class Avg\n\nres88: org.apache.spark.sql.expressions.UserDefinedAggregateFunction \u003d Avg@712a9a17\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "Alcohol\tcustomMalicAcidAvg\n2.0\t12.278732393828916\n3.0\t13.153749942779541\n1.0\t13.74474580409163\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1506764750311_306802533",
+      "id": "20170930-094550_583377227",
+      "dateCreated": "Sep 30, 2017 9:45:50 AM",
+      "dateStarted": "Sep 30, 2017 10:43:45 AM",
+      "dateFinished": "Sep 30, 2017 10:43:47 AM",
+      "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -5535,964 +5487,7 @@
   "angularObjects": {
     "2CQVAAMSF:shared_process": [],
     "2CPJCJQ52:shared_process": [],
-    "2CR55RN9F:shared_process": [
-      {
-<<<<<<< HEAD
-        "name": "wordcount",
-=======
-        "name": "locations",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-        "object": [
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "_1",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "the",
-              17.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "and",
-              13.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Zeppelin",
-              10.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "to",
-              10.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Apache",
-              7.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "a",
-              7.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "of",
-              6.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "can",
-              6.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "_1",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "is",
-              5.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "#Fé #soagradecendo #familia 🙏 em Santuário Nacional de Aparecida https://t.co/ylgg3x14ky",
-              -22.85174447,
-              -45.23386156
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "_1",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "_2",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": -1.760150119E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "be",
-              5.0
-            ]
-          }
-        ],
-        "noteId": "2CSGRDE7D"
-      },
-      {
-        "name": "wordcounts",
-        "object": [
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "RT",
-              26.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "the",
-              16.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "I\u0027m at @ArenaParkAvm in Küçükçekmece, Istanbul https://t.co/RWCIK53ObT",
-              41.05479284,
-              28.79134667
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "word",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "",
-              13.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "to",
-              13.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "@kincaid_kevin made me buy an industry pass. I guess I\u0027m doing this. #TIFF @ Hyatt Regency… https://t.co/ojklqwC6UQ",
-              43.6464799,
-              -79.39171
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "word",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "is",
-              10.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "a",
-              10.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Notte Nera CD \u0026 Concert Promo.  @merimerola FB #meri_merola #www.merimerola.com #romeophoto… https://t.co/oEYkEuNJVj",
-              40.03007082,
-              15.27541497
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "word",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "of",
-              9.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "in",
-              8.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "A few of the lovely humans who make up my #urbanfamily #saasaa @ PAL Studio Theatre https://t.co/aTNk5hylDp",
-              49.29094797,
-              -123.13054851
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-<<<<<<< HEAD
-                  "name": "word",
-=======
-                  "name": "desc",
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  "dataType": {
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "Trump",
-              6.0
-            ]
-          },
-          {
-            "schema": {
-              "fields": [
-                {
-                  "name": "word",
-                  "dataType": {
-                    "ordering": {}
-=======
-                  "name": "lat",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                },
-                {
-<<<<<<< HEAD
-                  "name": "count",
-                  "dataType": {
-                    "numeric": {},
-                    "integral": {},
-                    "ordering": {}
-=======
-                  "name": "lng",
-                  "dataType": {
-                    "numeric": {},
-                    "fractional": {},
-                    "asIntegral": {}
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-                  },
-                  "nullable": true,
-                  "metadata": {
-                    "map": {},
-                    "_hashCode": -1.60932692E9,
-                    "bitmap$0": true
-                  }
-                }
-              ],
-<<<<<<< HEAD
-              "_hashCode": 1.432247814E9,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "The",
-              5.0
-=======
-              "_hashCode": -1.16483268E8,
-              "bitmap$0": 8.0
-            },
-            "values": [
-              "I\u0027m at Nasik Lemak Ayam \u0026 Char Kuey Teow Tmn Ten in Cheras, Kuala Lumpur https://t.co/5Vm9V68Bz2",
-              3.113725,
-              101.724137
->>>>>>> 92fc19a25729d102464452d953d18f491a1be2af
-            ]
-          }
-        ],
-        "noteId": "2CSGRDE7D"
-      }
-    ],
+    "2CR55RN9F:shared_process": [],
     "2CQ5M8DDR:shared_process": [],
     "2CT12AQEX:shared_process": [],
     "2CR382C2Q:shared_process": [],
