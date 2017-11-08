@@ -1,0 +1,732 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n### This notebook is based on some Spark sql book combined with some personal sidekicks to practise some more Spark using a Docker env.\n\nThe base of the code will be in Scala, but let\u0027s also try to practise some more Python and PySpark",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:11:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eThis notebook is based on some Spark sql book combined with some personal sidekicks to practise some more Spark using a Docker env.\u003c/h3\u003e\n\u003cp\u003eThe base of the code will be in Scala, but let\u0026rsquo;s also try to practise some more Python and PySpark\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063702599_-695253561",
+      "id": "20171107-140822_253894336",
+      "dateCreated": "Nov 7, 2017 2:08:22 PM",
+      "dateStarted": "Nov 7, 2017 2:11:09 PM",
+      "dateFinished": "Nov 7, 2017 2:11:09 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Check and set our Spark environment",
+      "text": "spark.version //Check spark version within sparksession objectval df \u003d spark.read.format(\"csv\").option(\"header\", false).schema(recordSchema).load(\"file:///Users/aurobindosarkar/Downloads/breast-cancer-wisconsin.data\")\nspark.conf.set(\"spark.executor.cores\", \"2\")\nspark.conf.set(\"spark.executor.memory\", \"4g\")\n    ",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:07:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510062537093_-870219600",
+      "id": "20171107-134857_1306552517",
+      "dateCreated": "Nov 7, 2017 1:48:57 PM",
+      "dateStarted": "Nov 7, 2017 2:00:14 PM",
+      "dateFinished": "Nov 7, 2017 2:00:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "spark.conf.getAll.foreach(println)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:00:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "(spark.yarn.dist.archives,/usr/spark-2.1.1/R/lib/sparkr.zip#sparkr)\n(spark.yarn.dist.files,file:/usr/spark-2.1.1/python/lib/pyspark.zip,file:/usr/spark-2.1.1/python/lib/py4j-0.10.4-src.zip)\n(spark.driver.host,172.17.0.2)\n(spark.driver.port,40813)\n(hive.metastore.warehouse.dir,file:/usr/zeppelin/spark-warehouse/)\n(spark.repl.class.uri,spark://172.17.0.2:40813/classes)\n(spark.jars,file:/usr/zeppelin/interpreter/spark/zeppelin-spark_2.11-0.7.2.jar)\n(spark.repl.class.outputDir,/tmp/spark-037f12f2-2220-4fd2-b4b5-6aadd8097658)\n(spark.submit.pyArchives,pyspark.zip:py4j-0.9-src.zip:py4j-0.8.2.1-src.zip:py4j-0.10.1-src.zip:py4j-0.10.3-src.zip:py4j-0.10.4-src.zip)\n(spark.app.name,Zeppelin)\n(spark.scheduler.mode,FAIR)\n(spark.driver.memory,1g)\n(spark.submit.pyFiles,file:/usr/spark-2.1.1/python/lib/pyspark.zip,file:/usr/spark-2.1.1/python/lib/py4j-0.10.4-src.zip)\n(spark.executor.id,driver)\n(spark.driver.extraJavaOptions,-Xms\u003d1g -Xmx\u003dx1g)\n(spark.submit.deployMode,client)\n(spark.master,local[7])\n(spark.executor.memory,4g)\n(spark.driver.extraClassPath,:/usr/zeppelin/interpreter/spark/*:/usr/zeppelin/lib/interpreter/*::/usr/zeppelin/interpreter/spark/zeppelin-spark_2.11-0.7.2.jar)\n(spark.home,/usr/spark-2.1.1)\n(spark.sql.catalogImplementation,in-memory)\n(spark.executor.cores,2)\n(spark.app.id,local-1510062558516)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510062549023_-303838571",
+      "id": "20171107-134909_605598362",
+      "dateCreated": "Nov 7, 2017 1:49:09 PM",
+      "dateStarted": "Nov 7, 2017 2:00:17 PM",
+      "dateFinished": "Nov 7, 2017 2:00:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Get some data from the web (Cancer)",
+      "text": "%sh\n\nwget https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:56:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "--2017-11-07 14:06:14--  https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data\nResolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249\nConnecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected.\nHTTP request sent, awaiting response... 200 OK\nLength: 19889 (19K) [text/plain]\nSaving to: ‘breast-cancer-wisconsin.data’\n\n     0K .......... .........                                  100% 23.2K\u003d0.8s\n\n2017-11-07 14:06:17 (23.2 KB/s) - ‘breast-cancer-wisconsin.data’ saved [19889/19889]\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063557100_-754736399",
+      "id": "20171107-140557_1825098556",
+      "dateCreated": "Nov 7, 2017 2:05:57 PM",
+      "dateStarted": "Nov 7, 2017 2:06:14 PM",
+      "dateFinished": "Nov 7, 2017 2:06:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "And some restaurant data",
+      "text": "%sh\n\nwget http://www.cs.utexas.edu/users/ml/riddle/data/restaurant.tar.gz\ngunzip restaurant.tar.gz\ntar -xvf restaurant.tar\nls restaurant\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:57:10 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "--2017-11-08 13:57:10--  http://www.cs.utexas.edu/users/ml/riddle/data/restaurant.tar.gz\nResolving www.cs.utexas.edu (www.cs.utexas.edu)... 128.83.120.48\nConnecting to www.cs.utexas.edu (www.cs.utexas.edu)|128.83.120.48|:80... connected.\nHTTP request sent, awaiting response... 200 OK\nLength: 64684 (63K) [application/x-gzip]\nSaving to: ‘restaurant.tar.gz’\n\n     0K .......... .......... .......... .......... .......... 79%  185K 0s\n    50K .......... ...                                        100% 2.87M\u003d0.3s\n\n2017-11-08 13:57:10 (230 KB/s) - ‘restaurant.tar.gz’ saved [64684/64684]\n\ngzip: restaurant.tar already exists;\tnot overwritten\nrestaurant/\nrestaurant/fz-nophone.arff\nrestaurant/fz.arff\nrestaurant/original/\nrestaurant/original/match-pairs.txt\nrestaurant/original/zagats.txt\nrestaurant/original/fodors.txt\nrestaurant/README\nfz.arff\nfz-nophone.arff\noriginal\nREADME\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510149347113_-1817458228",
+      "id": "20171108-135547_1489385458",
+      "dateCreated": "Nov 8, 2017 1:55:47 PM",
+      "dateStarted": "Nov 8, 2017 1:57:10 PM",
+      "dateFinished": "Nov 8, 2017 1:57:10 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create spark dataframe with explicit schema",
+      "text": "import org.apache.spark.sql.types._\n    \nval recordSchema \u003d new StructType().add(\"sample\", \"long\").add(\"cThick\", \"integer\").add(\"uCSize\", \"integer\").add(\"uCShape\", \"integer\").add(\"mAdhes\", \"integer\").add(\"sECSize\", \"integer\").add(\"bNuc\", \"integer\").add(\"bChrom\", \"integer\").add(\"nNuc\", \"integer\").add(\"mitosis\", \"integer\").add(\"clas\", \"integer\")\n  \nval df \u003d spark.read.format(\"csv\").option(\"header\", false).schema(recordSchema).load(\"breast-cancer-wisconsin.data\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:08:05 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nrecordSchema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(sample,LongType,true), StructField(cThick,IntegerType,true), StructField(uCSize,IntegerType,true), StructField(uCShape,IntegerType,true), StructField(mAdhes,IntegerType,true), StructField(sECSize,IntegerType,true), StructField(bNuc,IntegerType,true), StructField(bChrom,IntegerType,true), StructField(nNuc,IntegerType,true), StructField(mitosis,IntegerType,true), StructField(clas,IntegerType,true))\n\ndf: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510062585788_-804150059",
+      "id": "20171107-134945_279152945",
+      "dateCreated": "Nov 7, 2017 1:49:45 PM",
+      "dateStarted": "Nov 7, 2017 2:07:08 PM",
+      "dateFinished": "Nov 7, 2017 2:07:09 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Some nice output using Zeppelin context",
+      "text": "z.show(df.limit(10))",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:13:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063500490_465409633",
+      "id": "20171107-140500_1018643858",
+      "dateCreated": "Nov 7, 2017 2:05:00 PM",
+      "dateStarted": "Nov 7, 2017 2:11:29 PM",
+      "dateFinished": "Nov 7, 2017 2:11:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use Spark sql instead of Spark sql api coding",
+      "text": "df.createOrReplaceTempView(\"cancerTable\") \n \nval sqlDF \u003d spark.sql(\"SELECT sample, bNuc from cancerTable\") \nsqlDF.show(5)\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:13:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nsqlDF: org.apache.spark.sql.DataFrame \u003d [sample: bigint, bNuc: int]\n+-------+----+\n| sample|bNuc|\n+-------+----+\n|1000025|   1|\n|1002945|  10|\n|1015425|   2|\n|1016277|   4|\n|1017023|   1|\n+-------+----+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063935340_1146673529",
+      "id": "20171107-141215_982856284",
+      "dateCreated": "Nov 7, 2017 2:12:15 PM",
+      "dateStarted": "Nov 7, 2017 2:13:35 PM",
+      "dateFinished": "Nov 7, 2017 2:13:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets create a Dataset instead for Frame , and create schema using the case class method",
+      "text": "case class CancerClass(sample: Long, cThick: Int, uCSize: Int, uCShape: Int, mAdhes: Int, sECSize: Int, bNuc: Int, bChrom: Int, nNuc: Int, mitosis: Int, clas: Int)\n\nval cancerDS \u003d spark.sparkContext.textFile(\"breast-cancer-wisconsin.data\").map(_.split(\",\")).map(attributes \u003d\u003e CancerClass(attributes(0).trim.toLong, attributes(1).trim.toInt, attributes(2).trim.toInt, attributes(3).toInt, attributes(4).trim.toInt, attributes(5).trim.toInt, attributes(6).trim.toInt, attributes(7).trim.toInt, attributes(8).trim.toInt, attributes(9).trim.toInt, attributes(10).trim.toInt)).toDS()\n\nz.show(cancerDS.limit(5))\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:31:16 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndefined class CancerClass\n\ncancerDS: org.apache.spark.sql.Dataset[CancerClass] \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063932708_583401139",
+      "id": "20171107-141212_1243348136",
+      "dateCreated": "Nov 7, 2017 2:12:12 PM",
+      "dateStarted": "Nov 7, 2017 2:31:16 PM",
+      "dateFinished": "Nov 7, 2017 2:31:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets add new column using UDF in Scala",
+      "text": "def binarize(s: Int): Int \u003d s match {case 2 \u003d\u003e 0 case 4 \u003d\u003e 1 }\n\nspark.udf.register(\"udfValueToCategory\", (arg: Int) \u003d\u003e binarize(arg)) //In spark 2.3 in pyspark use vector pandas udf\n\nval sqlUDF \u003d spark.sql(\"SELECT *, udfValueToCategory(clas) from cancerTable\")\nsqlUDF.show(5)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 7, 2017 2:36:45 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nbinarize: (s: Int)Int\n\nres92: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,IntegerType,Some(List(IntegerType)))\n\nsqlUDF: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 10 more fields]\n+-------+------+------+-------+------+-------+----+------+----+-------+----+----------------------------+\n| sample|cThick|uCSize|uCShape|mAdhes|sECSize|bNuc|bChrom|nNuc|mitosis|clas|UDF:udfValueToCategory(clas)|\n+-------+------+------+-------+------+-------+----+------+----+-------+----+----------------------------+\n|1000025|     5|     1|      1|     1|      2|   1|     3|   1|      1|   2|                           0|\n|1002945|     5|     4|      4|     5|      7|  10|     3|   2|      1|   2|                           0|\n|1015425|     3|     1|      1|     1|      2|   2|     3|   1|      1|   2|                           0|\n|1016277|     6|     8|      8|     1|      3|   4|     3|   7|      1|   2|                           0|\n|1017023|     4|     1|      1|     3|      2|   1|     3|   1|      1|   2|                           0|\n+-------+------+------+-------+------+-------+----+------+----+-------+----+----------------------------+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510065017906_-1082826519",
+      "id": "20171107-143017_1697469001",
+      "dateCreated": "Nov 7, 2017 2:30:17 PM",
+      "dateStarted": "Nov 7, 2017 2:35:09 PM",
+      "dateFinished": "Nov 7, 2017 2:35:10 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark session has some catalog feature to check caching and database info",
+      "text": "spark.catalog.currentDatabase //If using hive context in sparksession you would probably see the hive metastore tables \nspark.catalog.isCached(\"cancerTable\") \nspark.catalog.cacheTable(\"cancerTable\") \nspark.catalog.isCached(\"cancerTable\") \nspark.catalog.clearCache \nspark.catalog.isCached(\"cancerTable\") \nspark.catalog.listDatabases.show()\nspark.catalog.listDatabases.take(1)\nspark.catalog.dropTempView(\"cancerTable\")\nspark.catalog.listTables.show()",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:32:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres110: String \u003d default\n\nres111: Boolean \u003d false\n\nres113: Boolean \u003d true\n\nres115: Boolean \u003d false\n+-------+----------------+--------------------+\n|   name|     description|         locationUri|\n+-------+----------------+--------------------+\n|default|default database|file:/usr/zeppeli...|\n+-------+----------------+--------------------+\n\n\nres117: Array[org.apache.spark.sql.catalog.Database] \u003d Array(Database[name\u003d\u0027default\u0027, description\u003d\u0027default database\u0027, path\u003d\u0027file:/usr/zeppelin/spark-warehouse/\u0027])\n\nres118: Boolean \u003d true\n+----+--------+-----------+---------+-----------+\n|name|database|description|tableType|isTemporary|\n+----+--------+-----------+---------+-----------+\n+----+--------+-----------+---------+-----------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510066482234_-1773956493",
+      "id": "20171107-145442_379837671",
+      "dateCreated": "Nov 7, 2017 2:54:42 PM",
+      "dateStarted": "Nov 8, 2017 1:32:07 PM",
+      "dateFinished": "Nov 8, 2017 1:32:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Spark Concepts\n\nRDDs are Spark\u0027s primary distributed Dataset abstraction. It is a collection of data that is immutable, distributed, lazily evaluated, type inferred, and cacheable. Prior to execution, the developer code (using higher-level constructs such as SQL, DataFrames, and Dataset APIs) is converted to a DAG of RDDs (ready for execution).\n\nPlus: Direct control in pure function , minus: No automatic performance optimisation, requires lot of knowledge on execution on developer \nSpark sql added an automatic optimizer, and spark 2.0 added extra performance using tungsten.\nAlso used dataset you can use both dataframe and rdd. Best fo both worlds.\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:54:33 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "tableHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eSpark Concepts\u003c/h2\u003e\n\u003cp\u003eRDDs are Spark\u0026rsquo;s primary distributed Dataset abstraction. It is a collection of data that is immutable, distributed, lazily evaluated, type inferred, and cacheable. Prior to execution, the developer code (using higher-level constructs such as SQL, DataFrames, and Dataset APIs) is converted to a DAG of RDDs (ready for execution).\u003c/p\u003e\n\u003cp\u003ePlus: Direct control in pure function , minus: No automatic performance optimisation, requires lot of knowledge on execution on developer\u003cbr/\u003eSpark sql added optimizer, and spark 2.0 added extra performance using tungsten.\u003cbr/\u003eAlso used dataset you can use both dataframe and rdd. Best fo both worlds.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510148001903_691955129",
+      "id": "20171108-133321_961516945",
+      "dateCreated": "Nov 8, 2017 1:33:21 PM",
+      "dateStarted": "Nov 8, 2017 1:53:55 PM",
+      "dateFinished": "Nov 8, 2017 1:53:55 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create RDD Resilent Distributed dataset, and convert to Dataframe using implicit schema conversion",
+      "text": "\nval cancerRDD \u003d sc.textFile(\"breast-cancer-wisconsin.data\", 4) //4 partitions\ncancerRDD.partitions.size\n\n//Implicits only works in Scala, to extend functionaility within existing objects like Rdd , or default Scala collections for example\nimport spark.implicits._ \nval cancerDF \u003d cancerRDD.toDF()\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:54:07 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ncancerRDD: org.apache.spark.rdd.RDD[String] \u003d breast-cancer-wisconsin.data MapPartitionsRDD[77] at textFile at \u003cconsole\u003e:35\n\nres137: Int \u003d 4\n\nimport spark.implicits._\n\ncancerDF: org.apache.spark.sql.DataFrame \u003d [value: string]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510063827643_1768257541",
+      "id": "20171107-141027_621706753",
+      "dateCreated": "Nov 7, 2017 2:10:27 PM",
+      "dateStarted": "Nov 8, 2017 1:36:36 PM",
+      "dateFinished": "Nov 8, 2017 1:36:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "To create DF or DS from RDD using explicit conversion",
+      "text": "import org.apache.spark.sql.Row\n\n//1 Map all rows and create ROW type , Dataframe under the hood is a dataset of type ROW\ndef row(line: List[String]): Row \u003d { Row(line(0).toLong, line(1).toInt, line(2).toInt, line(3).toInt, line(4).toInt, line(5).toInt, line(6).toInt, line(7).toInt, line(8).toInt, line(9).toInt, line(10).toInt) }\nval data \u003d cancerRDD.map(_.split(\",\").to[List]).map(row)\nval cancerDF \u003d spark.createDataFrame(data, recordSchema)\n\n//2 OR create a dataset by using a real class type\nval cancerDS \u003d cancerDF.as[CancerClass]\n\n//3 or use structtype , or\n//4 since spark 2.0 the encoders option",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 1:43:32 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.Row\n\nrow: (line: List[String])org.apache.spark.sql.Row\n\ndata: org.apache.spark.rdd.RDD[org.apache.spark.sql.Row] \u003d MapPartitionsRDD[82] at map at \u003cconsole\u003e:42\n\ncancerDF: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n\ncancerDS: org.apache.spark.sql.Dataset[CancerClass] \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510148097358_1740950841",
+      "id": "20171108-133457_834780093",
+      "dateCreated": "Nov 8, 2017 1:34:57 PM",
+      "dateStarted": "Nov 8, 2017 1:40:28 PM",
+      "dateFinished": "Nov 8, 2017 1:40:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use explain to check execution under the hood",
+      "text": "cancerDS.explain\ncancerDS.where(\"clas \u003d\u003d 4\").explain",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 2:42:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003d\u003d Physical Plan \u003d\u003d\nScan ExistingRDD[sample#1077L,cThick#1078,uCSize#1079,uCShape#1080,mAdhes#1081,sECSize#1082,bNuc#1083,bChrom#1084,nNuc#1085,mitosis#1086,clas#1087]\n\u003d\u003d Physical Plan \u003d\u003d\n*Filter (isnotnull(clas#1087) \u0026\u0026 (clas#1087 \u003d 4))\n+- Scan ExistingRDD[sample#1077L,cThick#1078,uCSize#1079,uCShape#1080,mAdhes#1081,sECSize#1082,bNuc#1083,bChrom#1084,nNuc#1085,mitosis#1086,clas#1087]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510149609714_1717597698",
+      "id": "20171108-140009_544719349",
+      "dateCreated": "Nov 8, 2017 2:00:09 PM",
+      "dateStarted": "Nov 8, 2017 2:41:32 PM",
+      "dateFinished": "Nov 8, 2017 2:41:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Streaming\n\nPre spark 2.0 . RDD is used for batch processing. DStreams (Decretised rdd) in streaming. Problem: different api, event time is time when event enters Spark itself.\nNow we have structured streaming, 1 api both both, static and continues dataframes. So Batch, interactive and streamign queries are the same. And query api\u0027s can be used to check current runnign qieries, stop and start etc.\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 3:31:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eStreaming\u003c/h2\u003e\n\u003cp\u003ePre spark 2.0 . RDD is used for batch processing. DStreams (Decretised rdd) in streaming. Problem: different api, event time is time when event enters Spark itself.\u003cbr/\u003eNow we have structured streaming, 1 api both both, static and continues dataframes. So Batch, interactive and streamign queries are the same. And query api\u0026rsquo;s can be used to check current runnign qieries, stop and start etc.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510151847038_2088172414",
+      "id": "20171108-143727_1911634703",
+      "dateCreated": "Nov 8, 2017 2:37:27 PM",
+      "dateStarted": "Nov 8, 2017 3:31:31 PM",
+      "dateFinished": "Nov 8, 2017 3:31:31 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create data file",
+      "text": "%sh\n\necho michel,data engineer,70000 \u003e michel.csv\necho piet,data scientist,30000 \u003e\u003e michel.csv\necho jan,manager,150000 \u003e\u003e michel.csv\necho truus,manager,120000 \u003e\u003e michel.csv\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 3:39:07 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510155424753_216307121",
+      "id": "20171108-153704_2000509341",
+      "dateCreated": "Nov 8, 2017 3:37:04 PM",
+      "dateStarted": "Nov 8, 2017 3:39:07 PM",
+      "dateFinished": "Nov 8, 2017 3:39:07 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create structured stream input",
+      "text": "import org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \n\nval michelSchema \u003d new StructType().add(\"name\", StringType).add(\"function\", StringType).add(\"salary\", LongType)\nval streamingInputDF \u003d spark.readStream.format(\"csv\").schema(michelSchema).option(\"header\", false).option(\"inferSchema\", true).option(\"sep\", \",\").option(\"maxFilesPerTrigger\", 1).load(\"michel.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 3:40:33 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nmichelSchema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(name,StringType,true), StructField(function,StringType,true), StructField(salary,LongType,true))\n\nstreamingInputDF: org.apache.spark.sql.DataFrame \u003d [name: string, function: string ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510155091758_-1121956823",
+      "id": "20171108-153131_702980172",
+      "dateCreated": "Nov 8, 2017 3:31:31 PM",
+      "dateStarted": "Nov 8, 2017 3:39:27 PM",
+      "dateFinished": "Nov 8, 2017 3:39:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Structured stream output",
+      "text": " val streamingCountsDF \u003d streamingInputDF.groupBy($\"function\").count() \n val query \u003d streamingCountsDF.writeStream.format(\"console\").trigger(ProcessingTime(2.seconds)).queryName(\"counts\").outputMode(Complete).start()\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 8, 2017 3:40:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510155509837_1709807117",
+      "id": "20171108-153829_1600151567",
+      "dateCreated": "Nov 8, 2017 3:38:29 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510155505980_-2034984576",
+      "id": "20171108-153825_2069358278",
+      "dateCreated": "Nov 8, 2017 3:38:25 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "spark sql",
+  "id": "2CXPE3JGV",
+  "angularObjects": {
+    "2CQVAAMSF:shared_process": [],
+    "2CPJCJQ52:shared_process": [],
+    "2CR55RN9F:shared_process": [],
+    "2CQ5M8DDR:shared_process": [],
+    "2CT12AQEX:shared_process": [],
+    "2CR382C2Q:shared_process": [],
+    "2CRWTXXDA:shared_process": [],
+    "2CPZMEV6C:shared_process": [],
+    "2CSJS4NXD:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
