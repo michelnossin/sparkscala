@@ -5838,9 +5838,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md\n\n## Great, lets read in some flight data and reply its set as a stream\n\nAssuming we started Docker with a volume we can read our csv in here:\ndocker run -p 8080:8080 -it -v /Users/michelnossin/Downloads/fr24:/tmp/fr24 516db4a7a8f8\n\n",
+      "text": "%md\n\n## Great, lets read in some flight data and reply its set as a stream\n\nAssuming we started Docker with a volume we can read our csv in here:\n\n",
       "user": "anonymous",
-      "dateUpdated": "Oct 9, 2017 6:15:56 PM",
+      "dateUpdated": "Oct 10, 2017 7:02:04 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5862,7 +5862,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eGreat, lets read in some flight data and reply its set as a stream\u003c/h2\u003e\n\u003cp\u003eAssuming we started Docker with a volume we can read our csv in here:\u003cbr/\u003edocker run -p 8080:8080 -it -v /Users/michelnossin/Downloads/fr24:/tmp/fr24 516db4a7a8f8\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eGreat, lets read in some flight data and reply its set as a stream\u003c/h2\u003e\n\u003cp\u003eAssuming we started Docker with a volume we can read our csv in here:\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
@@ -5870,52 +5870,16 @@
       "jobName": "paragraph_1507572836944_607991519",
       "id": "20171009-181356_476424054",
       "dateCreated": "Oct 9, 2017 6:13:56 PM",
-      "dateStarted": "Oct 9, 2017 6:15:56 PM",
-      "dateFinished": "Oct 9, 2017 6:15:56 PM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%sh\n\nls /tmp/fr24\n",
-      "user": "anonymous",
-      "dateUpdated": "Oct 9, 2017 6:14:53 PM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "sh",
-          "editOnDblClick": false
-        },
-        "editorMode": "ace/mode/sh"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "data.pkl\nfr24_20160624.csv\nfr24.csv\nfr24.ipynb\nfr24_may.csv\nmodel.pkl\n"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1507572875399_538564862",
-      "id": "20171009-181435_607785601",
-      "dateCreated": "Oct 9, 2017 6:14:35 PM",
-      "dateStarted": "Oct 9, 2017 6:14:53 PM",
-      "dateFinished": "Oct 9, 2017 6:14:54 PM",
+      "dateStarted": "Oct 10, 2017 7:02:04 PM",
+      "dateFinished": "Oct 10, 2017 7:02:06 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Read in csv with schema",
-      "text": "%spark\nimport org.apache.spark.sql.Encoders\n\nval track_file \u003d \"/tmp/fr24/fr24_20160624.csv\"\n\ncase class FlightEntry(na1 : String, altitude : String, dest : String, heading:String, flight : String ,fltid : String, landed : String, time : String ,\n     lat : String, lon : String,na3: String,org: String ,na4:String,registration:String,flight2:String,speed :String,na6:String,planetype:String, altitude_delta:String)\nval tracksDf \u003d spark.read.option(\"header\", false).option(\"inferSchema\", false).schema(Encoders.product[FlightEntry].schema).csv(track_file).filter($\"dest\" \u003d\u003d\u003d \"AMS\") //dest Amsterdam only\nval tracksMinuteDf \u003d tracksDf.withColumn(\"minute\", from_unixtime($\"time\",\"YYYY-MM-dd hh:mm\") )\nval flightMapDf \u003d tracksMinuteDf.select($\"flight\",$\"minute\",$\"lat\",$\"lon\").sort(col(\"minute\").asc) \nval flightArray \u003d flightMapDf.collect\n \n//z.show(flightMapDf)\n//z.show(tracksMinuteDf)",
+      "text": "%spark\nimport org.apache.spark.sql.Encoders\n\n//Lets make up soem random data in a file\nval track_file \u003d \"/tmp/somedir/fl.csv\"\n\ncase class FlightEntry(na1 : String, a : String, dest : String, h:String, flight : String ,i : String, l : String, time : String ,\n     lat : String, lon : String,na3: String,o: String ,na4:String,r:String,f2:String,s :String,na6:String,t:String, ad:String)\nval tracksDf \u003d spark.read.option(\"header\", false).option(\"inferSchema\", false).schema(Encoders.product[FlightEntry].schema).csv(track_file).filter($\"dest\" \u003d\u003d\u003d \"AMS\") //dest Amsterdam only\nval tracksMinuteDf \u003d tracksDf.withColumn(\"minute\", from_unixtime($\"time\",\"YYYY-MM-dd hh:mm\") )\nval flightMapDf \u003d tracksMinuteDf.select($\"flight\",$\"minute\",$\"lat\",$\"lon\").sort(col(\"minute\").asc) \nval flightArray \u003d flightMapDf.collect\n \n//z.show(flightMapDf)\n//z.show(tracksMinuteDf)",
       "user": "anonymous",
-      "dateUpdated": "Oct 10, 2017 6:10:02 PM",
+      "dateUpdated": "Oct 10, 2017 7:02:45 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5936,7 +5900,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\nimport org.apache.spark.sql.Encoders\n\ntrack_file: String \u003d /tmp/fr24/fr24_20160624.csv\n\ndefined class FlightEntry\n\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\n\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\n\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL214,2016-06-23 11:31,49.2658,-121.8836], [KL282,2016-06-23 11:31,47.2353,-108.7284], [DL142,2016-06-23 11:31,52.2732,-111.6387], [KL610,2016-06-23 11:31,40.9074,-112.0103], [DL56,2016-06-23 11:31,40.7745,-111.9742], [KL602,2016-06-23 11:31,49.092,-98.3777], [DL178,2016-06-23 11:31,55.0896,-94.5454], [UA909,2016-06-23 11:31,42.308,-85.4874], [KL678,2016-06-23 11:31,57.9245,-89.9364], [UA20,2016-06-23 11:31,39.1989,-86.4969], [KL662,2016-06-23 11:31,41.4086,-70.2907], [OR338,2016-06-23 11:31,39.9246,-73.3105], [MP6332,2016-06-23 11:31,40.1743,-72.0937], [KL612,2016-06-23 11:31,47.8331,-70.7206], [KL692,2016-06-23 11:31,49.8256,-62.093], [UA946,2016-06-23 11:31,45.2445,-66.4383], [UA70,2016-06-23 11:31,44.9011,-64.4659], [DL72,2016-06..."
+            "data": "\nimport org.apache.spark.sql.Encoders\n\ntrack_file: String \u003d /tmp/somedir/fl.csv\n\ndefined class FlightEntry\n\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, a: string ... 17 more fields]\n\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, a: string ... 18 more fields]\n\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL214,2016-06-23 11:31,49.2658,-121.8836], [KL282,2016-06-23 11:31,47.2353,-108.7284], [DL142,2016-06-23 11:31,52.2732,-111.6387], [KL610,2016-06-23 11:31,40.9074,-112.0103], [DL56,2016-06-23 11:31,40.7745,-111.9742], [KL602,2016-06-23 11:31,49.092,-98.3777], [DL178,2016-06-23 11:31,55.0896,-94.5454], [UA909,2016-06-23 11:31,42.308,-85.4874], [KL678,2016-06-23 11:31,57.9245,-89.9364], [UA20,2016-06-23 11:31,39.1989,-86.4969], [KL662,2016-06-23 11:31,41.4086,-70.2907], [OR338,2016-06-23 11:31,39.9246,-73.3105], [MP6332,2016-06-23 11:31,40.1743,-72.0937], [KL612,2016-06-23 11:31,47.8331,-70.7206], [KL692,2016-06-23 11:31,49.8256,-62.093], [UA946,2016-06-23 11:31,45.2445,-66.4383], [UA70,2016-06-23 11:31,44.9011,-64.4659], [DL72,2016-06..."
           }
         ]
       },
@@ -5944,8 +5908,8 @@
       "jobName": "paragraph_1502647154174_905848441",
       "id": "20170813-175914_813395123",
       "dateCreated": "Aug 13, 2017 5:59:14 PM",
-      "dateStarted": "Oct 10, 2017 6:10:02 PM",
-      "dateFinished": "Oct 10, 2017 6:10:52 PM",
+      "dateStarted": "Oct 10, 2017 7:01:33 PM",
+      "dateFinished": "Oct 10, 2017 7:01:59 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -5953,7 +5917,7 @@
       "title": "Create a spark stream using flight history locations",
       "text": "%spark\n\nimport org.apache.spark.streaming.receiver.Receiver\nimport org.apache.spark.internal.Logging\nimport org.apache.spark.storage.StorageLevel\nimport scala.util.Random\n\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \n\n  def onStart() {\n    // Start the thread that receives data over a connection\n    new Thread(\"Socket Receiver Flight\") {\n      override def run() { receive() }\n    }.start()\n  }\n\n  def onStop() {\n   // There is nothing much to do as the thread calling receive()\n   // is designed to stop by itself isStopped() returns false\n  }\n\n  /** Create a socket connection and receive data until receiver is stopped */\n  private def receive() {\n   var lastTime \u003d \"\"\n   var resultArray \u003d List[String]()\n   while(!isStopped()) {     \n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\n        flightArray.foreach(r \u003d\u003e {\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) ).toString :: resultArray\n            \n            if (r(1).toString !\u003d lastTime) {\n                lastTime \u003d r(1).toString\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\n                resultArray \u003d List[String]()\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\n            }\n            \n        }) \n       \n    }\n  }\n}\n",
       "user": "anonymous",
-      "dateUpdated": "Oct 10, 2017 6:14:23 PM",
+      "dateUpdated": "Oct 10, 2017 6:57:55 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -5982,16 +5946,16 @@
       "jobName": "paragraph_1507573003032_-281919008",
       "id": "20171009-181643_1935834011",
       "dateCreated": "Oct 9, 2017 6:16:43 PM",
-      "dateStarted": "Oct 10, 2017 6:14:24 PM",
-      "dateFinished": "Oct 10, 2017 6:14:25 PM",
+      "dateStarted": "Oct 10, 2017 6:57:55 PM",
+      "dateFinished": "Oct 10, 2017 6:57:56 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Realtime flight map",
-      "text": "%angular\n\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    maxZoom: 20,\n    subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n}).addTo(map);\n\n\n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                \n                    //Draw ship and wave at current location. \n                    //var wave \u003d L.marker([event.values[1], event.values[2]], {icon: waveIcon}).addTo(map);\n                    //var plane \u003d L.marker([event.values[1], event.values[2]], {icon: shipIcon, zIndexOffset: 100 }).addTo(geoMarkers);\n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
+      "text": "%angular\n\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    maxZoom: 20,\n    subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n}).addTo(map);\n\n\n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                \n                    //Draw ship and wave at current location. \n                    //var wave \u003d L.marker([event.values[1], event.values[2]], {icon: waveIcon}).addTo(map);\n                    //var plane \u003d L.marker([event.values[1], event.values[2]], {icon: shipIcon, zIndexOffset: 100 }).addTo(geoMarkers);\n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:LightGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
       "user": "anonymous",
-      "dateUpdated": "Oct 10, 2017 6:38:00 PM",
+      "dateUpdated": "Oct 10, 2017 7:03:07 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -6002,8 +5966,8 @@
         },
         "editorMode": "ace/mode/undefined",
         "title": true,
-        "editorHide": false,
-        "tableHide": true
+        "editorHide": true,
+        "tableHide": false
       },
       "settings": {
         "params": {},
@@ -6014,7 +5978,7 @@
         "msg": [
           {
             "type": "ANGULAR",
-            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    maxZoom: 20,\n    subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n}).addTo(map);\n\n\n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n    \n    //Keep track of waves (history) so we can keep track and retain them, and easily remove the oldest waves after a while,\n    var waveMarkers \u003d [ ]\n    var maxWaves \u003d 1000 //Maximum of waves in map to prevent map overload (oldest will be removed from map)\n    \n    //TODO: replace wave icon markers with polyline, as markers are very expensive and would degrade performanc of the map. Though lines within Zeppelin show up in wrong lat/lon location (bug?)\n     var waveIcon \u003d L.icon({\n            iconUrl: \u0027http://www.clker.com/cliparts/3/D/N/a/g/x/wave-with-opaque-background-md.png\u0027,\n\n            iconSize:     [15, 15], // size of the icon\n            shadowSize:   [5, 5], // size of the shadow\n            iconAnchor:   [6, 6], // point of the icon which will correspond to marker\u0027s location\n            shadowAnchor: [2, 2],  // the same for the shadow\n            popupAnchor:  [-1, -10] // point from which the popup should open relative to the iconAnchor\n            });\n      var shipIcon \u003d L.icon({\n            //iconUrl: \u0027http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/blue-jelly-icons-transport-travel/037518-blue-jelly-icon-transport-travel-transportation-ship2.png\u0027,\n            iconUrl: \u0027http://www.planetoftunes.com/dtp/png_test/red_circle.png\u0027,\n            iconSize:     [10, 10], // size of the icon\n            shadowSize:   [2, 2], // size of the shadow\n            iconAnchor:   [10, 10], // point of the icon which will correspond to marker\u0027s location\n            shadowAnchor: [1, 1],  // the same for the shadow\n            popupAnchor:  [-1, -3] // point from which the popup should open relative to the iconAnchor\n            });\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                \n                    //Draw ship and wave at current location. \n                    //var wave \u003d L.marker([event.values[1], event.values[2]], {icon: waveIcon}).addTo(map);\n                    //var plane \u003d L.marker([event.values[1], event.values[2]], {icon: shipIcon, zIndexOffset: 100 }).addTo(geoMarkers);\n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n\n\n                    //plane.bindTooltip(\u0027test\u0027).openTooltip(); \n                    //.bindLabel(event.values[0], {noHide: true, offset: [0, 0] })\n                    \n                    //Remove oldest waves\n                    //waveMarkers.push(wave)\n                    //if (waveMarkers.length \u003e maxWaves) {\n                    //    map.removeLayer(waveMarkers.shift()) \n                    //}\n                }\n                   \n\n            });\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    maxZoom: 20,\n    subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n}).addTo(map);\n\n\n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                \n                    //Draw ship and wave at current location. \n                    //var wave \u003d L.marker([event.values[1], event.values[2]], {icon: waveIcon}).addTo(map);\n                    //var plane \u003d L.marker([event.values[1], event.values[2]], {icon: shipIcon, zIndexOffset: 100 }).addTo(geoMarkers);\n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:LightGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
           }
         ]
       },
@@ -6022,8 +5986,8 @@
       "jobName": "paragraph_1507576438064_-1198885148",
       "id": "20171009-191358_2059804917",
       "dateCreated": "Oct 9, 2017 7:13:58 PM",
-      "dateStarted": "Oct 10, 2017 6:12:52 PM",
-      "dateFinished": "Oct 10, 2017 6:12:52 PM",
+      "dateStarted": "Oct 10, 2017 7:03:07 PM",
+      "dateFinished": "Oct 10, 2017 7:03:07 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
