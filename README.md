@@ -38,6 +38,9 @@ docker pull dylanmei/zeppelin
 docker run --rm -p 8080:8080 dylanmei/zeppelin
 
 localhost:8080 will give access to Zeppelin.
+
+Please note the notebook expects some data files which we mount on the Docker image using -v <source-dir>:/tmp/somedir , as the code expects a particular csv file in /tmp/somedir
+
 ```
 
 The initial test notebook was copied from this location and later changed using different sources:
@@ -72,3 +75,6 @@ git add note.json
 git commit -m 'intial commit zeppelin' 
 git push
 ```
+
+In this note book a new zeppelin code is added in sparksql/note.json with a lot of Spark sql snippets. At time of writing this is work in progress.
+
