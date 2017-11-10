@@ -1210,18 +1210,283 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%jdbc\n",
+      "title": "Or just write as a file and table",
+      "text": "writeData.write.format(\"json\").save(\"/tmp/piet\")\nwriteData.write.saveAsTable(\"piet\")\n\n//So question, what happens if we just write this to a stream. And also want to later on define a external table in Hive?  We can\u0027t use the schema to create a table defintion if we dont use save a table.\n",
       "user": "anonymous",
-      "dateUpdated": "Nov 10, 2017 5:07:32 PM",
+      "dateUpdated": "Nov 10, 2017 5:58:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510333652714_-198331598",
+      "id": "20171110-170732_1160347856",
+      "dateCreated": "Nov 10, 2017 5:07:32 PM",
+      "dateStarted": "Nov 10, 2017 5:51:08 PM",
+      "dateFinished": "Nov 10, 2017 5:51:10 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Show sample of the files for both the files and tables",
+      "text": "%sh\n\n//We wrote these as json files\nhead -2 /tmp/piet/part*\n//Table are using parquet by default.\nhead -2 /usr/zeppelin/spark-warehouse/piet/*",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 5:56:40 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003d\u003d\u003e /tmp/piet/part-00000-39e8090a-c3ad-4fb0-9218-8cc1b9c86a42.json \u003c\u003d\u003d\n{\"invoiceNo\":\"536365\",\"stockCode\":\"85123A\",\"description\":\"WHITE HANGING HEART T-LIGHT HOLDER\",\"quantity\":6,\"unitPrice\":2.55,\"customerID\":\"17850.0\",\"country\":\"United Kingdom\",\"invoiceDate\":\"2010-12-01T08:26:00.000Z\"}\n{\"invoiceNo\":\"536365\",\"stockCode\":\"71053\",\"description\":\"WHITE METAL LANTERN\",\"quantity\":6,\"unitPrice\":3.39,\"customerID\":\"17850.0\",\"country\":\"United Kingdom\",\"invoiceDate\":\"2010-12-01T08:26:00.000Z\"}\n\n\u003d\u003d\u003e /tmp/piet/part-00001-39e8090a-c3ad-4fb0-9218-8cc1b9c86a42.json \u003c\u003d\u003d\n{\"invoiceNo\":\"536833\",\"stockCode\":\"21621\",\"description\":\"VINTAGE UNION JACK BUNTING\",\"quantity\":2,\"unitPrice\":8.5,\"customerID\":\"18239.0\",\"country\":\"United Kingdom\",\"invoiceDate\":\"2010-12-02T17:48:00.000Z\"}\n{\"invoiceNo\":\"536834\",\"stockCode\":\"21111\",\"description\":\"SWISS ROLL TOWEL, CHOCOLATE  SPOTS\",\"quantity\":12,\"unitPrice\":2.95,\"customerID\":\"14576.0\",\"country\":\"United Kingdom\",\"invoiceDate\":\"2010-12-02T17:51:00.000Z\"}\n\u003d\u003d\u003e /usr/zeppelin/spark-warehouse/piet/part-00000-4851e6bc-8987-4a33-a6cc-310006114b07.snappy.parquet \u003c\u003d\u003d\nPAR1\u0015\u0004\u0015�.\u0015�\u0013L\u0015�\u0004\u0015\u0004\u0000\u0000�\u0017$\u0006\u0000\u0000\u0000536365\u0015\n\u00006\u0015\n\n\u003d\u003d\u003e /usr/zeppelin/spark-warehouse/piet/part-00001-4851e6bc-8987-4a33-a6cc-310006114b07.snappy.parquet \u003c\u003d\u003d\nPAR1\u0015\u0004\u0015�!\u0015�\u000eL\u0015�\u0003\u0015\u0004\u0000\u0000�\u0010$\u0006\u0000\u0000\u0000536833\u0015\n\u00004\u0015\n\n\u003d\u003d\u003e /usr/zeppelin/spark-warehouse/piet/_SUCCESS \u003c\u003d\u003d\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510334731830_-2124039237",
+      "id": "20171110-172531_1109571749",
+      "dateCreated": "Nov 10, 2017 5:25:31 PM",
+      "dateStarted": "Nov 10, 2017 5:55:39 PM",
+      "dateFinished": "Nov 10, 2017 5:55:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "And show the table",
+      "text": "spark.catalog.listTables.show()\nz.show(spark.catalog.listDatabases)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 5:54:28 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----+--------+-----------+---------+-----------+\n|name|database|description|tableType|isTemporary|\n+----+--------+-----------+---------+-----------+\n|piet| default|       null|  MANAGED|      false|\n+----+--------+-----------+---------+-----------+\n\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "name\tdescription\tlocationUri\ndefault\tdefault database\tfile:/usr/zeppelin/spark-warehouse/\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510335140819_1946769403",
+      "id": "20171110-173220_1258579988",
+      "dateCreated": "Nov 10, 2017 5:32:20 PM",
+      "dateStarted": "Nov 10, 2017 5:53:59 PM",
+      "dateFinished": "Nov 10, 2017 5:54:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create external table ddl script!",
+      "text": "val tablename\u003d\"piet\"\nval path \u003d\"/usr/zeppelin/spark-warehouse/piet\" //Use hdfs://bla if using hdfs\nval rawSchema \u003d sqlContext.read.parquet(path).schema\nval schemaString \u003d rawSchema.fields.map(field \u003d\u003e field.name.replaceAll(\"\"\"^_\"\"\", \"\").concat(\" \").concat(field.dataType.typeName match {\n        case \"integer\" \u003d\u003e \"int\"\n        case smt \u003d\u003e smt\n      })).mkString(\",\\n\")\n\n      val ddl \u003d\n      s\"\"\"\n         |Create external table $tablename ($schemaString) \\n\n         |partitioned by (y int, m int, d int, hh int, mm int) \\n\n         |Stored As Avro \\n\n         |-- inputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat\u0027 \\n\n         | -- outputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat\u0027 \\n\n         | Location \u0027hdfs://$path\u0027\n       \"\"\".stripMargin\nz.show(ddl)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 6:03:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ntablename: String \u003d piet\n\npath: String \u003d /usr/zeppelin/spark-warehouse/piet\n\nrawSchema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(invoiceNo,StringType,true), StructField(stockCode,StringType,true), StructField(description,StringType,true), StructField(quantity,IntegerType,true), StructField(unitPrice,DoubleType,true), StructField(customerID,StringType,true), StructField(country,StringType,true), StructField(invoiceDate,TimestampType,true))\n\n\n\n\n\n\n\n\n\nschemaString: String \u003d\ninvoiceNo string,\nstockCode string,\ndescription string,\nquantity int,\nunitPrice double,\ncustomerID string,\ncountry string,\ninvoiceDate timestamp\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nddl: String \u003d\n\"\nCreate external table piet (invoiceNo string,\nstockCode string,\ndescription string,\nquantity int,\nunitPrice double,\ncustomerID string,\ncountry string,\ninvoiceDate timestamp)\n\npartitioned by (y int, m int, d int, hh int, mm int)\n\nStored As Avro\n\n-- inputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat\u0027\n\n -- outputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat\u0027\n\n Location \u0027hdfs:///usr/zeppelin/spark-warehouse/piet\u0027\n       \"\n\nCreate external table piet (invoiceNo string,\nstockCode string,\ndescription string,\nquantity int,\nunitPrice double,\ncustomerID string,\ncountry string,\ninvoiceDate timestamp) \n\npartitioned by (y int, m int, d int, hh int, mm int) \n\nStored As Avro \n\n-- inputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat\u0027 \n\n -- outputformat \u0027org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat\u0027 \n\n Location \u0027hdfs:///usr/zeppelin/spark-warehouse/piet\u0027\n       "
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510336823647_1204731920",
+      "id": "20171110-180023_529473690",
+      "dateCreated": "Nov 10, 2017 6:00:23 PM",
+      "dateStarted": "Nov 10, 2017 6:03:30 PM",
+      "dateFinished": "Nov 10, 2017 6:03:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Using mongo within Spark",
+      "text": "%md\n\nIn zeppelin added dependency within spark interpreter: org.mongodb.spark:mongo-spark-connector_2.11:2.1.0 , hoping it will get the jars from:\nhttp://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.11/2.1.0/\n\nInstall mongo db on docker image:\ndocker exec -it 9ac9fdfa5d12 bash\n\nIn bash:\napt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6\necho \"deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main\" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list\napt-get update\napt-get install -y mongodb-org\nmkdir /data\nmkdir /data/db\nmkdir /data/db/log\n\u003cneeded? mongod --dbpath data/db --fork --logpath data/db/log\u003e\nmongod\n\n\nIn new shell on the docker image, start new bash and run a shell:\nmongo\nuse micheldb;\ndb.movie.insert({\"name\":\"tutorials point\"})\nshow databases;\nshow collections;\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 7:15:15 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIn zeppelin added dependency within spark interpreter: org.mongodb.spark:mongo-spark-connector_2.11:2.1.0 , hoping it will get the jars from:\u003cbr/\u003e\u003ca href\u003d\"http://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.11/2.1.0/\"\u003ehttp://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.11/2.1.0/\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eInstall mongo db on docker image:\u003cbr/\u003edocker exec -it 9ac9fdfa5d12 bash\u003c/p\u003e\n\u003cp\u003eIn bash:\u003cbr/\u003eapt-key adv \u0026ndash;keyserver \u003ca href\u003d\"hkp://keyserver.ubuntu.com:80\"\u003ehkp://keyserver.ubuntu.com:80\u003c/a\u003e \u0026ndash;recv 0C49F3730359A14518585931BC711F9BA15703C6\u003cbr/\u003eecho \u0026ldquo;deb \u003ca href\u003d\"http://repo.mongodb.org/apt/debian\"\u003ehttp://repo.mongodb.org/apt/debian\u003c/a\u003e jessie/mongodb-org/3.4 main\u0026rdquo; | tee /etc/apt/sources.list.d/mongodb-org-3.4.list\u003cbr/\u003eapt-get update\u003cbr/\u003eapt-get install -y mongodb-org\u003cbr/\u003emkdir /data\u003cbr/\u003emkdir /data/db\u003cbr/\u003emkdir /data/db/log\u003cbr/\u003e\u0026lt;needed? mongod \u0026ndash;dbpath data/db \u0026ndash;fork \u0026ndash;logpath data/db/log\u0026gt;\u003cbr/\u003emongod\u003c/p\u003e\n\u003cp\u003eIn new shell on the docker image, start new bash and run a shell:\u003cbr/\u003emongo\u003cbr/\u003euse micheldb;\u003cbr/\u003edb.movie.insert({\u0026ldquo;name\u0026rdquo;:\u0026ldquo;tutorials point\u0026rdquo;})\u003cbr/\u003eshow databases;\u003cbr/\u003eshow collections;\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510336387201_978038197",
+      "id": "20171110-175307_1260943273",
+      "dateCreated": "Nov 10, 2017 5:53:07 PM",
+      "dateStarted": "Nov 10, 2017 7:15:15 PM",
+      "dateFinished": "Nov 10, 2017 7:15:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets read our movie name from Mongo and print it",
+      "text": "import org.apache.spark.sql.SQLContext\nimport org.apache.spark.{SparkConf, SparkContext}\nimport com.mongodb.spark.MongoSpark\nimport com.mongodb.spark.config.{ReadConfig, WriteConfig}\n\nval readConfig \u003d ReadConfig(Map(\"uri\" -\u003e \"mongodb://localhost:27017/micheldb.movie?readPreference\u003dprimaryPreferred\"))\nval writeConfig \u003d WriteConfig(Map(\"uri\" -\u003e \"mongodb://localhost:27017/micheldb.outCollection\"))\ncase class Movie (name : String)\nval movieDF \u003d MongoSpark.load(sc, readConfig).toDF[Movie]\n\nmovieDF.take(1).foreach(println) //yeah it prints tutorials point\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 7:36:10 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.SQLContext\n\nimport org.apache.spark.{SparkConf, SparkContext}\n\nimport com.mongodb.spark.MongoSpark\n\nimport com.mongodb.spark.config.{ReadConfig, WriteConfig}\n\nreadConfig: com.mongodb.spark.config.ReadConfig.Self \u003d ReadConfig(micheldb,movie,Some(mongodb://localhost:27017/micheldb.movie?readPreference\u003dprimaryPreferred),1000,DefaultMongoPartitioner,Map(),15,ReadPreferenceConfig(primaryPreferred,None),ReadConcernConfig(None),false)\n\nwriteConfig: com.mongodb.spark.config.WriteConfig.Self \u003d WriteConfig(micheldb,outCollection,Some(mongodb://localhost:27017/micheldb.outCollection),true,512,15,WriteConcernConfig(None,None,None,None))\n\ndefined class Movie\n\nmovieDF: org.apache.spark.sql.DataFrame \u003d [name: string]\n[tutorials point]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510338425144_-1356871015",
+      "id": "20171110-182705_756240525",
+      "dateCreated": "Nov 10, 2017 6:27:05 PM",
+      "dateStarted": "Nov 10, 2017 7:35:07 PM",
+      "dateFinished": "Nov 10, 2017 7:35:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Can we call this mongo db from pyspark? yes",
+      "text": "%pyspark\ndf \u003d spark.read.format(\"com.mongodb.spark.sql.DefaultSource\").option(\"uri\", \"mongodb://localhost:27017/micheldb.movie\").load()\nz.show(df)",
+      "user": "anonymous",
+      "dateUpdated": "Nov 10, 2017 7:52:12 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "_id\tname\n[5a05fa92430bbc3c5a662d41]\ttutorials point\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510343426557_-834999385",
+      "id": "20171110-195026_234216178",
+      "dateCreated": "Nov 10, 2017 7:50:26 PM",
+      "dateStarted": "Nov 10, 2017 7:51:53 PM",
+      "dateFinished": "Nov 10, 2017 7:51:53 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
       "config": {},
       "settings": {
         "params": {},
         "forms": {}
       },
       "apps": [],
-      "jobName": "paragraph_1510333652714_-198331598",
-      "id": "20171110-170732_1160347856",
-      "dateCreated": "Nov 10, 2017 5:07:32 PM",
+      "jobName": "paragraph_1510342331452_1456020495",
+      "id": "20171110-193211_61573638",
+      "dateCreated": "Nov 10, 2017 7:32:11 PM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
