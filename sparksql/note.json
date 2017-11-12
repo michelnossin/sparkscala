@@ -180,10 +180,43 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "Lets remove these nasty ? characters which ruin our integers",
+      "text": "%sh\n\nsed \u0027s/?//\u0027 breast-cancer-wisconsin.data \u003e breast-cancer-wisconsin.data.temp\nrm breast-cancer-wisconsin.data\ncp breast-cancer-wisconsin.data.temp breast-cancer-wisconsin.data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 12:08:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510488385082_1324190612",
+      "id": "20171112-120625_79073954",
+      "dateCreated": "Nov 12, 2017 12:06:25 PM",
+      "dateStarted": "Nov 12, 2017 12:07:53 PM",
+      "dateFinished": "Nov 12, 2017 12:07:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "title": "Create spark dataframe with explicit schema",
       "text": "import org.apache.spark.sql.types._\n    \nval recordSchema \u003d new StructType().add(\"sample\", \"long\").add(\"cThick\", \"integer\").add(\"uCSize\", \"integer\").add(\"uCShape\", \"integer\").add(\"mAdhes\", \"integer\").add(\"sECSize\", \"integer\").add(\"bNuc\", \"integer\").add(\"bChrom\", \"integer\").add(\"nNuc\", \"integer\").add(\"mitosis\", \"integer\").add(\"clas\", \"integer\")\n  \nval df \u003d spark.read.format(\"csv\").option(\"header\", false).schema(recordSchema).load(\"breast-cancer-wisconsin.data\")\n",
       "user": "anonymous",
-      "dateUpdated": "Nov 7, 2017 2:08:05 PM",
+      "dateUpdated": "Nov 12, 2017 1:27:58 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -212,16 +245,16 @@
       "jobName": "paragraph_1510062585788_-804150059",
       "id": "20171107-134945_279152945",
       "dateCreated": "Nov 7, 2017 1:49:45 PM",
-      "dateStarted": "Nov 7, 2017 2:07:08 PM",
-      "dateFinished": "Nov 7, 2017 2:07:09 PM",
+      "dateStarted": "Nov 12, 2017 1:27:58 PM",
+      "dateFinished": "Nov 12, 2017 1:28:14 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Some nice output using Zeppelin context",
-      "text": "z.show(df.limit(10))",
+      "text": "z.show(df.limit(32))",
       "user": "anonymous",
-      "dateUpdated": "Nov 8, 2017 8:06:42 PM",
+      "dateUpdated": "Nov 12, 2017 1:28:16 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -251,7 +284,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n"
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n1035283\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1036172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1041801\t5\t3\t3\t3\t2\t3\t4\t4\t1\t4\n1043999\t1\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1044572\t8\t7\t5\t10\t7\t9\t5\t5\t4\t4\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1048672\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1049815\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1050670\t10\t7\t7\t6\t4\t10\t4\t1\t2\t4\n1050718\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1054593\t10\t5\t5\t3\t6\t7\t7\t10\t1\t4\n1056784\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1057013\t8\t4\t5\t1\t2\tnull\t7\t3\t1\t4\n1059552\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1065726\t5\t2\t3\t4\t2\t7\t3\t6\t1\t4\n1066373\t3\t2\t1\t1\t1\t1\t2\t1\t1\t2\n1066979\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1067444\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1070935\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1070935\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1071760\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n"
           }
         ]
       },
@@ -259,8 +292,8 @@
       "jobName": "paragraph_1510063500490_465409633",
       "id": "20171107-140500_1018643858",
       "dateCreated": "Nov 7, 2017 2:05:00 PM",
-      "dateStarted": "Nov 7, 2017 2:11:29 PM",
-      "dateFinished": "Nov 7, 2017 2:11:30 PM",
+      "dateStarted": "Nov 12, 2017 1:28:16 PM",
+      "dateFinished": "Nov 12, 2017 1:28:18 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1477,6 +1510,970 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "%md\n\n## Spark stream Azure Event Hub",
+      "user": "anonymous",
+      "dateUpdated": "Nov 11, 2017 2:31:32 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eSpark stream Azure Event Hub\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510342331452_1456020495",
+      "id": "20171110-193211_61573638",
+      "dateCreated": "Nov 10, 2017 7:32:11 PM",
+      "dateStarted": "Nov 11, 2017 2:31:32 PM",
+      "dateFinished": "Nov 11, 2017 2:31:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%dep\n \nz.reset()\nz.addRepo(\"Spark Packages Repo\").url(\"http://dl.bintray.com/spark-packages/maven\")\n//z.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.0.4\") //dstream (or you get error)\nz.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.1.0\")  //structured stream\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 11:07:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@252345a\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510410692170_1070849554",
+      "id": "20171111-143132_1325763767",
+      "dateCreated": "Nov 11, 2017 2:31:32 PM",
+      "dateStarted": "Nov 12, 2017 11:07:29 AM",
+      "dateFinished": "Nov 12, 2017 11:07:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Testing with DStream, non structured , works better in Zeppelin",
+      "text": "%spark\n \n//import spark.implicits._\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\n \nval progressDir \u003d \"/tmp/check3\" //change progress and checkpoint dir when switching between eventhub jar versions!!\nval policyName \u003d \"michel\"\nval policykey \u003d \"getyourown\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubName \u003d \"airport\"\nval batchDuration \u003d 1\nval sparkCheckpointDir \u003d \"/tmp/check3\"\n \nval eventhubParameters \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policykey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubName,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\"\n)\n \nval ssc \u003d new StreamingContext(sc, Seconds(batchDuration))\nssc.checkpoint(sparkCheckpointDir)\nval inputDirectStream \u003d EventHubsUtils.createDirectStreams(\n  ssc,\n  eventHubNamespace,\n  progressDir,\n  Map(eventHubName -\u003e eventhubParameters))\n \n inputDirectStream.map(receivedRecord \u003d\u003e (new String(receivedRecord.getBody), 1)).\n      reduceByKeyAndWindow((v1, v2) \u003d\u003e v1 + v2, (v1, v2) \u003d\u003e v1 - v2, Seconds(batchDuration * 2),\n        Seconds(batchDuration)).print()\n        \nssc.start()\nssc.awaitTerminationOrTimeout(30000)\n \n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 8:13:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\n\nprogressDir: String \u003d /tmp/check3\n\npolicyName: String \u003d michel\n\npolicykey: String \u003d X2/Pwio4S0DBLvANrkdh4hvZSMFm+NTYJTAZdx1YFvc\u003d\n\neventHubNamespace: String \u003d micheleventhub\n\neventHubName: String \u003d airport\n\nbatchDuration: Int \u003d 1\n\nsparkCheckpointDir: String \u003d /tmp/check3\n\neventhubParameters: scala.collection.immutable.Map[String,String] \u003d Map(eventhubs.name -\u003e airport, eventhubs.consumergroup -\u003e $Default, eventhubs.partition.count -\u003e 1, eventhubs.policykey -\u003e X2/Pwio4S0DBLvANrkdh4hvZSMFm+NTYJTAZdx1YFvc\u003d, eventhubs.namespace -\u003e micheleventhub, eventhubs.policyname -\u003e michel)\n\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@4475c66d\n\ninputDirectStream: org.apache.spark.streaming.eventhubs.EventHubDirectDStream \u003d org.apache.spark.streaming.eventhubs.EventHubDirectDStream@4271f54e\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n-------------------------------------------\nTime: 1510417815000 ms\n-------------------------------------------\n({\"temp\":74,\"createDate\":\"2017-11-06T13:57:25.0491121Z\",\"deviceId\":\"b7d370f9-f189-46ed-98e7-1397d4d47f34\"},13)\n({\"temp\":75,\"createDate\":\"2017-11-06T13:38:11.2135005Z\",\"deviceId\":\"d4f98721-1eaf-46bc-994d-85cb32c2a9f1\"},24)\n({\"temp\":73,\"createDate\":\"2017-11-06T13:57:25.0647361Z\",\"deviceId\":\"fa554671-941c-43df-998f-1fa38e77b1ce\"},6)\n({\"temp\":65,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"d4f98721-1eaf-46bc-994d-85cb32c2a9f1\"},20)\n({\"temp\":71,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"c115700c-c72d-4dd2-a344-98a289aca0a0\"},28)\n({\"temp\":76,\"createDate\":\"2017-11-06T13:57:25.080362Z\",\"deviceId\":\"b7d370f9-f189-46ed-98e7-1397d4d47f34\"},4)\n({\"temp\":64,\"createDate\":\"2017-11-06T13:57:25.0491121Z\",\"deviceId\":\"fa554671-941c-43df-998f-1fa38e77b1ce\"},6)\n({\"temp\":66,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"c115700c-c72d-4dd2-a344-98a289aca0a0\"},44)\n({\"temp\":60,\"createDate\":\"2017-11-06T13:57:25.0491121Z\",\"deviceId\":\"2e9f104d-a04e-48a8-927f-4c76ef153352\"},8)\n({\"temp\":76,\"createDate\":\"2017-11-06T13:38:11.2135005Z\",\"deviceId\":\"c115700c-c72d-4dd2-a344-98a289aca0a0\"},20)\n...\n\n\nres9: Boolean \u003d false\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510410717553_1678398716",
+      "id": "20171111-143157_1288963130",
+      "dateCreated": "Nov 11, 2017 2:31:57 PM",
+      "dateStarted": "Nov 11, 2017 4:30:03 PM",
+      "dateFinished": "Nov 11, 2017 4:30:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Structured Streaming icm Azure Event Hub",
+      "text": "import org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\nimport org.apache.spark.sql.functions._\n\nval messageSchema \u003d new StructType()\n          .add(\"temp\", IntegerType)\n          .add(\"createDate\", StringType)\n          .add(\"deviceId\",StringType)\n\n//\"temp\":65,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"d4f98721-1eaf-46bc-994d-85cb32c2a9f1\"\n          \n          \nval progressDir \u003d \"/tmp/check6\"\nval policyName \u003d \"michel\"\nval policyKey \u003d \"getyourown\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubNameIn \u003d \"airport\"\nval eventHubNameOut \u003d \"airportout\"\nval maxRate \u003d 100\nval checkpointLocation \u003d \"/tmp/check6\"\nval outputPath \u003d \"/tmp/output6\"\n\nval eventhubParametersIn \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameIn,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\nval eventhubParametersOut \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameOut,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\n\n//val sparkSession \u003d SparkSession.builder().getOrCreate()\nval inputStream \u003d spark.readStream.format(\"eventhubs\").options(eventhubParametersIn).load()\nval inputStreamExtract \u003d inputStream.selectExpr(\"CAST(body AS STRING)\").select(from_json( $\"body\", messageSchema)) //this works\n\n//ENABLE IF YOU WANT TO SAVE AS PARQUET FILES PER 2 SECONDS ON FS\n//val streamingQuery1 \u003d inputStream.writeStream.outputMode(\"append\").trigger(ProcessingTime(\"2 seconds\")).option(\"checkpointLocation\", checkpointLocation).\n//                        format(\"parquet\").option(\"path\", outputPath + \"/ETL\").partitionBy(\"creationTime\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery1.awaitTermination()\n\n//ENABLE IF YOU WANT TO SHOW TEMPS ON CONSOLE\n//val streamingQuery2 \u003d inputStreamExtract.select($\"jsontostruct(body).temp\").\n//                        writeStream.format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery2.awaitTermination()\n\n//ENABLE IF YOU WANT COUNT PER DEVICE , the withcolumn is required due to bug spark 2.1\nval streamingQuery3 \u003d inputStreamExtract.withColumn(\"thetime\", $\"jsontostruct(body).createDate\").groupBy(window($\"thetime\",\"1 second\")).count().\n                        writeStream.outputMode(\"complete\").format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\nstreamingQuery3.awaitTermination()\n\n \n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 8:13:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\n\n\n\u003cconsole\u003e:137: error: object eventhubs is not a member of package org.apache.spark.streaming\n       import org.apache.spark.streaming.eventhubs.EventHubsUtils\n                                         ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510412785716_-816186746",
+      "id": "20171111-150625_546484711",
+      "dateCreated": "Nov 11, 2017 3:06:25 PM",
+      "dateStarted": "Nov 12, 2017 8:13:35 PM",
+      "dateFinished": "Nov 12, 2017 8:13:37 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Dependency if working with avro files with schema and compaction",
+      "text": "%dep\n\nz.load(\"com.databricks:spark-avro_2.11:4.0.0\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 12:56:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@a14dec6\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510490625902_2720394",
+      "id": "20171112-124345_1298353990",
+      "dateCreated": "Nov 12, 2017 12:43:45 PM",
+      "dateStarted": "Nov 12, 2017 12:56:04 PM",
+      "dateFinished": "Nov 12, 2017 12:56:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Json, avro files and streams, partioned",
+      "text": "//import com.databricks.spark.avro._\n\n//Lets write our dataframe with cancer data, read as csv , into a json file\n\ndf.write.json(\"/tmp/michel.json\") //we can read and write to json, from local or s3: or hdfs: files. Also using structured streaming (readstream.json(\"file\") for example)\n//val df \u003d spark.read.json(\"/tmp/michel.json\") //Or if its already written lets read it.\ndf.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").json(\"/tmp/michelpart.json\")  //create partioned/cThink\u003d1/\u003cbla\u003e and \u003d2 and \u003d3 etc\ndf.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").parquet(\"/tmp/michelpart.parquet\")\n\n//Save an avro file BUG see next section below\n//df.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").avro(\"/tmp/michel3.avro\")\n//df.filter(\"cThick \u003c 3\").coalesce(1).write.format(\"com.databricks.spark.avro\").save(\"/tmp/michel2.avro\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 1:28:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510413060837_-1783259423",
+      "id": "20171111-151100_244374438",
+      "dateCreated": "Nov 11, 2017 3:11:00 PM",
+      "dateStarted": "Nov 12, 2017 1:28:50 PM",
+      "dateFinished": "Nov 12, 2017 1:28:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Avro bug",
+      "text": "//https://stackoverflow.com/questions/43176394/nosuchmethoderror-using-databricks-spark-avro-3-2-0\n\nsc.getClass().getResource(\"/org/apache/avro/generic/GenericData.class\")",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 1:01:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres14: java.net.URL \u003d jar:file:/usr/hadoop-2.7.3/share/hadoop/common/lib/avro-1.7.4.jar!/org/apache/avro/generic/GenericData.class\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510485631578_1453617087",
+      "id": "20171112-112031_1542883618",
+      "dateCreated": "Nov 12, 2017 11:20:31 AM",
+      "dateStarted": "Nov 12, 2017 1:00:32 PM",
+      "dateFinished": "Nov 12, 2017 1:00:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Lets do some exploratory data analysing (EDA) to get to understand data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 2:45:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eLets do some exploratory data analysing (EDA) to get to understand data\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510490874710_-81187159",
+      "id": "20171112-124754_162992617",
+      "dateCreated": "Nov 12, 2017 12:47:54 PM",
+      "dateStarted": "Nov 12, 2017 2:45:00 PM",
+      "dateFinished": "Nov 12, 2017 2:45:02 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets create a Dataset instead of frame (scala)",
+      "text": "%spark\nimport org.apache.spark.sql.types._\nimport org.apache.spark.sql.Encoders\n\n//We could use structType but this is more Scala like, and datasets is used in Scala anyway (or Java) but not Python\ncase class CancerRow (sample : Long,cThick : Integer,uCSize : Integer,uCShape : Integer,mAdhes : Integer,sECSize : Integer,bNuc : Integer,bChrom : Integer,nNuc : Integer,mitosis : Integer,clas : Integer)\nval cancerEncoder \u003d Encoders.product[CancerRow]\nval df \u003d spark.read.format(\"csv\").schema(cancerEncoder.schema).option(\"header\", false).load(\"breast-cancer-wisconsin.data\").as[CancerRow]\ndf.printSchema\ndf.registerTempTable(\"Cancer\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 4:23:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.Encoders\n\ndefined class CancerRow\n\ncancerEncoder: org.apache.spark.sql.Encoder[CancerRow] \u003d class[sample[0]: bigint, cThick[0]: int, uCSize[0]: int, uCShape[0]: int, mAdhes[0]: int, sECSize[0]: int, bNuc[0]: int, bChrom[0]: int, nNuc[0]: int, mitosis[0]: int, clas[0]: int]\n\ndf: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\nroot\n |-- sample: long (nullable \u003d true)\n |-- cThick: integer (nullable \u003d true)\n |-- uCSize: integer (nullable \u003d true)\n |-- uCShape: integer (nullable \u003d true)\n |-- mAdhes: integer (nullable \u003d true)\n |-- sECSize: integer (nullable \u003d true)\n |-- bNuc: integer (nullable \u003d true)\n |-- bChrom: integer (nullable \u003d true)\n |-- nNuc: integer (nullable \u003d true)\n |-- mitosis: integer (nullable \u003d true)\n |-- clas: integer (nullable \u003d true)\n\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510497900542_2055339855",
+      "id": "20171112-144500_844493446",
+      "dateCreated": "Nov 12, 2017 2:45:00 PM",
+      "dateStarted": "Nov 12, 2017 4:23:43 PM",
+      "dateFinished": "Nov 12, 2017 4:23:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Check missing data",
+      "text": "%spark\n\n//Note some sets just use some other values like ?\nimport org.apache.spark.sql.functions.{sum, col}\ndf.select(df.columns.map(c \u003d\u003e sum(col(c).isNull.cast(\"int\")).alias(c)): _*).show\n\n//Pyspark\n//from pyspark.sql.functions import col,sum\n//df.select(*(sum(col(c).isNull().cast(\"int\")).alias(c) for c in df.columns)).show()\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:05:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.functions.{sum, col}\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n|sample|cThick|uCSize|uCShape|mAdhes|sECSize|bNuc|bChrom|nNuc|mitosis|clas|\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n|     0|     0|     0|      0|     0|      0|  16|     0|   0|      0|   0|\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510498692316_589380315",
+      "id": "20171112-145812_703851687",
+      "dateCreated": "Nov 12, 2017 2:58:12 PM",
+      "dateStarted": "Nov 12, 2017 3:03:04 PM",
+      "dateFinished": "Nov 12, 2017 3:03:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nz.show(df.select($\"bNuc\",$\"cThick\",$\"sample\").where(\"bNuc is null\"))",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:11:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "bNuc\tcThick\tsample\nnull\t8\t1057013\nnull\t6\t1096800\nnull\t1\t1183246\nnull\t1\t1184840\nnull\t1\t1193683\nnull\t5\t1197510\nnull\t3\t1241232\nnull\t3\t169356\nnull\t3\t432809\nnull\t8\t563649\nnull\t1\t606140\nnull\t5\t61634\nnull\t4\t704168\nnull\t3\t733639\nnull\t1\t1238464\nnull\t1\t1057067\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499333575_-1201701912",
+      "id": "20171112-150853_24388514",
+      "dateCreated": "Nov 12, 2017 3:08:53 PM",
+      "dateStarted": "Nov 12, 2017 3:11:27 PM",
+      "dateFinished": "Nov 12, 2017 3:11:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Statistics",
+      "text": "z.show(df.describe())\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:07:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "summary\tsample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\ncount\t699\t699\t699\t699\t699\t699\t683\t699\t699\t699\t699\nmean\t1071704.0987124464\t4.417739628040057\t3.13447782546495\t3.207439198855508\t2.8068669527896994\t3.216022889842632\t3.5446559297218156\t3.4377682403433476\t2.866952789699571\t1.5894134477825466\t2.6895565092989986\nstddev\t617095.7298192448\t2.815740658594933\t3.0514591099542003\t2.9719127672157133\t2.855379239217023\t2.214299886649047\t3.643857160492912\t2.4383642523242512\t3.0536338936127745\t1.715077942506795\t0.9512725322121839\nmin\t61634\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\nmax\t13454352\t10\t10\t10\t10\t10\t10\t10\t10\t10\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499017085_-1821392828",
+      "id": "20171112-150337_676641311",
+      "dateCreated": "Nov 12, 2017 3:03:37 PM",
+      "dateStarted": "Nov 12, 2017 3:07:09 PM",
+      "dateFinished": "Nov 12, 2017 3:07:10 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.stat.corr(\"cThick\",\"uCSize\") //0 - 1 correlation between 2 columns\ndf.stat.cov(\"cThick\",\"uCSize\") //coveriance\ndf.stat.freqItems(Seq(\"cThick\"),0.3).collect()(0) //Get items i cThick observed more 30% . Thickness 5 , 1 and 3 (in range 1 - 10) are seen \u003e 30%\ndf.stat.approxQuantile(\"cThick\",Array(0.25,0.5,0.75),0.0)  //Distribution is 2 , 4 and 6 . So a little bit left of the expected middle of 5 , also the lower 0.25 is 2 and not 3.",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:27:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres88: Double \u003d 0.6449125043512695\n\nres89: Double \u003d 5.541164004246752\n\nres90: org.apache.spark.sql.Row \u003d [WrappedArray(5, 1, 3)]\n\nres91: Array[Double] \u003d Array(2.0, 4.0, 6.0)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499214828_602600219",
+      "id": "20171112-150654_1958048764",
+      "dateCreated": "Nov 12, 2017 3:06:54 PM",
+      "dateStarted": "Nov 12, 2017 3:24:33 PM",
+      "dateFinished": "Nov 12, 2017 3:24:35 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "z.show(df.stat.crosstab(\"cThick\",\"clas\").orderBy(\"cThick_clas\"))",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:17:46 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "cThick_clas\t2\t4\n1\t142\t3\n10\t0\t69\n2\t46\t4\n3\t96\t12\n4\t68\t12\n5\t85\t45\n6\t16\t18\n7\t1\t22\n8\t4\t42\n9\t0\t14\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499527841_699417380",
+      "id": "20171112-151207_814289779",
+      "dateCreated": "Nov 12, 2017 3:12:07 PM",
+      "dateStarted": "Nov 12, 2017 3:17:46 PM",
+      "dateFinished": "Nov 12, 2017 3:17:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Using groupByKey icm agg we can do typed statistics.\n//Or get outliers using Mlib using kmeans",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 4:09:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499699034_479754762",
+      "id": "20171112-151459_643947842",
+      "dateCreated": "Nov 12, 2017 3:14:59 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use %sql to directly execute spark.sql and do EDA in tables or graphics",
+      "text": "%sql \n\nselect * from cancer where cThick\u003d${cThick\u003d3,1|2|3|4|5|6|7|8|9|10}",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:31:25 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true,
+        "runOnSelectionChange": true
+      },
+      "settings": {
+        "params": {
+          "cThick": "7"
+        },
+        "forms": {
+          "cThick": {
+            "name": "cThick",
+            "defaultValue": "3",
+            "options": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "3"
+              },
+              {
+                "value": "4"
+              },
+              {
+                "value": "5"
+              },
+              {
+                "value": "6"
+              },
+              {
+                "value": "7"
+              },
+              {
+                "value": "8"
+              },
+              {
+                "value": "9"
+              },
+              {
+                "value": "10"
+              }
+            ],
+            "hidden": false
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1106829\t7\t8\t7\t2\t4\t8\t3\t8\t2\t4\n1166630\t7\t5\t6\t10\t5\t10\t7\t9\t4\t4\n1169049\t7\t3\t4\t4\t3\t3\t3\t2\t7\t4\n1176881\t7\t5\t3\t7\t4\t10\t7\t5\t5\t4\n1189266\t7\t2\t4\t1\t6\t10\t5\t4\t3\t4\n1211202\t7\t5\t10\t10\t10\t10\t4\t10\t3\t4\n1226612\t7\t5\t6\t3\t3\t8\t7\t4\t1\t4\n1230688\t7\t4\t7\t4\t3\t7\t7\t6\t1\t4\n314428\t7\t9\t4\t10\t10\t3\t5\t3\t3\t4\n428903\t7\t2\t4\t1\t3\t4\t3\t3\t1\t4\n508234\t7\t4\t5\t10\t2\t10\t3\t8\t2\t4\n667204\t7\t8\t7\t6\t4\t3\t8\t8\t4\t4\n730881\t7\t6\t3\t2\t5\t10\t7\t4\t6\t4\n822829\t7\t6\t4\t8\t10\t10\t9\t5\t3\t4\n1080233\t7\t6\t6\t3\t2\t10\t7\t1\t1\t4\n672113\t7\t5\t6\t10\t4\t10\t5\t3\t1\t4\n837480\t7\t4\t4\t3\t4\t10\t6\t9\t1\t4\n1241035\t7\t8\t3\t7\t4\t5\t7\t8\t2\t4\n142932\t7\t6\t10\t5\t3\t10\t9\t10\t2\t4\n1140597\t7\t1\t2\t3\t2\t1\t2\t1\t1\t2\n1334015\t7\t8\t8\t7\t3\t10\t7\t2\t3\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510503765634_2127578756",
+      "id": "20171112-162245_864182865",
+      "dateCreated": "Nov 12, 2017 4:22:45 PM",
+      "dateStarted": "Nov 12, 2017 6:31:25 PM",
+      "dateFinished": "Nov 12, 2017 6:31:26 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sample by fraction size",
+      "text": "%spark\n\nimport scala.collection.immutable.Map\nval fractions \u003d Map(3 -\u003e0.1 , 4-\u003e0.5 , 6-\u003e0.4)\nval sampleDf \u003d df.stat.sampleBy(\"cThick\",fractions,36L)\nz.show(sampleDf.groupBy(\"cThick\").count)\n\n//or just use df.sample(true,.10) to get 10% of all rows\n\n//When using rdd: df.rdd.map(row \u003d\u003e (row.getAs[String](2), List(row.getInt(1),row.getInt(3) ) ).sampleByKey(true,fractions,1).countByKey   (or us sampleByKeyExact)\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:22:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport scala.collection.immutable.Map\n\nfractions: scala.collection.immutable.Map[Int,Double] \u003d Map(3 -\u003e 0.1, 4 -\u003e 0.5, 6 -\u003e 0.4)\n\nsampleDf: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "cThick\tcount\n6\t12\n3\t10\n4\t39\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510503800902_-1807202273",
+      "id": "20171112-162320_1372847629",
+      "dateCreated": "Nov 12, 2017 4:23:20 PM",
+      "dateStarted": "Nov 12, 2017 5:14:13 PM",
+      "dateFinished": "Nov 12, 2017 5:14:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Pivots",
+      "text": "z.show(df.groupBy(\"cThick\").pivot(\"uCSize\").agg(count(\"cThick\")).sort(\"cThick\")) //PEr cThick entry show distributions of entries within UCSize by counting them , you could count other columns if needed.\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:26:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "cThick",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "1",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "cThick\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\n1\t131\t8\t3\t1\t1\t1\tnull\tnull\tnull\tnull\n2\t41\t1\t5\tnull\t2\tnull\t1\tnull\tnull\tnull\n3\t80\t10\t8\t3\t1\t2\t1\tnull\tnull\t3\n4\t56\t7\t3\t3\t2\t2\t1\t4\tnull\t2\n5\t63\t11\t17\t8\t4\t4\t5\t5\tnull\t13\n6\t10\t2\t4\tnull\t2\t3\tnull\t3\t1\t9\n7\t1\t2\t2\t4\t5\t4\tnull\t4\t1\tnull\n8\tnull\t3\t4\t7\t2\t4\t7\t4\t1\t14\n9\t1\tnull\tnull\t1\t3\t1\t1\t2\t1\t4\n10\t1\t1\t6\t13\t8\t6\t3\t7\t2\t22\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510506784460_-1231963273",
+      "id": "20171112-171304_1716603499",
+      "dateCreated": "Nov 12, 2017 5:13:04 PM",
+      "dateStarted": "Nov 12, 2017 5:24:43 PM",
+      "dateFinished": "Nov 12, 2017 5:24:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Define categories and per category, or in this case main and sub category perform an aggregation. remove category mAdhes (from groupby and todf clause) to see the difference\nz.show(df.groupBy(\"cThick\",\"mAdhes\").pivot(\"uCSize\", Seq(3,4,5,6))\n   .agg(round(sum(\"uCSize\"),2),round(avg(\"uCSize\"),2)).sort(\"cThick\")\n   .toDF(\"Thickness\",\"Adhes\",\"3-sum\",\"3-avg\",\"4-sum\",\"4-avg\",\"5-sum\",\"5-avg\",\"6-sum\",\"6-avg\") )",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:43:02 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "Thickness\tAdhes\t3-sum\t3-avg\t4-sum\t4-avg\t5-sum\t5-avg\t6-sum\t6-avg\n1\t1\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n1\t6\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n1\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n1\t2\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n1\t10\tnull\tnull\t4\t4.0\tnull\tnull\t6\t6.0\n2\t3\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n2\t10\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n2\t2\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t1\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t4\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t6\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n3\t10\tnull\tnull\t4\t4.0\tnull\tnull\t6\t6.0\n3\t6\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n3\t2\t9\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n3\t4\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n3\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n3\t3\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n3\t1\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n3\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t5\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n4\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t6\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n4\t10\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n4\t2\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n4\t4\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n4\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n4\t1\t9\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n5\t6\tnull\tnull\t4\t4.0\t5\t5.0\t6\t6.0\n5\t10\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t2\t6\t3.0\tnull\tnull\t5\t5.0\t6\t6.0\n5\t8\t3\t3.0\t4\t4.0\t10\t5.0\t12\t6.0\n5\t1\t24\t3.0\t8\t4.0\tnull\tnull\tnull\tnull\n5\t3\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n5\t4\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n5\t7\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t9\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t5\t3\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n6\t3\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n6\t10\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n6\t5\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n6\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n6\t9\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n6\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n6\t2\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n6\t1\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n6\t4\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n7\t8\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t3\tnull\tnull\t4\t4.0\t5\t5.0\t6\t6.0\n7\t10\t3\t3.0\t4\t4.0\t15\t5.0\tnull\tnull\n7\t2\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n7\t4\t3\t3.0\t8\t4.0\tnull\tnull\tnull\tnull\n7\t5\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t7\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n7\t1\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t4\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n8\t10\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n8\t3\t3\t3.0\t4\t4.0\tnull\tnull\t12\t6.0\n8\t8\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t1\t3\t3.0\t16\t4.0\tnull\tnull\tnull\tnull\n8\t2\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n8\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t9\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n8\t5\tnull\tnull\t8\t4.0\t5\t5.0\tnull\tnull\n8\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t4\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n9\t10\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n9\t5\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t2\tnull\tnull\tnull\tnull\t5\t5.0\t6\t6.0\n9\t9\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t1\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n9\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n10\t2\t3\t3.0\t8\t4.0\tnull\tnull\t6\t6.0\n10\t5\t3\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n10\t1\t6\t3.0\t12\t4.0\tnull\tnull\t6\t6.0\n10\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n10\t6\tnull\tnull\t4\t4.0\t10\t5.0\t6\t6.0\n10\t3\tnull\tnull\tnull\tnull\t15\t5.0\t12\t6.0\n10\t10\t3\t3.0\t16\t4.0\t10\t5.0\tnull\tnull\n10\t8\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n10\t4\t3\t3.0\t8\t4.0\t5\t5.0\tnull\tnull\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510507470459_-175842343",
+      "id": "20171112-172430_547155515",
+      "dateCreated": "Nov 12, 2017 5:24:30 PM",
+      "dateStarted": "Nov 12, 2017 5:41:47 PM",
+      "dateFinished": "Nov 12, 2017 5:41:49 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Data munging\n\nRaw data is typically messy and requires a series of transformations before it becomes useful for modeling and analysis work. Such Datasets can have missing data, duplicate records, corrupted data, incomplete records, and so on. In its simplest form, data munging, or data wrangling, is basically the transformation of raw data into a usable format",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:32:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eData munging\u003c/h2\u003e\n\u003cp\u003eRaw data is typically messy and requires a series of transformations before it becomes useful for modeling and analysis work. Such Datasets can have missing data, duplicate records, corrupted data, incomplete records, and so on. In its simplest form, data munging, or data wrangling, is basically the transformation of raw data into a usable format\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510508217727_-159410343",
+      "id": "20171112-173657_1879272103",
+      "dateCreated": "Nov 12, 2017 5:36:57 PM",
+      "dateStarted": "Nov 12, 2017 6:32:19 PM",
+      "dateFinished": "Nov 12, 2017 6:32:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets reload the cancer set with strange ? in  it",
+      "text": "%sh\n\nrm breast-cancer-wisconsin.data\nwget https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:53:05 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "--2017-11-12 18:53:05--  https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data\nResolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249\nConnecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected.\nHTTP request sent, awaiting response... 200 OK\nLength: 19889 (19K) [text/plain]\nSaving to: ‘breast-cancer-wisconsin.data’\n\n     0K .......... .........                                  100%  103K\u003d0.2s\n\n2017-11-12 18:53:06 (103 KB/s) - ‘breast-cancer-wisconsin.data’ saved [19889/19889]\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512119702_287813422",
+      "id": "20171112-184159_1183766297",
+      "dateCreated": "Nov 12, 2017 6:41:59 PM",
+      "dateStarted": "Nov 12, 2017 6:53:05 PM",
+      "dateFinished": "Nov 12, 2017 6:53:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh\n\nhead -30 breast-cancer-wisconsin.data\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 7:20:51 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "1000025,5,1,1,1,2,1,3,1,1,2\n1002945,5,4,4,5,7,10,3,2,1,2\n1015425,3,1,1,1,2,2,3,1,1,2\n1016277,6,8,8,1,3,4,3,7,1,2\n1017023,4,1,1,3,2,1,3,1,1,2\n1017122,8,10,10,8,7,10,9,7,1,4\n1018099,1,1,1,1,2,10,3,1,1,2\n1018561,2,1,2,1,2,1,3,1,1,2\n1033078,2,1,1,1,2,1,1,1,5,2\n1033078,4,2,1,1,2,1,2,1,1,2\n1035283,1,1,1,1,1,1,3,1,1,2\n1036172,2,1,1,1,2,1,2,1,1,2\n1041801,5,3,3,3,2,3,4,4,1,4\n1043999,1,1,1,1,2,3,3,1,1,2\n1044572,8,7,5,10,7,9,5,5,4,4\n1047630,7,4,6,4,6,1,4,3,1,4\n1048672,4,1,1,1,2,1,2,1,1,2\n1049815,4,1,1,1,2,1,3,1,1,2\n1050670,10,7,7,6,4,10,4,1,2,4\n1050718,6,1,1,1,2,1,3,1,1,2\n1054590,7,3,2,10,5,10,5,4,4,4\n1054593,10,5,5,3,6,7,7,10,1,4\n1056784,3,1,1,1,2,1,2,1,1,2\n1057013,8,4,5,1,2,?,7,3,1,4\n1059552,1,1,1,1,2,1,3,1,1,2\n1065726,5,2,3,4,2,7,3,6,1,4\n1066373,3,2,1,1,1,1,2,1,1,2\n1066979,5,1,1,1,2,1,2,1,1,2\n1067444,2,1,1,1,2,1,2,1,1,2\n1070935,1,1,3,1,2,1,1,1,1,2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510514442969_-2007873828",
+      "id": "20171112-192042_1796615652",
+      "dateCreated": "Nov 12, 2017 7:20:42 PM",
+      "dateStarted": "Nov 12, 2017 7:20:51 PM",
+      "dateFinished": "Nov 12, 2017 7:20:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nimport org.apache.spark.sql.types._\nimport org.apache.spark.sql.Encoders\n\n//We could use structType but this is more Scala like, and datasets is used in Scala anyway (or Java) but not Python\ncase class CancerRow (sample : Long,cThick : Integer,uCSize : Integer,uCShape : Integer,mAdhes : Integer,sECSize : Integer,bNuc : Integer,bChrom : Integer,nNuc : Integer,mitosis : Integer,clas : Integer)\nval cancerEncoder \u003d Encoders.product[CancerRow]\nval df \u003d spark.read.format(\"csv\").schema(cancerEncoder.schema).option(\"badRecordsPath\", \"/tmp/badRecordsPath\").option(\"header\", false).option(\"nullable\",false).load(\"breast-cancer-wisconsin.data\").as[CancerRow]\ndf.printSchema\ndf.registerTempTable(\"Cancer\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 7:36:22 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.Encoders\n\ndefined class CancerRow\n\ncancerEncoder: org.apache.spark.sql.Encoder[CancerRow] \u003d class[sample[0]: bigint, cThick[0]: int, uCSize[0]: int, uCShape[0]: int, mAdhes[0]: int, sECSize[0]: int, bNuc[0]: int, bChrom[0]: int, nNuc[0]: int, mitosis[0]: int, clas[0]: int]\n\ndf: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\nroot\n |-- sample: long (nullable \u003d true)\n |-- cThick: integer (nullable \u003d true)\n |-- uCSize: integer (nullable \u003d true)\n |-- uCShape: integer (nullable \u003d true)\n |-- mAdhes: integer (nullable \u003d true)\n |-- sECSize: integer (nullable \u003d true)\n |-- bNuc: integer (nullable \u003d true)\n |-- bChrom: integer (nullable \u003d true)\n |-- nNuc: integer (nullable \u003d true)\n |-- mitosis: integer (nullable \u003d true)\n |-- clas: integer (nullable \u003d true)\n\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512401157_1302210737",
+      "id": "20171112-184641_942636796",
+      "dateCreated": "Nov 12, 2017 6:46:41 PM",
+      "dateStarted": "Nov 12, 2017 7:36:22 PM",
+      "dateFinished": "Nov 12, 2017 7:36:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Getting rid of ? characters without using RDD",
+      "text": "//Not very successful.. Maybe rdd is required..\n\nimport org.apache.spark.sql.Row\n\ndef checkType(cls: AnyRef) : Integer \u003d {\n  val returnValue : Integer \u003d cls match {                                 \n    case x : Integer \u003d\u003e x\n    case _ \u003d\u003e -1             \n  }  \n  return returnValue\n}\n\nval df2 \u003d df.rdd.map{\n      checkType(_)\n}\n\n//df2.take(30)\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 8:12:06 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.Row\n\ncheckType: (cls: AnyRef)Integer\n\ndf2: org.apache.spark.rdd.RDD[Integer] \u003d MapPartitionsRDD[298] at map at \u003cconsole\u003e:134\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512516471_-1210999727",
+      "id": "20171112-184836_596051610",
+      "dateCreated": "Nov 12, 2017 6:48:36 PM",
+      "dateStarted": "Nov 12, 2017 8:12:06 PM",
+      "dateFinished": "Nov 12, 2017 8:12:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "user": "anonymous",
       "config": {},
       "settings": {
@@ -1484,9 +2481,9 @@
         "forms": {}
       },
       "apps": [],
-      "jobName": "paragraph_1510342331452_1456020495",
-      "id": "20171110-193211_61573638",
-      "dateCreated": "Nov 10, 2017 7:32:11 PM",
+      "jobName": "paragraph_1510512543809_545404193",
+      "id": "20171112-184903_1758024856",
+      "dateCreated": "Nov 12, 2017 6:49:03 PM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
