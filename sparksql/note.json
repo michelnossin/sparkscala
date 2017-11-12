@@ -1550,7 +1550,11 @@
     {
       "text": "%dep\n \nz.reset()\nz.addRepo(\"Spark Packages Repo\").url(\"http://dl.bintray.com/spark-packages/maven\")\n//z.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.0.4\") //dstream (or you get error)\nz.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.1.0\")  //structured stream\n\n\n",
       "user": "anonymous",
+<<<<<<< HEAD
       "dateUpdated": "Nov 12, 2017 11:07:29 AM",
+=======
+      "dateUpdated": "Nov 11, 2017 5:55:19 PM",
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1570,7 +1574,11 @@
         "msg": [
           {
             "type": "TEXT",
+<<<<<<< HEAD
             "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@252345a\n"
+=======
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@687da1b3\n"
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
           }
         ]
       },
@@ -1578,8 +1586,13 @@
       "jobName": "paragraph_1510410692170_1070849554",
       "id": "20171111-143132_1325763767",
       "dateCreated": "Nov 11, 2017 2:31:32 PM",
+<<<<<<< HEAD
       "dateStarted": "Nov 12, 2017 11:07:29 AM",
       "dateFinished": "Nov 12, 2017 11:07:39 AM",
+=======
+      "dateStarted": "Nov 11, 2017 5:55:19 PM",
+      "dateFinished": "Nov 11, 2017 5:55:30 PM",
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1587,7 +1600,11 @@
       "title": "Testing with DStream, non structured , works better in Zeppelin",
       "text": "%spark\n \n//import spark.implicits._\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\n \nval progressDir \u003d \"/tmp/check3\" //change progress and checkpoint dir when switching between eventhub jar versions!!\nval policyName \u003d \"michel\"\nval policykey \u003d \"getyourown\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubName \u003d \"airport\"\nval batchDuration \u003d 1\nval sparkCheckpointDir \u003d \"/tmp/check3\"\n \nval eventhubParameters \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policykey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubName,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\"\n)\n \nval ssc \u003d new StreamingContext(sc, Seconds(batchDuration))\nssc.checkpoint(sparkCheckpointDir)\nval inputDirectStream \u003d EventHubsUtils.createDirectStreams(\n  ssc,\n  eventHubNamespace,\n  progressDir,\n  Map(eventHubName -\u003e eventhubParameters))\n \n inputDirectStream.map(receivedRecord \u003d\u003e (new String(receivedRecord.getBody), 1)).\n      reduceByKeyAndWindow((v1, v2) \u003d\u003e v1 + v2, (v1, v2) \u003d\u003e v1 - v2, Seconds(batchDuration * 2),\n        Seconds(batchDuration)).print()\n        \nssc.start()\nssc.awaitTerminationOrTimeout(30000)\n \n",
       "user": "anonymous",
+<<<<<<< HEAD
       "dateUpdated": "Nov 12, 2017 8:13:19 PM",
+=======
+      "dateUpdated": "Nov 11, 2017 6:18:10 PM",
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1625,7 +1642,11 @@
       "title": "Structured Streaming icm Azure Event Hub",
       "text": "import org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\nimport org.apache.spark.sql.functions._\n\nval messageSchema \u003d new StructType()\n          .add(\"temp\", IntegerType)\n          .add(\"createDate\", StringType)\n          .add(\"deviceId\",StringType)\n\n//\"temp\":65,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"d4f98721-1eaf-46bc-994d-85cb32c2a9f1\"\n          \n          \nval progressDir \u003d \"/tmp/check6\"\nval policyName \u003d \"michel\"\nval policyKey \u003d \"getyourown\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubNameIn \u003d \"airport\"\nval eventHubNameOut \u003d \"airportout\"\nval maxRate \u003d 100\nval checkpointLocation \u003d \"/tmp/check6\"\nval outputPath \u003d \"/tmp/output6\"\n\nval eventhubParametersIn \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameIn,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\nval eventhubParametersOut \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameOut,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\n\n//val sparkSession \u003d SparkSession.builder().getOrCreate()\nval inputStream \u003d spark.readStream.format(\"eventhubs\").options(eventhubParametersIn).load()\nval inputStreamExtract \u003d inputStream.selectExpr(\"CAST(body AS STRING)\").select(from_json( $\"body\", messageSchema)) //this works\n\n//ENABLE IF YOU WANT TO SAVE AS PARQUET FILES PER 2 SECONDS ON FS\n//val streamingQuery1 \u003d inputStream.writeStream.outputMode(\"append\").trigger(ProcessingTime(\"2 seconds\")).option(\"checkpointLocation\", checkpointLocation).\n//                        format(\"parquet\").option(\"path\", outputPath + \"/ETL\").partitionBy(\"creationTime\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery1.awaitTermination()\n\n//ENABLE IF YOU WANT TO SHOW TEMPS ON CONSOLE\n//val streamingQuery2 \u003d inputStreamExtract.select($\"jsontostruct(body).temp\").\n//                        writeStream.format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery2.awaitTermination()\n\n//ENABLE IF YOU WANT COUNT PER DEVICE , the withcolumn is required due to bug spark 2.1\nval streamingQuery3 \u003d inputStreamExtract.withColumn(\"thetime\", $\"jsontostruct(body).createDate\").groupBy(window($\"thetime\",\"1 second\")).count().\n                        writeStream.outputMode(\"complete\").format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\nstreamingQuery3.awaitTermination()\n\n \n",
       "user": "anonymous",
+<<<<<<< HEAD
       "dateUpdated": "Nov 12, 2017 8:13:35 PM",
+=======
+      "dateUpdated": "Nov 11, 2017 6:18:03 PM",
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1646,7 +1667,11 @@
         "msg": [
           {
             "type": "TEXT",
+<<<<<<< HEAD
             "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\n\n\n\u003cconsole\u003e:137: error: object eventhubs is not a member of package org.apache.spark.streaming\n       import org.apache.spark.streaming.eventhubs.EventHubsUtils\n                                         ^\n"
+=======
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\n\nimport org.apache.spark.sql.functions._\n\nmessageSchema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(temp,IntegerType,true), StructField(createDate,StringType,true), StructField(deviceId,StringType,true))\n\nprogressDir: String \u003d /tmp/check6\n\npolicyName: String \u003d michel\n\npolicyKey: String \u003d X2/Pwio4S0DBLvANrkdh4hvZSMFm+NTYJTAZdx1YFvc\u003d\n\neventHubNamespace: String \u003d micheleventhub\n\neventHubNameIn: String \u003d airport\n\neventHubNameOut: String \u003d airportout\n\nmaxRate: Int \u003d 100\n\ncheckpointLocation: String \u003d /tmp/check6\n\noutputPath: String \u003d /tmp/output6\n\neventhubParametersIn: scala.collection.immutable.Map[String,String] \u003d Map(eventhubs.sql.containsProperties -\u003e true, eventhubs.maxRate -\u003e 100, eventhubs.name -\u003e airport, eventhubs.consumergroup -\u003e $Default, eventhubs.partition.count -\u003e 1, eventhubs.progressTrackingDir -\u003e /tmp/check6, eventhubs.policykey -\u003e X2/Pwio4S0DBLvANrkdh4hvZSMFm+NTYJTAZdx1YFvc\u003d, eventhubs.namespace -\u003e micheleventhub, eventhubs.sql.userDefinedKeys -\u003e creationTime,randomUserProperty, eventhubs.policyname -\u003e michel)\n\neventhubParametersOut: scala.collection.immutable.Map[String,String] \u003d Map(eventhubs.sql.containsProperties -\u003e true, eventhubs.maxRate -\u003e 100, eventhubs.name -\u003e airportout, eventhubs.consumergroup -\u003e $Default, eventhubs.partition.count -\u003e 1, eventhubs.progressTrackingDir -\u003e /tmp/check6, eventhubs.policykey -\u003e X2/Pwio4S0DBLvANrkdh4hvZSMFm+NTYJTAZdx1YFvc\u003d, eventhubs.namespace -\u003e micheleventhub, eventhubs.sql.userDefinedKeys -\u003e creationTime,randomUserProperty, eventhubs.policyname -\u003e michel)\n\ninputStream: org.apache.spark.sql.DataFrame \u003d [body: binary, offset: bigint ... 6 more fields]\n\ninputStreamExtract: org.apache.spark.sql.DataFrame \u003d [jsontostruct(body): struct\u003ctemp: int, createDate: string ... 1 more field\u003e]\n\nstreamingQuery3: org.apache.spark.sql.streaming.StreamingQuery \u003d org.apache.spark.sql.execution.streaming.StreamingQueryWrapper@51efd6d6\n-------------------------------------------\nBatch: 0\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  100|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 1\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  200|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 2\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  300|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 3\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  400|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 4\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  500|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 5\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  600|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 6\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  700|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 7\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  800|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 8\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...|  900|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 9\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1000|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 10\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1100|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 11\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1200|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 12\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1300|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 13\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1400|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 14\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1500|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 15\n-------------------------------------------\n+--------------------+-----+\n|              window|count|\n+--------------------+-----+\n|[2017-11-06 13:38...| 1600|\n+--------------------+-----+\n\n-------------------------------------------\nBatch: 16\n-------------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\norg.apache.spark.sql.streaming.StreamingQueryException: Query [id \u003d 18b990ae-e211-41e4-81d4-73468cac24d1, runId \u003d 5e509fb1-10d6-4d30-91d7-03f35c9be008] terminated with exception: Job 64 cancelled part of cancelled job group zeppelin-20171111-150625_546484711\n  at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches(StreamExecution.scala:305)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.run(StreamExecution.scala:191)\nCaused by: org.apache.spark.SparkException: Job 64 cancelled part of cancelled job group zeppelin-20171111-150625_546484711\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1435)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1375)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:788)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:788)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:788)\n  at scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:788)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1625)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1605)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1594)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:628)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:1925)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:1938)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:1951)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:1965)\n  at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:936)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.rdd.RDD.withScope(RDD.scala:362)\n  at org.apache.spark.rdd.RDD.collect(RDD.scala:935)\n  at org.apache.spark.sql.execution.SparkPlan.executeCollect(SparkPlan.scala:275)\n  at org.apache.spark.sql.Dataset$$anonfun$org$apache$spark$sql$Dataset$$execute$1$1.apply(Dataset.scala:2386)\n  at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:57)\n  at org.apache.spark.sql.Dataset.withNewExecutionId(Dataset.scala:2788)\n  at org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$execute$1(Dataset.scala:2385)\n  at org.apache.spark.sql.Dataset$$anonfun$org$apache$spark$sql$Dataset$$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset$$anonfun$org$apache$spark$sql$Dataset$$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset.withCallback(Dataset.scala:2801)\n  at org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collect(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset.collect(Dataset.scala:2366)\n  at org.apache.spark.sql.execution.streaming.ConsoleSink.addBatch(console.scala:49)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatch$1.apply$mcV$sp(StreamExecution.scala:554)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatch$1.apply(StreamExecution.scala:554)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatch$1.apply(StreamExecution.scala:554)\n  at org.apache.spark.sql.execution.streaming.ProgressReporter$class.reportTimeTaken(ProgressReporter.scala:278)\n  at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:49)\n  at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runBatch(StreamExecution.scala:553)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches$1$$anonfun$1.apply$mcV$sp(StreamExecution.scala:273)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches$1$$anonfun$1.apply(StreamExecution.scala:262)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches$1$$anonfun$1.apply(StreamExecution.scala:262)\n  at org.apache.spark.sql.execution.streaming.ProgressReporter$class.reportTimeTaken(ProgressReporter.scala:278)\n  at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:49)\n  at org.apache.spark.sql.execution.streaming.StreamExecution$$anonfun$org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches$1.apply$mcZ$sp(StreamExecution.scala:262)\n  at org.apache.spark.sql.execution.streaming.ProcessingTimeExecutor.execute(TriggerExecutor.scala:43)\n  at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runBatches(StreamExecution.scala:257)\n  ... 1 more\n"
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
           }
         ]
       },
@@ -1654,12 +1679,18 @@
       "jobName": "paragraph_1510412785716_-816186746",
       "id": "20171111-150625_546484711",
       "dateCreated": "Nov 11, 2017 3:06:25 PM",
+<<<<<<< HEAD
       "dateStarted": "Nov 12, 2017 8:13:35 PM",
       "dateFinished": "Nov 12, 2017 8:13:37 PM",
+=======
+      "dateStarted": "Nov 11, 2017 6:11:19 PM",
+      "dateFinished": "Nov 11, 2017 6:12:19 PM",
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
     {
+<<<<<<< HEAD
       "title": "Dependency if working with avro files with schema and compaction",
       "text": "%dep\n\nz.load(\"com.databricks:spark-avro_2.11:4.0.0\")\n",
       "user": "anonymous",
@@ -1713,18 +1744,26 @@
         "editorMode": "ace/mode/scala",
         "title": true
       },
+=======
+      "user": "anonymous",
+      "config": {},
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "settings": {
         "params": {},
         "forms": {}
       },
+<<<<<<< HEAD
       "results": {
         "code": "SUCCESS",
         "msg": []
       },
+=======
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "apps": [],
       "jobName": "paragraph_1510413060837_-1783259423",
       "id": "20171111-151100_244374438",
       "dateCreated": "Nov 11, 2017 3:11:00 PM",
+<<<<<<< HEAD
       "dateStarted": "Nov 12, 2017 1:28:50 PM",
       "dateFinished": "Nov 12, 2017 1:28:54 PM",
       "status": "FINISHED",
@@ -2484,6 +2523,8 @@
       "jobName": "paragraph_1510512543809_545404193",
       "id": "20171112-184903_1758024856",
       "dateCreated": "Nov 12, 2017 6:49:03 PM",
+=======
+>>>>>>> 5cd3200f8f61e721334d103bd32482041df3afbe
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
