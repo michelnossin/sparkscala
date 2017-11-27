@@ -42,7 +42,7 @@
       "title": "Check and set our Spark environment",
       "text": "spark.version //Check spark version within sparksession objectval df \u003d spark.read.format(\"csv\").option(\"header\", false).schema(recordSchema).load(\"file:///Users/aurobindosarkar/Downloads/breast-cancer-wisconsin.data\")\nspark.conf.set(\"spark.executor.cores\", \"2\")\nspark.conf.set(\"spark.executor.memory\", \"4g\")\n    ",
       "user": "anonymous",
-      "dateUpdated": "Nov 7, 2017 2:07:41 PM",
+      "dateUpdated": "Nov 26, 2017 7:30:47 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -60,14 +60,19 @@
       },
       "results": {
         "code": "SUCCESS",
-        "msg": []
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres0: String \u003d 2.1.1\n"
+          }
+        ]
       },
       "apps": [],
       "jobName": "paragraph_1510062537093_-870219600",
       "id": "20171107-134857_1306552517",
       "dateCreated": "Nov 7, 2017 1:48:57 PM",
-      "dateStarted": "Nov 7, 2017 2:00:14 PM",
-      "dateFinished": "Nov 7, 2017 2:00:15 PM",
+      "dateStarted": "Nov 26, 2017 7:30:47 PM",
+      "dateFinished": "Nov 26, 2017 7:30:57 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -180,10 +185,43 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "Lets remove these nasty ? characters which ruin our integers",
+      "text": "%sh\n\nsed \u0027s/?//\u0027 breast-cancer-wisconsin.data \u003e breast-cancer-wisconsin.data.temp\nrm breast-cancer-wisconsin.data\ncp breast-cancer-wisconsin.data.temp breast-cancer-wisconsin.data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 12:08:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510488385082_1324190612",
+      "id": "20171112-120625_79073954",
+      "dateCreated": "Nov 12, 2017 12:06:25 PM",
+      "dateStarted": "Nov 12, 2017 12:07:53 PM",
+      "dateFinished": "Nov 12, 2017 12:07:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "title": "Create spark dataframe with explicit schema",
       "text": "import org.apache.spark.sql.types._\n    \nval recordSchema \u003d new StructType().add(\"sample\", \"long\").add(\"cThick\", \"integer\").add(\"uCSize\", \"integer\").add(\"uCShape\", \"integer\").add(\"mAdhes\", \"integer\").add(\"sECSize\", \"integer\").add(\"bNuc\", \"integer\").add(\"bChrom\", \"integer\").add(\"nNuc\", \"integer\").add(\"mitosis\", \"integer\").add(\"clas\", \"integer\")\n  \nval df \u003d spark.read.format(\"csv\").option(\"header\", false).schema(recordSchema).load(\"breast-cancer-wisconsin.data\")\n",
       "user": "anonymous",
-      "dateUpdated": "Nov 7, 2017 2:08:05 PM",
+      "dateUpdated": "Nov 12, 2017 1:27:58 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -212,16 +250,16 @@
       "jobName": "paragraph_1510062585788_-804150059",
       "id": "20171107-134945_279152945",
       "dateCreated": "Nov 7, 2017 1:49:45 PM",
-      "dateStarted": "Nov 7, 2017 2:07:08 PM",
-      "dateFinished": "Nov 7, 2017 2:07:09 PM",
+      "dateStarted": "Nov 12, 2017 1:27:58 PM",
+      "dateFinished": "Nov 12, 2017 1:28:14 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Some nice output using Zeppelin context",
-      "text": "z.show(df.limit(10))",
+      "text": "z.show(df.limit(32))",
       "user": "anonymous",
-      "dateUpdated": "Nov 8, 2017 8:06:42 PM",
+      "dateUpdated": "Nov 12, 2017 1:28:16 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -251,7 +289,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n"
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n1035283\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1036172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1041801\t5\t3\t3\t3\t2\t3\t4\t4\t1\t4\n1043999\t1\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1044572\t8\t7\t5\t10\t7\t9\t5\t5\t4\t4\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1048672\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1049815\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1050670\t10\t7\t7\t6\t4\t10\t4\t1\t2\t4\n1050718\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1054593\t10\t5\t5\t3\t6\t7\t7\t10\t1\t4\n1056784\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1057013\t8\t4\t5\t1\t2\tnull\t7\t3\t1\t4\n1059552\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1065726\t5\t2\t3\t4\t2\t7\t3\t6\t1\t4\n1066373\t3\t2\t1\t1\t1\t1\t2\t1\t1\t2\n1066979\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1067444\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1070935\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1070935\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1071760\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n"
           }
         ]
       },
@@ -259,8 +297,8 @@
       "jobName": "paragraph_1510063500490_465409633",
       "id": "20171107-140500_1018643858",
       "dateCreated": "Nov 7, 2017 2:05:00 PM",
-      "dateStarted": "Nov 7, 2017 2:11:29 PM",
-      "dateFinished": "Nov 7, 2017 2:11:30 PM",
+      "dateStarted": "Nov 12, 2017 1:28:16 PM",
+      "dateFinished": "Nov 12, 2017 1:28:18 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1477,16 +1515,1720 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "%md\n\n## Spark stream Azure Event Hub",
       "user": "anonymous",
-      "config": {},
+      "dateUpdated": "Nov 11, 2017 2:31:32 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
       "settings": {
         "params": {},
         "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eSpark stream Azure Event Hub\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
       },
       "apps": [],
       "jobName": "paragraph_1510342331452_1456020495",
       "id": "20171110-193211_61573638",
       "dateCreated": "Nov 10, 2017 7:32:11 PM",
+      "dateStarted": "Nov 11, 2017 2:31:32 PM",
+      "dateFinished": "Nov 11, 2017 2:31:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%dep\n \nz.reset()\nz.addRepo(\"Spark Packages Repo\").url(\"http://dl.bintray.com/spark-packages/maven\")\n//z.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.0.4\") //dstream (or you get error)\nz.load(\"com.microsoft.azure:spark-streaming-eventhubs_2.11:2.1.0\")  //structured stream\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 11:07:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@252345a\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510410692170_1070849554",
+      "id": "20171111-143132_1325763767",
+      "dateCreated": "Nov 11, 2017 2:31:32 PM",
+      "dateStarted": "Nov 12, 2017 11:07:29 AM",
+      "dateFinished": "Nov 12, 2017 11:07:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Testing with DStream, non structured , works better in Zeppelin",
+      "text": "%spark\n \n//import spark.implicits._\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\n \nval progressDir \u003d \"/tmp/check3\" //change progress and checkpoint dir when switching between eventhub jar versions!!\nval policyName \u003d \"michel\"\nval policykey \u003d \"secret\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubName \u003d \"airport\"\nval batchDuration \u003d 1\nval sparkCheckpointDir \u003d \"/tmp/check3\"\n \nval eventhubParameters \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policykey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubName,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\"\n)\n \nval ssc \u003d new StreamingContext(sc, Seconds(batchDuration))\nssc.checkpoint(sparkCheckpointDir)\nval inputDirectStream \u003d EventHubsUtils.createDirectStreams(\n  ssc,\n  eventHubNamespace,\n  progressDir,\n  Map(eventHubName -\u003e eventhubParameters))\n \n inputDirectStream.map(receivedRecord \u003d\u003e (new String(receivedRecord.getBody), 1)).\n      reduceByKeyAndWindow((v1, v2) \u003d\u003e v1 + v2, (v1, v2) \u003d\u003e v1 - v2, Seconds(batchDuration * 2),\n        Seconds(batchDuration)).print()\n        \nssc.start()\nssc.awaitTerminationOrTimeout(30000)\n \n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 27, 2017 8:09:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\n\n\n\u003cconsole\u003e:26: error: object eventhubs is not a member of package org.apache.spark.streaming\n       import org.apache.spark.streaming.eventhubs.EventHubsUtils\n                                         ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510410717553_1678398716",
+      "id": "20171111-143157_1288963130",
+      "dateCreated": "Nov 11, 2017 2:31:57 PM",
+      "dateStarted": "Nov 27, 2017 8:09:04 PM",
+      "dateFinished": "Nov 27, 2017 8:09:17 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Structured Streaming icm Azure Event Hub",
+      "text": "import org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.streaming.{Seconds, StreamingContext}\nimport org.apache.spark.streaming.eventhubs.EventHubsUtils\nimport org.apache.spark.sql.functions._\n\nval messageSchema \u003d new StructType()\n          .add(\"temp\", IntegerType)\n          .add(\"createDate\", StringType)\n          .add(\"deviceId\",StringType)\n\n//\"temp\":65,\"createDate\":\"2017-11-06T13:38:11.1978695Z\",\"deviceId\":\"d4f98721-1eaf-46bc-994d-85cb32c2a9f1\"\n          \n          \nval progressDir \u003d \"/tmp/check6\"\nval policyName \u003d \"michel\"\nval policyKey \u003d \"secret\"\nval eventHubNamespace \u003d \"micheleventhub\"\nval eventHubNameIn \u003d \"airport\"\nval eventHubNameOut \u003d \"airportout\"\nval maxRate \u003d 100\nval checkpointLocation \u003d \"/tmp/check6\"\nval outputPath \u003d \"/tmp/output6\"\n\nval eventhubParametersIn \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameIn,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\nval eventhubParametersOut \u003d Map[String, String] (\n  \"eventhubs.policyname\" -\u003e policyName,\n  \"eventhubs.policykey\" -\u003e policyKey,\n  \"eventhubs.namespace\" -\u003e eventHubNamespace,\n  \"eventhubs.name\" -\u003e eventHubNameOut,\n  \"eventhubs.partition.count\" -\u003e \"1\",\n  \"eventhubs.consumergroup\" -\u003e \"$Default\",\n  \"eventhubs.progressTrackingDir\" -\u003e progressDir,\n  \"eventhubs.maxRate\" -\u003e s\"$maxRate\",\n  \"eventhubs.sql.containsProperties\" -\u003e \"true\",\n  \"eventhubs.sql.userDefinedKeys\" -\u003e \"creationTime,randomUserProperty\"\n)\n\n\n//val sparkSession \u003d SparkSession.builder().getOrCreate()\nval inputStream \u003d spark.readStream.format(\"eventhubs\").options(eventhubParametersIn).load()\nval inputStreamExtract \u003d inputStream.selectExpr(\"CAST(body AS STRING)\").select(from_json( $\"body\", messageSchema)) //this works\n\n//ENABLE IF YOU WANT TO SAVE AS PARQUET FILES PER 2 SECONDS ON FS\n//val streamingQuery1 \u003d inputStream.writeStream.outputMode(\"append\").trigger(ProcessingTime(\"2 seconds\")).option(\"checkpointLocation\", checkpointLocation).\n//                        format(\"parquet\").option(\"path\", outputPath + \"/ETL\").partitionBy(\"creationTime\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery1.awaitTermination()\n\n//ENABLE IF YOU WANT TO SHOW TEMPS ON CONSOLE\n//val streamingQuery2 \u003d inputStreamExtract.select($\"jsontostruct(body).temp\").\n//                        writeStream.format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\n//streamingQuery2.awaitTermination()\n\n//ENABLE IF YOU WANT COUNT PER DEVICE , the withcolumn is required due to bug spark 2.1\nval streamingQuery3 \u003d inputStreamExtract.withColumn(\"thetime\", $\"jsontostruct(body).createDate\").groupBy(window($\"thetime\",\"1 second\")).count().\n                        writeStream.outputMode(\"complete\").format(\"console\").start() //This works, but only with 2.1.0 version of jar eventhubs!\nstreamingQuery3.awaitTermination()\n\n \n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 27, 2017 8:09:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nimport org.apache.spark.streaming.{Seconds, StreamingContext}\n\n\n\n\u003cconsole\u003e:38: error: object eventhubs is not a member of package org.apache.spark.streaming\n       import org.apache.spark.streaming.eventhubs.EventHubsUtils\n                                         ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510412785716_-816186746",
+      "id": "20171111-150625_546484711",
+      "dateCreated": "Nov 11, 2017 3:06:25 PM",
+      "dateStarted": "Nov 27, 2017 8:09:30 PM",
+      "dateFinished": "Nov 27, 2017 8:09:31 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Dependency if working with avro files with schema and compaction",
+      "text": "%dep\n\nz.load(\"com.databricks:spark-avro_2.11:4.0.0\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 12:56:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: org.apache.zeppelin.dep.Dependency \u003d org.apache.zeppelin.dep.Dependency@a14dec6\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510490625902_2720394",
+      "id": "20171112-124345_1298353990",
+      "dateCreated": "Nov 12, 2017 12:43:45 PM",
+      "dateStarted": "Nov 12, 2017 12:56:04 PM",
+      "dateFinished": "Nov 12, 2017 12:56:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Json, avro files and streams, partioned",
+      "text": "//import com.databricks.spark.avro._\n\n//Lets write our dataframe with cancer data, read as csv , into a json file\n\ndf.write.json(\"/tmp/michel.json\") //we can read and write to json, from local or s3: or hdfs: files. Also using structured streaming (readstream.json(\"file\") for example)\n//val df \u003d spark.read.json(\"/tmp/michel.json\") //Or if its already written lets read it.\ndf.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").json(\"/tmp/michelpart.json\")  //create partioned/cThink\u003d1/\u003cbla\u003e and \u003d2 and \u003d3 etc\ndf.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").parquet(\"/tmp/michelpart.parquet\")\n\n//Save an avro file BUG see next section below\n//df.filter(\"cThick \u003c 3\").coalesce(1).write.partitionBy(\"cThick\").avro(\"/tmp/michel3.avro\")\n//df.filter(\"cThick \u003c 3\").coalesce(1).write.format(\"com.databricks.spark.avro\").save(\"/tmp/michel2.avro\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 1:28:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510413060837_-1783259423",
+      "id": "20171111-151100_244374438",
+      "dateCreated": "Nov 11, 2017 3:11:00 PM",
+      "dateStarted": "Nov 12, 2017 1:28:50 PM",
+      "dateFinished": "Nov 12, 2017 1:28:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Avro bug",
+      "text": "//https://stackoverflow.com/questions/43176394/nosuchmethoderror-using-databricks-spark-avro-3-2-0\n\nsc.getClass().getResource(\"/org/apache/avro/generic/GenericData.class\")",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 1:01:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres14: java.net.URL \u003d jar:file:/usr/hadoop-2.7.3/share/hadoop/common/lib/avro-1.7.4.jar!/org/apache/avro/generic/GenericData.class\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510485631578_1453617087",
+      "id": "20171112-112031_1542883618",
+      "dateCreated": "Nov 12, 2017 11:20:31 AM",
+      "dateStarted": "Nov 12, 2017 1:00:32 PM",
+      "dateFinished": "Nov 12, 2017 1:00:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Lets do some exploratory data analysing (EDA) to get to understand data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 2:45:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eLets do some exploratory data analysing (EDA) to get to understand data\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510490874710_-81187159",
+      "id": "20171112-124754_162992617",
+      "dateCreated": "Nov 12, 2017 12:47:54 PM",
+      "dateStarted": "Nov 12, 2017 2:45:00 PM",
+      "dateFinished": "Nov 12, 2017 2:45:02 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets create a Dataset instead of frame (scala)",
+      "text": "%spark\nimport org.apache.spark.sql.types._\nimport org.apache.spark.sql.Encoders\n\n//We could use structType but this is more Scala like, and datasets is used in Scala anyway (or Java) but not Python\ncase class CancerRow (sample : Long,cThick : Integer,uCSize : Integer,uCShape : Integer,mAdhes : Integer,sECSize : Integer,bNuc : Integer,bChrom : Integer,nNuc : Integer,mitosis : Integer,clas : Integer)\nval cancerEncoder \u003d Encoders.product[CancerRow]\nval df \u003d spark.read.format(\"csv\").schema(cancerEncoder.schema).option(\"header\", false).load(\"breast-cancer-wisconsin.data\").as[CancerRow]\ndf.printSchema\ndf.registerTempTable(\"Cancer\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 4:23:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.Encoders\n\ndefined class CancerRow\n\ncancerEncoder: org.apache.spark.sql.Encoder[CancerRow] \u003d class[sample[0]: bigint, cThick[0]: int, uCSize[0]: int, uCShape[0]: int, mAdhes[0]: int, sECSize[0]: int, bNuc[0]: int, bChrom[0]: int, nNuc[0]: int, mitosis[0]: int, clas[0]: int]\n\ndf: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\nroot\n |-- sample: long (nullable \u003d true)\n |-- cThick: integer (nullable \u003d true)\n |-- uCSize: integer (nullable \u003d true)\n |-- uCShape: integer (nullable \u003d true)\n |-- mAdhes: integer (nullable \u003d true)\n |-- sECSize: integer (nullable \u003d true)\n |-- bNuc: integer (nullable \u003d true)\n |-- bChrom: integer (nullable \u003d true)\n |-- nNuc: integer (nullable \u003d true)\n |-- mitosis: integer (nullable \u003d true)\n |-- clas: integer (nullable \u003d true)\n\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510497900542_2055339855",
+      "id": "20171112-144500_844493446",
+      "dateCreated": "Nov 12, 2017 2:45:00 PM",
+      "dateStarted": "Nov 12, 2017 4:23:43 PM",
+      "dateFinished": "Nov 12, 2017 4:23:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Check missing data",
+      "text": "%spark\n\n//Note some sets just use some other values like ?\nimport org.apache.spark.sql.functions.{sum, col}\ndf.select(df.columns.map(c \u003d\u003e sum(col(c).isNull.cast(\"int\")).alias(c)): _*).show\n\n//Pyspark\n//from pyspark.sql.functions import col,sum\n//df.select(*(sum(col(c).isNull().cast(\"int\")).alias(c) for c in df.columns)).show()\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:05:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.functions.{sum, col}\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n|sample|cThick|uCSize|uCShape|mAdhes|sECSize|bNuc|bChrom|nNuc|mitosis|clas|\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n|     0|     0|     0|      0|     0|      0|  16|     0|   0|      0|   0|\n+------+------+------+-------+------+-------+----+------+----+-------+----+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510498692316_589380315",
+      "id": "20171112-145812_703851687",
+      "dateCreated": "Nov 12, 2017 2:58:12 PM",
+      "dateStarted": "Nov 12, 2017 3:03:04 PM",
+      "dateFinished": "Nov 12, 2017 3:03:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nz.show(df.select($\"bNuc\",$\"cThick\",$\"sample\").where(\"bNuc is null\"))",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:11:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "bNuc\tcThick\tsample\nnull\t8\t1057013\nnull\t6\t1096800\nnull\t1\t1183246\nnull\t1\t1184840\nnull\t1\t1193683\nnull\t5\t1197510\nnull\t3\t1241232\nnull\t3\t169356\nnull\t3\t432809\nnull\t8\t563649\nnull\t1\t606140\nnull\t5\t61634\nnull\t4\t704168\nnull\t3\t733639\nnull\t1\t1238464\nnull\t1\t1057067\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499333575_-1201701912",
+      "id": "20171112-150853_24388514",
+      "dateCreated": "Nov 12, 2017 3:08:53 PM",
+      "dateStarted": "Nov 12, 2017 3:11:27 PM",
+      "dateFinished": "Nov 12, 2017 3:11:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Statistics",
+      "text": "z.show(df.describe())\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:07:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "summary\tsample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\ncount\t699\t699\t699\t699\t699\t699\t683\t699\t699\t699\t699\nmean\t1071704.0987124464\t4.417739628040057\t3.13447782546495\t3.207439198855508\t2.8068669527896994\t3.216022889842632\t3.5446559297218156\t3.4377682403433476\t2.866952789699571\t1.5894134477825466\t2.6895565092989986\nstddev\t617095.7298192448\t2.815740658594933\t3.0514591099542003\t2.9719127672157133\t2.855379239217023\t2.214299886649047\t3.643857160492912\t2.4383642523242512\t3.0536338936127745\t1.715077942506795\t0.9512725322121839\nmin\t61634\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\nmax\t13454352\t10\t10\t10\t10\t10\t10\t10\t10\t10\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499017085_-1821392828",
+      "id": "20171112-150337_676641311",
+      "dateCreated": "Nov 12, 2017 3:03:37 PM",
+      "dateStarted": "Nov 12, 2017 3:07:09 PM",
+      "dateFinished": "Nov 12, 2017 3:07:10 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.stat.corr(\"cThick\",\"uCSize\") //0 - 1 correlation between 2 columns\ndf.stat.cov(\"cThick\",\"uCSize\") //coveriance\ndf.stat.freqItems(Seq(\"cThick\"),0.3).collect()(0) //Get items i cThick observed more 30% . Thickness 5 , 1 and 3 (in range 1 - 10) are seen \u003e 30%\ndf.stat.approxQuantile(\"cThick\",Array(0.25,0.5,0.75),0.0)  //Distribution is 2 , 4 and 6 . So a little bit left of the expected middle of 5 , also the lower 0.25 is 2 and not 3.",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:27:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres88: Double \u003d 0.6449125043512695\n\nres89: Double \u003d 5.541164004246752\n\nres90: org.apache.spark.sql.Row \u003d [WrappedArray(5, 1, 3)]\n\nres91: Array[Double] \u003d Array(2.0, 4.0, 6.0)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499214828_602600219",
+      "id": "20171112-150654_1958048764",
+      "dateCreated": "Nov 12, 2017 3:06:54 PM",
+      "dateStarted": "Nov 12, 2017 3:24:33 PM",
+      "dateFinished": "Nov 12, 2017 3:24:35 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "z.show(df.stat.crosstab(\"cThick\",\"clas\").orderBy(\"cThick_clas\"))",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 3:17:46 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "cThick_clas\t2\t4\n1\t142\t3\n10\t0\t69\n2\t46\t4\n3\t96\t12\n4\t68\t12\n5\t85\t45\n6\t16\t18\n7\t1\t22\n8\t4\t42\n9\t0\t14\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499527841_699417380",
+      "id": "20171112-151207_814289779",
+      "dateCreated": "Nov 12, 2017 3:12:07 PM",
+      "dateStarted": "Nov 12, 2017 3:17:46 PM",
+      "dateFinished": "Nov 12, 2017 3:17:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Using groupByKey icm agg we can do typed statistics.\n//Or get outliers using Mlib using kmeans",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 4:09:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510499699034_479754762",
+      "id": "20171112-151459_643947842",
+      "dateCreated": "Nov 12, 2017 3:14:59 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use %sql to directly execute spark.sql and do EDA in tables or graphics",
+      "text": "%sql \n\nselect * from cancer where cThick\u003d${cThick\u003d3,1|2|3|4|5|6|7|8|9|10}",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:31:25 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true,
+        "runOnSelectionChange": true
+      },
+      "settings": {
+        "params": {
+          "cThick": "7"
+        },
+        "forms": {
+          "cThick": {
+            "name": "cThick",
+            "defaultValue": "3",
+            "options": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "3"
+              },
+              {
+                "value": "4"
+              },
+              {
+                "value": "5"
+              },
+              {
+                "value": "6"
+              },
+              {
+                "value": "7"
+              },
+              {
+                "value": "8"
+              },
+              {
+                "value": "9"
+              },
+              {
+                "value": "10"
+              }
+            ],
+            "hidden": false
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1106829\t7\t8\t7\t2\t4\t8\t3\t8\t2\t4\n1166630\t7\t5\t6\t10\t5\t10\t7\t9\t4\t4\n1169049\t7\t3\t4\t4\t3\t3\t3\t2\t7\t4\n1176881\t7\t5\t3\t7\t4\t10\t7\t5\t5\t4\n1189266\t7\t2\t4\t1\t6\t10\t5\t4\t3\t4\n1211202\t7\t5\t10\t10\t10\t10\t4\t10\t3\t4\n1226612\t7\t5\t6\t3\t3\t8\t7\t4\t1\t4\n1230688\t7\t4\t7\t4\t3\t7\t7\t6\t1\t4\n314428\t7\t9\t4\t10\t10\t3\t5\t3\t3\t4\n428903\t7\t2\t4\t1\t3\t4\t3\t3\t1\t4\n508234\t7\t4\t5\t10\t2\t10\t3\t8\t2\t4\n667204\t7\t8\t7\t6\t4\t3\t8\t8\t4\t4\n730881\t7\t6\t3\t2\t5\t10\t7\t4\t6\t4\n822829\t7\t6\t4\t8\t10\t10\t9\t5\t3\t4\n1080233\t7\t6\t6\t3\t2\t10\t7\t1\t1\t4\n672113\t7\t5\t6\t10\t4\t10\t5\t3\t1\t4\n837480\t7\t4\t4\t3\t4\t10\t6\t9\t1\t4\n1241035\t7\t8\t3\t7\t4\t5\t7\t8\t2\t4\n142932\t7\t6\t10\t5\t3\t10\t9\t10\t2\t4\n1140597\t7\t1\t2\t3\t2\t1\t2\t1\t1\t2\n1334015\t7\t8\t8\t7\t3\t10\t7\t2\t3\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510503765634_2127578756",
+      "id": "20171112-162245_864182865",
+      "dateCreated": "Nov 12, 2017 4:22:45 PM",
+      "dateStarted": "Nov 12, 2017 6:31:25 PM",
+      "dateFinished": "Nov 12, 2017 6:31:26 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sample by fraction size",
+      "text": "%spark\n\nimport scala.collection.immutable.Map\nval fractions \u003d Map(3 -\u003e0.1 , 4-\u003e0.5 , 6-\u003e0.4)\nval sampleDf \u003d df.stat.sampleBy(\"cThick\",fractions,36L)\nz.show(sampleDf.groupBy(\"cThick\").count)\n\n//or just use df.sample(true,.10) to get 10% of all rows\n\n//When using rdd: df.rdd.map(row \u003d\u003e (row.getAs[String](2), List(row.getInt(1),row.getInt(3) ) ).sampleByKey(true,fractions,1).countByKey   (or us sampleByKeyExact)\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:22:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport scala.collection.immutable.Map\n\nfractions: scala.collection.immutable.Map[Int,Double] \u003d Map(3 -\u003e 0.1, 4 -\u003e 0.5, 6 -\u003e 0.4)\n\nsampleDf: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "cThick\tcount\n6\t12\n3\t10\n4\t39\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510503800902_-1807202273",
+      "id": "20171112-162320_1372847629",
+      "dateCreated": "Nov 12, 2017 4:23:20 PM",
+      "dateStarted": "Nov 12, 2017 5:14:13 PM",
+      "dateFinished": "Nov 12, 2017 5:14:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Pivots",
+      "text": "z.show(df.groupBy(\"cThick\").pivot(\"uCSize\").agg(count(\"cThick\")).sort(\"cThick\")) //PEr cThick entry show distributions of entries within UCSize by counting them , you could count other columns if needed.\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:26:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "cThick",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "1",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "cThick\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\n1\t131\t8\t3\t1\t1\t1\tnull\tnull\tnull\tnull\n2\t41\t1\t5\tnull\t2\tnull\t1\tnull\tnull\tnull\n3\t80\t10\t8\t3\t1\t2\t1\tnull\tnull\t3\n4\t56\t7\t3\t3\t2\t2\t1\t4\tnull\t2\n5\t63\t11\t17\t8\t4\t4\t5\t5\tnull\t13\n6\t10\t2\t4\tnull\t2\t3\tnull\t3\t1\t9\n7\t1\t2\t2\t4\t5\t4\tnull\t4\t1\tnull\n8\tnull\t3\t4\t7\t2\t4\t7\t4\t1\t14\n9\t1\tnull\tnull\t1\t3\t1\t1\t2\t1\t4\n10\t1\t1\t6\t13\t8\t6\t3\t7\t2\t22\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510506784460_-1231963273",
+      "id": "20171112-171304_1716603499",
+      "dateCreated": "Nov 12, 2017 5:13:04 PM",
+      "dateStarted": "Nov 12, 2017 5:24:43 PM",
+      "dateFinished": "Nov 12, 2017 5:24:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "//Define categories and per category, or in this case main and sub category perform an aggregation. remove category mAdhes (from groupby and todf clause) to see the difference\nz.show(df.groupBy(\"cThick\",\"mAdhes\").pivot(\"uCSize\", Seq(3,4,5,6))\n   .agg(round(sum(\"uCSize\"),2),round(avg(\"uCSize\"),2)).sort(\"cThick\")\n   .toDF(\"Thickness\",\"Adhes\",\"3-sum\",\"3-avg\",\"4-sum\",\"4-avg\",\"5-sum\",\"5-avg\",\"6-sum\",\"6-avg\") )",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 5:43:02 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "Thickness\tAdhes\t3-sum\t3-avg\t4-sum\t4-avg\t5-sum\t5-avg\t6-sum\t6-avg\n1\t1\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n1\t6\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n1\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n1\t2\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n1\t10\tnull\tnull\t4\t4.0\tnull\tnull\t6\t6.0\n2\t3\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n2\t10\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n2\t2\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t1\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t4\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n2\t6\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n3\t10\tnull\tnull\t4\t4.0\tnull\tnull\t6\t6.0\n3\t6\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n3\t2\t9\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n3\t4\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n3\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n3\t3\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n3\t1\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n3\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t5\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n4\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t6\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n4\t10\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n4\t2\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n4\t4\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n4\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n4\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n4\t1\t9\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n5\t6\tnull\tnull\t4\t4.0\t5\t5.0\t6\t6.0\n5\t10\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t2\t6\t3.0\tnull\tnull\t5\t5.0\t6\t6.0\n5\t8\t3\t3.0\t4\t4.0\t10\t5.0\t12\t6.0\n5\t1\t24\t3.0\t8\t4.0\tnull\tnull\tnull\tnull\n5\t3\t9\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n5\t4\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n5\t7\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t9\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n5\t5\t3\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n6\t3\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n6\t10\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n6\t5\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n6\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n6\t9\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n6\t8\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n6\t2\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n6\t1\t6\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n6\t4\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n7\t8\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t3\tnull\tnull\t4\t4.0\t5\t5.0\t6\t6.0\n7\t10\t3\t3.0\t4\t4.0\t15\t5.0\tnull\tnull\n7\t2\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n7\t4\t3\t3.0\t8\t4.0\tnull\tnull\tnull\tnull\n7\t5\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n7\t7\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n7\t1\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t4\t3\t3.0\tnull\tnull\tnull\tnull\t6\t6.0\n8\t10\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n8\t3\t3\t3.0\t4\t4.0\tnull\tnull\t12\t6.0\n8\t8\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t1\t3\t3.0\t16\t4.0\tnull\tnull\tnull\tnull\n8\t2\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n8\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n8\t9\t3\t3.0\tnull\tnull\tnull\tnull\tnull\tnull\n8\t5\tnull\tnull\t8\t4.0\t5\t5.0\tnull\tnull\n8\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t4\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n9\t10\tnull\tnull\t4\t4.0\tnull\tnull\tnull\tnull\n9\t5\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t2\tnull\tnull\tnull\tnull\t5\t5.0\t6\t6.0\n9\t9\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t1\tnull\tnull\tnull\tnull\t5\t5.0\tnull\tnull\n9\t6\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n9\t3\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n10\t2\t3\t3.0\t8\t4.0\tnull\tnull\t6\t6.0\n10\t5\t3\t3.0\t4\t4.0\tnull\tnull\tnull\tnull\n10\t1\t6\t3.0\t12\t4.0\tnull\tnull\t6\t6.0\n10\t7\tnull\tnull\tnull\tnull\tnull\tnull\tnull\tnull\n10\t6\tnull\tnull\t4\t4.0\t10\t5.0\t6\t6.0\n10\t3\tnull\tnull\tnull\tnull\t15\t5.0\t12\t6.0\n10\t10\t3\t3.0\t16\t4.0\t10\t5.0\tnull\tnull\n10\t8\tnull\tnull\tnull\tnull\tnull\tnull\t6\t6.0\n10\t4\t3\t3.0\t8\t4.0\t5\t5.0\tnull\tnull\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510507470459_-175842343",
+      "id": "20171112-172430_547155515",
+      "dateCreated": "Nov 12, 2017 5:24:30 PM",
+      "dateStarted": "Nov 12, 2017 5:41:47 PM",
+      "dateFinished": "Nov 12, 2017 5:41:49 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Data munging\n\nRaw data is typically messy and requires a series of transformations before it becomes useful for modeling and analysis work. Such Datasets can have missing data, duplicate records, corrupted data, incomplete records, and so on. In its simplest form, data munging, or data wrangling, is basically the transformation of raw data into a usable format",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:32:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eData munging\u003c/h2\u003e\n\u003cp\u003eRaw data is typically messy and requires a series of transformations before it becomes useful for modeling and analysis work. Such Datasets can have missing data, duplicate records, corrupted data, incomplete records, and so on. In its simplest form, data munging, or data wrangling, is basically the transformation of raw data into a usable format\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510508217727_-159410343",
+      "id": "20171112-173657_1879272103",
+      "dateCreated": "Nov 12, 2017 5:36:57 PM",
+      "dateStarted": "Nov 12, 2017 6:32:19 PM",
+      "dateFinished": "Nov 12, 2017 6:32:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets reload the cancer set with strange ? in  it",
+      "text": "%sh\n\nrm breast-cancer-wisconsin.data\nwget https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data",
+      "user": "anonymous",
+      "dateUpdated": "Nov 12, 2017 6:53:05 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "--2017-11-12 18:53:05--  https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data\nResolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249\nConnecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected.\nHTTP request sent, awaiting response... 200 OK\nLength: 19889 (19K) [text/plain]\nSaving to: ‘breast-cancer-wisconsin.data’\n\n     0K .......... .........                                  100%  103K\u003d0.2s\n\n2017-11-12 18:53:06 (103 KB/s) - ‘breast-cancer-wisconsin.data’ saved [19889/19889]\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512119702_287813422",
+      "id": "20171112-184159_1183766297",
+      "dateCreated": "Nov 12, 2017 6:41:59 PM",
+      "dateStarted": "Nov 12, 2017 6:53:05 PM",
+      "dateFinished": "Nov 12, 2017 6:53:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Notice the ? malformed row at +- row 30",
+      "text": "%sh\n\nhead -30 breast-cancer-wisconsin.data\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 3:01:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "1000025,5,1,1,1,2,1,3,1,1,2\n1002945,5,4,4,5,7,10,3,2,1,2\n1015425,3,1,1,1,2,2,3,1,1,2\n1016277,6,8,8,1,3,4,3,7,1,2\n1017023,4,1,1,3,2,1,3,1,1,2\n1017122,8,10,10,8,7,10,9,7,1,4\n1018099,1,1,1,1,2,10,3,1,1,2\n1018561,2,1,2,1,2,1,3,1,1,2\n1033078,2,1,1,1,2,1,1,1,5,2\n1033078,4,2,1,1,2,1,2,1,1,2\n1035283,1,1,1,1,1,1,3,1,1,2\n1036172,2,1,1,1,2,1,2,1,1,2\n1041801,5,3,3,3,2,3,4,4,1,4\n1043999,1,1,1,1,2,3,3,1,1,2\n1044572,8,7,5,10,7,9,5,5,4,4\n1047630,7,4,6,4,6,1,4,3,1,4\n1048672,4,1,1,1,2,1,2,1,1,2\n1049815,4,1,1,1,2,1,3,1,1,2\n1050670,10,7,7,6,4,10,4,1,2,4\n1050718,6,1,1,1,2,1,3,1,1,2\n1054590,7,3,2,10,5,10,5,4,4,4\n1054593,10,5,5,3,6,7,7,10,1,4\n1056784,3,1,1,1,2,1,2,1,1,2\n1057013,8,4,5,1,2,?,7,3,1,4\n1059552,1,1,1,1,2,1,3,1,1,2\n1065726,5,2,3,4,2,7,3,6,1,4\n1066373,3,2,1,1,1,1,2,1,1,2\n1066979,5,1,1,1,2,1,2,1,1,2\n1067444,2,1,1,1,2,1,2,1,1,2\n1070935,1,1,3,1,2,1,1,1,1,2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510514442969_-2007873828",
+      "id": "20171112-192042_1796615652",
+      "dateCreated": "Nov 12, 2017 7:20:42 PM",
+      "dateStarted": "Nov 13, 2017 2:57:00 PM",
+      "dateFinished": "Nov 13, 2017 2:57:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "We can get rid of malformed rows even without reading in rdd directly.",
+      "text": "%spark\n\nimport org.apache.spark.sql.types._\nimport org.apache.spark.sql.Encoders\n\n//We could use structType but this is more Scala like, and datasets is used in Scala anyway (or Java) but not Python\ncase class CancerRow (sample : Long,cThick : Integer,uCSize : Integer,uCShape : Integer,mAdhes : Integer,sECSize : Integer,bNuc : Integer,bChrom : Integer,nNuc : Integer,mitosis : Integer,clas : Integer)\nval cancerEncoder \u003d Encoders.product[CancerRow]\nval df \u003d spark.read.format(\"csv\").schema(cancerEncoder.schema).option(\"mode\", \"DROPMALFORMED\").option(\"header\", false).option(\"nullable\",false).load(\"breast-cancer-wisconsin.data\").as[CancerRow]\ndf.printSchema\ndf.registerTempTable(\"Cancer\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 5:55:15 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.Encoders\n\ndefined class CancerRow\n\ncancerEncoder: org.apache.spark.sql.Encoder[CancerRow] \u003d class[sample[0]: bigint, cThick[0]: int, uCSize[0]: int, uCShape[0]: int, mAdhes[0]: int, sECSize[0]: int, bNuc[0]: int, bChrom[0]: int, nNuc[0]: int, mitosis[0]: int, clas[0]: int]\n\ndf: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\nroot\n |-- sample: long (nullable \u003d true)\n |-- cThick: integer (nullable \u003d true)\n |-- uCSize: integer (nullable \u003d true)\n |-- uCShape: integer (nullable \u003d true)\n |-- mAdhes: integer (nullable \u003d true)\n |-- sECSize: integer (nullable \u003d true)\n |-- bNuc: integer (nullable \u003d true)\n |-- bChrom: integer (nullable \u003d true)\n |-- nNuc: integer (nullable \u003d true)\n |-- mitosis: integer (nullable \u003d true)\n |-- clas: integer (nullable \u003d true)\n\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512401157_1302210737",
+      "id": "20171112-184641_942636796",
+      "dateCreated": "Nov 12, 2017 6:46:41 PM",
+      "dateStarted": "Nov 26, 2017 5:55:15 PM",
+      "dateFinished": "Nov 26, 2017 5:55:21 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n\nselect * from Cancer",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 5:55:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n1035283\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1036172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1041801\t5\t3\t3\t3\t2\t3\t4\t4\t1\t4\n1043999\t1\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1044572\t8\t7\t5\t10\t7\t9\t5\t5\t4\t4\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1048672\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1049815\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1050670\t10\t7\t7\t6\t4\t10\t4\t1\t2\t4\n1050718\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1054593\t10\t5\t5\t3\t6\t7\t7\t10\t1\t4\n1056784\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1059552\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1065726\t5\t2\t3\t4\t2\t7\t3\t6\t1\t4\n1066373\t3\t2\t1\t1\t1\t1\t2\t1\t1\t2\n1066979\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1067444\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1070935\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1070935\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1071760\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1072179\t10\t7\t7\t3\t8\t5\t7\t4\t3\t4\n1074610\t2\t1\t1\t2\t2\t1\t3\t1\t1\t2\n1075123\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1079304\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1080185\t10\t10\t10\t8\t6\t1\t8\t9\t1\t4\n1081791\t6\t2\t1\t1\t1\t1\t7\t1\t1\t2\n1084584\t5\t4\t4\t9\t2\t10\t5\t6\t1\t4\n1091262\t2\t5\t3\t3\t6\t7\t7\t5\t1\t4\n1099510\t10\t4\t3\t1\t3\t3\t6\t5\t2\t4\n1100524\t6\t10\t10\t2\t8\t10\t7\t3\t3\t4\n1102573\t5\t6\t5\t6\t10\t1\t3\t1\t1\t4\n1103608\t10\t10\t10\t4\t8\t1\t8\t10\t1\t4\n1103722\t1\t1\t1\t1\t2\t1\t2\t1\t2\t2\n1105257\t3\t7\t7\t4\t4\t9\t4\t8\t1\t4\n1105524\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1106095\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1106829\t7\t8\t7\t2\t4\t8\t3\t8\t2\t4\n1108370\t9\t5\t8\t1\t2\t3\t2\t1\t5\t4\n1108449\t5\t3\t3\t4\t2\t4\t3\t4\t1\t4\n1110102\t10\t3\t6\t2\t3\t5\t4\t10\t2\t4\n1110503\t5\t5\t5\t8\t10\t8\t7\t3\t7\t4\n1110524\t10\t5\t5\t6\t8\t8\t7\t1\t1\t4\n1111249\t10\t6\t6\t3\t4\t5\t3\t6\t1\t4\n1112209\t8\t10\t10\t1\t3\t6\t3\t9\t1\t4\n1113038\t8\t2\t4\t1\t5\t1\t5\t4\t4\t4\n1113483\t5\t2\t3\t1\t6\t10\t5\t1\t1\t4\n1113906\t9\t5\t5\t2\t2\t2\t5\t1\t1\t4\n1115282\t5\t3\t5\t5\t3\t3\t4\t10\t1\t4\n1115293\t1\t1\t1\t1\t2\t2\t2\t1\t1\t2\n1116116\t9\t10\t10\t1\t10\t8\t3\t3\t1\t4\n1116132\t6\t3\t4\t1\t5\t2\t3\t9\t1\t4\n1116192\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1116998\t10\t4\t2\t1\t3\t2\t4\t3\t10\t4\n1117152\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1118039\t5\t3\t4\t1\t8\t10\t4\t9\t1\t4\n1120559\t8\t3\t8\t3\t4\t9\t8\t9\t8\t4\n1121732\t1\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1121919\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1123061\t6\t10\t2\t8\t10\t2\t7\t8\t10\t4\n1124651\t1\t3\t3\t2\t2\t1\t7\t2\t1\t2\n1125035\t9\t4\t5\t10\t6\t10\t4\t8\t1\t4\n1126417\t10\t6\t4\t1\t3\t4\t3\t2\t3\t4\n1131294\t1\t1\t2\t1\t2\t2\t4\t2\t1\t2\n1132347\t1\t1\t4\t1\t2\t1\t2\t1\t1\t2\n1133041\t5\t3\t1\t2\t2\t1\t2\t1\t1\t2\n1133136\t3\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1136142\t2\t1\t1\t1\t3\t1\t2\t1\t1\t2\n1137156\t2\t2\t2\t1\t1\t1\t7\t1\t1\t2\n1143978\t4\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1143978\t5\t2\t1\t1\t2\t1\t3\t1\t1\t2\n1147044\t3\t1\t1\t1\t2\t2\t7\t1\t1\t2\n1147699\t3\t5\t7\t8\t8\t9\t7\t10\t7\t4\n1147748\t5\t10\t6\t1\t10\t4\t4\t10\t10\t4\n1148278\t3\t3\t6\t4\t5\t8\t4\t4\t1\t4\n1148873\t3\t6\t6\t6\t5\t10\t6\t8\t3\t4\n1152331\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1155546\t2\t1\t1\t2\t3\t1\t2\t1\t1\t2\n1156272\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1156948\t3\t1\t1\t2\t2\t1\t1\t1\t1\t2\n1157734\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1158247\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1160476\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1164066\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1165297\t2\t1\t1\t2\t2\t1\t1\t1\t1\t2\n1165790\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1165926\t9\t6\t9\t2\t10\t6\t2\t9\t10\t4\n1166630\t7\t5\t6\t10\t5\t10\t7\t9\t4\t4\n1166654\t10\t3\t5\t1\t10\t5\t3\t10\t2\t4\n1167439\t2\t3\t4\t4\t2\t5\t2\t5\t1\t4\n1167471\t4\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1168359\t8\t2\t3\t1\t6\t3\t7\t1\t1\t4\n1168736\t10\t10\t10\t10\t10\t1\t8\t8\t8\t4\n1169049\t7\t3\t4\t4\t3\t3\t3\t2\t7\t4\n1170419\t10\t10\t10\t8\t2\t10\t4\t1\t1\t4\n1170420\t1\t6\t8\t10\t8\t10\t5\t7\t1\t4\n1171710\t1\t1\t1\t1\t2\t1\t2\t3\t1\t2\n1171710\t6\t5\t4\t4\t3\t9\t7\t8\t3\t4\n1171795\t1\t3\t1\t2\t2\t2\t5\t3\t2\t2\n1171845\t8\t6\t4\t3\t5\t9\t3\t1\t1\t4\n1172152\t10\t3\t3\t10\t2\t10\t7\t3\t3\t4\n1173216\t10\t10\t10\t3\t10\t8\t8\t1\t1\t4\n1173235\t3\t3\t2\t1\t2\t3\t3\t1\t1\t2\n1173347\t1\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1173347\t8\t3\t3\t1\t2\t2\t3\t2\t1\t2\n1173509\t4\t5\t5\t10\t4\t10\t7\t5\t8\t4\n1173514\t1\t1\t1\t1\t4\t3\t1\t1\t1\t2\n1173681\t3\t2\t1\t1\t2\t2\t3\t1\t1\t2\n1174057\t1\t1\t2\t2\t2\t1\t3\t1\t1\t2\n1174057\t4\t2\t1\t1\t2\t2\t3\t1\t1\t2\n1174131\t10\t10\t10\t2\t10\t10\t5\t3\t3\t4\n1174428\t5\t3\t5\t1\t8\t10\t5\t3\t1\t4\n1175937\t5\t4\t6\t7\t9\t7\t8\t10\t1\t4\n1176406\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1176881\t7\t5\t3\t7\t4\t10\t7\t5\t5\t4\n1177027\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1177399\t8\t3\t5\t4\t5\t10\t1\t6\t2\t4\n1177512\t1\t1\t1\t1\t10\t1\t1\t1\t1\t2\n1178580\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1179818\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1180194\t5\t10\t8\t10\t8\t10\t3\t6\t3\t4\n1180523\t3\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1180831\t3\t1\t1\t1\t3\t1\t2\t1\t1\t2\n1181356\t5\t1\t1\t1\t2\t2\t3\t3\t1\t2\n1182404\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1182410\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183240\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1183516\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183911\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183983\t9\t5\t5\t4\t4\t5\t4\t3\t3\t4\n1184184\t1\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1184241\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1185609\t3\t4\t5\t2\t6\t8\t4\t1\t1\t4\n1185610\t1\t1\t1\t1\t3\t2\t2\t1\t1\t2\n1187457\t3\t1\t1\t3\t8\t1\t5\t8\t1\t2\n1187805\t8\t8\t7\t4\t10\t10\t7\t8\t7\t4\n1188472\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1189266\t7\t2\t4\t1\t6\t10\t5\t4\t3\t4\n1189286\t10\t10\t8\t6\t4\t5\t8\t10\t1\t4\n1190394\t4\t1\t1\t1\t2\t3\t1\t1\t1\t2\n1190485\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1192325\t5\t5\t5\t6\t3\t10\t3\t1\t1\t4\n1193091\t1\t2\t2\t1\t2\t1\t2\t1\t1\t2\n1193210\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1196295\t9\t9\t10\t3\t6\t10\t7\t10\t6\t4\n1196915\t10\t7\t7\t4\t5\t10\t5\t7\t2\t4\n1197080\t4\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1197270\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1197440\t1\t1\t1\t2\t1\t3\t1\t1\t7\t2\n1197979\t4\t1\t1\t1\t2\t2\t3\t2\t1\t2\n1197993\t5\t6\t7\t8\t8\t10\t3\t10\t3\t4\n1198128\t10\t8\t10\t10\t6\t1\t3\t1\t10\t4\n1198641\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1199219\t1\t1\t1\t2\t1\t1\t1\t1\t1\t2\n1199731\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1199983\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1200772\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1200847\t6\t10\t10\t10\t8\t10\t10\t10\t7\t4\n1200892\t8\t6\t5\t4\t3\t10\t6\t1\t1\t4\n1200952\t5\t8\t7\t7\t10\t10\t5\t7\t1\t4\n1201834\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1201936\t5\t10\t10\t3\t8\t1\t5\t10\t3\t4\n1202125\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1202812\t5\t3\t3\t3\t6\t10\t3\t1\t1\t4\n1203096\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1204242\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1204898\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1205138\t5\t8\t8\t8\t5\t10\t7\t8\t1\t4\n1205579\t8\t7\t6\t4\t4\t10\t5\t1\t1\t4\n1206089\t2\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1206695\t1\t5\t8\t6\t5\t8\t7\t10\t1\t4\n1206841\t10\t5\t6\t10\t6\t10\t7\t7\t10\t4\n1207986\t5\t8\t4\t10\t5\t8\t9\t10\t1\t4\n1208301\t1\t2\t3\t1\t2\t1\t3\t1\t1\t2\n1210963\t10\t10\t10\t8\t6\t8\t7\t10\t1\t4\n1211202\t7\t5\t10\t10\t10\t10\t4\t10\t3\t4\n1212232\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1212251\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1212422\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1212422\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1213375\t8\t4\t4\t5\t4\t7\t7\t8\t2\t2\n1213383\t5\t1\t1\t4\t2\t1\t3\t1\t1\t2\n1214092\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1214556\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1214966\t9\t7\t7\t5\t5\t10\t7\t8\t3\t4\n1216694\t10\t8\t8\t4\t10\t10\t8\t1\t1\t4\n1216947\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1217051\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1217264\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1218105\t5\t10\t10\t9\t6\t10\t7\t10\t5\t4\n1218741\t10\t10\t9\t3\t7\t5\t3\t5\t1\t4\n1218860\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1218860\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1219406\t5\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1219525\t8\t10\t10\t10\t5\t10\t8\t10\t6\t4\n1219859\t8\t10\t8\t8\t4\t8\t7\t7\t1\t4\n1220330\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1221863\t10\t10\t10\t10\t7\t10\t7\t10\t4\t4\n1222047\t10\t10\t10\t10\t3\t10\t10\t6\t1\t4\n1222936\t8\t7\t8\t7\t5\t5\t5\t10\t2\t4\n1223282\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1223426\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1223793\t6\t10\t7\t7\t6\t4\t8\t10\t2\t4\n1223967\t6\t1\t3\t1\t2\t1\t3\t1\t1\t2\n1224329\t1\t1\t1\t2\t2\t1\t3\t1\t1\t2\n1225799\t10\t6\t4\t3\t10\t10\t9\t10\t1\t4\n1226012\t4\t1\t1\t3\t1\t5\t2\t1\t1\t4\n1226612\t7\t5\t6\t3\t3\t8\t7\t4\t1\t4\n1227210\t10\t5\t5\t6\t3\t10\t7\t9\t2\t4\n1227244\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1227481\t10\t5\t7\t4\t4\t10\t8\t9\t1\t4\n1228152\t8\t9\t9\t5\t3\t5\t7\t7\t1\t4\n1228311\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1230175\t10\t10\t10\t3\t10\t10\t9\t10\t1\t4\n1230688\t7\t4\t7\t4\t3\t7\t7\t6\t1\t4\n1231387\t6\t8\t7\t5\t6\t8\t8\t9\t2\t4\n1231706\t8\t4\t6\t3\t3\t1\t4\t3\t1\t2\n1232225\t10\t4\t5\t5\t5\t10\t4\t1\t1\t4\n1236043\t3\t3\t2\t1\t3\t1\t3\t6\t1\t2\n1241559\t10\t8\t8\t2\t8\t10\t4\t8\t10\t4\n1241679\t9\t8\t8\t5\t6\t2\t4\t10\t4\t4\n1242364\t8\t10\t10\t8\t6\t9\t3\t10\t10\t4\n1243256\t10\t4\t3\t2\t3\t10\t5\t3\t2\t4\n1270479\t5\t1\t3\t3\t2\t2\t2\t3\t1\t2\n1276091\t3\t1\t1\t3\t1\t1\t3\t1\t1\t2\n1277018\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n128059\t1\t1\t1\t1\t2\t5\t5\t1\t1\t2\n1285531\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1287775\t5\t1\t1\t2\t2\t2\t3\t1\t1\t2\n144888\t8\t10\t10\t8\t5\t10\t7\t8\t1\t4\n145447\t8\t4\t4\t1\t2\t9\t3\t3\t1\t4\n167528\t4\t1\t1\t1\t2\t1\t3\t6\t1\t2\n183913\t1\t2\t2\t1\t2\t1\t1\t1\t1\t2\n191250\t10\t4\t4\t10\t2\t10\t5\t3\t3\t4\n1017023\t6\t3\t3\t5\t3\t10\t3\t5\t3\t2\n1100524\t6\t10\t10\t2\t8\t10\t7\t3\t3\t4\n1116116\t9\t10\t10\t1\t10\t8\t3\t3\t1\t4\n1168736\t5\t6\t6\t2\t4\t10\t3\t6\t1\t4\n1182404\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1182404\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1198641\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n242970\t5\t7\t7\t1\t5\t8\t3\t4\t1\t2\n255644\t10\t5\t8\t10\t3\t10\t5\t1\t3\t4\n263538\t5\t10\t10\t6\t10\t10\t10\t6\t5\t4\n274137\t8\t8\t9\t4\t5\t10\t7\t8\t1\t4\n303213\t10\t4\t4\t10\t6\t10\t5\t5\t1\t4\n314428\t7\t9\t4\t10\t10\t3\t5\t3\t3\t4\n1182404\t5\t1\t4\t1\t2\t1\t3\t2\t1\t2\n1198641\t10\t10\t6\t3\t3\t10\t4\t3\t2\t4\n320675\t3\t3\t5\t2\t3\t10\t7\t1\t1\t4\n324427\t10\t8\t8\t2\t3\t4\t8\t7\t8\t4\n385103\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n390840\t8\t4\t7\t1\t3\t10\t3\t9\t2\t4\n411453\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n320675\t3\t3\t5\t2\t3\t10\t7\t1\t1\t4\n428903\t7\t2\t4\t1\t3\t4\t3\t3\t1\t4\n431495\t3\t1\t1\t1\t2\t1\t3\t2\t1\t2\n434518\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n452264\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n456282\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n476903\t10\t5\t7\t3\t3\t7\t3\t3\t8\t4\n486283\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n486662\t2\t1\t1\t2\t2\t1\t3\t1\t1\t2\n488173\t1\t4\t3\t10\t4\t10\t5\t6\t1\t4\n492268\t10\t4\t6\t1\t2\t10\t5\t3\t1\t4\n508234\t7\t4\t5\t10\t2\t10\t3\t8\t2\t4\n527363\t8\t10\t10\t10\t8\t10\t10\t7\t3\t4\n529329\t10\t10\t10\t10\t10\t10\t4\t10\t10\t4\n535331\t3\t1\t1\t1\t3\t1\t2\t1\t1\t2\n543558\t6\t1\t3\t1\t4\t5\t5\t10\t1\t4\n555977\t5\t6\t6\t8\t6\t10\t4\t10\t4\t4\n560680\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n561477\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n601265\t10\t4\t4\t6\t2\t10\t2\t3\t1\t4\n606722\t5\t5\t7\t8\t6\t10\t7\t4\t1\t4\n616240\t5\t3\t4\t3\t4\t5\t4\t7\t1\t2\n625201\t8\t2\t1\t1\t5\t1\t1\t1\t1\t2\n63375\t9\t1\t2\t6\t4\t10\t7\t7\t2\t4\n635844\t8\t4\t10\t5\t4\t4\t7\t10\t1\t4\n636130\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n640744\t10\t10\t10\t7\t9\t10\t7\t10\t10\t4\n646904\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n653777\t8\t3\t4\t9\t3\t10\t3\t3\t1\t4\n659642\t10\t8\t4\t4\t4\t10\t3\t10\t4\t4\n666090\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n666942\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n667204\t7\t8\t7\t6\t4\t3\t8\t8\t4\t4\n673637\t3\t1\t1\t1\t2\t5\t5\t1\t1\t2\n684955\t2\t1\t1\t1\t3\t1\t2\t1\t1\t2\n688033\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n691628\t8\t6\t4\t10\t10\t1\t3\t5\t1\t4\n693702\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n704097\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n706426\t5\t5\t5\t2\t5\t10\t4\t3\t1\t4\n709287\t6\t8\t7\t8\t6\t8\t8\t9\t1\t4\n718641\t1\t1\t1\t1\t5\t1\t3\t1\t1\t2\n721482\t4\t4\t4\t4\t6\t5\t7\t3\t1\t2\n730881\t7\t6\t3\t2\t5\t10\t7\t4\t6\t4\n733639\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n733823\t5\t4\t6\t10\t2\t10\t4\t1\t1\t4\n740492\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n743348\t3\t2\t2\t1\t2\t1\t2\t3\t1\t2\n752904\t10\t1\t1\t1\t2\t10\t5\t4\t1\t4\n756136\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n760001\t8\t10\t3\t2\t6\t4\t3\t10\t1\t4\n760239\t10\t4\t6\t4\t5\t10\t7\t1\t1\t4\n76389\t10\t4\t7\t2\t2\t8\t6\t1\t1\t4\n764974\t5\t1\t1\t1\t2\t1\t3\t1\t2\t2\n770066\t5\t2\t2\t2\t2\t1\t2\t2\t1\t2\n785208\t5\t4\t6\t6\t4\t10\t4\t3\t1\t4\n785615\t8\t6\t7\t3\t3\t10\t3\t4\t2\t4\n792744\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n797327\t6\t5\t5\t8\t4\t10\t3\t4\t1\t4\n798429\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n704097\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n806423\t8\t5\t5\t5\t2\t10\t4\t3\t1\t4\n809912\t10\t3\t3\t1\t2\t10\t7\t6\t1\t4\n810104\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n814265\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n814911\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n822829\t7\t6\t4\t8\t10\t10\t9\t5\t3\t4\n826923\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n830690\t5\t2\t2\t2\t3\t1\t1\t3\t1\t2\n831268\t1\t1\t1\t1\t1\t1\t1\t3\t1\t2\n832226\t3\t4\t4\t10\t5\t1\t3\t3\t1\t4\n832567\t4\t2\t3\t5\t3\t8\t7\t6\t1\t4\n836433\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n837082\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n846832\t3\t4\t5\t3\t7\t3\t4\t6\t1\t2\n850831\t2\t7\t10\t10\t7\t10\t4\t9\t4\t4\n855524\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n857774\t4\t1\t1\t1\t3\t1\t2\t2\t1\t2\n859164\t5\t3\t3\t1\t3\t3\t3\t3\t3\t4\n859350\t8\t10\t10\t7\t10\t10\t7\t3\t8\t4\n866325\t8\t10\t5\t3\t8\t4\t4\t10\t3\t4\n873549\t10\t3\t5\t4\t3\t7\t3\t5\t3\t4\n877291\t6\t10\t10\t10\t10\t10\t8\t10\t10\t4\n877943\t3\t10\t3\t10\t6\t10\t5\t1\t4\t4\n888169\t3\t2\t2\t1\t4\t3\t2\t1\t1\t2\n888523\t4\t4\t4\t2\t2\t3\t2\t1\t1\t2\n896404\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n897172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n95719\t6\t10\t10\t10\t8\t10\t7\t10\t7\t4\n160296\t5\t8\t8\t10\t5\t10\t8\t10\t3\t4\n342245\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n428598\t1\t1\t3\t1\t1\t1\t2\t1\t1\t2\n492561\t4\t3\t2\t1\t3\t1\t2\t1\t1\t2\n493452\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n493452\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n521441\t5\t1\t1\t2\t2\t1\t2\t1\t1\t2\n560680\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n636437\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n640712\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n654244\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n657753\t3\t1\t1\t4\t3\t1\t2\t2\t1\t2\n685977\t5\t3\t4\t1\t4\t1\t3\t1\t1\t2\n805448\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n846423\t10\t6\t3\t6\t4\t10\t7\t8\t4\t4\n1002504\t3\t2\t2\t2\t2\t1\t3\t2\t1\t2\n1022257\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1026122\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1071084\t3\t3\t2\t2\t3\t1\t1\t2\t3\t2\n1080233\t7\t6\t6\t3\t2\t10\t7\t1\t1\t4\n1114570\t5\t3\t3\t2\t3\t1\t3\t1\t1\t2\n1114570\t2\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1116715\t5\t1\t1\t1\t3\t2\t2\t2\t1\t2\n1131411\t1\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1151734\t10\t8\t7\t4\t3\t10\t7\t9\t1\t4\n1156017\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1158247\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1158405\t1\t2\t3\t1\t2\t1\t2\t1\t1\t2\n1168278\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1176187\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1196263\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1196475\t3\t2\t1\t1\t2\t1\t2\t2\t1\t2\n1206314\t1\t2\t3\t1\t2\t1\t1\t1\t1\t2\n1211265\t3\t10\t8\t7\t6\t9\t9\t3\t8\t4\n1213784\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1223003\t5\t3\t3\t1\t2\t1\t2\t1\t1\t2\n1223306\t3\t1\t1\t1\t2\t4\t1\t1\t1\t2\n1223543\t1\t2\t1\t3\t2\t1\t1\t2\t1\t2\n1229929\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1231853\t4\t2\t2\t1\t2\t1\t2\t1\t1\t2\n1234554\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1236837\t2\t3\t2\t2\t2\t2\t3\t1\t1\t2\n1237674\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1238021\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1238633\t10\t10\t10\t6\t8\t4\t8\t5\t1\t4\n1238915\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1238948\t8\t5\t6\t2\t3\t10\t6\t6\t1\t4\n1239232\t3\t3\t2\t6\t3\t3\t3\t5\t1\t2\n1239347\t8\t7\t8\t5\t10\t10\t7\t2\t1\t4\n1239967\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1240337\t5\t2\t2\t2\t2\t2\t3\t2\t2\t2\n1253505\t2\t3\t1\t1\t5\t1\t1\t1\t1\t2\n1255384\t3\t2\t2\t3\t2\t3\t3\t1\t1\t2\n1257200\t10\t10\t10\t7\t10\t10\t8\t2\t1\t4\n1257648\t4\t3\t3\t1\t2\t1\t3\t3\t1\t2\n1257815\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1257938\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1258549\t9\t10\t10\t10\t10\t10\t10\t10\t1\t4\n1258556\t5\t3\t6\t1\t2\t1\t1\t1\t1\t2\n1266154\t8\t7\t8\t2\t4\t2\t5\t10\t1\t4\n1272039\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1276091\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1276091\t1\t3\t1\t1\t2\t1\t2\t2\t1\t2\n1276091\t5\t1\t1\t3\t4\t1\t3\t2\t1\t2\n1277629\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1293439\t3\t2\t2\t3\t2\t1\t1\t1\t1\t2\n1293439\t6\t9\t7\t5\t5\t8\t4\t2\t1\t2\n1294562\t10\t8\t10\t1\t3\t10\t5\t1\t1\t4\n1295186\t10\t10\t10\t1\t6\t1\t2\t8\t1\t4\n527337\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n558538\t4\t1\t3\t3\t2\t1\t1\t1\t1\t2\n566509\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n608157\t10\t4\t3\t10\t4\t10\t10\t1\t1\t4\n677910\t5\t2\t2\t4\t2\t4\t1\t1\t1\t2\n734111\t1\t1\t1\t3\t2\t3\t1\t1\t1\t2\n734111\t1\t1\t1\t1\t2\t2\t1\t1\t1\t2\n780555\t5\t1\t1\t6\t3\t1\t2\t1\t1\t2\n827627\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1049837\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1058849\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1182404\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1193544\t5\t7\t9\t8\t6\t10\t8\t10\t1\t4\n1201870\t4\t1\t1\t3\t1\t1\t2\t1\t1\t2\n1202253\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1227081\t3\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1230994\t4\t5\t5\t8\t6\t10\t10\t7\t1\t4\n1238410\t2\t3\t1\t1\t3\t1\t1\t1\t1\t2\n1246562\t10\t2\t2\t1\t2\t6\t1\t1\t2\t4\n1257470\t10\t6\t5\t8\t5\t10\t8\t6\t1\t4\n1259008\t8\t8\t9\t6\t6\t3\t10\t10\t1\t4\n1266124\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1267898\t5\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1268313\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1268804\t3\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1276091\t6\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1280258\t4\t1\t1\t1\t2\t1\t1\t2\t1\t2\n1293966\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296572\t10\t9\t8\t7\t6\t4\t7\t10\t3\t4\n1298416\t10\t6\t6\t2\t4\t10\t9\t7\t1\t4\n1299596\t6\t6\t6\t5\t4\t10\t7\t6\t2\t4\n1105524\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1181685\t1\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1211594\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1238777\t6\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1257608\t6\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1269574\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277145\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1287282\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296025\t4\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1296263\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296593\t5\t2\t1\t1\t2\t1\t1\t1\t1\t2\n1299161\t4\t8\t7\t10\t4\t10\t7\t5\t1\t4\n1301945\t5\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1302428\t5\t3\t2\t4\t2\t1\t1\t1\t1\t2\n1318169\t9\t10\t10\t10\t10\t5\t10\t10\t10\t4\n474162\t8\t7\t8\t5\t5\t10\t9\t10\t1\t4\n787451\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1002025\t1\t1\t1\t3\t1\t3\t1\t1\t1\t2\n1070522\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1073960\t10\t10\t10\t10\t6\t10\t8\t1\t5\t4\n1076352\t3\t6\t4\t10\t3\t3\t3\t4\t1\t4\n1084139\t6\t3\t2\t1\t3\t4\t4\t1\t1\t4\n1115293\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1119189\t5\t8\t9\t4\t3\t10\t7\t1\t1\t4\n1133991\t4\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1142706\t5\t10\t10\t10\t6\t10\t6\t5\t2\t4\n1155967\t5\t1\t2\t10\t4\t5\t2\t1\t1\t2\n1170945\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1181567\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1182404\t4\t2\t1\t1\t2\t1\t1\t1\t1\t2\n1204558\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1217952\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1224565\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1238186\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1253917\t4\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1265899\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1268766\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277268\t3\t3\t1\t1\t2\t1\t1\t1\t1\t2\n1286943\t8\t10\t10\t10\t7\t5\t4\t8\t7\t4\n1295508\t1\t1\t1\t1\t2\t4\t1\t1\t1\t2\n1297327\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1297522\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1298360\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1299924\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1299994\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1304595\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1306282\t6\t6\t7\t10\t3\t10\t8\t10\t2\t4\n1313325\t4\t10\t4\t7\t3\t10\t9\t10\t1\t4\n1320077\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1320077\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1320304\t3\t1\t2\t2\t2\t1\t1\t1\t1\t2\n1330439\t4\t7\t8\t3\t4\t10\t9\t1\t1\t4\n333093\t1\t1\t1\t1\t3\t1\t1\t1\t1\t2\n369565\t4\t1\t1\t1\t3\t1\t1\t1\t1\t2\n412300\t10\t4\t5\t4\t3\t5\t7\t3\t1\t4\n672113\t7\t5\t6\t10\t4\t10\t5\t3\t1\t4\n749653\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n769612\t3\t1\t1\t2\t2\t1\t1\t1\t1\t2\n769612\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n798429\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n807657\t6\t1\t3\t2\t2\t1\t1\t1\t1\t2\n8233704\t4\t1\t1\t1\t1\t1\t2\t1\t1\t2\n837480\t7\t4\t4\t3\t4\t10\t6\t9\t1\t4\n867392\t4\t2\t2\t1\t2\t1\t2\t1\t1\t2\n869828\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1043068\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1056171\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1061990\t1\t1\t3\t2\t2\t1\t3\t1\t1\t2\n1113061\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1116192\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1135090\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1145420\t6\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1158157\t5\t1\t1\t1\t2\t2\t2\t1\t1\t2\n1171578\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1174841\t5\t3\t1\t1\t2\t1\t1\t1\t1\t2\n1184586\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1186936\t2\t1\t3\t2\t2\t1\t2\t1\t1\t2\n1197527\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1222464\t6\t10\t10\t10\t4\t10\t7\t10\t1\t4\n1240603\t2\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1240603\t3\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1241035\t7\t8\t3\t7\t4\t5\t7\t8\t2\t4\n1287971\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1289391\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1299924\t3\t2\t2\t2\t2\t1\t4\t2\t1\t2\n1306339\t4\t4\t2\t1\t2\t5\t2\t1\t2\t2\n1313658\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1313982\t4\t3\t1\t1\t2\t1\t4\t8\t1\t2\n1321264\t5\t2\t2\t2\t1\t1\t2\t1\t1\t2\n1321321\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1321348\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1321931\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1321942\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1321942\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1328331\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1328755\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1331405\t4\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1331412\t5\t7\t10\t10\t5\t10\t10\t10\t1\t4\n1333104\t3\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1334071\t4\t1\t1\t1\t2\t3\t2\t1\t1\t2\n1343068\t8\t4\t4\t1\t6\t10\t2\t5\t2\t4\n1343374\t10\t10\t8\t10\t6\t5\t10\t3\t1\t4\n1344121\t8\t10\t4\t4\t8\t10\t8\t2\t1\t4\n142932\t7\t6\t10\t5\t3\t10\t9\t10\t2\t4\n183936\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n324382\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n378275\t10\t9\t7\t3\t4\t2\t7\t7\t1\t4\n385103\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n690557\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n695091\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n695219\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n824249\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n871549\t5\t1\t2\t1\t2\t1\t2\t1\t1\t2\n878358\t5\t7\t10\t6\t5\t10\t7\t5\t1\t4\n1107684\t6\t10\t5\t5\t4\t10\t6\t10\t1\t4\n1115762\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1217717\t5\t1\t1\t6\t3\t1\t1\t1\t1\t2\n1239420\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1254538\t8\t10\t10\t10\t6\t10\t10\t10\t1\t4\n1261751\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1268275\t9\t8\t8\t9\t6\t3\t4\t1\t1\t4\n1272166\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1294261\t4\t10\t8\t5\t4\t1\t10\t1\t1\t4\n1295529\t2\t5\t7\t6\t4\t10\t7\t6\t1\t4\n1298484\t10\t3\t4\t5\t3\t10\t4\t1\t1\t4\n1311875\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1315506\t4\t8\t6\t3\t4\t10\t7\t1\t1\t4\n1320141\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1325309\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1333063\t5\t1\t3\t1\t2\t1\t3\t1\t1\t2\n1333495\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1334659\t5\t2\t4\t1\t1\t1\t1\t1\t1\t2\n1336798\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1344449\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1350568\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1352663\t5\t4\t6\t8\t4\t1\t8\t10\t1\t4\n188336\t5\t3\t2\t8\t5\t10\t8\t1\t2\t4\n352431\t10\t5\t10\t3\t5\t8\t7\t8\t3\t4\n353098\t4\t1\t1\t2\t2\t1\t1\t1\t1\t2\n411453\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n557583\t5\t10\t10\t10\t10\t10\t10\t1\t1\t4\n636375\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n736150\t10\t4\t3\t10\t3\t10\t7\t1\t2\t4\n803531\t5\t10\t10\t10\t5\t2\t8\t5\t1\t4\n822829\t8\t10\t10\t10\t6\t10\t10\t10\t10\t4\n1016634\t2\t3\t1\t1\t2\t1\t2\t1\t1\t2\n1031608\t2\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1041043\t4\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1042252\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1061990\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1073836\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1083817\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1096352\t6\t3\t3\t3\t3\t2\t6\t1\t1\t2\n1140597\t7\t1\t2\t3\t2\t1\t2\t1\t1\t2\n1149548\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1174009\t5\t1\t1\t2\t1\t1\t2\t1\t1\t2\n1183596\t3\t1\t3\t1\t3\t4\t1\t1\t1\t2\n1190386\t4\t6\t6\t5\t7\t6\t7\t7\t3\t4\n1190546\t2\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1213273\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1218982\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1225382\t6\t2\t3\t1\t2\t1\t1\t1\t1\t2\n1235807\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1238777\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1253955\t8\t7\t4\t4\t5\t3\t5\t10\t1\t4\n1257366\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1260659\t3\t1\t4\t1\t2\t1\t1\t1\t1\t2\n1268952\t10\t10\t7\t8\t7\t1\t10\t10\t3\t4\n1275807\t4\t2\t4\t3\t2\t2\t2\t1\t1\t2\n1277792\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277792\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1285722\t4\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1288608\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1290203\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1294413\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1299596\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1303489\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1311033\t1\t2\t2\t1\t2\t1\t1\t1\t1\t2\n1311108\t1\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1315807\t5\t10\t10\t10\t10\t2\t10\t10\t10\t4\n1318671\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1319609\t3\t1\t1\t2\t3\t4\t1\t1\t1\t2\n1323477\t1\t2\t1\t3\t2\t1\t2\t1\t1\t2\n1324572\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1324681\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1325159\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1326892\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1330361\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1333877\t5\t4\t5\t1\t8\t1\t3\t6\t1\t2\n1334015\t7\t8\t8\t7\t3\t10\t7\t2\t3\t4\n1334667\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1339781\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1339781\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n13454352\t1\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1345452\t1\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1345593\t3\t1\t1\t3\t2\t1\t2\t1\t1\t2\n1347749\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1347943\t5\t2\t2\t2\t2\t1\t1\t1\t2\t2\n1348851\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1350319\t5\t7\t4\t1\t6\t1\t7\t10\t3\t4\n1350423\t5\t10\t10\t8\t5\t5\t7\t10\t1\t4\n1352848\t3\t10\t7\t8\t5\t8\t7\t4\t1\t4\n1353092\t3\t2\t1\t2\t2\t1\t3\t1\t1\t2\n1354840\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1354840\t5\t3\t2\t1\t3\t1\t1\t1\t1\t2\n1355260\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1365075\t4\t1\t4\t1\t2\t1\t1\t1\t1\t2\n1365328\t1\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1368267\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1368273\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1368882\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1369821\t10\t10\t10\t10\t5\t10\t10\t10\t7\t4\n1371026\t5\t10\t10\t10\t4\t10\t5\t6\t3\t4\n1371920\t5\t1\t1\t1\t2\t1\t3\t2\t1\t2\n466906\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n466906\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n534555\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n536708\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n566346\t3\t1\t1\t1\t2\t1\t2\t3\t1\t2\n603148\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n654546\t1\t1\t1\t1\t2\t1\t1\t1\t8\t2\n654546\t1\t1\t1\t3\t2\t1\t1\t1\t1\t2\n695091\t5\t10\t10\t5\t4\t5\t4\t4\t1\t4\n714039\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n763235\t3\t1\t1\t1\t2\t1\t2\t1\t2\t2\n776715\t3\t1\t1\t1\t3\t2\t1\t1\t1\t2\n841769\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n888820\t5\t10\t10\t3\t7\t3\t8\t10\t2\t4\n897471\t4\t8\t6\t4\t3\t4\t10\t6\t1\t4\n897471\t4\t8\t8\t5\t4\t5\t10\t4\t1\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510585138801_286107366",
+      "id": "20171113-145858_2004754337",
+      "dateCreated": "Nov 13, 2017 2:58:58 PM",
+      "dateStarted": "Nov 26, 2017 5:55:23 PM",
+      "dateFinished": "Nov 26, 2017 5:55:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "augmenting, engineering new fields, dropping",
+      "text": "\nval df2 \u003d df.drop(\"mitosis\").withColumn(\"category\", substring($\"sample\",0,4) )\nz.show(df2.limit(5))\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 3:50:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndf2: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tclas\tcategory\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t2\t1000\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t2\t1002\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t2\t1015\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t2\t1016\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t2\t1017\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510512543809_545404193",
+      "id": "20171112-184903_1758024856",
+      "dateCreated": "Nov 12, 2017 6:49:03 PM",
+      "dateStarted": "Nov 13, 2017 3:50:31 PM",
+      "dateFinished": "Nov 13, 2017 3:50:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets create a new test set",
+      "text": "%sh\n\necho id,name,function,birthday \u003e michel.csv\necho 1,michel,engineer,29-04-1976 \u003e\u003e michel.csv\necho 2,pietl,engineer,01-03-1980 \u003e\u003e michel.csv\necho 3,truus,scientist,20-11-2011 \u003e\u003e michel.csv\necho 4,kees,scientist,15-12-2001 \u003e\u003e michel.csv\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 8:03:13 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510602230421_815959757",
+      "id": "20171113-194350_413795724",
+      "dateCreated": "Nov 13, 2017 7:43:50 PM",
+      "dateStarted": "Nov 13, 2017 8:03:13 PM",
+      "dateFinished": "Nov 13, 2017 8:03:13 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Read in via Rdd instead of Dataframereader and do some munging",
+      "text": "\ncase class Michel(id: Integer,name: String,function: String,birthday : String)\nval michelRdd \u003d sc.textFile(\"michel.csv\")\nmichelRdd.count()\nval header \u003d michelRdd.first()\n//Get rid of header, but spark.read.format(\"csv\") makes more sense (\u003ddataframe instead of rdd)\nval data \u003d michelRdd.filter(row \u003d\u003e row !\u003d header).filter(rows \u003d\u003e !rows.contains(\"?\"))\nval michelClassRdd \u003d data.map(_.split(\",\")).map(p \u003d\u003e Michel(p(0).trim().toInt,p(1).trim().toString,p(2).toString,p(3).toString))\nval michelDF \u003d michelClassRdd.toDF()\nmichelDF.show(5)\nmichelDF.count()\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 10:06:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndefined class Michel\n\nmichelRdd: org.apache.spark.rdd.RDD[String] \u003d michel.csv MapPartitionsRDD[84] at textFile at \u003cconsole\u003e:31\n\nres39: Long \u003d 5\n\nheader: String \u003d id,name,function,birthday\n\ndata: org.apache.spark.rdd.RDD[String] \u003d MapPartitionsRDD[86] at filter at \u003cconsole\u003e:35\n\nmichelClassRdd: org.apache.spark.rdd.RDD[Michel] \u003d MapPartitionsRDD[88] at map at \u003cconsole\u003e:39\n\nmichelDF: org.apache.spark.sql.DataFrame \u003d [id: int, name: string ... 2 more fields]\n+---+------+---------+----------+\n| id|  name| function|  birthday|\n+---+------+---------+----------+\n|  1|michel| engineer|29-04-1976|\n|  2| pietl| engineer|01-03-1980|\n|  3| truus|scientist|20-11-2011|\n|  4|  kees|scientist|15-12-2001|\n+---+------+---------+----------+\n\n\nres41: Long \u003d 4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510602427404_-1103828340",
+      "id": "20171113-194707_1724242767",
+      "dateCreated": "Nov 13, 2017 7:47:07 PM",
+      "dateStarted": "Nov 13, 2017 8:03:44 PM",
+      "dateFinished": "Nov 13, 2017 8:03:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets continue to do some strange munging",
+      "text": "//add column using withcolumn can also be done by calling a function of udf and name it.\nmichelDF.describe().show()\n michelDF.describe().select($\"summary\",$\"id\" , $\"name\",$\"function\" , round($\"id\",4).name(\"rounded\") ).drop(\"id\",\"name\").show()\n\n//aggegrate\nmichelDF.groupBy(\"function\").agg(count(\"function\")).show\n\n//Code for Augmenting the dataset section\nval michelDateDF \u003d michelDF.withColumn(\"dow\", from_unixtime(unix_timestamp($\"birthday\", \"dd-MM-yyyy\"), \"EEEEE\")).withColumn(\"month\", month(to_date(unix_timestamp($\"birthday\", \"dd-MM-yyyy\").cast(\"timestamp\"))))\n                            .filter($\"name\" \u003d!\u003d \"kees\").orderBy($\"dow\",$\"month\")\n                            \n//Convert to DS , so we need to change Sql types to Scala types. Are there any timestamp types?\ncase class MichelDate(id: Integer,name: String,function: String,birthday : String,dow: String, month : java.sql.Timestamp)\nval michelDateDS \u003d michelDateDF.as[MichelDate].cache()\nval joined \u003d michelDateDS.join(michelDateDF, michelDateDS(\"name\") \u003d\u003d\u003d michelDateDF(\"name\"))\njoined.show(5)\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 10:43:57 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-------+------------------+-----+---------+----------+\n|summary|                id| name| function|  birthday|\n+-------+------------------+-----+---------+----------+\n|  count|                 4|    4|        4|         4|\n|   mean|               2.5| null|     null|      null|\n| stddev|1.2909944487358056| null|     null|      null|\n|    min|                 1| kees| engineer|01-03-1980|\n|    max|                 4|truus|scientist|29-04-1976|\n+-------+------------------+-----+---------+----------+\n\n+-------+---------+-------+\n|summary| function|rounded|\n+-------+---------+-------+\n|  count|        4|    4.0|\n|   mean|     null|    2.5|\n| stddev|     null|  1.291|\n|    min| engineer|    1.0|\n|    max|scientist|    4.0|\n+-------+---------+-------+\n\n+---------+---------------+\n| function|count(function)|\n+---------+---------------+\n|scientist|              2|\n| engineer|              2|\n+---------+---------------+\n\n\nmichelDateDF: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: int, name: string ... 4 more fields]\n\ndefined class MichelDate\n\nmichelDateDS: org.apache.spark.sql.Dataset[MichelDate] \u003d [id: int, name: string ... 4 more fields]\n\njoined: org.apache.spark.sql.DataFrame \u003d [id: int, name: string ... 10 more fields]\n+---+------+---------+----------+--------+-----+---+------+---------+----------+--------+-----+\n| id|  name| function|  birthday|     dow|month| id|  name| function|  birthday|     dow|month|\n+---+------+---------+----------+--------+-----+---+------+---------+----------+--------+-----+\n|  1|michel| engineer|29-04-1976|Thursday|    4|  1|michel| engineer|29-04-1976|Thursday|    4|\n|  2| pietl| engineer|01-03-1980|Saturday|    3|  2| pietl| engineer|01-03-1980|Saturday|    3|\n|  3| truus|scientist|20-11-2011|  Sunday|   11|  3| truus|scientist|20-11-2011|  Sunday|   11|\n+---+------+---------+----------+--------+-----+---+------+---------+----------+--------+-----+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510602853736_-1195974319",
+      "id": "20171113-195413_922359090",
+      "dateCreated": "Nov 13, 2017 7:54:13 PM",
+      "dateStarted": "Nov 13, 2017 10:42:37 PM",
+      "dateFinished": "Nov 13, 2017 10:42:40 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets create a text csv",
+      "text": "%sh\n\nmkdir testdir\necho \"Hello Michel , where are you Michel.. michel? She said\" \u003e testdir/mike.txt\necho \"yes he said. What do you want? No idea\" \u003e\u003e testdir/mike.txt\necho \"ok , bye bye \" \u003e\u003e testdir/mike.txt\n\necho \"No dont go away michel\" \u003e testdir/mike2.txt\necho \"why not michel she said?\" \u003e\u003e testdir/mike2.txt\necho \"because i need you to do some munging \" \u003e\u003e testdir/mike2.txt\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 10:54:39 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1510613062741_2122948703",
+      "id": "20171113-224422_220946759",
+      "dateCreated": "Nov 13, 2017 10:44:22 PM",
+      "dateStarted": "Nov 13, 2017 10:54:39 PM",
+      "dateFinished": "Nov 13, 2017 10:54:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Munging text (using red only)",
+      "text": "\n//Count words in directory with text files\nimport org.apache.spark.sql.types.{StructType, StructField, StringType}\nimport org.apache.spark.sql.DataFrame\nimport spark.implicits._\n\nval data \u003d spark.sparkContext.wholeTextFiles(\"testdir\")\nvar output : org.apache.spark.rdd.RDD[(String, String, Int)] \u003d sc.emptyRDD\nval files \u003d data.map { case (filename, content) \u003d\u003e filename}\ndef Process(filename: String): org.apache.spark.rdd.RDD[(String, String, Int)]\u003d {\n    println(\"Processing:\" + filename)\n    val fpath \u003d filename.split(\u0027/\u0027).last;\n    val lines \u003d spark.sparkContext.textFile(filename);\n    val counts \u003d lines.flatMap(line \u003d\u003e line.split(\" \")).map(word \u003d\u003e word).map(word \u003d\u003e (word, 1)).reduceByKey(_ + _); \n    val word_counts \u003d counts.map( x \u003d\u003e (fpath,x._1, x._2));   \n    word_counts\n}\nval buf \u003d scala.collection.mutable.ArrayBuffer.empty[org.apache.spark.rdd.RDD[(String, String, Int)]]\nfiles.collect.foreach( filename \u003d\u003e { buf +\u003d Process(filename); })\noutput \u003d spark.sparkContext.union(buf.toList);\noutput.count\noutput.take(5).foreach(println)\n\n//Remove certain (stop) words from your file\nval stopWords \u003d sc.broadcast(Set(\"michel\", \"Michel\", \"ok\", \"bye\"))\ndef processLine(s: String, stopWords: Set[String]): List[String] \u003d { \n    s.toLowerCase()\n      .split(\"\\\\s+\")\n      .filter(x \u003d\u003e x.matches(\"[A-Za-z]+\"))\n      .filter(!stopWords.contains(_))\n      .toList\n}\nval groupedRDD \u003d output.map{ case (x, y, z) \u003d\u003e (x, (processLine(y.trim(), stopWords.value)).mkString, z)}.filter{case (x, y, z) \u003d\u003e !y.equals(\"\")}\ngroupedRDD.take(5).foreach(println)\nval words \u003d groupedRDD.map{ case (x, y, z) \u003d\u003e y}\nval wordsDF \u003d words.toDF\nval regex \u003d \"[,.:;\u0027\\\"\\\\?\\\\-!\\\\(\\\\)]\".r\nval stopwords \u003d sc.textFile(\"testdir/mike.txt\")\nval stopwordsDF \u003d stopwords.flatMap(line \u003d\u003e line.split(\"[\\\\s]\")).map(word \u003d\u003e regex.replaceAllIn(word.trim.toLowerCase, \"\")).filter(word \u003d\u003e !word.isEmpty).toDF()\nval cleanwords \u003d wordsDF.except(stopwordsDF)\nstopwordsDF.count()\nwords.count()\ncleanwords.count()\ncleanwords.collect.foreach(println)\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 11:24:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types.{StructType, StructField, StringType}\n\nimport org.apache.spark.sql.DataFrame\n\nimport spark.implicits._\n\ndata: org.apache.spark.rdd.RDD[(String, String)] \u003d testdir MapPartitionsRDD[862] at wholeTextFiles at \u003cconsole\u003e:130\n\noutput: org.apache.spark.rdd.RDD[(String, String, Int)] \u003d EmptyRDD[863] at emptyRDD at \u003cconsole\u003e:131\n\nfiles: org.apache.spark.rdd.RDD[String] \u003d MapPartitionsRDD[864] at map at \u003cconsole\u003e:131\n\nProcess: (filename: String)org.apache.spark.rdd.RDD[(String, String, Int)]\n\nbuf: scala.collection.mutable.ArrayBuffer[org.apache.spark.rdd.RDD[(String, String, Int)]] \u003d ArrayBuffer()\nProcessing:file:/usr/zeppelin/testdir/mike2.txt\nProcessing:file:/usr/zeppelin/testdir/mike.txt\n\noutput: org.apache.spark.rdd.RDD[(String, String, Int)] \u003d UnionRDD[879] at union at \u003cconsole\u003e:135\n\nres319: Long \u003d 37\n(mike2.txt,away,1)\n(mike2.txt,because,1)\n(mike2.txt,need,1)\n(mike2.txt,some,1)\n(mike2.txt,she,1)\n\nstopWords: org.apache.spark.broadcast.Broadcast[scala.collection.immutable.Set[String]] \u003d Broadcast(361)\n\nprocessLine: (s: String, stopWords: Set[String])List[String]\n\ngroupedRDD: org.apache.spark.rdd.RDD[(String, String, Int)] \u003d MapPartitionsRDD[881] at filter at \u003cconsole\u003e:139\n(mike2.txt,away,1)\n(mike2.txt,because,1)\n(mike2.txt,need,1)\n(mike2.txt,some,1)\n(mike2.txt,she,1)\n\nwords: org.apache.spark.rdd.RDD[String] \u003d MapPartitionsRDD[882] at map at \u003cconsole\u003e:141\n\nwordsDF: org.apache.spark.sql.DataFrame \u003d [value: string]\n\nregex: scala.util.matching.Regex \u003d [,.:;\u0027\"\\?\\-!\\(\\)]\n\nstopwords: org.apache.spark.rdd.RDD[String] \u003d testdir/mike.txt MapPartitionsRDD[884] at textFile at \u003cconsole\u003e:131\n\nstopwordsDF: org.apache.spark.sql.DataFrame \u003d [value: string]\n\ncleanwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [value: string]\n\nres324: Long \u003d 21\n\nres325: Long \u003d 27\n\nres326: Long \u003d 11\n[some]\n[not]\n[because]\n[munging]\n[go]\n[i]\n[away]\n[need]\n[why]\n[dont]\n[to]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1510613046129_1231253994",
+      "id": "20171113-224406_1320804241",
+      "dateCreated": "Nov 13, 2017 10:44:06 PM",
+      "dateStarted": "Nov 13, 2017 11:23:25 PM",
+      "dateFinished": "Nov 13, 2017 11:23:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Code not executed yet: Machine learning (Spark ML) and time series",
+      "text": "\n//for timeseries using rdd go to:\n//reuires spark-timeseries-master/target/sparkts-0.4.0-SNAPSHOT-jar-with-dependencies.jar\n\n\n\n//Code for Preparing data for machine learning section\nimport org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.classification.{RandomForestClassificationModel, RandomForestClassifier}\nimport org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator\nimport org.apache.spark.ml.feature.{IndexToString, StringIndexer, VectorIndexer}\nimport org.apache.spark.ml.linalg.Vectors\n\n//Code for Pre-processing data for machine learning section\ndef containsSubstring( str:String, substr:String): Double \u003d { if (str.contains(substr)) 1 else 0}\ndef udfContains(substr: String) \u003d udf((x: String) \u003d\u003e containsSubstring(x, substr))\ndef udfVec() \u003d udf[org.apache.spark.ml.linalg.Vector, String, Int, Double, Double, Double] { (a, b, c, d, e) \u003d\u003e val x \u003d a match { case \"Monday\" \u003d\u003e 1; case \"Tuesday\" \u003d\u003e 2; case \"Wednesday\" \u003d\u003e 3; case \"Thursday\" \u003d\u003e 4; case \"Friday\" \u003d\u003e 5; case \"Saturday\" \u003d\u003e 6; case \"Sunday\" \u003d\u003e 7; }; Vectors.dense(x, b, c, d, e);}\nval joinedRained \u003d joinedDayDowDF.withColumn(\"label\", udfContains(\"Rain\")($\"Events\")).withColumn(\"features\", udfVec()($\"dow\", $\"month\", $\"dsm_1\", $\"dsm_2\", $\"dsm_3\"))\nval labelIndexer \u003d new StringIndexer().setInputCol(\"label\").setOutputCol(\"indexedLabel\").fit(joinedRained)\nval featureIndexer \u003d new VectorIndexer().setInputCol(\"features\").setOutputCol(\"indexedFeatures\").setMaxCategories(7).fit(joinedRained)\nval Array(trainingData, testData) \u003d joinedRained.randomSplit(Array(0.7, 0.3))\n\n//Code for Creating and running a machine learning pipeline section\nval rf \u003d new RandomForestClassifier().setLabelCol(\"indexedLabel\").setFeaturesCol(\"indexedFeatures\").setNumTrees(10)\n// Convert indexed labels back to original labels.\nval labelConverter \u003d new IndexToString().setInputCol(\"prediction\").setOutputCol(\"predictedLabel\").setLabels(labelIndexer.labels)\n// Chain indexers and forest in a Pipeline.\nval pipeline \u003d new Pipeline().setStages(Array(labelIndexer, featureIndexer, rf, labelConverter))\n// Train model. This also runs the indexers.\nval model \u003d pipeline.fit(trainingData)\n// Make predictions.\nval predictions \u003d model.transform(testData)\n// Select example rows to display.\npredictions.select(\"predictedLabel\", \"label\", \"features\").show(5)\n// Select (prediction, true label) and compute test error.\nval evaluator \u003d new MulticlassClassificationEvaluator().setLabelCol(\"indexedLabel\").setPredictionCol(\"prediction\").setMetricName(\"accuracy\")\nval accuracy \u003d evaluator.evaluate(predictions)\nprintln(\"Test Error \u003d \" + (1.0 - accuracy))\nval rfModel \u003d model.stages(2).asInstanceOf[RandomForestClassificationModel]\nprintln(\"Learned classification forest model:\\n\" + rfModel.toDebugString)\n\n\n\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 13, 2017 11:27:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1510588189644_1603729727",
+      "id": "20171113-154949_905545773",
+      "dateCreated": "Nov 13, 2017 3:49:49 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n## Structured Streaming",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 5:50:06 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eStructured Streaming\u003c/h2\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511718587952_1337484693",
+      "id": "20171126-174947_20432498",
+      "dateCreated": "Nov 26, 2017 5:49:47 PM",
+      "dateStarted": "Nov 26, 2017 5:50:06 PM",
+      "dateFinished": "Nov 26, 2017 5:50:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.spark.sql.types._\nimport org.apache.spark.sql.functions._\nimport scala.concurrent.duration._\nimport org.apache.spark.sql.streaming.ProcessingTime\nimport org.apache.spark.sql.streaming.OutputMode.Complete\nimport spark.implicits._\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 5:50:22 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.functions._\n\nimport scala.concurrent.duration._\n\nimport org.apache.spark.sql.streaming.ProcessingTime\n\nimport org.apache.spark.sql.streaming.OutputMode.Complete\n\nimport spark.implicits._\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511718606545_153242903",
+      "id": "20171126-175006_1987568396",
+      "dateCreated": "Nov 26, 2017 5:50:06 PM",
+      "dateStarted": "Nov 26, 2017 5:50:22 PM",
+      "dateFinished": "Nov 26, 2017 5:50:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cp csv to a dir in order to stream it as input",
+      "text": "%sh \n\nmkdir cancer\ncp breast-cancer-wisconsin.data cancer",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 6:58:22 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1511722621164_-1975691019",
+      "id": "20171126-185701_244187779",
+      "dateCreated": "Nov 26, 2017 6:57:01 PM",
+      "dateStarted": "Nov 26, 2017 6:57:50 PM",
+      "dateFinished": "Nov 26, 2017 6:57:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets read a csv as streaming input",
+      "text": "%spark\n\nimport org.apache.spark.sql.types._\nimport org.apache.spark.sql.Encoders\n\n//We could use structType but this is more Scala like, and datasets is used in Scala anyway (or Java) but not Python\ncase class CancerRow (sample : Long,cThick : Integer,uCSize : Integer,uCShape : Integer,mAdhes : Integer,sECSize : Integer,bNuc : Integer,bChrom : Integer,nNuc : Integer,mitosis : Integer,clas : Integer)\nval cancerEncoder \u003d Encoders.product[CancerRow]\nval dfBatch \u003d spark.read.format(\"csv\").schema(cancerEncoder.schema).option(\"mode\", \"DROPMALFORMED\").option(\"header\", false).option(\"nullable\",false).load(\"breast-cancer-wisconsin.data\").as[CancerRow]\n//stream csv within this directory\nval dfStream \u003d spark.readStream.format(\"csv\").schema(cancerEncoder.schema).option(\"header\", false).option(\"inferSchema\", false).option(\"mode\", \"DROPMALFORMED\").option(\"maxFilesPerTrigger\", 1).load(\"cancer\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:54:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.spark.sql.types._\n\nimport org.apache.spark.sql.Encoders\n\ndefined class CancerRow\n\ncancerEncoder: org.apache.spark.sql.Encoder[CancerRow] \u003d class[sample[0]: bigint, cThick[0]: int, uCSize[0]: int, uCShape[0]: int, mAdhes[0]: int, sECSize[0]: int, bNuc[0]: int, bChrom[0]: int, nNuc[0]: int, mitosis[0]: int, clas[0]: int]\n\ndfBatch: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\n\ndfStream: org.apache.spark.sql.DataFrame \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511718622609_-1535404696",
+      "id": "20171126-175022_1569122917",
+      "dateCreated": "Nov 26, 2017 5:50:22 PM",
+      "dateStarted": "Nov 26, 2017 7:54:30 PM",
+      "dateFinished": "Nov 26, 2017 7:54:44 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "z.show(dfBatch)\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 6:02:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "sample\tcThick\tuCSize\tuCShape\tmAdhes\tsECSize\tbNuc\tbChrom\tnNuc\tmitosis\tclas\n1000025\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1002945\t5\t4\t4\t5\t7\t10\t3\t2\t1\t2\n1015425\t3\t1\t1\t1\t2\t2\t3\t1\t1\t2\n1016277\t6\t8\t8\t1\t3\t4\t3\t7\t1\t2\n1017023\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1017122\t8\t10\t10\t8\t7\t10\t9\t7\t1\t4\n1018099\t1\t1\t1\t1\t2\t10\t3\t1\t1\t2\n1018561\t2\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1033078\t2\t1\t1\t1\t2\t1\t1\t1\t5\t2\n1033078\t4\t2\t1\t1\t2\t1\t2\t1\t1\t2\n1035283\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1036172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1041801\t5\t3\t3\t3\t2\t3\t4\t4\t1\t4\n1043999\t1\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1044572\t8\t7\t5\t10\t7\t9\t5\t5\t4\t4\n1047630\t7\t4\t6\t4\t6\t1\t4\t3\t1\t4\n1048672\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1049815\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1050670\t10\t7\t7\t6\t4\t10\t4\t1\t2\t4\n1050718\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1054590\t7\t3\t2\t10\t5\t10\t5\t4\t4\t4\n1054593\t10\t5\t5\t3\t6\t7\t7\t10\t1\t4\n1056784\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1059552\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1065726\t5\t2\t3\t4\t2\t7\t3\t6\t1\t4\n1066373\t3\t2\t1\t1\t1\t1\t2\t1\t1\t2\n1066979\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1067444\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1070935\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1070935\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1071760\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1072179\t10\t7\t7\t3\t8\t5\t7\t4\t3\t4\n1074610\t2\t1\t1\t2\t2\t1\t3\t1\t1\t2\n1075123\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1079304\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1080185\t10\t10\t10\t8\t6\t1\t8\t9\t1\t4\n1081791\t6\t2\t1\t1\t1\t1\t7\t1\t1\t2\n1084584\t5\t4\t4\t9\t2\t10\t5\t6\t1\t4\n1091262\t2\t5\t3\t3\t6\t7\t7\t5\t1\t4\n1099510\t10\t4\t3\t1\t3\t3\t6\t5\t2\t4\n1100524\t6\t10\t10\t2\t8\t10\t7\t3\t3\t4\n1102573\t5\t6\t5\t6\t10\t1\t3\t1\t1\t4\n1103608\t10\t10\t10\t4\t8\t1\t8\t10\t1\t4\n1103722\t1\t1\t1\t1\t2\t1\t2\t1\t2\t2\n1105257\t3\t7\t7\t4\t4\t9\t4\t8\t1\t4\n1105524\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1106095\t4\t1\t1\t3\t2\t1\t3\t1\t1\t2\n1106829\t7\t8\t7\t2\t4\t8\t3\t8\t2\t4\n1108370\t9\t5\t8\t1\t2\t3\t2\t1\t5\t4\n1108449\t5\t3\t3\t4\t2\t4\t3\t4\t1\t4\n1110102\t10\t3\t6\t2\t3\t5\t4\t10\t2\t4\n1110503\t5\t5\t5\t8\t10\t8\t7\t3\t7\t4\n1110524\t10\t5\t5\t6\t8\t8\t7\t1\t1\t4\n1111249\t10\t6\t6\t3\t4\t5\t3\t6\t1\t4\n1112209\t8\t10\t10\t1\t3\t6\t3\t9\t1\t4\n1113038\t8\t2\t4\t1\t5\t1\t5\t4\t4\t4\n1113483\t5\t2\t3\t1\t6\t10\t5\t1\t1\t4\n1113906\t9\t5\t5\t2\t2\t2\t5\t1\t1\t4\n1115282\t5\t3\t5\t5\t3\t3\t4\t10\t1\t4\n1115293\t1\t1\t1\t1\t2\t2\t2\t1\t1\t2\n1116116\t9\t10\t10\t1\t10\t8\t3\t3\t1\t4\n1116132\t6\t3\t4\t1\t5\t2\t3\t9\t1\t4\n1116192\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1116998\t10\t4\t2\t1\t3\t2\t4\t3\t10\t4\n1117152\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1118039\t5\t3\t4\t1\t8\t10\t4\t9\t1\t4\n1120559\t8\t3\t8\t3\t4\t9\t8\t9\t8\t4\n1121732\t1\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1121919\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1123061\t6\t10\t2\t8\t10\t2\t7\t8\t10\t4\n1124651\t1\t3\t3\t2\t2\t1\t7\t2\t1\t2\n1125035\t9\t4\t5\t10\t6\t10\t4\t8\t1\t4\n1126417\t10\t6\t4\t1\t3\t4\t3\t2\t3\t4\n1131294\t1\t1\t2\t1\t2\t2\t4\t2\t1\t2\n1132347\t1\t1\t4\t1\t2\t1\t2\t1\t1\t2\n1133041\t5\t3\t1\t2\t2\t1\t2\t1\t1\t2\n1133136\t3\t1\t1\t1\t2\t3\t3\t1\t1\t2\n1136142\t2\t1\t1\t1\t3\t1\t2\t1\t1\t2\n1137156\t2\t2\t2\t1\t1\t1\t7\t1\t1\t2\n1143978\t4\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1143978\t5\t2\t1\t1\t2\t1\t3\t1\t1\t2\n1147044\t3\t1\t1\t1\t2\t2\t7\t1\t1\t2\n1147699\t3\t5\t7\t8\t8\t9\t7\t10\t7\t4\n1147748\t5\t10\t6\t1\t10\t4\t4\t10\t10\t4\n1148278\t3\t3\t6\t4\t5\t8\t4\t4\t1\t4\n1148873\t3\t6\t6\t6\t5\t10\t6\t8\t3\t4\n1152331\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1155546\t2\t1\t1\t2\t3\t1\t2\t1\t1\t2\n1156272\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1156948\t3\t1\t1\t2\t2\t1\t1\t1\t1\t2\n1157734\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1158247\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1160476\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1164066\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1165297\t2\t1\t1\t2\t2\t1\t1\t1\t1\t2\n1165790\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1165926\t9\t6\t9\t2\t10\t6\t2\t9\t10\t4\n1166630\t7\t5\t6\t10\t5\t10\t7\t9\t4\t4\n1166654\t10\t3\t5\t1\t10\t5\t3\t10\t2\t4\n1167439\t2\t3\t4\t4\t2\t5\t2\t5\t1\t4\n1167471\t4\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1168359\t8\t2\t3\t1\t6\t3\t7\t1\t1\t4\n1168736\t10\t10\t10\t10\t10\t1\t8\t8\t8\t4\n1169049\t7\t3\t4\t4\t3\t3\t3\t2\t7\t4\n1170419\t10\t10\t10\t8\t2\t10\t4\t1\t1\t4\n1170420\t1\t6\t8\t10\t8\t10\t5\t7\t1\t4\n1171710\t1\t1\t1\t1\t2\t1\t2\t3\t1\t2\n1171710\t6\t5\t4\t4\t3\t9\t7\t8\t3\t4\n1171795\t1\t3\t1\t2\t2\t2\t5\t3\t2\t2\n1171845\t8\t6\t4\t3\t5\t9\t3\t1\t1\t4\n1172152\t10\t3\t3\t10\t2\t10\t7\t3\t3\t4\n1173216\t10\t10\t10\t3\t10\t8\t8\t1\t1\t4\n1173235\t3\t3\t2\t1\t2\t3\t3\t1\t1\t2\n1173347\t1\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1173347\t8\t3\t3\t1\t2\t2\t3\t2\t1\t2\n1173509\t4\t5\t5\t10\t4\t10\t7\t5\t8\t4\n1173514\t1\t1\t1\t1\t4\t3\t1\t1\t1\t2\n1173681\t3\t2\t1\t1\t2\t2\t3\t1\t1\t2\n1174057\t1\t1\t2\t2\t2\t1\t3\t1\t1\t2\n1174057\t4\t2\t1\t1\t2\t2\t3\t1\t1\t2\n1174131\t10\t10\t10\t2\t10\t10\t5\t3\t3\t4\n1174428\t5\t3\t5\t1\t8\t10\t5\t3\t1\t4\n1175937\t5\t4\t6\t7\t9\t7\t8\t10\t1\t4\n1176406\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1176881\t7\t5\t3\t7\t4\t10\t7\t5\t5\t4\n1177027\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1177399\t8\t3\t5\t4\t5\t10\t1\t6\t2\t4\n1177512\t1\t1\t1\t1\t10\t1\t1\t1\t1\t2\n1178580\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1179818\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1180194\t5\t10\t8\t10\t8\t10\t3\t6\t3\t4\n1180523\t3\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1180831\t3\t1\t1\t1\t3\t1\t2\t1\t1\t2\n1181356\t5\t1\t1\t1\t2\t2\t3\t3\t1\t2\n1182404\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1182410\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183240\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1183516\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183911\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1183983\t9\t5\t5\t4\t4\t5\t4\t3\t3\t4\n1184184\t1\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1184241\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1185609\t3\t4\t5\t2\t6\t8\t4\t1\t1\t4\n1185610\t1\t1\t1\t1\t3\t2\t2\t1\t1\t2\n1187457\t3\t1\t1\t3\t8\t1\t5\t8\t1\t2\n1187805\t8\t8\t7\t4\t10\t10\t7\t8\t7\t4\n1188472\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1189266\t7\t2\t4\t1\t6\t10\t5\t4\t3\t4\n1189286\t10\t10\t8\t6\t4\t5\t8\t10\t1\t4\n1190394\t4\t1\t1\t1\t2\t3\t1\t1\t1\t2\n1190485\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1192325\t5\t5\t5\t6\t3\t10\t3\t1\t1\t4\n1193091\t1\t2\t2\t1\t2\t1\t2\t1\t1\t2\n1193210\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1196295\t9\t9\t10\t3\t6\t10\t7\t10\t6\t4\n1196915\t10\t7\t7\t4\t5\t10\t5\t7\t2\t4\n1197080\t4\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1197270\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1197440\t1\t1\t1\t2\t1\t3\t1\t1\t7\t2\n1197979\t4\t1\t1\t1\t2\t2\t3\t2\t1\t2\n1197993\t5\t6\t7\t8\t8\t10\t3\t10\t3\t4\n1198128\t10\t8\t10\t10\t6\t1\t3\t1\t10\t4\n1198641\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1199219\t1\t1\t1\t2\t1\t1\t1\t1\t1\t2\n1199731\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1199983\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1200772\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1200847\t6\t10\t10\t10\t8\t10\t10\t10\t7\t4\n1200892\t8\t6\t5\t4\t3\t10\t6\t1\t1\t4\n1200952\t5\t8\t7\t7\t10\t10\t5\t7\t1\t4\n1201834\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1201936\t5\t10\t10\t3\t8\t1\t5\t10\t3\t4\n1202125\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1202812\t5\t3\t3\t3\t6\t10\t3\t1\t1\t4\n1203096\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1204242\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1204898\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1205138\t5\t8\t8\t8\t5\t10\t7\t8\t1\t4\n1205579\t8\t7\t6\t4\t4\t10\t5\t1\t1\t4\n1206089\t2\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1206695\t1\t5\t8\t6\t5\t8\t7\t10\t1\t4\n1206841\t10\t5\t6\t10\t6\t10\t7\t7\t10\t4\n1207986\t5\t8\t4\t10\t5\t8\t9\t10\t1\t4\n1208301\t1\t2\t3\t1\t2\t1\t3\t1\t1\t2\n1210963\t10\t10\t10\t8\t6\t8\t7\t10\t1\t4\n1211202\t7\t5\t10\t10\t10\t10\t4\t10\t3\t4\n1212232\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1212251\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1212422\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1212422\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1213375\t8\t4\t4\t5\t4\t7\t7\t8\t2\t2\n1213383\t5\t1\t1\t4\t2\t1\t3\t1\t1\t2\n1214092\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1214556\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1214966\t9\t7\t7\t5\t5\t10\t7\t8\t3\t4\n1216694\t10\t8\t8\t4\t10\t10\t8\t1\t1\t4\n1216947\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1217051\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1217264\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1218105\t5\t10\t10\t9\t6\t10\t7\t10\t5\t4\n1218741\t10\t10\t9\t3\t7\t5\t3\t5\t1\t4\n1218860\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1218860\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1219406\t5\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1219525\t8\t10\t10\t10\t5\t10\t8\t10\t6\t4\n1219859\t8\t10\t8\t8\t4\t8\t7\t7\t1\t4\n1220330\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1221863\t10\t10\t10\t10\t7\t10\t7\t10\t4\t4\n1222047\t10\t10\t10\t10\t3\t10\t10\t6\t1\t4\n1222936\t8\t7\t8\t7\t5\t5\t5\t10\t2\t4\n1223282\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1223426\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1223793\t6\t10\t7\t7\t6\t4\t8\t10\t2\t4\n1223967\t6\t1\t3\t1\t2\t1\t3\t1\t1\t2\n1224329\t1\t1\t1\t2\t2\t1\t3\t1\t1\t2\n1225799\t10\t6\t4\t3\t10\t10\t9\t10\t1\t4\n1226012\t4\t1\t1\t3\t1\t5\t2\t1\t1\t4\n1226612\t7\t5\t6\t3\t3\t8\t7\t4\t1\t4\n1227210\t10\t5\t5\t6\t3\t10\t7\t9\t2\t4\n1227244\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1227481\t10\t5\t7\t4\t4\t10\t8\t9\t1\t4\n1228152\t8\t9\t9\t5\t3\t5\t7\t7\t1\t4\n1228311\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1230175\t10\t10\t10\t3\t10\t10\t9\t10\t1\t4\n1230688\t7\t4\t7\t4\t3\t7\t7\t6\t1\t4\n1231387\t6\t8\t7\t5\t6\t8\t8\t9\t2\t4\n1231706\t8\t4\t6\t3\t3\t1\t4\t3\t1\t2\n1232225\t10\t4\t5\t5\t5\t10\t4\t1\t1\t4\n1236043\t3\t3\t2\t1\t3\t1\t3\t6\t1\t2\n1241559\t10\t8\t8\t2\t8\t10\t4\t8\t10\t4\n1241679\t9\t8\t8\t5\t6\t2\t4\t10\t4\t4\n1242364\t8\t10\t10\t8\t6\t9\t3\t10\t10\t4\n1243256\t10\t4\t3\t2\t3\t10\t5\t3\t2\t4\n1270479\t5\t1\t3\t3\t2\t2\t2\t3\t1\t2\n1276091\t3\t1\t1\t3\t1\t1\t3\t1\t1\t2\n1277018\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n128059\t1\t1\t1\t1\t2\t5\t5\t1\t1\t2\n1285531\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1287775\t5\t1\t1\t2\t2\t2\t3\t1\t1\t2\n144888\t8\t10\t10\t8\t5\t10\t7\t8\t1\t4\n145447\t8\t4\t4\t1\t2\t9\t3\t3\t1\t4\n167528\t4\t1\t1\t1\t2\t1\t3\t6\t1\t2\n183913\t1\t2\t2\t1\t2\t1\t1\t1\t1\t2\n191250\t10\t4\t4\t10\t2\t10\t5\t3\t3\t4\n1017023\t6\t3\t3\t5\t3\t10\t3\t5\t3\t2\n1100524\t6\t10\t10\t2\t8\t10\t7\t3\t3\t4\n1116116\t9\t10\t10\t1\t10\t8\t3\t3\t1\t4\n1168736\t5\t6\t6\t2\t4\t10\t3\t6\t1\t4\n1182404\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1182404\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1198641\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n242970\t5\t7\t7\t1\t5\t8\t3\t4\t1\t2\n255644\t10\t5\t8\t10\t3\t10\t5\t1\t3\t4\n263538\t5\t10\t10\t6\t10\t10\t10\t6\t5\t4\n274137\t8\t8\t9\t4\t5\t10\t7\t8\t1\t4\n303213\t10\t4\t4\t10\t6\t10\t5\t5\t1\t4\n314428\t7\t9\t4\t10\t10\t3\t5\t3\t3\t4\n1182404\t5\t1\t4\t1\t2\t1\t3\t2\t1\t2\n1198641\t10\t10\t6\t3\t3\t10\t4\t3\t2\t4\n320675\t3\t3\t5\t2\t3\t10\t7\t1\t1\t4\n324427\t10\t8\t8\t2\t3\t4\t8\t7\t8\t4\n385103\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n390840\t8\t4\t7\t1\t3\t10\t3\t9\t2\t4\n411453\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n320675\t3\t3\t5\t2\t3\t10\t7\t1\t1\t4\n428903\t7\t2\t4\t1\t3\t4\t3\t3\t1\t4\n431495\t3\t1\t1\t1\t2\t1\t3\t2\t1\t2\n434518\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n452264\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n456282\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n476903\t10\t5\t7\t3\t3\t7\t3\t3\t8\t4\n486283\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n486662\t2\t1\t1\t2\t2\t1\t3\t1\t1\t2\n488173\t1\t4\t3\t10\t4\t10\t5\t6\t1\t4\n492268\t10\t4\t6\t1\t2\t10\t5\t3\t1\t4\n508234\t7\t4\t5\t10\t2\t10\t3\t8\t2\t4\n527363\t8\t10\t10\t10\t8\t10\t10\t7\t3\t4\n529329\t10\t10\t10\t10\t10\t10\t4\t10\t10\t4\n535331\t3\t1\t1\t1\t3\t1\t2\t1\t1\t2\n543558\t6\t1\t3\t1\t4\t5\t5\t10\t1\t4\n555977\t5\t6\t6\t8\t6\t10\t4\t10\t4\t4\n560680\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n561477\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n601265\t10\t4\t4\t6\t2\t10\t2\t3\t1\t4\n606722\t5\t5\t7\t8\t6\t10\t7\t4\t1\t4\n616240\t5\t3\t4\t3\t4\t5\t4\t7\t1\t2\n625201\t8\t2\t1\t1\t5\t1\t1\t1\t1\t2\n63375\t9\t1\t2\t6\t4\t10\t7\t7\t2\t4\n635844\t8\t4\t10\t5\t4\t4\t7\t10\t1\t4\n636130\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n640744\t10\t10\t10\t7\t9\t10\t7\t10\t10\t4\n646904\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n653777\t8\t3\t4\t9\t3\t10\t3\t3\t1\t4\n659642\t10\t8\t4\t4\t4\t10\t3\t10\t4\t4\n666090\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n666942\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n667204\t7\t8\t7\t6\t4\t3\t8\t8\t4\t4\n673637\t3\t1\t1\t1\t2\t5\t5\t1\t1\t2\n684955\t2\t1\t1\t1\t3\t1\t2\t1\t1\t2\n688033\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n691628\t8\t6\t4\t10\t10\t1\t3\t5\t1\t4\n693702\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n704097\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n706426\t5\t5\t5\t2\t5\t10\t4\t3\t1\t4\n709287\t6\t8\t7\t8\t6\t8\t8\t9\t1\t4\n718641\t1\t1\t1\t1\t5\t1\t3\t1\t1\t2\n721482\t4\t4\t4\t4\t6\t5\t7\t3\t1\t2\n730881\t7\t6\t3\t2\t5\t10\t7\t4\t6\t4\n733639\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n733823\t5\t4\t6\t10\t2\t10\t4\t1\t1\t4\n740492\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n743348\t3\t2\t2\t1\t2\t1\t2\t3\t1\t2\n752904\t10\t1\t1\t1\t2\t10\t5\t4\t1\t4\n756136\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n760001\t8\t10\t3\t2\t6\t4\t3\t10\t1\t4\n760239\t10\t4\t6\t4\t5\t10\t7\t1\t1\t4\n76389\t10\t4\t7\t2\t2\t8\t6\t1\t1\t4\n764974\t5\t1\t1\t1\t2\t1\t3\t1\t2\t2\n770066\t5\t2\t2\t2\t2\t1\t2\t2\t1\t2\n785208\t5\t4\t6\t6\t4\t10\t4\t3\t1\t4\n785615\t8\t6\t7\t3\t3\t10\t3\t4\t2\t4\n792744\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n797327\t6\t5\t5\t8\t4\t10\t3\t4\t1\t4\n798429\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n704097\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n806423\t8\t5\t5\t5\t2\t10\t4\t3\t1\t4\n809912\t10\t3\t3\t1\t2\t10\t7\t6\t1\t4\n810104\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n814265\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n814911\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n822829\t7\t6\t4\t8\t10\t10\t9\t5\t3\t4\n826923\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n830690\t5\t2\t2\t2\t3\t1\t1\t3\t1\t2\n831268\t1\t1\t1\t1\t1\t1\t1\t3\t1\t2\n832226\t3\t4\t4\t10\t5\t1\t3\t3\t1\t4\n832567\t4\t2\t3\t5\t3\t8\t7\t6\t1\t4\n836433\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n837082\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n846832\t3\t4\t5\t3\t7\t3\t4\t6\t1\t2\n850831\t2\t7\t10\t10\t7\t10\t4\t9\t4\t4\n855524\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n857774\t4\t1\t1\t1\t3\t1\t2\t2\t1\t2\n859164\t5\t3\t3\t1\t3\t3\t3\t3\t3\t4\n859350\t8\t10\t10\t7\t10\t10\t7\t3\t8\t4\n866325\t8\t10\t5\t3\t8\t4\t4\t10\t3\t4\n873549\t10\t3\t5\t4\t3\t7\t3\t5\t3\t4\n877291\t6\t10\t10\t10\t10\t10\t8\t10\t10\t4\n877943\t3\t10\t3\t10\t6\t10\t5\t1\t4\t4\n888169\t3\t2\t2\t1\t4\t3\t2\t1\t1\t2\n888523\t4\t4\t4\t2\t2\t3\t2\t1\t1\t2\n896404\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n897172\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n95719\t6\t10\t10\t10\t8\t10\t7\t10\t7\t4\n160296\t5\t8\t8\t10\t5\t10\t8\t10\t3\t4\n342245\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n428598\t1\t1\t3\t1\t1\t1\t2\t1\t1\t2\n492561\t4\t3\t2\t1\t3\t1\t2\t1\t1\t2\n493452\t1\t1\t3\t1\t2\t1\t1\t1\t1\t2\n493452\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n521441\t5\t1\t1\t2\t2\t1\t2\t1\t1\t2\n560680\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n636437\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n640712\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n654244\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n657753\t3\t1\t1\t4\t3\t1\t2\t2\t1\t2\n685977\t5\t3\t4\t1\t4\t1\t3\t1\t1\t2\n805448\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n846423\t10\t6\t3\t6\t4\t10\t7\t8\t4\t4\n1002504\t3\t2\t2\t2\t2\t1\t3\t2\t1\t2\n1022257\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1026122\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1071084\t3\t3\t2\t2\t3\t1\t1\t2\t3\t2\n1080233\t7\t6\t6\t3\t2\t10\t7\t1\t1\t4\n1114570\t5\t3\t3\t2\t3\t1\t3\t1\t1\t2\n1114570\t2\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1116715\t5\t1\t1\t1\t3\t2\t2\t2\t1\t2\n1131411\t1\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1151734\t10\t8\t7\t4\t3\t10\t7\t9\t1\t4\n1156017\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1158247\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1158405\t1\t2\t3\t1\t2\t1\t2\t1\t1\t2\n1168278\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1176187\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1196263\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1196475\t3\t2\t1\t1\t2\t1\t2\t2\t1\t2\n1206314\t1\t2\t3\t1\t2\t1\t1\t1\t1\t2\n1211265\t3\t10\t8\t7\t6\t9\t9\t3\t8\t4\n1213784\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1223003\t5\t3\t3\t1\t2\t1\t2\t1\t1\t2\n1223306\t3\t1\t1\t1\t2\t4\t1\t1\t1\t2\n1223543\t1\t2\t1\t3\t2\t1\t1\t2\t1\t2\n1229929\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1231853\t4\t2\t2\t1\t2\t1\t2\t1\t1\t2\n1234554\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1236837\t2\t3\t2\t2\t2\t2\t3\t1\t1\t2\n1237674\t3\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1238021\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1238633\t10\t10\t10\t6\t8\t4\t8\t5\t1\t4\n1238915\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1238948\t8\t5\t6\t2\t3\t10\t6\t6\t1\t4\n1239232\t3\t3\t2\t6\t3\t3\t3\t5\t1\t2\n1239347\t8\t7\t8\t5\t10\t10\t7\t2\t1\t4\n1239967\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1240337\t5\t2\t2\t2\t2\t2\t3\t2\t2\t2\n1253505\t2\t3\t1\t1\t5\t1\t1\t1\t1\t2\n1255384\t3\t2\t2\t3\t2\t3\t3\t1\t1\t2\n1257200\t10\t10\t10\t7\t10\t10\t8\t2\t1\t4\n1257648\t4\t3\t3\t1\t2\t1\t3\t3\t1\t2\n1257815\t5\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1257938\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1258549\t9\t10\t10\t10\t10\t10\t10\t10\t1\t4\n1258556\t5\t3\t6\t1\t2\t1\t1\t1\t1\t2\n1266154\t8\t7\t8\t2\t4\t2\t5\t10\t1\t4\n1272039\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1276091\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1276091\t1\t3\t1\t1\t2\t1\t2\t2\t1\t2\n1276091\t5\t1\t1\t3\t4\t1\t3\t2\t1\t2\n1277629\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1293439\t3\t2\t2\t3\t2\t1\t1\t1\t1\t2\n1293439\t6\t9\t7\t5\t5\t8\t4\t2\t1\t2\n1294562\t10\t8\t10\t1\t3\t10\t5\t1\t1\t4\n1295186\t10\t10\t10\t1\t6\t1\t2\t8\t1\t4\n527337\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n558538\t4\t1\t3\t3\t2\t1\t1\t1\t1\t2\n566509\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n608157\t10\t4\t3\t10\t4\t10\t10\t1\t1\t4\n677910\t5\t2\t2\t4\t2\t4\t1\t1\t1\t2\n734111\t1\t1\t1\t3\t2\t3\t1\t1\t1\t2\n734111\t1\t1\t1\t1\t2\t2\t1\t1\t1\t2\n780555\t5\t1\t1\t6\t3\t1\t2\t1\t1\t2\n827627\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1049837\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1058849\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1182404\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1193544\t5\t7\t9\t8\t6\t10\t8\t10\t1\t4\n1201870\t4\t1\t1\t3\t1\t1\t2\t1\t1\t2\n1202253\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1227081\t3\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1230994\t4\t5\t5\t8\t6\t10\t10\t7\t1\t4\n1238410\t2\t3\t1\t1\t3\t1\t1\t1\t1\t2\n1246562\t10\t2\t2\t1\t2\t6\t1\t1\t2\t4\n1257470\t10\t6\t5\t8\t5\t10\t8\t6\t1\t4\n1259008\t8\t8\t9\t6\t6\t3\t10\t10\t1\t4\n1266124\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1267898\t5\t1\t3\t1\t2\t1\t1\t1\t1\t2\n1268313\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1268804\t3\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1276091\t6\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1280258\t4\t1\t1\t1\t2\t1\t1\t2\t1\t2\n1293966\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296572\t10\t9\t8\t7\t6\t4\t7\t10\t3\t4\n1298416\t10\t6\t6\t2\t4\t10\t9\t7\t1\t4\n1299596\t6\t6\t6\t5\t4\t10\t7\t6\t2\t4\n1105524\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1181685\t1\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1211594\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1238777\t6\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1257608\t6\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1269574\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277145\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1287282\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296025\t4\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1296263\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1296593\t5\t2\t1\t1\t2\t1\t1\t1\t1\t2\n1299161\t4\t8\t7\t10\t4\t10\t7\t5\t1\t4\n1301945\t5\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1302428\t5\t3\t2\t4\t2\t1\t1\t1\t1\t2\n1318169\t9\t10\t10\t10\t10\t5\t10\t10\t10\t4\n474162\t8\t7\t8\t5\t5\t10\t9\t10\t1\t4\n787451\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1002025\t1\t1\t1\t3\t1\t3\t1\t1\t1\t2\n1070522\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1073960\t10\t10\t10\t10\t6\t10\t8\t1\t5\t4\n1076352\t3\t6\t4\t10\t3\t3\t3\t4\t1\t4\n1084139\t6\t3\t2\t1\t3\t4\t4\t1\t1\t4\n1115293\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1119189\t5\t8\t9\t4\t3\t10\t7\t1\t1\t4\n1133991\t4\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1142706\t5\t10\t10\t10\t6\t10\t6\t5\t2\t4\n1155967\t5\t1\t2\t10\t4\t5\t2\t1\t1\t2\n1170945\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1181567\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1182404\t4\t2\t1\t1\t2\t1\t1\t1\t1\t2\n1204558\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1217952\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1224565\t6\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1238186\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1253917\t4\t1\t1\t2\t2\t1\t2\t1\t1\t2\n1265899\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1268766\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277268\t3\t3\t1\t1\t2\t1\t1\t1\t1\t2\n1286943\t8\t10\t10\t10\t7\t5\t4\t8\t7\t4\n1295508\t1\t1\t1\t1\t2\t4\t1\t1\t1\t2\n1297327\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1297522\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1298360\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1299924\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1299994\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1304595\t3\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1306282\t6\t6\t7\t10\t3\t10\t8\t10\t2\t4\n1313325\t4\t10\t4\t7\t3\t10\t9\t10\t1\t4\n1320077\t1\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1320077\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1320304\t3\t1\t2\t2\t2\t1\t1\t1\t1\t2\n1330439\t4\t7\t8\t3\t4\t10\t9\t1\t1\t4\n333093\t1\t1\t1\t1\t3\t1\t1\t1\t1\t2\n369565\t4\t1\t1\t1\t3\t1\t1\t1\t1\t2\n412300\t10\t4\t5\t4\t3\t5\t7\t3\t1\t4\n672113\t7\t5\t6\t10\t4\t10\t5\t3\t1\t4\n749653\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n769612\t3\t1\t1\t2\t2\t1\t1\t1\t1\t2\n769612\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n798429\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n807657\t6\t1\t3\t2\t2\t1\t1\t1\t1\t2\n8233704\t4\t1\t1\t1\t1\t1\t2\t1\t1\t2\n837480\t7\t4\t4\t3\t4\t10\t6\t9\t1\t4\n867392\t4\t2\t2\t1\t2\t1\t2\t1\t1\t2\n869828\t1\t1\t1\t1\t1\t1\t3\t1\t1\t2\n1043068\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1056171\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1061990\t1\t1\t3\t2\t2\t1\t3\t1\t1\t2\n1113061\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1116192\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1135090\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1145420\t6\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1158157\t5\t1\t1\t1\t2\t2\t2\t1\t1\t2\n1171578\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1174841\t5\t3\t1\t1\t2\t1\t1\t1\t1\t2\n1184586\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1186936\t2\t1\t3\t2\t2\t1\t2\t1\t1\t2\n1197527\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1222464\t6\t10\t10\t10\t4\t10\t7\t10\t1\t4\n1240603\t2\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1240603\t3\t1\t1\t1\t1\t1\t1\t1\t1\t2\n1241035\t7\t8\t3\t7\t4\t5\t7\t8\t2\t4\n1287971\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1289391\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1299924\t3\t2\t2\t2\t2\t1\t4\t2\t1\t2\n1306339\t4\t4\t2\t1\t2\t5\t2\t1\t2\t2\n1313658\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1313982\t4\t3\t1\t1\t2\t1\t4\t8\t1\t2\n1321264\t5\t2\t2\t2\t1\t1\t2\t1\t1\t2\n1321321\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1321348\t2\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1321931\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1321942\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1321942\t5\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1328331\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1328755\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1331405\t4\t1\t1\t1\t2\t1\t3\t2\t1\t2\n1331412\t5\t7\t10\t10\t5\t10\t10\t10\t1\t4\n1333104\t3\t1\t2\t1\t2\t1\t3\t1\t1\t2\n1334071\t4\t1\t1\t1\t2\t3\t2\t1\t1\t2\n1343068\t8\t4\t4\t1\t6\t10\t2\t5\t2\t4\n1343374\t10\t10\t8\t10\t6\t5\t10\t3\t1\t4\n1344121\t8\t10\t4\t4\t8\t10\t8\t2\t1\t4\n142932\t7\t6\t10\t5\t3\t10\t9\t10\t2\t4\n183936\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n324382\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n378275\t10\t9\t7\t3\t4\t2\t7\t7\t1\t4\n385103\t5\t1\t2\t1\t2\t1\t3\t1\t1\t2\n690557\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n695091\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n695219\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n824249\t1\t1\t1\t1\t2\t1\t3\t1\t1\t2\n871549\t5\t1\t2\t1\t2\t1\t2\t1\t1\t2\n878358\t5\t7\t10\t6\t5\t10\t7\t5\t1\t4\n1107684\t6\t10\t5\t5\t4\t10\t6\t10\t1\t4\n1115762\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1217717\t5\t1\t1\t6\t3\t1\t1\t1\t1\t2\n1239420\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1254538\t8\t10\t10\t10\t6\t10\t10\t10\t1\t4\n1261751\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1268275\t9\t8\t8\t9\t6\t3\t4\t1\t1\t4\n1272166\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1294261\t4\t10\t8\t5\t4\t1\t10\t1\t1\t4\n1295529\t2\t5\t7\t6\t4\t10\t7\t6\t1\t4\n1298484\t10\t3\t4\t5\t3\t10\t4\t1\t1\t4\n1311875\t5\t1\t2\t1\t2\t1\t1\t1\t1\t2\n1315506\t4\t8\t6\t3\t4\t10\t7\t1\t1\t4\n1320141\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1325309\t4\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1333063\t5\t1\t3\t1\t2\t1\t3\t1\t1\t2\n1333495\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1334659\t5\t2\t4\t1\t1\t1\t1\t1\t1\t2\n1336798\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1344449\t1\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1350568\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1352663\t5\t4\t6\t8\t4\t1\t8\t10\t1\t4\n188336\t5\t3\t2\t8\t5\t10\t8\t1\t2\t4\n352431\t10\t5\t10\t3\t5\t8\t7\t8\t3\t4\n353098\t4\t1\t1\t2\t2\t1\t1\t1\t1\t2\n411453\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n557583\t5\t10\t10\t10\t10\t10\t10\t1\t1\t4\n636375\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n736150\t10\t4\t3\t10\t3\t10\t7\t1\t2\t4\n803531\t5\t10\t10\t10\t5\t2\t8\t5\t1\t4\n822829\t8\t10\t10\t10\t6\t10\t10\t10\t10\t4\n1016634\t2\t3\t1\t1\t2\t1\t2\t1\t1\t2\n1031608\t2\t1\t1\t1\t1\t1\t2\t1\t1\t2\n1041043\t4\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1042252\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1061990\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1073836\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1083817\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1096352\t6\t3\t3\t3\t3\t2\t6\t1\t1\t2\n1140597\t7\t1\t2\t3\t2\t1\t2\t1\t1\t2\n1149548\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1174009\t5\t1\t1\t2\t1\t1\t2\t1\t1\t2\n1183596\t3\t1\t3\t1\t3\t4\t1\t1\t1\t2\n1190386\t4\t6\t6\t5\t7\t6\t7\t7\t3\t4\n1190546\t2\t1\t1\t1\t2\t5\t1\t1\t1\t2\n1213273\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1218982\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1225382\t6\t2\t3\t1\t2\t1\t1\t1\t1\t2\n1235807\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1238777\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1253955\t8\t7\t4\t4\t5\t3\t5\t10\t1\t4\n1257366\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1260659\t3\t1\t4\t1\t2\t1\t1\t1\t1\t2\n1268952\t10\t10\t7\t8\t7\t1\t10\t10\t3\t4\n1275807\t4\t2\t4\t3\t2\t2\t2\t1\t1\t2\n1277792\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1277792\t5\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1285722\t4\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1288608\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1290203\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1294413\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1299596\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1303489\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1311033\t1\t2\t2\t1\t2\t1\t1\t1\t1\t2\n1311108\t1\t1\t1\t3\t2\t1\t1\t1\t1\t2\n1315807\t5\t10\t10\t10\t10\t2\t10\t10\t10\t4\n1318671\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1319609\t3\t1\t1\t2\t3\t4\t1\t1\t1\t2\n1323477\t1\t2\t1\t3\t2\t1\t2\t1\t1\t2\n1324572\t5\t1\t1\t1\t2\t1\t2\t2\t1\t2\n1324681\t4\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1325159\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1326892\t3\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1330361\t5\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1333877\t5\t4\t5\t1\t8\t1\t3\t6\t1\t2\n1334015\t7\t8\t8\t7\t3\t10\t7\t2\t3\t4\n1334667\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1339781\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1339781\t4\t1\t1\t1\t2\t1\t3\t1\t1\t2\n13454352\t1\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1345452\t1\t1\t3\t1\t2\t1\t2\t1\t1\t2\n1345593\t3\t1\t1\t3\t2\t1\t2\t1\t1\t2\n1347749\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1347943\t5\t2\t2\t2\t2\t1\t1\t1\t2\t2\n1348851\t3\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1350319\t5\t7\t4\t1\t6\t1\t7\t10\t3\t4\n1350423\t5\t10\t10\t8\t5\t5\t7\t10\t1\t4\n1352848\t3\t10\t7\t8\t5\t8\t7\t4\t1\t4\n1353092\t3\t2\t1\t2\t2\t1\t3\t1\t1\t2\n1354840\t2\t1\t1\t1\t2\t1\t3\t1\t1\t2\n1354840\t5\t3\t2\t1\t3\t1\t1\t1\t1\t2\n1355260\t1\t1\t1\t1\t2\t1\t2\t1\t1\t2\n1365075\t4\t1\t4\t1\t2\t1\t1\t1\t1\t2\n1365328\t1\t1\t2\t1\t2\t1\t2\t1\t1\t2\n1368267\t5\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1368273\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1368882\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n1369821\t10\t10\t10\t10\t5\t10\t10\t10\t7\t4\n1371026\t5\t10\t10\t10\t4\t10\t5\t6\t3\t4\n1371920\t5\t1\t1\t1\t2\t1\t3\t2\t1\t2\n466906\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n466906\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n534555\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n536708\t1\t1\t1\t1\t2\t1\t1\t1\t1\t2\n566346\t3\t1\t1\t1\t2\t1\t2\t3\t1\t2\n603148\t4\t1\t1\t1\t2\t1\t1\t1\t1\t2\n654546\t1\t1\t1\t1\t2\t1\t1\t1\t8\t2\n654546\t1\t1\t1\t3\t2\t1\t1\t1\t1\t2\n695091\t5\t10\t10\t5\t4\t5\t4\t4\t1\t4\n714039\t3\t1\t1\t1\t2\t1\t1\t1\t1\t2\n763235\t3\t1\t1\t1\t2\t1\t2\t1\t2\t2\n776715\t3\t1\t1\t1\t3\t2\t1\t1\t1\t2\n841769\t2\t1\t1\t1\t2\t1\t1\t1\t1\t2\n888820\t5\t10\t10\t3\t7\t3\t8\t10\t2\t4\n897471\t4\t8\t6\t4\t3\t4\t10\t6\t1\t4\n897471\t4\t8\t8\t5\t4\t5\t10\t4\t1\t4\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511719036973_-1711839164",
+      "id": "20171126-175716_1663664124",
+      "dateCreated": "Nov 26, 2017 5:57:16 PM",
+      "dateStarted": "Nov 26, 2017 6:02:21 PM",
+      "dateFinished": "Nov 26, 2017 6:02:22 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Query and output the stream (this works)",
+      "text": "//this works but kill spark proces to prevent this section from go on forever.\nval dfQuery \u003d dfStream.groupBy($\"cThick\").count() \nval query \u003d dfQuery.writeStream.format(\"console\").trigger(ProcessingTime(1.seconds)).outputMode(Complete).queryName(\"counts\").start().awaitTermination() ",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:42:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": "org.apache.thrift.transport.TTransportException: java.net.SocketException: Broken pipe (Write failed)",
+      "apps": [],
+      "jobName": "paragraph_1511719341593_247547422",
+      "id": "20171126-180221_300373782",
+      "dateCreated": "Nov 26, 2017 6:02:21 PM",
+      "dateStarted": "Nov 26, 2017 7:00:09 PM",
+      "dateFinished": "Nov 26, 2017 7:00:09 PM",
+      "status": "ERROR",
+      "errorMessage": "java.net.SocketException: Broken pipe (Write failed)\n\tat java.net.SocketOutputStream.socketWrite0(Native Method)\n\tat java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)\n\tat java.net.SocketOutputStream.write(SocketOutputStream.java:155)\n\tat java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)\n\tat org.apache.thrift.transport.TIOStreamTransport.write(TIOStreamTransport.java:145)\n\tat org.apache.thrift.protocol.TBinaryProtocol.writeString(TBinaryProtocol.java:202)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterContext$RemoteInterpreterContextStandardScheme.write(RemoteInterpreterContext.java:1133)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterContext$RemoteInterpreterContextStandardScheme.write(RemoteInterpreterContext.java:992)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterContext.write(RemoteInterpreterContext.java:882)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$interpret_args$interpret_argsStandardScheme.write(RemoteInterpreterService.java:6501)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$interpret_args$interpret_argsStandardScheme.write(RemoteInterpreterService.java:6424)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$interpret_args.write(RemoteInterpreterService.java:6351)\n\tat org.apache.thrift.TServiceClient.sendBase(TServiceClient.java:63)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.send_interpret(RemoteInterpreterService.java:260)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:249)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "sliding window and joining in structured streaming ",
+      "text": "//(can\u0027t test our set does not have timestamp column)\n//val ts \u003d unix_timestamp($\"timestamp\", \"yyyyMMddHHmmssSSS\").cast(\"timestamp\")\n//val streamingCityTimeDF \u003d streamingInputDF.withColumn(\"ts\", ts).select($\"cityID\", $\"ts\")\n//val windowedCounts \u003d streamingCityTimeDF.groupBy(window($\"ts\", \"10 minutes\", \"5 minutes\"), $\"cityID\").count().writeStream.outputMode(\"complete\").format(\"console\").start()\n\n//Joining with any (static or streaming dataframe/set) can be done using join.\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:08:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1511719412964_252857286",
+      "id": "20171126-180332_1509165833",
+      "dateCreated": "Nov 26, 2017 6:03:32 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Dataset in structured Streaming",
+      "text": "val dsStream \u003d dfStream.as[CancerRow]",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:34:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ndsStream: org.apache.spark.sql.Dataset[CancerRow] \u003d [sample: bigint, cThick: int ... 9 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511723472681_-1470673888",
+      "id": "20171126-191112_2017563761",
+      "dateCreated": "Nov 26, 2017 7:11:12 PM",
+      "dateStarted": "Nov 26, 2017 7:34:47 PM",
+      "dateFinished": "Nov 26, 2017 7:34:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Output sinks",
+      "text": "%md\n\nYou can direct the streaming output to various output sinks including File, Foreach, Console, and Memory sinks. Typically, the Console and Memory sinks are for debugging purposes.",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:17:13 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eYou can direct the streaming output to various output sinks including File, Foreach, Console, and Memory sinks. Typically, the Console and Memory sinks are for debugging purposes.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1511723560214_833926051",
+      "id": "20171126-191240_1569098601",
+      "dateCreated": "Nov 26, 2017 7:12:40 PM",
+      "dateStarted": "Nov 26, 2017 7:17:13 PM",
+      "dateFinished": "Nov 26, 2017 7:17:13 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "foreach writer can be used to process during output phase (don\u0027t see output?)",
+      "text": "%spark\nimport org.apache.spark.sql.ForeachWriter\n\n//This justs prints each line, can this work in PySpark?\nval writer \u003d new ForeachWriter[String] {\n   override def open(partitionId: Long, version: Long) \u003d true\n   override def process(value: String) \u003d println(\"MY OUTPUT: \"  + value.toString)\n   override def close(errorOrNull: Throwable) \u003d {}\n}\n\nval dsForeach \u003d dsStream.map(x \u003d\u003e x.cThick.toString).writeStream.format(\"console\").foreach(writer).start().awaitTermination()  //.filter(_.cThick \u003d\u003d 5) //await termination is needed in zeppelin , or you dont sheet anaything\n//AAARG DONT SEE ANYTHING!! maybe println is not printing to our console in zeppelin",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:42:28 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": "org.apache.thrift.transport.TTransportException",
+      "apps": [],
+      "jobName": "paragraph_1511723833031_-120649126",
+      "id": "20171126-191713_606774924",
+      "dateCreated": "Nov 26, 2017 7:17:13 PM",
+      "dateStarted": "Nov 26, 2017 7:34:57 PM",
+      "dateFinished": "Nov 26, 2017 7:35:36 PM",
+      "status": "ERROR",
+      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Save to table (dont see output?)",
+      "text": "%spark\n\nval someAggDf \u003d dfStream.groupBy($\"cThick\").count()\nval aggQuery \u003d someAggDf.writeStream.format(\"memory\").queryName(\"aggregateTable\").outputMode(\"complete\").start().awaitTermination()\n\nspark.sql(\"select * from aggregateTable\").show() \n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:48:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": "org.apache.thrift.transport.TTransportException",
+      "apps": [],
+      "jobName": "paragraph_1511723909888_647968618",
+      "id": "20171126-191829_367449354",
+      "dateCreated": "Nov 26, 2017 7:18:29 PM",
+      "dateStarted": "Nov 26, 2017 7:48:14 PM",
+      "dateFinished": "Nov 26, 2017 7:48:49 PM",
+      "status": "ERROR",
+      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh\n\nmkdir outputdir checkpointdir",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:53:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1511726022869_-656511875",
+      "id": "20171126-195342_2013411636",
+      "dateCreated": "Nov 26, 2017 7:53:42 PM",
+      "dateStarted": "Nov 26, 2017 7:53:56 PM",
+      "dateFinished": "Nov 26, 2017 7:53:56 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Write to partitioned parquet tables (this works)",
+      "text": "%spark\n\nval fileOutput \u003d dfStream.select($\"cThick\", $\"sample\").writeStream.outputMode(\"append\").format(\"parquet\").option(\"path\", \"outputdir\").option(\"checkpointLocation\", \"checkpointdir\").start().awaitTermination() //.option(\"path\", \"hdfs://localhost:9000/pout\").option(\"checkpointLocation\", \"hdfs://localhost:9000/poutcp\")",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:56:45 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": "org.apache.thrift.transport.TTransportException",
+      "apps": [],
+      "jobName": "paragraph_1511725278040_859554798",
+      "id": "20171126-194118_428927435",
+      "dateCreated": "Nov 26, 2017 7:41:18 PM",
+      "dateStarted": "Nov 26, 2017 7:55:08 PM",
+      "dateFinished": "Nov 26, 2017 7:56:03 PM",
+      "status": "ERROR",
+      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Show running streams (unusable in zeppelin this version)",
+      "text": "%spark\nspark.streams.active.foreach(x \u003d\u003e println(\"ID:\"+ x.id + \" Run ID:\"+ x.runId + \" Status: \"+ x.status))\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 7:58:24 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1511726108627_1372592527",
+      "id": "20171126-195508_1921923555",
+      "dateCreated": "Nov 26, 2017 7:55:08 PM",
+      "dateStarted": "Nov 26, 2017 7:57:44 PM",
+      "dateFinished": "Nov 26, 2017 7:57:56 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Misc. streaming commands, not tested",
+      "text": "%spark\n\n//id of stream\nwindowedCounts.id \n\n//Last run id\nwindowedCounts.runId\n\n//optional exception (option)\nwindowedCounts.exception\n\n//most recent update\nwindowedCounts.lastProgress \n\n//Stop this stream\nwindowedCounts.stop \n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Nov 26, 2017 8:00:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1511726264742_-184487916",
+      "id": "20171126-195744_1360564516",
+      "dateCreated": "Nov 26, 2017 7:57:44 PM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
