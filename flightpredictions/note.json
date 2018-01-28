@@ -1,0 +1,603 @@
+{
+  "paragraphs": [
+    {
+      "title": "Mount you flight fs to docker",
+      "text": "%sh\n\n#docker run -p 8080:8080 -it -v C:\\Users\\miche\\Downloads\\flights:/tmp/somedir cc29eb143bda\nls /tmp/somedir\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:06:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "all.csv\nams.csv\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517153994392_-1210723578",
+      "id": "20180128-153954_572750284",
+      "dateCreated": "Jan 28, 2018 3:39:54 PM",
+      "dateStarted": "Jan 28, 2018 4:06:42 PM",
+      "dateFinished": "Jan 28, 2018 4:06:42 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load in the dataset",
+      "text": "%spark\r\nimport org.apache.spark.sql.Encoders\r\n\r\nval track_file \u003d \"/tmp/somedir/all.csv\"\r\n\r\ncase class FlightEntry(na1 : String, altitude : String, dest : String, heading:String, flight : String ,fltid : String, landed : String, time : String ,\r\n     lat : String, lon : String,na3: String,org: String ,na4:String,registration:String,flight2:String,speed :String,na6:String,planetype:String, altitude_delta:String)\r\nval tracksDf \u003d spark.read.option(\"header\", false).option(\"inferSchema\", false).schema(Encoders.product[FlightEntry].schema).csv(track_file).filter($\"dest\" \u003d\u003d\u003d \"AMS\") //dest Amsterdam only\r\nval tracksMinuteDf \u003d tracksDf.withColumn(\"minute\", from_unixtime($\"time\",\"YYYY-MM-dd HH:mm\") )\r\nval flightMapDf \u003d tracksMinuteDf.select($\"flight\",$\"minute\",$\"lat\",$\"lon\").sort(col(\"minute\").asc) \r\nval flightArray \u003d flightMapDf.collect",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:06:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.Encoders\ntrack_file: String \u003d /tmp/somedir/all.csv\ndefined class FlightEntry\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL214,2016-06-23 23:31,49.2658,-121.8836], [KL282,2016-06-23 23:31,47.2353,-108.7284], [DL142,2016-06-23 23:31,52.2732,-111.6387], [KL610,2016-06-23 23:31,40.9074,-112.0103], [DL56,2016-06-23 23:31,40.7745,-111.9742], [KL602,2016-06-23 23:31,49.092,-98.3777], [DL178,2016-06-23 23:31,55.0896,-94.5454], [UA909,2016-06-23 23:31,42.308,-85.4874], [KL678,2016-06-23 23:31,57.9245,-89.9364], [UA20,2016-06-23 23:31,39.1989,-86.4969], [KL662,2016-06-23 23:31,41.4086,-70.2907], [OR338,2016-06-23 23:31,39.9246,-73.3105], [MP6332,2016-06-23 23:31,40.1743,-72.0937], [KL612,2016-06-23 23:31,47.8331,-70.7206], [KL692,2016-06-23 23:31,49.8256,-62.093], [UA946,2016-06-23 23:31,45.2445,-66.4383], [UA70,2016-06-23 23:31,44.9011,-64.4659], [DL72,2016-06..."
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517151597051_1096014120",
+      "id": "20180128-145957_1452925951",
+      "dateCreated": "Jan 28, 2018 2:59:57 PM",
+      "dateStarted": "Jan 28, 2018 4:06:44 PM",
+      "dateFinished": "Jan 28, 2018 4:07:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Custom spark streaming receiver to simulate the flight events",
+      "text": "%spark\r\n\r\nimport org.apache.spark.streaming.receiver.Receiver\r\nimport org.apache.spark.internal.Logging\r\nimport org.apache.spark.storage.StorageLevel\r\nimport scala.util.Random\r\n\r\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \r\n\r\n  def onStart() {\r\n    // Start the thread that receives data over a connection\r\n    new Thread(\"Socket Receiver Flight\") {\r\n      override def run() { receive() }\r\n    }.start()\r\n  }\r\n\r\n  def onStop() {\r\n   // There is nothing much to do as the thread calling receive()\r\n   // is designed to stop by itself isStopped() returns false\r\n  }\r\n\r\n  /** Create a socket connection and receive data until receiver is stopped */\r\n  private def receive() {\r\n   var lastTime \u003d \"\"\r\n   var resultArray \u003d List[String]()\r\n   while(!isStopped()) {     \r\n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\r\n        flightArray.foreach(r \u003d\u003e {\r\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) ).toString :: resultArray\r\n            \r\n            if (r(1).toString !\u003d lastTime) {\r\n                lastTime \u003d r(1).toString\r\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\r\n                resultArray \u003d List[String]()\r\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\r\n            }\r\n            \r\n        }) \r\n       \r\n    }\r\n  }\r\n}\r\n\r\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:08:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.streaming.receiver.Receiver\nimport org.apache.spark.internal.Logging\nimport org.apache.spark.storage.StorageLevel\nimport scala.util.Random\ndefined class FlightReplyData\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152702874_-853132554",
+      "id": "20180128-151822_917904560",
+      "dateCreated": "Jan 28, 2018 3:18:22 PM",
+      "dateStarted": "Jan 28, 2018 4:08:00 PM",
+      "dateFinished": "Jan 28, 2018 4:08:02 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Plot flights on map (will start in next section)",
+      "text": "%angular\n\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n            \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:06:37 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": false,
+        "tableHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt3\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt3\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt3\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n            \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152718761_34513807",
+      "id": "20180128-151838_702919106",
+      "dateCreated": "Jan 28, 2018 3:18:38 PM",
+      "dateStarted": "Jan 28, 2018 4:02:47 PM",
+      "dateFinished": "Jan 28, 2018 4:02:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Start Spark stream and watch the previous map",
+      "text": "%spark\n\n//No Structured Streaming in Spark 2.1, so we\u0027ll do some Rdd stuff. As spark 2.2 and Zeppelin have an issue at this moment.http://localhost:8080/#/interpreter\n// it seems 2.1 has beta version of structured streaming, still we will use rdd\n\nimport org.apache.spark.streaming.{Milliseconds,Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\n\nz.angularUnbind(\"planelocations\") //Our geo map in the previous section will be updating  once we update this Zeppelin context variable\n\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Milliseconds(500)) //Our stream will update each second \nval flightDStream \u003d ssc.receiverStream(new FlightReplyData(0.4)) \n\n//val windowFlightDStream \u003d flightDStream\n\n// Use a Window Dstream with location of couple of runs . Required if you want to aggregate over a longer historical period or prevent duplicates/or dissapearing planes. \nval windowFlightDStream \u003d flightDStream.window(Milliseconds(1000),Milliseconds(500)) \n\n//Get the latest location of each plane (otherwise we would see double, or missings planes on the map). \n//and return it to our Leaflet using a Zepplin Variable named locations (Expecting Array of arrays Name,lat,lon)                                                        \nwindowFlightDStream.foreachRDD { rdd \u003d\u003e  \n\n                        val inputDf \u003d rdd.map (s \u003d\u003e s.split(\",\"))\n                                    .map(arr \u003d\u003e (arr(0),arr(1),arr(2),arr(3)) )\n                                    .toDF(\"id\",\"timest\",\"lat\",\"lon\").na.drop\n                        //option 1 just have a quick but flickering, missing animation\n                        //z.angularBind(\"planelocations\", inputDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //option 2 group by plane and get the latest location\n                        //val maxTimeStampDf \u003d inputDf.groupBy($\"id\").agg(max($\"timest\") as \"maxtimestamp\").withColumnRenamed(\"id\", \"id2\")\n                        //val latestLocationDf \u003d inputDf.join(maxTimeStampDf,inputDf(\"id\") \u003d\u003d\u003d maxTimeStampDf(\"id2\")).filter($\"timest\" \u003d\u003d\u003d $\"maxtimestamp\")  //.orderBy($\"id\".asc,$\"timestamp\".asc).cache\n                        //z.angularBind(\"planelocations\", latestLocationDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //Option 3 get a minute field from 1 row and filter all rows with it (and make sure the data is in a bit quicker then the stream interval)\n                        val window \u003d Window.partitionBy($\"id\").orderBy($\"timest\".asc)\n                        z.angularBind(\"planelocations\", inputDf.withColumn(\"rank\", row_number().over(window)).where($\"rank\" \u003d\u003d\u003d 1).select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect  ) //.where($\"rank\" \u003d\u003d\u003d 1)\n                        \n                      \n}                       \n                                                        \nssc.start()\n\n// This is to ensure that we wait for some time before the background streaming job starts. \nssc.awaitTerminationOrTimeout(2000)\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:06:06 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.streaming.{Milliseconds, Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@1b87eba5\nflightDStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] \u003d org.apache.spark.streaming.dstream.PluggableInputDStream@10823fd4\nwindowFlightDStream: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.WindowedDStream@27958ce\nres25: Boolean \u003d false\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152736961_-1294008821",
+      "id": "20180128-151856_600795405",
+      "dateCreated": "Jan 28, 2018 3:18:56 PM",
+      "dateStarted": "Jan 28, 2018 4:03:07 PM",
+      "dateFinished": "Jan 28, 2018 4:03:11 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create some UDF\u0027s for our Spark ML predictions (should be in Scala due to performance)",
+      "text": "%pyspark\n\nimport pyspark.sql.functions as fn\nimport pyspark.sql.types as typ\nfrom pyspark.sql.functions import udf\nfrom pyspark.sql.types import FloatType\nfrom pyspark.sql.types import IntegerType\n\n#Best is not to put udf in pyspark but scala due to performance, but was already created\n\nfrom math import radians, cos, sin, asin, sqrt\n\ndef showMissingDataPercent(df_miss):\n    \u0027show each column and percentage of missing data, 0 - 1 , 0 means no missing data\u0027\n    df_miss.agg(*[\n       (1 - (fn.count(c) / fn.count(\u0027*\u0027))).alias(c + \u0027_missing\u0027)\n       for c in df_miss.columns\n    ]).show()\n\ndef getDFDropMissingRows(df_miss):\n    \u0027Drop rows with any missing column field\u0027\n    return(df_miss.dropna())\n\ndef haversine(lon1, lat1, lon2, lat2):\n    \"\"\"\n    Calculate the great circle distance between two points \n    on the earth (specified in decimal degrees)\n    \"\"\"\n    # convert decimal degrees to radians \n    lon1, lat1, lon2, lat2 \u003d map(radians, [lon1, lat1, lon2, lat2])\n    # haversine formula \n    dlon \u003d lon2 - lon1 \n    dlat \u003d lat2 - lat1 \n    a \u003d sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2\n    c \u003d 2 * asin(sqrt(a)) \n    km \u003d 6367 * c\n    return km\n\ndef dist_to_ams(lat,lon):\n    \"\"\"Distance to centre schiphol airport from any lat lon\"\"\"\n    return haversine(float(4.761392), float(52.308871), float(lon),float(lat))\n\ndef closest_runway(lon,lat,heading):\n    \"\"\" Get closest runway at amsterdam based on plane location and heading. return code 1-12 (6 runways * 2 headings)\"\"\"\n    \n    runway_list \u003d [   { \"runway\" : 1, \"lat\" : 52.350202, \"lon\" : 4.710732 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"polderbaan\" },\n    { \"runway\" : 2, \"lat\" : 52.316110, \"lon\" : 4.738369 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"zwanenburgbaan\" },\n    { \"runway\" : 3, \"lat\" : 52.317579, \"lon\" : 4.772186 , \"heading1\" : 90 , \"heading2\" : 270, \"name\" : \"buitenveldertbaan\" },\n    { \"runway\" : 4, \"lat\" : 52.297217, \"lon\" : 4.757938 , \"heading1\" : 60 , \"heading2\" : 240, \"name\" : \"kaagbaan\" },\n    { \"runway\" : 5, \"lat\" : 52.307714, \"lon\" : 4.778881 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"aalsmeerbaan\" },\n    { \"runway\" : 6, \"lat\" : 52.308659, \"lon\" : 4.795361 , \"heading1\" : 40 , \"heading2\" : 220, \"name\" : \"oostbaan\" }\n]\n    \n    smallest_dist_runway \u003d -1\n    smallest_dist \u003d -1\n    for runway in runway_list:\n        dist \u003d haversine(float(runway[\"lon\"]), float(runway[\"lat\"]), float(lon),float(lat))\n        if smallest_dist \u003d\u003d -1 or dist \u003c smallest_dist:\n            smallest_dist \u003d dist\n            smallest_dist_runway \u003d runway\n    \n    angle1 \u003d 180 - abs(abs(heading - smallest_dist_runway[\"heading1\"]) - 180); \n    angle2 \u003d 180 - abs(abs(heading - smallest_dist_runway[\"heading2\"]) - 180); \n    runway_code \u003d smallest_dist_runway[\"runway\"]\n    \n    if angle1 \u003c angle2 :\n        return runway_code\n    return runway_code + 6\n\ndef distance_to_runway(lon,lat,runway):\n    \"\"\" Get distance based on lat lon to runway given its runway id\"\"\"\n    \n    runway_list \u003d [   { \"runway\" : 1, \"lat\" : 52.350202, \"lon\" : 4.710732 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"polderbaan\" },\n    { \"runway\" : 2, \"lat\" : 52.316110, \"lon\" : 4.738369 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"zwanenburgbaan\" },\n    { \"runway\" : 3, \"lat\" : 52.317579, \"lon\" : 4.772186 , \"heading1\" : 90 , \"heading2\" : 270, \"name\" : \"buitenveldertbaan\" },\n    { \"runway\" : 4, \"lat\" : 52.297217, \"lon\" : 4.757938 , \"heading1\" : 60 , \"heading2\" : 240, \"name\" : \"kaagbaan\" },\n    { \"runway\" : 5, \"lat\" : 52.307714, \"lon\" : 4.778881 , \"heading1\" : 180 , \"heading2\" : 360, \"name\" : \"aalsmeerbaan\" },\n    { \"runway\" : 6, \"lat\" : 52.308659, \"lon\" : 4.795361 , \"heading1\" : 40 , \"heading2\" : 220, \"name\" : \"oostbaan\" }\n]\n    #runway code can be 1-12 (6 runways, 2 directions). So 7 means 1 + 6 , 8 means 2 + 6 etc\n    if runway \u003e 6:\n        runway \u003d runway - 6\n        \n    runway_lat \u003d runway_list[runway-1][\"lat\"]\n    runway_lon \u003d runway_list[runway-1][\"lon\"]\n    \n    return haversine(float(lon),float(lat),float(runway_lon),float(runway_lat))\n\n\ndef distance_to_pier(lon,lat,pier):\n    \"\"\" Get distance based on lat lon to pier given its id\"\"\"\n    \n    pier_list \u003d [\n        {\"id\" : 0 , \"pier\" : \"A\" , \"lon\" : 4.753781 , \"lat\" : 52.300381},\n        {\"id\" : 1 , \"pier\" : \"B\" , \"lon\" : 4.759363 , \"lat\" : 52.302362},\n        {\"id\" : 2 , \"pier\" : \"C\" , \"lon\" : 4.766188 , \"lat\" : 52.305380},\n        {\"id\" : 3 , \"pier\" : \"D\" , \"lon\" : 4.771575 , \"lat\" : 52.309147},\n        {\"id\" : 4 , \"pier\" : \"E\" , \"lon\" : 4.767366 , \"lat\" : 52.312182},\n        {\"id\" : 5 , \"pier\" : \"F\" , \"lon\" : 4.761679 , \"lat\" : 52.313040},\n        {\"id\" : 6 , \"pier\" : \"G\" , \"lon\" : 4.755998 , \"lat\" : 52.312574},\n        {\"id\" : 7 , \"pier\" : \"H\" , \"lon\" : 4.754054 , \"lat\" : 52.310135}\n    ]\n        \n    pier_lat \u003d pier_list[pier][\"lat\"]\n    pier_lon \u003d pier_list[pier][\"lon\"]\n    \n    return haversine(float(lon),float(lat),float(pier_lon),float(pier_lat))\n\ndef closest_pier(lon,lat):\n    \"\"\" Get closest pier id based on a (plane) location\"\"\"\n    \n    pier_list \u003d [\n        {\"id\" : 0 , \"pier\" : \"A\" , \"lon\" : 4.753781 , \"lat\" : 52.300381},\n        {\"id\" : 1 , \"pier\" : \"B\" , \"lon\" : 4.759363 , \"lat\" : 52.302362},\n        {\"id\" : 2 , \"pier\" : \"C\" , \"lon\" : 4.766188 , \"lat\" : 52.305380},\n        {\"id\" : 3 , \"pier\" : \"D\" , \"lon\" : 4.771575 , \"lat\" : 52.309147},\n        {\"id\" : 4 , \"pier\" : \"E\" , \"lon\" : 4.767366 , \"lat\" : 52.312182},\n        {\"id\" : 5 , \"pier\" : \"F\" , \"lon\" : 4.761679 , \"lat\" : 52.313040},\n        {\"id\" : 6 , \"pier\" : \"G\" , \"lon\" : 4.755998 , \"lat\" : 52.312574},\n        {\"id\" : 7 , \"pier\" : \"H\" , \"lon\" : 4.754054 , \"lat\" : 52.310135}\n    ]\n\n    smallest_dist_pier \u003d -1\n    smallest_dist \u003d -1\n    for pier in pier_list:\n        dist \u003d haversine(float(pier[\"lon\"]), float(pier[\"lat\"]), float(lon),float(lat))\n        if smallest_dist \u003d\u003d -1 or dist \u003c smallest_dist:\n            smallest_dist \u003d dist\n            smallest_dist_pier \u003d pier\n            \n    return smallest_dist_pier[\"id\"]\n\ndef negative_to_zero(some_number):\n    \u0027\u0027\u0027Make negative number 0, but keep positive values as-is. Return this new value\u0027\u0027\u0027\n    if some_number \u003c 0:\n        return 0\n    return some_number\n\nimport datetime\n\n#TODO SET TO AMSTERDAM TIME\ndef timestamp_to_hour(my_time):\n    \u0027\u0027\u0027Return hour of a given timestamp in UTC, \u0027\u0027\u0027\n    d \u003d datetime.datetime.utcfromtimestamp(my_time)\n    return d.hour\n\n\nudf_func \u003d udf(dist_to_ams, FloatType())\nudf_func2 \u003d udf(closest_runway, IntegerType())\nudf_func3 \u003d udf(negative_to_zero,IntegerType())\nudf_func4 \u003d udf(closest_pier, IntegerType())\nudf_func5 \u003d udf(distance_to_runway,FloatType())\nudf_func6 \u003d udf(distance_to_pier,FloatType())\nudf_func7 \u003d udf(timestamp_to_hour,IntegerType())\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:08:11 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152804124_-788155962",
+      "id": "20180128-152004_75935242",
+      "dateCreated": "Jan 28, 2018 3:20:04 PM",
+      "dateStarted": "Jan 28, 2018 4:08:11 PM",
+      "dateFinished": "Jan 28, 2018 4:08:11 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Register Spark sql table",
+      "text": "%spark\n\ntracksMinuteDf.registerTempTable(\"flights\") //workaround\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:09:22 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "warning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152813034_166421383",
+      "id": "20180128-152013_1903088131",
+      "dateCreated": "Jan 28, 2018 3:20:13 PM",
+      "dateStarted": "Jan 28, 2018 4:09:22 PM",
+      "dateFinished": "Jan 28, 2018 4:09:22 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Change data types , munging and some data checks",
+      "text": "%pyspark\n\n\ntracks_df \u003d spark.sql(\"select * from flights\")\n\ntracks_df \u003dtracks_df.dropDuplicates() \ntracks_df \u003d getDFDropMissingRows(tracks_df)\nshowMissingDataPercent(tracks_df)\n\n#Change some types\ntracks_df \u003d tracks_df.withColumn(\"altitude\",tracks_df[\"altitude\"].cast(typ.IntegerType()))  \ntracks_df \u003d tracks_df.withColumn(\"altitude_delta\",tracks_df[\"altitude_delta\"].cast(typ.IntegerType()))\ntracks_df \u003d tracks_df.withColumn(\"speed\",tracks_df[\"speed\"].cast(typ.IntegerType()))      \ntracks_df \u003d tracks_df.withColumn(\"heading\",tracks_df[\"heading\"].cast(typ.IntegerType()))   \ntracks_df \u003d tracks_df.withColumn(\"lat\",tracks_df[\"lat\"].cast(typ.FloatType()))  \ntracks_df \u003d tracks_df.withColumn(\"lon\",tracks_df[\"lon\"].cast(typ.FloatType())) \ntracks_df \u003d tracks_df.withColumn(\"time\",tracks_df[\"time\"].cast(typ.LongType())) \ntracks_df \u003d tracks_df.withColumn(\"landed\",tracks_df[\"landed\"].cast(typ.IntegerType()))\n\n#Sanity checks and filter\ntracks_df \u003d tracks_df.where(\"landed \u003d\u003d 0 or landed \u003d\u003d 1\")\ntracks_df \u003d tracks_df.where(\"heading \u003e\u003d 0 and heading \u003c 360\")\ntracks_df \u003d tracks_df.where(\"altitude \u003e -100 and altitude \u003c 50000\")\ntracks_df \u003d tracks_df.where(\"lat \u003e\u003d -90 and lat \u003c\u003d 90\")\ntracks_df \u003d tracks_df.where(\"lon \u003e\u003d -180 and lon \u003c\u003d 180\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:10:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-----------+----------------+------------+---------------+--------------+-------------+--------------+------------+-----------+-----------+-----------+-----------+-----------+--------------------+---------------+-------------+-----------+-----------------+----------------------+--------------+\n|na1_missing|altitude_missing|dest_missing|heading_missing|flight_missing|fltid_missing|landed_missing|time_missing|lat_missing|lon_missing|na3_missing|org_missing|na4_missing|registration_missing|flight2_missing|speed_missing|na6_missing|planetype_missing|altitude_delta_missing|minute_missing|\n+-----------+----------------+------------+---------------+--------------+-------------+--------------+------------+-----------+-----------+-----------+-----------+-----------+--------------------+---------------+-------------+-----------+-----------------+----------------------+--------------+\n|        0.0|             0.0|         0.0|            0.0|           0.0|          0.0|           0.0|         0.0|        0.0|        0.0|        0.0|        0.0|        0.0|                 0.0|            0.0|          0.0|        0.0|              0.0|                   0.0|           0.0|\n+-----------+----------------+------------+---------------+--------------+-------------+--------------+------------+-----------+-----------+-----------+-----------+-----------+--------------------+---------------+-------------+-----------+-----------------+----------------------+--------------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152826263_2102893245",
+      "id": "20180128-152026_780633702",
+      "dateCreated": "Jan 28, 2018 3:20:26 PM",
+      "dateStarted": "Jan 28, 2018 4:09:51 PM",
+      "dateFinished": "Jan 28, 2018 4:10:27 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Feature engineering",
+      "text": "%pyspark\n\n# 1)Distance to amsterdam (we will not use it if runway and gate is avaiable. But this would be a nice alternative!)\ntracks_df \u003d tracks_df.withColumn(\"distance_to_ams\", \\\n                            udf_func(tracks_df.lat,tracks_df.lon))\n# 2) landing/touchdown timestamp, based on landed column switching from 0 to 1.\n# 3) landing/touchdown runway\n# 3) landings per hour based on event timestamp (BAsed on UTC HOUR)\n# 4) Time till landing (seconds) and (minutes) based on event timestamp versus touchdown timestamp\n\nfrom pyspark.sql.functions import col, lag\nfrom pyspark.sql.window import Window\nfrom pyspark.sql.functions import max,min\n\n#Landing timestamp\nw \u003d Window.partitionBy(\"flight\").orderBy(\"time\")\n\ndiff \u003d col(\"landed\").cast(\"int\") - lag(\"landed\", 1).over(w).cast(\"int\")\ntracks_touchdown_df \u003d tracks_df.select([\"flight\",\"time\",\"lat\",\"lon\",\"heading\",\"landed\",\"registration\"]).withColumn(\"touchdown\", diff)\ntracks_touchdown_df \u003d tracks_touchdown_df.withColumn(\"runway\", \\\n                            udf_func2(tracks_touchdown_df.lon,tracks_touchdown_df.lat,tracks_touchdown_df.heading))\ntracks_touchdown_df \u003d tracks_touchdown_df.where(\"touchdown \u003d\u003d 1\").select(col(\"flight\").alias(\"flight_touchdown\"), \\\n                                                                         col(\"runway\").alias(\"runway_touchdown\"), \\\n                                                                         col(\"time\").alias(\"time_touchdown\") )\n\n#Remove flights with \u003e 1 landings completely\n#tracks_touchdown_df.groupby([\"flight_touchdown\"]).count().where(\"count \u003e 1\").show()\ntracks_touchdown_df \u003d tracks_touchdown_df.where(\"flight_touchdown !\u003d \u0027HV6118\u0027 and flight_touchdown !\u003d \u0027HV5134\u0027 and flight_touchdown !\u003d \u0027KL1412\u0027 and flight_touchdown !\u003d \u0027HV6332\u0027 and flight_touchdown !\u003d \u0027HV5356\u0027 and flight_touchdown !\u003d \u0027HV5314\u0027 and flight_touchdown !\u003d \u0027TP668\u0027 and flight_touchdown !\u003d \u0027HV6146\u0027 \")\n\n\n#landings per hour\ntracks_touchdown_df \u003d tracks_touchdown_df.withColumn(\"hour_touchdown\", udf_func7(col(\"time_touchdown\")))\ntouchdown_sum_df \u003d tracks_touchdown_df.groupby(\"hour_touchdown\").sum().select(col(\"hour_touchdown\").alias(\"hour_touchdown_grp\"),col(\"sum(hour_touchdown)\").alias(\"sum_hour_touchdown\"))\ntracks_touchdown_df \u003d tracks_touchdown_df.join(touchdown_sum_df,tracks_touchdown_df.hour_touchdown \u003d\u003d touchdown_sum_df.hour_touchdown_grp)\n\njoin_df \u003d tracks_df.join(tracks_touchdown_df,tracks_df.flight \u003d\u003d tracks_touchdown_df.flight_touchdown)\njoin_df \u003d join_df.withColumn(\"time_till_landing\",col(\"time_touchdown\") - col(\"time\"))\njoin_df \u003d join_df.where(\"time_till_landing \u003e -7000\") #Make sure we remove flight that are landing for hours already\njoin_df \u003d join_df.withColumn(\"time_till_landing\", udf_func3(join_df.time_till_landing)) #negatives to 0 (ML requirs it) \njoin_df \u003d join_df.withColumn(\"time_till_landing_minutes\",join_df.time_till_landing / 60)\n\n# 5) On/in block lat/lon/time\n# 6) pier on block\n# 7 Time till on block (minutes) based on event versus onblock timestamp\n\nmaxtime_df \u003d join_df.groupby(col(\"flight\").alias(\"flight_maxtime\")).agg(max(\"time\").alias(\"time_onblock\"))\nonblock_df \u003d maxtime_df.join(join_df,(maxtime_df.flight_maxtime \u003d\u003d join_df.flight) \u0026 (maxtime_df.time_onblock \u003d\u003d join_df.time))\nonblock_df \u003d onblock_df.select(col(\"flight\").alias(\"flight_onblock\"), \\\n                               col(\"lat\").alias(\"lat_onblock\"), \\\n                               col(\"lon\").alias(\"lon_onblock\"), \\\n                               col(\"time_onblock\"))\nonblock_df \u003d onblock_df.withColumn(\"pier_onblock\",udf_func4(col(\"lon_onblock\"),col(\"lat_onblock\")) )\njoin_maxtime_df \u003d join_df.join(onblock_df,join_df.flight \u003d\u003d onblock_df.flight_onblock)\njoin_maxtime_df \u003d join_maxtime_df.withColumn(\"time_till_onblock_minutes\",(col(\"time_onblock\") - col(\"time\")) / 60)\njoin_df \u003d join_maxtime_df\n\n# 8 Distance to landing runway\n# 9 distance to pier on-block\njoin_df \u003d join_df.withColumn(\"distance_to_runway\",udf_func5(col(\"lon\"),col(\"lat\"),col(\"runway_touchdown\")))\njoin_df \u003d join_df.withColumn(\"distance_to_pier\",udf_func6(col(\"lon\"),col(\"lat\"),col(\"pier_onblock\")))\n\n#Our main set OR load the csv in the next section, as it take 15 mins +- to execute\nselect_cols \u003d [\u0027flight\u0027,\u0027sum_hour_touchdown\u0027,\u0027time_till_landing_minutes\u0027,\u0027time_till_onblock_minutes\u0027, \\\n                        \u0027distance_to_ams\u0027,\u0027distance_to_runway\u0027,\u0027distance_to_pier\u0027,\u0027altitude\u0027,\u0027speed\u0027, \\\n                        \u0027heading\u0027,\u0027runway_touchdown\u0027,\u0027pier_onblock\u0027,\"lat\",\"lon\",\"minute\"]\nml_df \u003d join_df.select(select_cols)\n\nz.show(ml_df.limit(100))\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:15:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "flight\tsum_hour_touchdown\ttime_till_landing_minutes\ttime_till_onblock_minutes\tdistance_to_ams\tdistance_to_runway\tdistance_to_pier\taltitude\tspeed\theading\trunway_touchdown\tpier_onblock\tlat\tlon\tminute\nCND518\t576\t11.716666666666667\t16.983333333333334\t47.779232\t48.825027\t47.552303\t6900\t276\t276\t8\t5\t52.5033\t5.39\t2016-06-24 18:12\nCND518\t576\t132.83333333333334\t138.1\t1693.8646\t1695.5869\t1694.1405\t18075\t358\t341\t8\t5\t41.4897\t20.6076\t2016-06-24 16:10\nCND518\t576\t40.25\t45.516666666666666\t407.6324\t409.39084\t407.81836\t38000\t464\t307\t8\t5\t50.5819\t9.9561\t2016-06-24 17:43\nCND518\t576\t126.31666666666666\t131.58333333333334\t1611.3955\t1613.1158\t1611.6736\t28750\t469\t327\t8\t5\t42.0099\t19.8896\t2016-06-24 16:17\nCND518\t576\t49.916666666666664\t55.18333333333333\t543.90466\t545.6634\t544.105\t38000\t463\t308\t8\t5\t49.8143\t11.4671\t2016-06-24 17:33\nCND518\t576\t6.45\t11.716666666666667\t27.356264\t26.715538\t26.892788\t2850\t206\t272\t8\t5\t52.5544\t4.7906\t2016-06-24 18:17\nCND518\t576\t82.73333333333333\t88.0\t996.11957\t997.8694\t996.35583\t38000\t449\t335\t8\t5\t46.8631\t15.7752\t2016-06-24 17:01\nCND518\t576\t31.666666666666668\t36.93333333333333\t287.6006\t289.34982\t287.75043\t38000\t472\t312\t8\t5\t51.308\t8.6223\t2016-06-24 17:52\nCND518\t576\t0.0\t4.183333333333334\t0.97858787\t0.80808926\t0.8155134\t0\t22\t87\t8\t5\t52.3141\t4.7498\t2016-06-24 18:24\nCND518\t576\t41.35\t46.61666666666667\t423.72937\t425.488\t423.91754\t38000\t462\t307\t8\t5\t50.4921\t10.1375\t2016-06-24 17:42\nCND518\t576\t5.35\t10.616666666666667\t22.16456\t21.391014\t21.701672\t2875\t181\t183\t8\t5\t52.5083\t4.7561\t2016-06-24 18:18\nCND518\t576\t133.98333333333332\t139.25\t1704.5012\t1706.2227\t1704.7781\t16200\t357\t341\t8\t5\t41.3923\t20.6505\t2016-06-24 16:09\nCND518\t576\t106.2\t111.46666666666667\t1320.9075\t1322.6406\t1321.171\t38000\t477\t336\t8\t5\t44.3061\t18.0439\t2016-06-24 16:37\nCND518\t576\t114.61666666666666\t119.88333333333334\t1440.0334\t1441.7595\t1440.3055\t38025\t481\t327\t8\t5\t43.325\t18.7552\t2016-06-24 16:29\nCND518\t576\t78.35\t83.61666666666666\t941.3352\t943.0893\t941.5604\t38000\t451\t336\t8\t5\t47.3648\t15.4526\t2016-06-24 17:05\nCND518\t576\t108.25\t113.51666666666667\t1349.0552\t1350.786\t1349.3215\t38000\t475\t336\t8\t5\t44.0593\t18.1919\t2016-06-24 16:35\nCND518\t576\t101.93333333333334\t107.2\t1259.9855\t1261.7218\t1260.2448\t38000\t477\t322\t8\t5\t44.7925\t17.6458\t2016-06-24 16:41\nCND518\t576\t0.0\t0.95\t0.5608672\t1.4268409\t0.19630021\t0\t0\t145\t8\t5\t52.3137\t4.759\t2016-06-24 18:28\nCND518\t576\t89.2\t94.46666666666667\t1079.1495\t1080.8922\t1079.3995\t38000\t463\t336\t8\t5\t46.1195\t16.2562\t2016-06-24 16:54\nCND518\t576\t94.53333333333333\t99.8\t1153.939\t1155.6783\t1154.194\t38000\t466\t322\t8\t5\t45.5573\t16.8184\t2016-06-24 16:49\nCND518\t576\t0.0\t2.1\t0.5608672\t1.4268409\t0.19630021\t0\t0\t326\t8\t5\t52.3137\t4.759\t2016-06-24 18:26\nCND518\t576\t53.13333333333333\t58.4\t589.3888\t591.1473\t589.5924\t38000\t463\t309\t8\t5\t49.5541\t11.9594\t2016-06-24 17:30\nCND518\t576\t30.666666666666668\t35.93333333333333\t273.6697\t275.41568\t273.81226\t38000\t472\t312\t8\t5\t51.3969\t8.4656\t2016-06-24 17:53\nCND518\t576\t105.15\t110.41666666666667\t1306.4703\t1308.2047\t1306.7324\t38000\t477\t336\t8\t5\t44.4333\t17.968\t2016-06-24 16:38\nCND518\t576\t81.58333333333333\t86.85\t981.61755\t983.3685\t981.8511\t38000\t450\t336\t8\t5\t46.9945\t15.6897\t2016-06-24 17:02\nCND518\t576\t55.28333333333333\t60.55\t620.04974\t621.80804\t620.25525\t38000\t465\t309\t8\t5\t49.3781\t12.2886\t2016-06-24 17:28\nCND518\t576\t128.51666666666668\t133.78333333333333\t1641.5063\t1643.228\t1641.783\t25950\t438\t302\t8\t5\t41.8363\t20.1789\t2016-06-24 16:15\nCND518\t576\t80.53333333333333\t85.8\t968.6718\t970.4239\t968.90283\t38000\t450\t336\t8\t5\t47.1133\t15.6143\t2016-06-24 17:03\nCND518\t576\t47.81666666666667\t53.083333333333336\t514.279\t516.0378\t514.47687\t38000\t459\t308\t8\t5\t49.9825\t11.1431\t2016-06-24 17:35\nCND518\t576\t65.85\t71.11666666666666\t771.2079\t772.9651\t771.4206\t38000\t462\t309\t8\t5\t48.4968\t13.8747\t2016-06-24 17:17\nCND518\t576\t13.866666666666667\t19.133333333333333\t66.41066\t67.68088\t66.25754\t9250\t356\t282\t8\t5\t52.4805\t5.6995\t2016-06-24 18:09\nCND518\t576\t138.25\t143.51666666666668\t1734.3442\t1736.0623\t1734.6246\t6050\t230\t146\t8\t5\t41.0919\t20.7245\t2016-06-24 16:05\nCND518\t576\t93.46666666666667\t98.73333333333333\t1139.0099\t1140.7498\t1139.2643\t38000\t467\t322\t8\t5\t45.6647\t16.7002\t2016-06-24 16:50\nCND518\t576\t21.283333333333335\t26.55\t150.71832\t152.33403\t150.73044\t26950\t425\t292\t8\t5\t52.1979\t6.9696\t2016-06-24 18:02\nCND518\t576\t14.933333333333334\t20.2\t76.32822\t77.697975\t76.21386\t11775\t367\t289\t8\t5\t52.447\t5.8636\t2016-06-24 18:08\nCND518\t576\t66.85\t72.11666666666666\t785.349\t787.1062\t785.5621\t38000\t461\t309\t8\t5\t48.4161\t14.0233\t2016-06-24 17:16\nCND518\t576\t56.31666666666667\t61.583333333333336\t634.8466\t636.6048\t635.05304\t38000\t467\t309\t8\t5\t49.2925\t12.4462\t2016-06-24 17:27\nCND518\t576\t84.85\t90.11666666666666\t1022.8792\t1024.6268\t1023.1202\t38000\t449\t335\t8\t5\t46.6224\t15.9324\t2016-06-24 16:58\nCND518\t576\t107.25\t112.51666666666667\t1335.2264\t1336.9584\t1335.4915\t38000\t475\t336\t8\t5\t44.1803\t18.1191\t2016-06-24 16:36\nCND518\t576\t45.666666666666664\t50.93333333333333\t484.06577\t485.82462\t484.2608\t38000\t459\t308\t8\t5\t50.1534\t10.8103\t2016-06-24 17:38\nCND518\t576\t122.0\t127.26666666666667\t1547.8892\t1549.6113\t1548.1653\t33675\t486\t327\t8\t5\t42.4946\t19.4692\t2016-06-24 16:21\nCND518\t576\t83.78333333333333\t89.05\t1009.4142\t1011.16296\t1009.65283\t38000\t449\t335\t8\t5\t46.7434\t15.8536\t2016-06-24 17:00\nCND518\t576\t0.0\t3.1333333333333333\t0.6124624\t1.4241931\t0.21760741\t0\t28\t137\t8\t5\t52.3142\t4.7591\t2016-06-24 18:25\nCND518\t576\t135.0\t140.26666666666668\t1715.0939\t1716.8145\t1715.3716\t12775\t369\t341\t8\t5\t41.2954\t20.6931\t2016-06-24 16:08\nCND518\t576\t12.816666666666666\t18.083333333333332\t56.41842\t57.59195\t56.23147\t7725\t320\t276\t8\t5\t52.4931\t5.5368\t2016-06-24 18:10\nCND518\t576\t73.11666666666666\t78.38333333333334\t873.84033\t875.59717\t874.0551\t38000\t456\t309\t8\t5\t47.9076\t14.9433\t2016-06-24 17:10\nCND518\t576\t127.51666666666667\t132.78333333333333\t1628.1349\t1629.8556\t1628.4125\t27250\t454\t302\t8\t5\t41.9039\t20.0351\t2016-06-24 16:16\nCND518\t576\t0.0\t5.266666666666667\t1.4400705\t0.3988846\t1.3844684\t0\t19\t2\t8\t5\t52.313\t4.7413\t2016-06-24 18:23\nCND518\t576\t79.48333333333333\t84.75\t955.2299\t956.983\t955.4581\t38000\t451\t336\t8\t5\t47.2366\t15.5349\t2016-06-24 17:04\nCND518\t576\t25.45\t30.716666666666665\t203.24342\t204.9507\t203.33119\t34375\t483\t311\t8\t5\t51.8541\t7.6443\t2016-06-24 17:58\nCND518\t576\t38.11666666666667\t43.38333333333333\t377.74374\t379.5017\t377.92514\t38000\t466\t307\t8\t5\t50.7481\t9.6171\t2016-06-24 17:45\nCND518\t576\t137.2\t142.46666666666667\t1735.539\t1737.2582\t1735.818\t8800\t260\t1\t8\t5\t41.1164\t20.7878\t2016-06-24 16:06\nCND518\t576\t16.983333333333334\t22.25\t97.78816\t99.28445\t97.73142\t16750\t400\t290\t8\t5\t52.3731\t6.1979\t2016-06-24 18:06\nCND518\t576\t37.016666666666666\t42.28333333333333\t361.9703\t363.72787\t362.1489\t38000\t466\t309\t8\t5\t50.8361\t9.4375\t2016-06-24 17:46\nCND518\t576\t112.46666666666667\t117.73333333333333\t1408.4818\t1410.209\t1408.7526\t38000\t479\t327\t8\t5\t43.5672\t18.5422\t2016-06-24 16:31\nCND518\t576\t76.33333333333333\t81.6\t916.7859\t918.5415\t917.00574\t38000\t451\t334\t8\t5\t47.5898\t15.3024\t2016-06-24 17:07\nCND518\t576\t15.983333333333333\t21.25\t86.92524\t88.36891\t86.84315\t14275\t384\t290\t8\t5\t52.4101\t6.0315\t2016-06-24 18:07\nCND518\t576\t8.516666666666667\t13.783333333333333\t29.706842\t29.96228\t29.312449\t4025\t257\t279\t8\t5\t52.5305\t5.0065\t2016-06-24 18:15\nCND518\t576\t18.066666666666666\t23.333333333333332\t111.00656\t112.547714\t110.97347\t19750\t418\t290\t8\t5\t52.329\t6.3953\t2016-06-24 18:05\nCND518\t576\t115.61666666666666\t120.88333333333334\t1454.755\t1456.4805\t1455.0276\t38000\t482\t327\t8\t5\t43.2118\t18.8538\t2016-06-24 16:28\nCND518\t576\t69.0\t74.26666666666667\t815.6173\t817.3744\t815.831\t38000\t458\t309\t8\t5\t48.2432\t14.3403\t2016-06-24 17:14\nCND518\t576\t90.25\t95.51666666666667\t1093.0894\t1094.8308\t1093.3414\t38000\t466\t329\t8\t5\t45.9966\t16.3366\t2016-06-24 16:53\nCND518\t576\t24.383333333333333\t29.65\t189.10985\t190.8005\t189.18083\t33350\t486\t311\t8\t5\t51.9487\t7.4709\t2016-06-24 17:59\nCND518\t576\t9.616666666666667\t14.883333333333333\t34.63388\t35.265903\t34.304832\t4850\t260\t276\t8\t5\t52.5211\t5.1356\t2016-06-24 18:14\nCND518\t576\t111.45\t116.71666666666667\t1393.9968\t1395.7246\t1394.267\t38000\t477\t327\t8\t5\t43.6783\t18.4438\t2016-06-24 16:32\nCND518\t576\t88.15\t93.41666666666667\t1065.3054\t1067.0493\t1065.5533\t38000\t462\t335\t8\t5\t46.2426\t16.177\t2016-06-24 16:55\nCND518\t576\t72.15\t77.41666666666667\t859.98773\t861.74457\t860.2023\t38000\t456\t309\t8\t5\t47.9876\t14.8004\t2016-06-24 17:11\nCND518\t576\t136.08333333333334\t141.35\t1726.118\t1727.8378\t1726.3967\t10850\t314\t343\t8\t5\t41.1941\t20.7364\t2016-06-24 16:07\nCND518\t576\t131.8\t137.06666666666666\t1681.4008\t1683.1241\t1681.6755\t21450\t370\t341\t8\t5\t41.6046\t20.5582\t2016-06-24 16:11\nCND518\t576\t54.18333333333333\t59.45\t604.3921\t606.1505\t604.5967\t38000\t464\t309\t8\t5\t49.4678\t12.1205\t2016-06-24 17:29\nCND518\t576\t1.0833333333333333\t6.35\t1.8654227\t0.26808608\t1.662129\t0\t105\t182\t8\t5\t52.3185\t4.7389\t2016-06-24 18:22\nCND518\t576\t118.73333333333333\t124.0\t1499.9832\t1501.707\t1500.2576\t36650\t483\t327\t8\t5\t42.8639\t19.1547\t2016-06-24 16:25\nCND518\t576\t86.0\t91.26666666666667\t1037.4746\t1039.221\t1037.7181\t38000\t453\t335\t8\t5\t46.4913\t16.0169\t2016-06-24 16:57\nCND518\t576\t98.78333333333333\t104.05\t1214.3676\t1216.1052\t1214.6251\t38000\t468\t322\t8\t5\t45.122\t17.2926\t2016-06-24 16:45\nCND518\t576\t0.0\t0.0\t0.5628664\t1.4201914\t0.20259362\t0\t10\t137\t8\t5\t52.3137\t4.7589\t2016-06-24 18:29\nCND518\t576\t4.25\t9.516666666666667\t16.019865\t15.226078\t15.557887\t2200\t177\t183\t8\t5\t52.4529\t4.7513\t2016-06-24 18:19\nCND518\t576\t97.73333333333333\t103.0\t1199.4536\t1201.1917\t1199.7106\t38000\t465\t322\t8\t5\t45.2296\t17.1763\t2016-06-24 16:46\nCND518\t576\t62.68333333333333\t67.95\t726.56836\t728.32587\t726.77924\t38000\t466\t310\t8\t5\t48.7589\t13.412\t2016-06-24 17:21\nCND518\t576\t123.15\t128.41666666666666\t1565.0704\t1566.7921\t1565.3472\t32500\t486\t327\t8\t5\t42.3634\t19.5833\t2016-06-24 16:20\nCND518\t576\t92.41666666666667\t97.68333333333334\t1123.717\t1125.4574\t1123.9707\t38000\t466\t322\t8\t5\t45.7746\t16.5786\t2016-06-24 16:51\nCND518\t576\t109.35\t114.61666666666666\t1364.2985\t1366.0281\t1364.5663\t38000\t472\t336\t8\t5\t43.9261\t18.2718\t2016-06-24 16:34\nCND518\t576\t59.483333333333334\t64.75\t680.442\t682.1999\t680.6508\t38000\t469\t309\t8\t5\t49.0281\t12.9289\t2016-06-24 17:24\nCND518\t576\t44.516666666666666\t49.78333333333333\t467.75412\t469.51297\t467.94748\t38000\t461\t308\t8\t5\t50.2453\t10.6295\t2016-06-24 17:39\nCND518\t576\t99.88333333333334\t105.15\t1230.6064\t1232.3436\t1230.8646\t38000\t471\t322\t8\t5\t45.0048\t17.4188\t2016-06-24 16:43\nCND518\t576\t64.8\t70.06666666666666\t756.194\t757.9513\t756.4062\t38000\t463\t311\t8\t5\t48.5845\t13.7189\t2016-06-24 17:18\nCND518\t576\t2.1166666666666667\t7.383333333333334\t5.6313562\t4.685266\t5.186343\t400\t151\t183\t8\t5\t52.3582\t4.7424\t2016-06-24 18:21\nCND518\t576\t34.85\t40.11666666666667\t331.78006\t333.53558\t331.94867\t38000\t470\t312\t8\t5\t51.0273\t9.1104\t2016-06-24 17:48\nCND518\t576\t124.2\t129.46666666666667\t1580.5538\t1582.275\t1580.8309\t31500\t479\t327\t8\t5\t42.2454\t19.6862\t2016-06-24 16:19\nCND518\t576\t3.2\t8.466666666666667\t10.661752\t9.82789\t10.20247\t1275\t158\t183\t8\t5\t52.4044\t4.7468\t2016-06-24 18:20\nCND518\t576\t119.78333333333333\t125.05\t1515.5548\t1517.2782\t1515.8298\t35700\t486\t327\t8\t5\t42.7442\t19.2578\t2016-06-24 16:24\nCND518\t576\t57.416666666666664\t62.68333333333333\t650.5623\t652.3204\t650.7696\t38000\t468\t309\t8\t5\t49.2015\t12.6131\t2016-06-24 17:26\nCND518\t576\t39.2\t44.46666666666667\t392.77914\t394.53738\t392.96292\t38000\t466\t307\t8\t5\t50.6647\t9.7881\t2016-06-24 17:44\nCND518\t576\t95.61666666666666\t100.88333333333334\t1169.708\t1171.4469\t1169.9637\t38000\t465\t322\t8\t5\t45.4438\t16.9428\t2016-06-24 16:48\nCND518\t576\t103.08333333333333\t108.35\t1276.9783\t1278.7142\t1277.2383\t38000\t479\t322\t8\t5\t44.6696\t17.7764\t2016-06-24 16:40\nCND518\t576\t23.333333333333332\t28.6\t175.56975\t177.23871\t175.62146\t31700\t471\t311\t8\t5\t52.0415\t7.3007\t2016-06-24 18:00\nCND518\t576\t130.73333333333332\t136.0\t1668.918\t1670.6416\t1669.1926\t22450\t413\t301\t8\t5\t41.6973\t20.4723\t2016-06-24 16:13\nCND518\t576\t22.283333333333335\t27.55\t162.85246\t164.49382\t162.8826\t29350\t455\t311\t8\t5\t52.1304\t7.1358\t2016-06-24 18:01\nCND518\t576\t110.4\t115.66666666666667\t1379.117\t1380.8453\t1379.3862\t38000\t473\t336\t8\t5\t43.7969\t18.3493\t2016-06-24 16:33\nCND518\t576\t71.05\t76.31666666666666\t844.5996\t846.35657\t844.81384\t38000\t456\t309\t8\t5\t48.0764\t14.6413\t2016-06-24 17:12\nCND518\t576\t48.86666666666667\t54.13333333333333\t529.22974\t530.9885\t529.4289\t38000\t460\t308\t8\t5\t49.8977\t11.3069\t2016-06-24 17:34\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152840146_-1629339651",
+      "id": "20180128-152040_1744302051",
+      "dateCreated": "Jan 28, 2018 3:20:40 PM",
+      "dateStarted": "Jan 28, 2018 4:10:44 PM",
+      "dateFinished": "Jan 28, 2018 4:15:20 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\r\n\r\n```\r\n1) flight \u003d Flight number like KL1234\r\n2) sum_hour_touchdown \u003d The sum of planes landing in the hour this flight landed (eg landing time 16:34, will show 500 planes landing in hour 16)\r\n3) time_till_landing_minutes \u003d number of minutes in the future till this flight landed\r\n4) time_till_onblock_minutes \u003d number of minutes in the future till this flight parked at the pier (gate)\r\n5) distance_to_ams \u003d distance in (miles) to Schiphol.\r\n6) distance_to_runway \u003d distance in miles to landing runway\r\n7) distance_to_pier \u003d distance in miles to on-block pier\r\n8) altitude \u003d altitude in feet\r\n9) speed \u003d speed in miles per hour\r\n10) heading \u003d direction in degrees (0-359)\r\n11) runway_touchdown \u003d Runway used to land (code 1-12). Code 1-6 are the same runways as 7-12. However the heading used while landing determines the code used (eg code 1 means polderbaan landing from north, 7 from south (which is never used).\r\n12) pier_onblock \u003d Code of pier used to park . Code is based on pier A-H. Not complete yet. Might better to replace with VOP\r\n```\r\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 3:21:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cpre\u003e\u003ccode\u003e1) flight \u003d Flight number like KL1234\r\n2) sum_hour_touchdown \u003d The sum of planes landing in the hour this flight landed (eg landing time 16:34, will show 500 planes landing in hour 16)\r\n3) time_till_landing_minutes \u003d number of minutes in the future till this flight landed\r\n4) time_till_onblock_minutes \u003d number of minutes in the future till this flight parked at the pier (gate)\r\n5) distance_to_ams \u003d distance in (miles) to Schiphol.\r\n6) distance_to_runway \u003d distance in miles to landing runway\r\n7) distance_to_pier \u003d distance in miles to on-block pier\r\n8) altitude \u003d altitude in feet\r\n9) speed \u003d speed in miles per hour\r\n10) heading \u003d direction in degrees (0-359)\r\n11) runway_touchdown \u003d Runway used to land (code 1-12). Code 1-6 are the same runways as 7-12. However the heading used while landing determines the code used (eg code 1 means polderbaan landing from north, 7 from south (which is never used).\r\n12) pier_onblock \u003d Code of pier used to park . Code is based on pier A-H. Not complete yet. Might better to replace with VOP\n\u003c/code\u003e\u003c/pre\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152856087_531825569",
+      "id": "20180128-152056_1609989461",
+      "dateCreated": "Jan 28, 2018 3:20:56 PM",
+      "dateStarted": "Jan 28, 2018 3:21:17 PM",
+      "dateFinished": "Jan 28, 2018 3:21:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Optional save and load the intermediate result",
+      "text": "%pyspark\n\nml_df.write.parquet(\"/tmp/somedir/ml_df.parquet\")\n#ml_df \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:25:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1517156210075_2136965090",
+      "id": "20180128-161650_1037699125",
+      "dateCreated": "Jan 28, 2018 4:16:50 PM",
+      "dateStarted": "Jan 28, 2018 4:22:46 PM",
+      "dateFinished": "Jan 28, 2018 4:25:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Train model and create prediction",
+      "text": "%pyspark\n\n#ml_df is our source\n\n#You might also just open the saved version in the section below has it takes a while to execute (9 minutes on my laptop)\nfrom pyspark.ml.feature import StringIndexer\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.regression import DecisionTreeRegressor\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\ntraining_data, testing_data \u003d ml_df.randomSplit([0.7, 0.3])\nassembler \u003d VectorAssembler(inputCols\u003d[\"heading\",\"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\"],outputCol\u003d\"features\")\nRegressor \u003d DecisionTreeRegressor(featuresCol\u003d\"features\",labelCol\u003d\"time_till_landing_minutes\",maxDepth\u003d25)\npipeline \u003d Pipeline(stages\u003d[assembler,Regressor])\nmodel \u003d pipeline.fit(training_data)\n\nmodel.transform(ml_df).registerTempTable(\"flightpredictions\")  #.cache\n\n#Alternative test first using:\n#predictions \u003d model.transform(testing_data)\n#modelEvaluator \u003d RegressionEvaluator(labelCol\u003d\"time_till_landing_minutes\")\n#modelError \u003d modelEvaluator.evaluate(predictions,{modelEvaluator.metricName: \"mae\"})\n#modelError #3 half minutes\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:37:25 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152877557_12045129",
+      "id": "20180128-152117_812737674",
+      "dateCreated": "Jan 28, 2018 3:21:17 PM",
+      "dateStarted": "Jan 28, 2018 4:27:50 PM",
+      "dateFinished": "Jan 28, 2018 4:37:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Read predictions and some metadata in seperate dataframe",
+      "text": "%spark\n\nval flightMapDf \u003d spark.sql(\"select flight,minute,lat,lon,time_till_landing_minutes,prediction from flightpredictions\").sort(col(\"minute\").asc)\nval flightArray \u003d flightMapDf.collect  //Lets create an array so we can iterate a custom spark receiver",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:37:33 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "flightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 4 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL736,2016-06-23 23:31,37.1571,-52.6767,306.3333333333333,302.69333333333327], [KL214,2016-06-23 23:31,49.2658,-121.8836,524.1333333333333,524.1333333333333], [DL142,2016-06-23 23:31,52.2732,-111.6387,480.81666666666666,474.25416666666666], [KL672,2016-06-23 23:31,45.4562,-73.7433,373.1166666666667,373.1166666666667], [KL428,2016-06-23 23:31,38.1295,44.1135,252.5,252.5], [HV6672,2016-06-23 23:31,48.6284,0.8312,43.233333333333334,45.03333333333334], [KL810,2016-06-23 23:31,40.8257,44.1175,250.25,238.79666666666668], [KL836,2016-06-23 23:31,35.6783,60.4308,355.05,351.9599999999999], [SQ324,2016-06-23 23:31,36.3218,52.5371,310.56666666666666,299.0602564102564], [DL160,2016-06-23 23:31,54.016,-57.1534,266.46666666666664,266.4666666666667..."
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152894978_194613677",
+      "id": "20180128-152134_1492778351",
+      "dateCreated": "Jan 28, 2018 3:21:34 PM",
+      "dateStarted": "Jan 28, 2018 4:37:33 PM",
+      "dateFinished": "Jan 28, 2018 4:40:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Custom spark streaming receiver to read our predictions",
+      "text": "%spark\r\n\r\nimport org.apache.spark.streaming.receiver.Receiver\r\nimport org.apache.spark.internal.Logging\r\nimport org.apache.spark.storage.StorageLevel\r\nimport scala.util.Random\r\n\r\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \r\n\r\n  def onStart() {\r\n    // Start the thread that receives data over a connection\r\n    new Thread(\"Socket Receiver Flight\") {\r\n      override def run() { receive() }\r\n    }.start()\r\n  }\r\n\r\n  def onStop() {\r\n   // There is nothing much to do as the thread calling receive()\r\n   // is designed to stop by itself isStopped() returns false\r\n  }\r\n\r\n  /** Create a socket connection and receive data until receiver is stopped */\r\n  private def receive() {\r\n   var lastTime \u003d \"\"\r\n   var resultArray \u003d List[String]()\r\n   while(!isStopped()) {     \r\n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\r\n        flightArray.foreach(r \u003d\u003e {\r\n            val result : Double \u003d r(5).asInstanceOf[Double] - r(4).asInstanceOf[Double]\r\n            \r\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) + \",\"  + \" (\" + result.toInt +\")\" ).toString :: resultArray\r\n            \r\n            if (r(1).toString !\u003d lastTime) {\r\n                lastTime \u003d r(1).toString\r\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\r\n                resultArray \u003d List[String]()\r\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\r\n            }\r\n            \r\n        }) \r\n       \r\n    }\r\n  }\r\n}\r\n\r\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:40:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.streaming.receiver.Receiver\nimport org.apache.spark.internal.Logging\nimport org.apache.spark.storage.StorageLevel\nimport scala.util.Random\ndefined class FlightReplyData\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152907556_-1297442557",
+      "id": "20180128-152147_164702341",
+      "dateCreated": "Jan 28, 2018 3:21:47 PM",
+      "dateStarted": "Jan 28, 2018 4:40:56 PM",
+      "dateFinished": "Jan 28, 2018 4:40:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Map showing flights and predictions delta in minutes compared to reality (starts in next section)",
+      "text": "%angular\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt4\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt4\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt4\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n                    \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + event.values[4] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:41:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/undefined",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt4\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt4\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt4\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n                    \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + event.values[4] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152920688_-1096572983",
+      "id": "20180128-152200_1222729209",
+      "dateCreated": "Jan 28, 2018 3:22:00 PM",
+      "dateStarted": "Jan 28, 2018 4:41:01 PM",
+      "dateFinished": "Jan 28, 2018 4:41:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "\n%spark\n\n//No Structured Streaming in Spark 2.1, so we\u0027ll do some Rdd stuff. As spark 2.2 and Zeppelin have an issue at this moment.http://localhost:8080/#/interpreter\n\nimport org.apache.spark.streaming.{Milliseconds,Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\n\nz.angularUnbind(\"planelocations\") //Our geo map in the previous section will be updating  once we update this Zeppelin context variable\n\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Milliseconds(500)) //Our stream will update each second \nval flightDStream \u003d ssc.receiverStream(new FlightReplyData(0.4)) \n\n//val windowFlightDStream \u003d flightDStream\n\n// Use a Window Dstream with location of couple of runs . Required if you want to aggregate over a longer historical period or prevent duplicates/or dissapearing planes. \nval windowFlightDStream \u003d flightDStream.window(Milliseconds(1000),Milliseconds(500)) \n\n//Get the latest location of each plane (otherwise we would see double, or missings planes on the map). \n//and return it to our Leaflet using a Zepplin Variable named locations (Expecting Array of arrays Name,lat,lon)                                                        \nwindowFlightDStream.foreachRDD { rdd \u003d\u003e  \n\n                        val inputDf \u003d rdd.map (s \u003d\u003e s.split(\",\"))\n                                    .map(arr \u003d\u003e (arr(0),arr(1),arr(2),arr(3),arr(4)) )\n                                    .toDF(\"id\",\"timest\",\"lat\",\"lon\",\"ttl\").na.drop //ttl \u003d Time till landing, pttl also but predicted\n                                    \n                        //option 1 just have a quick but flickering, missing animation\n                        //z.angularBind(\"planelocations\", inputDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //option 2 group by plane and get the latest location\n                        //val maxTimeStampDf \u003d inputDf.groupBy($\"id\").agg(max($\"timest\") as \"maxtimestamp\").withColumnRenamed(\"id\", \"id2\")\n                        //val latestLocationDf \u003d inputDf.join(maxTimeStampDf,inputDf(\"id\") \u003d\u003d\u003d maxTimeStampDf(\"id2\")).filter($\"timest\" \u003d\u003d\u003d $\"maxtimestamp\")  //.orderBy($\"id\".asc,$\"timestamp\".asc).cache\n                        //z.angularBind(\"planelocations\", latestLocationDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //Option 3 get a minute field from 1 row and filter all rows with it (and make sure the data is in a bit quicker then the stream interval)\n                        val window \u003d Window.partitionBy($\"id\").orderBy($\"timest\".asc)\n                        z.angularBind(\"planelocations\", inputDf.withColumn(\"rank\", row_number().over(window)).where($\"rank\" \u003d\u003d\u003d 1).select($\"id\",$\"lat\",$\"lon\",$\"timest\",$\"ttl\").collect  ) //.where($\"rank\" \u003d\u003d\u003d 1)\n                        \n                      \n\n                        \n}                       \n                                                        \nssc.start()\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 4:41:12 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152936459_1414713736",
+      "id": "20180128-152216_2052035651",
+      "dateCreated": "Jan 28, 2018 3:22:16 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "flight prediction",
+  "id": "2D48DXZYZ",
+  "angularObjects": {
+    "2D28D18EM:shared_process": [],
+    "2D1KQV8RK:shared_process": [],
+    "2CZM77WW6:shared_process": [],
+    "2CY5ASEHH:shared_process": [],
+    "2CZTG3WJA:shared_process": [],
+    "2CZP9NCGW:shared_process": [],
+    "2D23VCUHP:shared_process": [],
+    "2CY3UAQ65:shared_process": [],
+    "2CZ5FXHTZ:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
