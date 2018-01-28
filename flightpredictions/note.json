@@ -1,10 +1,84 @@
 {
   "paragraphs": [
     {
-      "title": "Mount you flight fs to docker",
+      "text": "%md\n\n### This notebook will show location data of flights on a animated map. Also using Spark ML predictions will be made for landing time/in block time in minutes. Then we will create an online/realtime prediction using this model.\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:09:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eThis notebook will show location data of flights on a animated map. Also using Spark ML predictions will be made for landing time/in block time in minutes. Then we will create an online/realtime prediction using this model.\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517162898799_-276824224",
+      "id": "20180128-180818_871793793",
+      "dateCreated": "Jan 28, 2018 6:08:18 PM",
+      "dateStarted": "Jan 28, 2018 6:09:44 PM",
+      "dateFinished": "Jan 28, 2018 6:09:44 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nspark.version\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 7:20:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res83: String \u003d 2.2.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517167226896_-1968109593",
+      "id": "20180128-192026_970087545",
+      "dateCreated": "Jan 28, 2018 7:20:26 PM",
+      "dateStarted": "Jan 28, 2018 7:20:35 PM",
+      "dateFinished": "Jan 28, 2018 7:20:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Mount your flight fs with the sample data to your docker container",
       "text": "%sh\n\n#docker run -p 8080:8080 -it -v C:\\Users\\miche\\Downloads\\flights:/tmp/somedir cc29eb143bda\nls /tmp/somedir\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:06:42 PM",
+      "dateUpdated": "Jan 28, 2018 6:08:15 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -42,7 +116,7 @@
       "title": "Load in the dataset",
       "text": "%spark\r\nimport org.apache.spark.sql.Encoders\r\n\r\nval track_file \u003d \"/tmp/somedir/all.csv\"\r\n\r\ncase class FlightEntry(na1 : String, altitude : String, dest : String, heading:String, flight : String ,fltid : String, landed : String, time : String ,\r\n     lat : String, lon : String,na3: String,org: String ,na4:String,registration:String,flight2:String,speed :String,na6:String,planetype:String, altitude_delta:String)\r\nval tracksDf \u003d spark.read.option(\"header\", false).option(\"inferSchema\", false).schema(Encoders.product[FlightEntry].schema).csv(track_file).filter($\"dest\" \u003d\u003d\u003d \"AMS\") //dest Amsterdam only\r\nval tracksMinuteDf \u003d tracksDf.withColumn(\"minute\", from_unixtime($\"time\",\"YYYY-MM-dd HH:mm\") )\r\nval flightMapDf \u003d tracksMinuteDf.select($\"flight\",$\"minute\",$\"lat\",$\"lon\").sort(col(\"minute\").asc) \r\nval flightArray \u003d flightMapDf.collect",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:06:44 PM",
+      "dateUpdated": "Jan 28, 2018 6:09:49 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -59,11 +133,11 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
-            "data": "import org.apache.spark.sql.Encoders\ntrack_file: String \u003d /tmp/somedir/all.csv\ndefined class FlightEntry\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL214,2016-06-23 23:31,49.2658,-121.8836], [KL282,2016-06-23 23:31,47.2353,-108.7284], [DL142,2016-06-23 23:31,52.2732,-111.6387], [KL610,2016-06-23 23:31,40.9074,-112.0103], [DL56,2016-06-23 23:31,40.7745,-111.9742], [KL602,2016-06-23 23:31,49.092,-98.3777], [DL178,2016-06-23 23:31,55.0896,-94.5454], [UA909,2016-06-23 23:31,42.308,-85.4874], [KL678,2016-06-23 23:31,57.9245,-89.9364], [UA20,2016-06-23 23:31,39.1989,-86.4969], [KL662,2016-06-23 23:31,41.4086,-70.2907], [OR338,2016-06-23 23:31,39.9246,-73.3105], [MP6332,2016-06-23 23:31,40.1743,-72.0937], [KL612,2016-06-23 23:31,47.8331,-70.7206], [KL692,2016-06-23 23:31,49.8256,-62.093], [UA946,2016-06-23 23:31,45.2445,-66.4383], [UA70,2016-06-23 23:31,44.9011,-64.4659], [DL72,2016-06..."
+            "data": "import org.apache.spark.sql.Encoders\ntrack_file: String \u003d /tmp/somedir/all.csv\ndefined class FlightEntry\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\norg.apache.spark.SparkException: Job 1 cancelled part of cancelled job group zeppelin-20180128-145957_1452925951\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1439)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n  at scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1689)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2062)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2087)\n  at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:936)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.rdd.RDD.withScope(RDD.scala:362)\n  at org.apache.spark.rdd.RDD.collect(RDD.scala:935)\n  at org.apache.spark.sql.execution.SparkPlan.executeCollect(SparkPlan.scala:278)\n  at org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collectFromPlan(Dataset.scala:2853)\n  at org.apache.spark.sql.Dataset$$anonfun$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset$$anonfun$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset$$anonfun$55.apply(Dataset.scala:2837)\n  at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:65)\n  at org.apache.spark.sql.Dataset.withAction(Dataset.scala:2836)\n  at org.apache.spark.sql.Dataset.collect(Dataset.scala:2390)\n  ... 46 elided\n"
           }
         ]
       },
@@ -71,16 +145,16 @@
       "jobName": "paragraph_1517151597051_1096014120",
       "id": "20180128-145957_1452925951",
       "dateCreated": "Jan 28, 2018 2:59:57 PM",
-      "dateStarted": "Jan 28, 2018 4:06:44 PM",
-      "dateFinished": "Jan 28, 2018 4:07:43 PM",
-      "status": "FINISHED",
+      "dateStarted": "Jan 28, 2018 6:09:49 PM",
+      "dateFinished": "Jan 28, 2018 6:10:39 PM",
+      "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "Custom spark streaming receiver to simulate the flight events",
+      "title": "Custom spark streaming receiver to simulate the flight events (structured streaming would load csv in 1 blast so not usable)",
       "text": "%spark\r\n\r\nimport org.apache.spark.streaming.receiver.Receiver\r\nimport org.apache.spark.internal.Logging\r\nimport org.apache.spark.storage.StorageLevel\r\nimport scala.util.Random\r\n\r\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \r\n\r\n  def onStart() {\r\n    // Start the thread that receives data over a connection\r\n    new Thread(\"Socket Receiver Flight\") {\r\n      override def run() { receive() }\r\n    }.start()\r\n  }\r\n\r\n  def onStop() {\r\n   // There is nothing much to do as the thread calling receive()\r\n   // is designed to stop by itself isStopped() returns false\r\n  }\r\n\r\n  /** Create a socket connection and receive data until receiver is stopped */\r\n  private def receive() {\r\n   var lastTime \u003d \"\"\r\n   var resultArray \u003d List[String]()\r\n   while(!isStopped()) {     \r\n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\r\n        flightArray.foreach(r \u003d\u003e {\r\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) ).toString :: resultArray\r\n            \r\n            if (r(1).toString !\u003d lastTime) {\r\n                lastTime \u003d r(1).toString\r\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\r\n                resultArray \u003d List[String]()\r\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\r\n            }\r\n            \r\n        }) \r\n       \r\n    }\r\n  }\r\n}\r\n\r\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:08:00 PM",
+      "dateUpdated": "Jan 28, 2018 7:21:47 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -379,9 +453,9 @@
     },
     {
       "title": "Optional save and load the intermediate result",
-      "text": "%pyspark\n\nml_df.write.parquet(\"/tmp/somedir/ml_df.parquet\")\n#ml_df \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")",
+      "text": "%pyspark\n\n#PYTHON\n#ml_df.write.parquet(\"/tmp/somedir/ml_df.parquet\")\nml_df \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:25:35 PM",
+      "dateUpdated": "Jan 28, 2018 7:53:55 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -405,16 +479,90 @@
       "jobName": "paragraph_1517156210075_2136965090",
       "id": "20180128-161650_1037699125",
       "dateCreated": "Jan 28, 2018 4:16:50 PM",
-      "dateStarted": "Jan 28, 2018 4:22:46 PM",
-      "dateFinished": "Jan 28, 2018 4:25:29 PM",
+      "dateStarted": "Jan 28, 2018 7:53:55 PM",
+      "dateFinished": "Jan 28, 2018 7:53:57 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "Train model and create prediction",
-      "text": "%pyspark\n\n#ml_df is our source\n\n#You might also just open the saved version in the section below has it takes a while to execute (9 minutes on my laptop)\nfrom pyspark.ml.feature import StringIndexer\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.regression import DecisionTreeRegressor\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\ntraining_data, testing_data \u003d ml_df.randomSplit([0.7, 0.3])\nassembler \u003d VectorAssembler(inputCols\u003d[\"heading\",\"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\"],outputCol\u003d\"features\")\nRegressor \u003d DecisionTreeRegressor(featuresCol\u003d\"features\",labelCol\u003d\"time_till_landing_minutes\",maxDepth\u003d25)\npipeline \u003d Pipeline(stages\u003d[assembler,Regressor])\nmodel \u003d pipeline.fit(training_data)\n\nmodel.transform(ml_df).registerTempTable(\"flightpredictions\")  #.cache\n\n#Alternative test first using:\n#predictions \u003d model.transform(testing_data)\n#modelEvaluator \u003d RegressionEvaluator(labelCol\u003d\"time_till_landing_minutes\")\n#modelError \u003d modelEvaluator.evaluate(predictions,{modelEvaluator.metricName: \"mae\"})\n#modelError #3 half minutes\n",
+      "text": "%md\n\n### If you plan to use this model for realtime predictions you have to load this model in a scala variable right now, as Pyspark misses the MlWriter class it seems",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:37:25 PM",
+      "dateUpdated": "Jan 28, 2018 6:41:51 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eIf you plan to use this model for realtime predictions you have to load this model in a scala variable right now, as Pyspark misses the MlWriter class it seems\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517164855226_1869205202",
+      "id": "20180128-184055_1473349605",
+      "dateCreated": "Jan 28, 2018 6:40:55 PM",
+      "dateStarted": "Jan 28, 2018 6:41:51 PM",
+      "dateFinished": "Jan 28, 2018 6:41:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nval mlDf \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")\n.registerTempTable(\"flightmunged\")\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 7:34:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "mlDf: org.apache.spark.sql.DataFrame \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517164832321_1349778863",
+      "id": "20180128-184032_757124968",
+      "dateCreated": "Jan 28, 2018 6:40:32 PM",
+      "dateStarted": "Jan 28, 2018 7:00:51 PM",
+      "dateFinished": "Jan 28, 2018 7:00:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Train model  and create predictions for test set",
+      "text": "%pyspark\n\n#ml_df is our source\n\n#You might also just open the saved version in the section below has it takes a while to execute (9 minutes on my laptop)\n#If you saved the model earlier, it will just take 30 seconds to train and predict\nfrom pyspark.ml.feature import StringIndexer\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.regression import DecisionTreeRegressor\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\n#CREATE AND TRAIN MODEL\ntraining_data, testing_data \u003d ml_df.randomSplit([0.7, 0.3])\nassembler \u003d VectorAssembler(inputCols\u003d[\"heading\",\"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\"],outputCol\u003d\"features\")\nRegressor \u003d DecisionTreeRegressor(featuresCol\u003d\"features\",labelCol\u003d\"time_till_landing_minutes\",maxDepth\u003d25)\npipeline \u003d Pipeline(stages\u003d[assembler,Regressor])\nmodel \u003d pipeline.fit(training_data)\n\n#SAVE MODEL\n#model.write.save(\"/tmp/somedir/flight-pipeline\")\n\n#PREDICT TEST SET\nmodel.transform(ml_df).registerTempTable(\"flightpredictions\")  #.cache\n\n#Alternative test first using:\n#predictions \u003d model.transform(testing_data)\n#modelEvaluator \u003d RegressionEvaluator(labelCol\u003d\"time_till_landing_minutes\")\n#modelError \u003d modelEvaluator.evaluate(predictions,{modelEvaluator.metricName: \"mae\"})\n#modelError #3 half minutes\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:40:06 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -438,8 +586,120 @@
       "jobName": "paragraph_1517152877557_12045129",
       "id": "20180128-152117_812737674",
       "dateCreated": "Jan 28, 2018 3:21:17 PM",
-      "dateStarted": "Jan 28, 2018 4:27:50 PM",
-      "dateFinished": "Jan 28, 2018 4:37:00 PM",
+      "dateStarted": "Jan 28, 2018 6:40:06 PM",
+      "dateFinished": "Jan 28, 2018 6:40:26 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n### The same code but this time in Scala and including a save model command, which is not in pyspark. Required for online predictions.",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:42:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eThe same code but this time in Scala and including a save model command, which is not in pyspark. Required for online predictions.\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517164932862_1899923817",
+      "id": "20180128-184212_1493552976",
+      "dateCreated": "Jan 28, 2018 6:42:12 PM",
+      "dateStarted": "Jan 28, 2018 6:42:48 PM",
+      "dateFinished": "Jan 28, 2018 6:42:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\n//Read in the saved ml_df using some sections back in scala variable.\n\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.regression.DecisionTreeRegressor\nimport org.apache.spark.ml.Pipeline\n\nval Array(trainingData, testData) \u003d mlDf.randomSplit(Array(0.7, 0.3))\nval assembler \u003d new VectorAssembler()\n  .setInputCols(Array(\"heading\", \"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\"))\n  .setOutputCol(\"features\")\nval regressor \u003d new DecisionTreeRegressor().setLabelCol(\"time_till_landing_minutes\").setFeaturesCol(\"features\").setMaxDepth(25)\nval pipeline \u003d new Pipeline().setStages(Array(assembler, regressor))\nval model \u003d pipeline.fit(trainingData)\nmodel.write.overwrite().save(\"/tmp/somedir/flight-pipeline\")\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:43:33 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.regression.DecisionTreeRegressor\nimport org.apache.spark.ml.Pipeline\nmlDf: org.apache.spark.sql.DataFrame \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\ntrainingData: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\ntestData: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\nassembler: org.apache.spark.ml.feature.VectorAssembler \u003d vecAssembler_25795033c90f\nregressor: org.apache.spark.ml.regression.DecisionTreeRegressor \u003d dtr_a69db3916ca7\npipeline: org.apache.spark.ml.Pipeline \u003d pipeline_26b15f3ba2db\nmodel: org.apache.spark.ml.PipelineModel \u003d pipeline_26b15f3ba2db\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517163952917_-459226743",
+      "id": "20180128-182552_2100671219",
+      "dateCreated": "Jan 28, 2018 6:25:52 PM",
+      "dateStarted": "Jan 28, 2018 6:39:15 PM",
+      "dateFinished": "Jan 28, 2018 6:39:38 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n### Lets create an animation on our world map by creating a stream out of our predictions set",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:44:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eLets create an animation on our world map by creating a stream out of our predictions set\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517165024358_446432773",
+      "id": "20180128-184344_669832353",
+      "dateCreated": "Jan 28, 2018 6:43:44 PM",
+      "dateStarted": "Jan 28, 2018 6:44:36 PM",
+      "dateFinished": "Jan 28, 2018 6:44:36 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -447,7 +707,7 @@
       "title": "Read predictions and some metadata in seperate dataframe",
       "text": "%spark\n\nval flightMapDf \u003d spark.sql(\"select flight,minute,lat,lon,time_till_landing_minutes,prediction from flightpredictions\").sort(col(\"minute\").asc)\nval flightArray \u003d flightMapDf.collect  //Lets create an array so we can iterate a custom spark receiver",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:37:33 PM",
+      "dateUpdated": "Jan 28, 2018 6:12:13 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -468,7 +728,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "flightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 4 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL736,2016-06-23 23:31,37.1571,-52.6767,306.3333333333333,302.69333333333327], [KL214,2016-06-23 23:31,49.2658,-121.8836,524.1333333333333,524.1333333333333], [DL142,2016-06-23 23:31,52.2732,-111.6387,480.81666666666666,474.25416666666666], [KL672,2016-06-23 23:31,45.4562,-73.7433,373.1166666666667,373.1166666666667], [KL428,2016-06-23 23:31,38.1295,44.1135,252.5,252.5], [HV6672,2016-06-23 23:31,48.6284,0.8312,43.233333333333334,45.03333333333334], [KL810,2016-06-23 23:31,40.8257,44.1175,250.25,238.79666666666668], [KL836,2016-06-23 23:31,35.6783,60.4308,355.05,351.9599999999999], [SQ324,2016-06-23 23:31,36.3218,52.5371,310.56666666666666,299.0602564102564], [DL160,2016-06-23 23:31,54.016,-57.1534,266.46666666666664,266.4666666666667..."
+            "data": "flightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 4 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([DL160,2016-06-23 23:31,54.016,-57.1534,266.46666666666664,265.96666666666664], [KL706,2016-06-23 23:31,-22.7995,-43.2324,656.4833333333333,656.4833333333333], [KL792,2016-06-23 23:31,-19.7594,-43.9315,636.9833333333333,635.975], [DL56,2016-06-23 23:31,40.7745,-111.9742,581.1666666666666,581.1666666666666], [KL808,2016-06-23 23:31,52.1665,66.7056,312.76666666666665,311.0611111111111], [DL72,2016-06-23 23:31,36.1432,-77.2882,415.31666666666666,435.25], [MP6332,2016-06-23 23:31,40.1743,-72.0937,366.6666666666667,357.16333333333336], [CX271,2016-06-23 23:31,52.0412,94.1936,414.3,392.2], [HV6120,2016-06-23 23:31,52.3042,4.7704,1333.0833333333333,1333.0833333333333], [OR338,2016-06-23 23:31,39.9246,-73.3105,364.55,347.58333333333337], [UA9..."
           }
         ]
       },
@@ -476,8 +736,8 @@
       "jobName": "paragraph_1517152894978_194613677",
       "id": "20180128-152134_1492778351",
       "dateCreated": "Jan 28, 2018 3:21:34 PM",
-      "dateStarted": "Jan 28, 2018 4:37:33 PM",
-      "dateFinished": "Jan 28, 2018 4:40:51 PM",
+      "dateStarted": "Jan 28, 2018 6:12:13 PM",
+      "dateFinished": "Jan 28, 2018 6:12:27 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -485,7 +745,7 @@
       "title": "Custom spark streaming receiver to read our predictions",
       "text": "%spark\r\n\r\nimport org.apache.spark.streaming.receiver.Receiver\r\nimport org.apache.spark.internal.Logging\r\nimport org.apache.spark.storage.StorageLevel\r\nimport scala.util.Random\r\n\r\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \r\n\r\n  def onStart() {\r\n    // Start the thread that receives data over a connection\r\n    new Thread(\"Socket Receiver Flight\") {\r\n      override def run() { receive() }\r\n    }.start()\r\n  }\r\n\r\n  def onStop() {\r\n   // There is nothing much to do as the thread calling receive()\r\n   // is designed to stop by itself isStopped() returns false\r\n  }\r\n\r\n  /** Create a socket connection and receive data until receiver is stopped */\r\n  private def receive() {\r\n   var lastTime \u003d \"\"\r\n   var resultArray \u003d List[String]()\r\n   while(!isStopped()) {     \r\n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\r\n        flightArray.foreach(r \u003d\u003e {\r\n            val result : Double \u003d r(5).asInstanceOf[Double] - r(4).asInstanceOf[Double]\r\n            \r\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) + \",\"  + \" (\" + result.toInt +\")\" ).toString :: resultArray\r\n            \r\n            if (r(1).toString !\u003d lastTime) {\r\n                lastTime \u003d r(1).toString\r\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\r\n                resultArray \u003d List[String]()\r\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\r\n            }\r\n            \r\n        }) \r\n       \r\n    }\r\n  }\r\n}\r\n\r\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:40:56 PM",
+      "dateUpdated": "Jan 28, 2018 6:12:30 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -514,8 +774,8 @@
       "jobName": "paragraph_1517152907556_-1297442557",
       "id": "20180128-152147_164702341",
       "dateCreated": "Jan 28, 2018 3:21:47 PM",
-      "dateStarted": "Jan 28, 2018 4:40:56 PM",
-      "dateFinished": "Jan 28, 2018 4:40:57 PM",
+      "dateStarted": "Jan 28, 2018 6:12:30 PM",
+      "dateFinished": "Jan 28, 2018 6:12:31 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -523,7 +783,7 @@
       "title": "Map showing flights and predictions delta in minutes compared to reality (starts in next section)",
       "text": "%angular\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt4\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt4\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt4\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n                    \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + event.values[4] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:41:01 PM",
+      "dateUpdated": "Jan 28, 2018 6:12:38 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -554,15 +814,196 @@
       "jobName": "paragraph_1517152920688_-1096572983",
       "id": "20180128-152200_1222729209",
       "dateCreated": "Jan 28, 2018 3:22:00 PM",
-      "dateStarted": "Jan 28, 2018 4:41:01 PM",
-      "dateFinished": "Jan 28, 2018 4:41:01 PM",
+      "dateStarted": "Jan 28, 2018 6:12:38 PM",
+      "dateFinished": "Jan 28, 2018 6:12:39 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "\n%spark\n\n//No Structured Streaming in Spark 2.1, so we\u0027ll do some Rdd stuff. As spark 2.2 and Zeppelin have an issue at this moment.http://localhost:8080/#/interpreter\n\nimport org.apache.spark.streaming.{Milliseconds,Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\n\nz.angularUnbind(\"planelocations\") //Our geo map in the previous section will be updating  once we update this Zeppelin context variable\n\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Milliseconds(500)) //Our stream will update each second \nval flightDStream \u003d ssc.receiverStream(new FlightReplyData(0.4)) \n\n//val windowFlightDStream \u003d flightDStream\n\n// Use a Window Dstream with location of couple of runs . Required if you want to aggregate over a longer historical period or prevent duplicates/or dissapearing planes. \nval windowFlightDStream \u003d flightDStream.window(Milliseconds(1000),Milliseconds(500)) \n\n//Get the latest location of each plane (otherwise we would see double, or missings planes on the map). \n//and return it to our Leaflet using a Zepplin Variable named locations (Expecting Array of arrays Name,lat,lon)                                                        \nwindowFlightDStream.foreachRDD { rdd \u003d\u003e  \n\n                        val inputDf \u003d rdd.map (s \u003d\u003e s.split(\",\"))\n                                    .map(arr \u003d\u003e (arr(0),arr(1),arr(2),arr(3),arr(4)) )\n                                    .toDF(\"id\",\"timest\",\"lat\",\"lon\",\"ttl\").na.drop //ttl \u003d Time till landing, pttl also but predicted\n                                    \n                        //option 1 just have a quick but flickering, missing animation\n                        //z.angularBind(\"planelocations\", inputDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //option 2 group by plane and get the latest location\n                        //val maxTimeStampDf \u003d inputDf.groupBy($\"id\").agg(max($\"timest\") as \"maxtimestamp\").withColumnRenamed(\"id\", \"id2\")\n                        //val latestLocationDf \u003d inputDf.join(maxTimeStampDf,inputDf(\"id\") \u003d\u003d\u003d maxTimeStampDf(\"id2\")).filter($\"timest\" \u003d\u003d\u003d $\"maxtimestamp\")  //.orderBy($\"id\".asc,$\"timestamp\".asc).cache\n                        //z.angularBind(\"planelocations\", latestLocationDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //Option 3 get a minute field from 1 row and filter all rows with it (and make sure the data is in a bit quicker then the stream interval)\n                        val window \u003d Window.partitionBy($\"id\").orderBy($\"timest\".asc)\n                        z.angularBind(\"planelocations\", inputDf.withColumn(\"rank\", row_number().over(window)).where($\"rank\" \u003d\u003d\u003d 1).select($\"id\",$\"lat\",$\"lon\",$\"timest\",$\"ttl\").collect  ) //.where($\"rank\" \u003d\u003d\u003d 1)\n                        \n                      \n\n                        \n}                       \n                                                        \nssc.start()\n",
+      "text": "%spark\n\n//Structured streaming can be used to read csv but this just reads too quickly.\n//Notice this method below is ideal to convert a pulled Api to a stream in Spark\n\nimport org.apache.spark.streaming.{Milliseconds,Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\n\nz.angularUnbind(\"planelocations\") //Our geo map in the previous section will be updating  once we update this Zeppelin context variable\n\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Milliseconds(500)) //Our stream will update each second \nval flightDStream \u003d ssc.receiverStream(new FlightReplyData(0.4)) \n\n//val windowFlightDStream \u003d flightDStream\n\n// Use a Window Dstream with location of couple of runs . Required if you want to aggregate over a longer historical period or prevent duplicates/or dissapearing planes. \nval windowFlightDStream \u003d flightDStream.window(Milliseconds(1000),Milliseconds(500)) \n\n//Get the latest location of each plane (otherwise we would see double, or missings planes on the map). \n//and return it to our Leaflet using a Zepplin Variable named locations (Expecting Array of arrays Name,lat,lon)                                                        \nwindowFlightDStream.foreachRDD { rdd \u003d\u003e  \n\n                        val inputDf \u003d rdd.map (s \u003d\u003e s.split(\",\"))\n                                    .map(arr \u003d\u003e (arr(0),arr(1),arr(2),arr(3),arr(4)) )\n                                    .toDF(\"id\",\"timest\",\"lat\",\"lon\",\"ttl\").na.drop //ttl \u003d Time till landing, pttl also but predicted\n                                    \n                        //option 1 just have a quick but flickering, missing animation\n                        //z.angularBind(\"planelocations\", inputDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //option 2 group by plane and get the latest location\n                        //val maxTimeStampDf \u003d inputDf.groupBy($\"id\").agg(max($\"timest\") as \"maxtimestamp\").withColumnRenamed(\"id\", \"id2\")\n                        //val latestLocationDf \u003d inputDf.join(maxTimeStampDf,inputDf(\"id\") \u003d\u003d\u003d maxTimeStampDf(\"id2\")).filter($\"timest\" \u003d\u003d\u003d $\"maxtimestamp\")  //.orderBy($\"id\".asc,$\"timestamp\".asc).cache\n                        //z.angularBind(\"planelocations\", latestLocationDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //Option 3 get a minute field from 1 row and filter all rows with it (and make sure the data is in a bit quicker then the stream interval)\n                        val window \u003d Window.partitionBy($\"id\").orderBy($\"timest\".asc)\n                        z.angularBind(\"planelocations\", inputDf.withColumn(\"rank\", row_number().over(window)).where($\"rank\" \u003d\u003d\u003d 1).select($\"id\",$\"lat\",$\"lon\",$\"timest\",$\"ttl\").collect  ) //.where($\"rank\" \u003d\u003d\u003d 1)\n                        \n}                       \n                                                        \nssc.start()\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 4:41:12 PM",
+      "dateUpdated": "Jan 28, 2018 7:24:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.streaming.{Milliseconds, Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@f595ff5\nflightDStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] \u003d org.apache.spark.streaming.dstream.PluggableInputDStream@370e5dd8\nwindowFlightDStream: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.WindowedDStream@1bfc339d\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517152936459_1414713736",
+      "id": "20180128-152216_2052035651",
+      "dateCreated": "Jan 28, 2018 3:22:16 PM",
+      "dateStarted": "Jan 28, 2018 6:12:49 PM",
+      "dateFinished": "Jan 28, 2018 6:12:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n### Lets create some realtime predictions . It requires the model to be saved using MlWriter\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 6:46:15 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eLets create some realtime predictions . It requires the model to be saved using MlWriter\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517165151209_-1897256667",
+      "id": "20180128-184551_1727382354",
+      "dateCreated": "Jan 28, 2018 6:45:51 PM",
+      "dateStarted": "Jan 28, 2018 6:46:15 PM",
+      "dateFinished": "Jan 28, 2018 6:46:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "check sample input row ",
+      "text": "%sql\n\nselect heading, sum_hour_touchdown, distance_to_runway,altitude,speed,runway_touchdown from flightmunged limit 1\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 7:15:10 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "heading\tsum_hour_touchdown\tdistance_to_runway\taltitude\tspeed\trunway_touchdown\n304\t405\t1247.3434\t17625\t390\t1\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517166552804_-579145283",
+      "id": "20180128-190912_1170758466",
+      "dateCreated": "Jan 28, 2018 7:09:12 PM",
+      "dateStarted": "Jan 28, 2018 7:11:29 PM",
+      "dateFinished": "Jan 28, 2018 7:11:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Test by throwing this input to our model",
+      "text": "%spark\n\nimport org.apache.spark.ml._\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\n\n//Test by throwing some input to the model. Right column shows prediction\nz.show(pipelineModel.transform(spark.sql(\"select heading, sum_hour_touchdown, distance_to_runway,altitude,speed,runway_touchdown from flightmunged limit 1 \")).select(\"prediction\").toDF  )   //.registerTempTable(\"flightpredictionsrealtime\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 8:19:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.ml._\npipelineModel: org.apache.spark.ml.PipelineModel \u003d pipeline_26b15f3ba2db\norg.apache.spark.sql.AnalysisException: Table or view not found: flightmunged; line 1 pos 92\n  at org.apache.spark.sql.catalyst.analysis.package$AnalysisErrorAt.failAnalysis(package.scala:42)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.org$apache$spark$sql$catalyst$analysis$Analyzer$ResolveRelations$$lookupTableFromCatalog(Analyzer.scala:643)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.resolveRelation(Analyzer.scala:595)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$$anonfun$apply$8.applyOrElse(Analyzer.scala:625)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$$anonfun$apply$8.applyOrElse(Analyzer.scala:618)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$resolveOperators$1.apply(LogicalPlan.scala:62)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$resolveOperators$1.apply(LogicalPlan.scala:62)\n  at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(TreeNode.scala:70)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperators(LogicalPlan.scala:61)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.trees.TreeNode$$anonfun$4.apply(TreeNode.scala:306)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapProductIterator(TreeNode.scala:187)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapChildren(TreeNode.scala:304)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperators(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.trees.TreeNode$$anonfun$4.apply(TreeNode.scala:306)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapProductIterator(TreeNode.scala:187)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapChildren(TreeNode.scala:304)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperators(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan$$anonfun$1.apply(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.trees.TreeNode$$anonfun$4.apply(TreeNode.scala:306)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapProductIterator(TreeNode.scala:187)\n  at org.apache.spark.sql.catalyst.trees.TreeNode.mapChildren(TreeNode.scala:304)\n  at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperators(LogicalPlan.scala:59)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.apply(Analyzer.scala:618)\n  at org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.apply(Analyzer.scala:564)\n  at org.apache.spark.sql.catalyst.rules.RuleExecutor$$anonfun$execute$1$$anonfun$apply$1.apply(RuleExecutor.scala:85)\n  at org.apache.spark.sql.catalyst.rules.RuleExecutor$$anonfun$execute$1$$anonfun$apply$1.apply(RuleExecutor.scala:82)\n  at scala.collection.LinearSeqOptimized$class.foldLeft(LinearSeqOptimized.scala:124)\n  at scala.collection.immutable.List.foldLeft(List.scala:84)\n  at org.apache.spark.sql.catalyst.rules.RuleExecutor$$anonfun$execute$1.apply(RuleExecutor.scala:82)\n  at org.apache.spark.sql.catalyst.rules.RuleExecutor$$anonfun$execute$1.apply(RuleExecutor.scala:74)\n  at scala.collection.immutable.List.foreach(List.scala:381)\n  at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:74)\n  at org.apache.spark.sql.execution.QueryExecution.analyzed$lzycompute(QueryExecution.scala:69)\n  at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:67)\n  at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:50)\n  at org.apache.spark.sql.Dataset$.ofRows(Dataset.scala:66)\n  at org.apache.spark.sql.SparkSession.sql(SparkSession.scala:623)\n  ... 132 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517165178681_1907571178",
+      "id": "20180128-184618_1046062024",
+      "dateCreated": "Jan 28, 2018 6:46:18 PM",
+      "dateStarted": "Jan 28, 2018 8:19:18 PM",
+      "dateFinished": "Jan 28, 2018 8:19:23 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Lets stream our input and create online predictions using structured streaming",
+      "text": "%spark\n\nimport org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.ml._\n\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\nval mlDf \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")\n\n//INPUT\nval streamingInputDF \u003d pipelineModel.transform(spark.readStream\n                            .format(\"parquet\")\n                            .schema(mlDf.schema)\n                            .option(\"maxFilesPerTrigger\", 1)\n                            .load(\"/tmp/somedir/ml_df.parquet\")\n                            .select(\"flight\",\"heading\", \"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\")  )\n\n//OUTPUT THIS WORKS BUT NOT FOR THI TEST, HANDY FOR GROUPING\n//val streamingCountsDF \u003d streamingInputDF.groupBy($\"flight\").count()   //PEr 2 seconds print number a flight was seen\n//val query \u003d streamingCountsDF.writeStream.format(\"console\").trigger(ProcessingTime(2.seconds)).outputMode(Complete).queryName(\"counts\").start().awaitTermination() \n\n\n//OUTPUT (WORKS)\nval query \u003d streamingInputDF.select(\"flight\",\"prediction\")\n                            .writeStream.format(\"console\")\n                            .trigger(ProcessingTime(2.seconds))\n                            .queryName(\"minutesland\")\n                            .start().awaitTermination() \n//to kill run bash on Docker and kill spark. Timeout does not work within zeppelin icm structured streaming (it does with dstreams)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 8:23:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": "org.apache.thrift.transport.TTransportException",
+      "apps": [],
+      "jobName": "paragraph_1517163162151_-1438028698",
+      "id": "20180128-181242_1333594297",
+      "dateCreated": "Jan 28, 2018 6:12:42 PM",
+      "dateStarted": "Jan 28, 2018 8:20:09 PM",
+      "dateFinished": "Jan 28, 2018 8:21:03 PM",
+      "status": "ERROR",
+      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nhelp()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 28, 2018 8:08:11 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -578,9 +1019,9 @@
         "forms": {}
       },
       "apps": [],
-      "jobName": "paragraph_1517152936459_1414713736",
-      "id": "20180128-152216_2052035651",
-      "dateCreated": "Jan 28, 2018 3:22:16 PM",
+      "jobName": "paragraph_1517168631076_-796771430",
+      "id": "20180128-194351_1986237421",
+      "dateCreated": "Jan 28, 2018 7:43:51 PM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
