@@ -3,7 +3,7 @@
     {
       "text": "%md\n\n### This notebook will show location data of flights on a animated map. Also using Spark ML predictions will be made for landing time/in block time in minutes. Then we will create an online/realtime prediction using this model.\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:09:44 PM",
+      "dateUpdated": "Feb 4, 2018 12:45:13 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -33,8 +33,8 @@
       "jobName": "paragraph_1517162898799_-276824224",
       "id": "20180128-180818_871793793",
       "dateCreated": "Jan 28, 2018 6:08:18 PM",
-      "dateStarted": "Jan 28, 2018 6:09:44 PM",
-      "dateFinished": "Jan 28, 2018 6:09:44 PM",
+      "dateStarted": "Feb 4, 2018 12:45:13 PM",
+      "dateFinished": "Feb 4, 2018 12:45:14 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -116,7 +116,7 @@
       "title": "Load in the dataset",
       "text": "%spark\r\nimport org.apache.spark.sql.Encoders\r\n\r\nval track_file \u003d \"/tmp/somedir/all.csv\"\r\n\r\ncase class FlightEntry(na1 : String, altitude : String, dest : String, heading:String, flight : String ,fltid : String, landed : String, time : String ,\r\n     lat : String, lon : String,na3: String,org: String ,na4:String,registration:String,flight2:String,speed :String,na6:String,planetype:String, altitude_delta:String)\r\nval tracksDf \u003d spark.read.option(\"header\", false).option(\"inferSchema\", false).schema(Encoders.product[FlightEntry].schema).csv(track_file).filter($\"dest\" \u003d\u003d\u003d \"AMS\") //dest Amsterdam only\r\nval tracksMinuteDf \u003d tracksDf.withColumn(\"minute\", from_unixtime($\"time\",\"YYYY-MM-dd HH:mm\") )\r\nval flightMapDf \u003d tracksMinuteDf.select($\"flight\",$\"minute\",$\"lat\",$\"lon\").sort(col(\"minute\").asc) \r\nval flightArray \u003d flightMapDf.collect",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:09:49 PM",
+      "dateUpdated": "Jan 29, 2018 4:07:15 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -133,11 +133,11 @@
         "forms": {}
       },
       "results": {
-        "code": "ERROR",
+        "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "import org.apache.spark.sql.Encoders\ntrack_file: String \u003d /tmp/somedir/all.csv\ndefined class FlightEntry\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\norg.apache.spark.SparkException: Job 1 cancelled part of cancelled job group zeppelin-20180128-145957_1452925951\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1439)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n  at scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n  at org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:799)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1689)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2062)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2087)\n  at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:936)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.rdd.RDD.withScope(RDD.scala:362)\n  at org.apache.spark.rdd.RDD.collect(RDD.scala:935)\n  at org.apache.spark.sql.execution.SparkPlan.executeCollect(SparkPlan.scala:278)\n  at org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collectFromPlan(Dataset.scala:2853)\n  at org.apache.spark.sql.Dataset$$anonfun$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset$$anonfun$collect$1.apply(Dataset.scala:2390)\n  at org.apache.spark.sql.Dataset$$anonfun$55.apply(Dataset.scala:2837)\n  at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:65)\n  at org.apache.spark.sql.Dataset.withAction(Dataset.scala:2836)\n  at org.apache.spark.sql.Dataset.collect(Dataset.scala:2390)\n  ... 46 elided\n"
+            "data": "import org.apache.spark.sql.Encoders\ntrack_file: String \u003d /tmp/somedir/all.csv\ndefined class FlightEntry\ntracksDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [na1: string, altitude: string ... 17 more fields]\ntracksMinuteDf: org.apache.spark.sql.DataFrame \u003d [na1: string, altitude: string ... 18 more fields]\nflightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 2 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([KL214,2016-06-23 23:31,49.2658,-121.8836], [KL282,2016-06-23 23:31,47.2353,-108.7284], [DL142,2016-06-23 23:31,52.2732,-111.6387], [KL610,2016-06-23 23:31,40.9074,-112.0103], [DL56,2016-06-23 23:31,40.7745,-111.9742], [KL602,2016-06-23 23:31,49.092,-98.3777], [DL178,2016-06-23 23:31,55.0896,-94.5454], [UA909,2016-06-23 23:31,42.308,-85.4874], [KL678,2016-06-23 23:31,57.9245,-89.9364], [UA20,2016-06-23 23:31,39.1989,-86.4969], [KL662,2016-06-23 23:31,41.4086,-70.2907], [OR338,2016-06-23 23:31,39.9246,-73.3105], [MP6332,2016-06-23 23:31,40.1743,-72.0937], [KL612,2016-06-23 23:31,47.8331,-70.7206], [KL692,2016-06-23 23:31,49.8256,-62.093], [UA946,2016-06-23 23:31,45.2445,-66.4383], [UA70,2016-06-23 23:31,44.9011,-64.4659], [DL72,2016-06..."
           }
         ]
       },
@@ -145,9 +145,9 @@
       "jobName": "paragraph_1517151597051_1096014120",
       "id": "20180128-145957_1452925951",
       "dateCreated": "Jan 28, 2018 2:59:57 PM",
-      "dateStarted": "Jan 28, 2018 6:09:49 PM",
-      "dateFinished": "Jan 28, 2018 6:10:39 PM",
-      "status": "ERROR",
+      "dateStarted": "Jan 29, 2018 4:07:15 PM",
+      "dateFinished": "Jan 29, 2018 4:08:40 PM",
+      "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -455,7 +455,7 @@
       "title": "Optional save and load the intermediate result",
       "text": "%pyspark\n\n#PYTHON\n#ml_df.write.parquet(\"/tmp/somedir/ml_df.parquet\")\nml_df \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 7:53:55 PM",
+      "dateUpdated": "Feb 4, 2018 12:36:03 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -479,8 +479,8 @@
       "jobName": "paragraph_1517156210075_2136965090",
       "id": "20180128-161650_1037699125",
       "dateCreated": "Jan 28, 2018 4:16:50 PM",
-      "dateStarted": "Jan 28, 2018 7:53:55 PM",
-      "dateFinished": "Jan 28, 2018 7:53:57 PM",
+      "dateStarted": "Feb 4, 2018 12:36:03 PM",
+      "dateFinished": "Feb 4, 2018 12:36:03 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -525,7 +525,7 @@
     {
       "text": "%spark\n\nval mlDf \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")\n.registerTempTable(\"flightmunged\")\n\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 7:34:21 PM",
+      "dateUpdated": "Feb 4, 2018 12:37:11 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -545,7 +545,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "mlDf: org.apache.spark.sql.DataFrame \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+            "data": "warning: there was one deprecation warning; re-run with -deprecation for details\nmlDf: Unit \u003d ()\n"
           }
         ]
       },
@@ -553,8 +553,8 @@
       "jobName": "paragraph_1517164832321_1349778863",
       "id": "20180128-184032_757124968",
       "dateCreated": "Jan 28, 2018 6:40:32 PM",
-      "dateStarted": "Jan 28, 2018 7:00:51 PM",
-      "dateFinished": "Jan 28, 2018 7:00:51 PM",
+      "dateStarted": "Feb 4, 2018 12:37:11 PM",
+      "dateFinished": "Feb 4, 2018 12:37:11 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -562,7 +562,7 @@
       "title": "Train model  and create predictions for test set",
       "text": "%pyspark\n\n#ml_df is our source\n\n#You might also just open the saved version in the section below has it takes a while to execute (9 minutes on my laptop)\n#If you saved the model earlier, it will just take 30 seconds to train and predict\nfrom pyspark.ml.feature import StringIndexer\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.regression import DecisionTreeRegressor\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\n#CREATE AND TRAIN MODEL\ntraining_data, testing_data \u003d ml_df.randomSplit([0.7, 0.3])\nassembler \u003d VectorAssembler(inputCols\u003d[\"heading\",\"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\"],outputCol\u003d\"features\")\nRegressor \u003d DecisionTreeRegressor(featuresCol\u003d\"features\",labelCol\u003d\"time_till_landing_minutes\",maxDepth\u003d25)\npipeline \u003d Pipeline(stages\u003d[assembler,Regressor])\nmodel \u003d pipeline.fit(training_data)\n\n#SAVE MODEL\n#model.write.save(\"/tmp/somedir/flight-pipeline\")\n\n#PREDICT TEST SET\nmodel.transform(ml_df).registerTempTable(\"flightpredictions\")  #.cache\n\n#Alternative test first using:\n#predictions \u003d model.transform(testing_data)\n#modelEvaluator \u003d RegressionEvaluator(labelCol\u003d\"time_till_landing_minutes\")\n#modelError \u003d modelEvaluator.evaluate(predictions,{modelEvaluator.metricName: \"mae\"})\n#modelError #3 half minutes\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:40:06 PM",
+      "dateUpdated": "Feb 4, 2018 12:37:44 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -586,8 +586,8 @@
       "jobName": "paragraph_1517152877557_12045129",
       "id": "20180128-152117_812737674",
       "dateCreated": "Jan 28, 2018 3:21:17 PM",
-      "dateStarted": "Jan 28, 2018 6:40:06 PM",
-      "dateFinished": "Jan 28, 2018 6:40:26 PM",
+      "dateStarted": "Feb 4, 2018 12:37:44 PM",
+      "dateFinished": "Feb 4, 2018 12:38:09 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -707,7 +707,7 @@
       "title": "Read predictions and some metadata in seperate dataframe",
       "text": "%spark\n\nval flightMapDf \u003d spark.sql(\"select flight,minute,lat,lon,time_till_landing_minutes,prediction from flightpredictions\").sort(col(\"minute\").asc)\nval flightArray \u003d flightMapDf.collect  //Lets create an array so we can iterate a custom spark receiver",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:12:13 PM",
+      "dateUpdated": "Feb 4, 2018 12:38:23 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -728,7 +728,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "flightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 4 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([DL160,2016-06-23 23:31,54.016,-57.1534,266.46666666666664,265.96666666666664], [KL706,2016-06-23 23:31,-22.7995,-43.2324,656.4833333333333,656.4833333333333], [KL792,2016-06-23 23:31,-19.7594,-43.9315,636.9833333333333,635.975], [DL56,2016-06-23 23:31,40.7745,-111.9742,581.1666666666666,581.1666666666666], [KL808,2016-06-23 23:31,52.1665,66.7056,312.76666666666665,311.0611111111111], [DL72,2016-06-23 23:31,36.1432,-77.2882,415.31666666666666,435.25], [MP6332,2016-06-23 23:31,40.1743,-72.0937,366.6666666666667,357.16333333333336], [CX271,2016-06-23 23:31,52.0412,94.1936,414.3,392.2], [HV6120,2016-06-23 23:31,52.3042,4.7704,1333.0833333333333,1333.0833333333333], [OR338,2016-06-23 23:31,39.9246,-73.3105,364.55,347.58333333333337], [UA9..."
+            "data": "flightMapDf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [flight: string, minute: string ... 4 more fields]\nflightArray: Array[org.apache.spark.sql.Row] \u003d Array([DL160,2016-06-23 23:31,54.016,-57.1534,266.46666666666664,265.46666666666664], [KL706,2016-06-23 23:31,-22.7995,-43.2324,656.4833333333333,656.4833333333333], [KL792,2016-06-23 23:31,-19.7594,-43.9315,636.9833333333333,636.9833333333333], [DL56,2016-06-23 23:31,40.7745,-111.9742,581.1666666666666,581.1666666666666], [KL808,2016-06-23 23:31,52.1665,66.7056,312.76666666666665,302.63846153846157], [DL72,2016-06-23 23:31,36.1432,-77.2882,415.31666666666666,429.25], [MP6332,2016-06-23 23:31,40.1743,-72.0937,366.6666666666667,357.25625], [CX271,2016-06-23 23:31,52.0412,94.1936,414.3,414.29999999999995], [HV6120,2016-06-23 23:31,52.3042,4.7704,1333.0833333333333,0.0], [OR338,2016-06-23 23:31,39.9246,-73.3105,364.55,364.55], [UA909,2016-06-2..."
           }
         ]
       },
@@ -736,8 +736,8 @@
       "jobName": "paragraph_1517152894978_194613677",
       "id": "20180128-152134_1492778351",
       "dateCreated": "Jan 28, 2018 3:21:34 PM",
-      "dateStarted": "Jan 28, 2018 6:12:13 PM",
-      "dateFinished": "Jan 28, 2018 6:12:27 PM",
+      "dateStarted": "Feb 4, 2018 12:38:23 PM",
+      "dateFinished": "Feb 4, 2018 12:38:38 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -745,7 +745,7 @@
       "title": "Custom spark streaming receiver to read our predictions",
       "text": "%spark\r\n\r\nimport org.apache.spark.streaming.receiver.Receiver\r\nimport org.apache.spark.internal.Logging\r\nimport org.apache.spark.storage.StorageLevel\r\nimport scala.util.Random\r\n\r\nclass FlightReplyData(timeBreakSec : Double) extends org.apache.spark.streaming.receiver.Receiver[String](org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2) { \r\n\r\n  def onStart() {\r\n    // Start the thread that receives data over a connection\r\n    new Thread(\"Socket Receiver Flight\") {\r\n      override def run() { receive() }\r\n    }.start()\r\n  }\r\n\r\n  def onStop() {\r\n   // There is nothing much to do as the thread calling receive()\r\n   // is designed to stop by itself isStopped() returns false\r\n  }\r\n\r\n  /** Create a socket connection and receive data until receiver is stopped */\r\n  private def receive() {\r\n   var lastTime \u003d \"\"\r\n   var resultArray \u003d List[String]()\r\n   while(!isStopped()) {     \r\n        //Lets create an array to return as stream per minute (as our set is ordered by minute (event time)\r\n        flightArray.foreach(r \u003d\u003e {\r\n            val result : Double \u003d r(5).asInstanceOf[Double] - r(4).asInstanceOf[Double]\r\n            \r\n            resultArray \u003d  (r(0) + \",\" + r(1) + \",\" + r(2) + \",\" + r(3) + \",\"  + \" (\" + result.toInt +\")\" ).toString :: resultArray\r\n            \r\n            if (r(1).toString !\u003d lastTime) {\r\n                lastTime \u003d r(1).toString\r\n                store(resultArray.reverse.iterator) //reverse to start with oldest time\r\n                resultArray \u003d List[String]()\r\n                Thread.sleep((timeBreakSec * 1000).toLong) //break to give stream some air\r\n            }\r\n            \r\n        }) \r\n       \r\n    }\r\n  }\r\n}\r\n\r\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:12:30 PM",
+      "dateUpdated": "Feb 4, 2018 12:38:41 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -774,8 +774,8 @@
       "jobName": "paragraph_1517152907556_-1297442557",
       "id": "20180128-152147_164702341",
       "dateCreated": "Jan 28, 2018 3:21:47 PM",
-      "dateStarted": "Jan 28, 2018 6:12:30 PM",
-      "dateFinished": "Jan 28, 2018 6:12:31 PM",
+      "dateStarted": "Feb 4, 2018 12:38:41 PM",
+      "dateFinished": "Feb 4, 2018 12:38:43 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -783,7 +783,7 @@
       "title": "Map showing flights and predictions delta in minutes compared to reality (starts in next section)",
       "text": "%angular\n\n\u003clink rel\u003d\"stylesheet\" href\u003d\"https://unpkg.com/leaflet@1.2.0/dist/leaflet.css\" /\u003e\n\u003cdiv id\u003d\"mapt4\" style\u003d\"height: 800px; width: 100%\"\u003e\u003c/div\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\nfunction initMap() {\n    var map \u003d L.map(\u0027mapt4\u0027).setView([30.00, -30.00], 3);\n    //L.tileLayer(\u0027http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\u0027).addTo(map);\n    //L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003ds\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n    //maxZoom: 20 ,subdomains:[\u0027mt0\u0027]\n    //}).addTo(map);\n    L.tileLayer(\u0027http://{s}.google.com/vt/lyrs\u003dp\u0026x\u003d{x}\u0026y\u003d{y}\u0026z\u003d{z}\u0027,{\n        maxZoom: 20,\n        subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]\n    }).addTo(map);\n\n                \n    //subdomains:[\u0027mt0\u0027,\u0027mt1\u0027,\u0027mt2\u0027,\u0027mt3\u0027]            \n    var geoMarkers \u003d L.layerGroup().addTo(map); //Ship icons to be stored in layer, so we can clear all of them each update\n\n    var el \u003d angular.element($(\u0027#mapt4\u0027).parent(\u0027.ng-scope\u0027));\n    angular.element(el).ready(function() {\n        window.locationWatcher \u003d el.scope().compiledScope.$watch(\u0027planelocations\u0027, function(newValue, oldValue) {\n            geoMarkers.clearLayers(); //Remove the ship icons at their current location.\n           \n            var isTimeSet \u003d false\n            \n            angular.forEach(newValue, function(event) {\n                if (event) {\n                     if (isTimeSet \u003d\u003d false) {\n                        //lets add time/minute in middle of map\n                            var divIcon \u003d L.divIcon({ \n                            html: \u0027\u003cspan style\u003d\"color:white;font-size: 15pt\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[3] + \u0027\u003c/span\u003e\u0027\n                        });\n                        L.marker(new L.LatLng(28.45900, -45.7509), {icon: divIcon }).addTo(geoMarkers);\n                        isTimeSet \u003d true;\n                    }\n                    \n                    \n                    new L.Marker([event.values[1], event.values[2]], {\n                        icon: new L.DivIcon({\n                        className: \u0027my-div-icon\u0027,\n                        html: \u0027\u003cimg width\u003d\"10px\" height\u003d\"10px\" class\u003d\"my-div-image\" src\u003d\"http://www.planetoftunes.com/dtp/png_test/red_circle.png\"/\u003e\u0027+\n                        \u0027\u003cspan style\u003d\"color:DarkGreen\" class\u003d\"my-div-span\"\u003e\u0027 + event.values[0] + event.values[4] + \u0027\u003c/span\u003e\u0027\n                    })}).addTo(geoMarkers);\n\n                }\n                   \n            });\n            isTimeSet \u003d false;\n            \n        })\n    });\n}\n\nif (window.locationWatcher) { window.locationWatcher(); }\n\n// ensure we only load the script once, seems to cause issues otherwise\nif (window.L) {\n    initMap();\n} else {\n    console.log(\u0027Loading Leaflet library\u0027);\n    var sc \u003d document.createElement(\u0027script\u0027);\n    sc.type \u003d \u0027text/javascript\u0027;\n    sc.src \u003d \u0027https://unpkg.com/leaflet@1.2.0/dist/leaflet.js\u0027;\n    sc.onload \u003d initMap;\n    sc.onerror \u003d function(err) { alert(err); }\n    document.getElementsByTagName(\u0027head\u0027)[0].appendChild(sc);\n}\n\u003c/script\u003e\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 6:12:38 PM",
+      "dateUpdated": "Feb 4, 2018 12:38:50 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -814,15 +814,15 @@
       "jobName": "paragraph_1517152920688_-1096572983",
       "id": "20180128-152200_1222729209",
       "dateCreated": "Jan 28, 2018 3:22:00 PM",
-      "dateStarted": "Jan 28, 2018 6:12:38 PM",
-      "dateFinished": "Jan 28, 2018 6:12:39 PM",
+      "dateStarted": "Feb 4, 2018 12:38:50 PM",
+      "dateFinished": "Feb 4, 2018 12:38:50 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "text": "%spark\n\n//Structured streaming can be used to read csv but this just reads too quickly.\n//Notice this method below is ideal to convert a pulled Api to a stream in Spark\n\nimport org.apache.spark.streaming.{Milliseconds,Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\n\nz.angularUnbind(\"planelocations\") //Our geo map in the previous section will be updating  once we update this Zeppelin context variable\n\nStreamingContext.getActive.foreach { _.stop(stopSparkContext \u003d false) }\nval ssc \u003d new StreamingContext(sc, Milliseconds(500)) //Our stream will update each second \nval flightDStream \u003d ssc.receiverStream(new FlightReplyData(0.4)) \n\n//val windowFlightDStream \u003d flightDStream\n\n// Use a Window Dstream with location of couple of runs . Required if you want to aggregate over a longer historical period or prevent duplicates/or dissapearing planes. \nval windowFlightDStream \u003d flightDStream.window(Milliseconds(1000),Milliseconds(500)) \n\n//Get the latest location of each plane (otherwise we would see double, or missings planes on the map). \n//and return it to our Leaflet using a Zepplin Variable named locations (Expecting Array of arrays Name,lat,lon)                                                        \nwindowFlightDStream.foreachRDD { rdd \u003d\u003e  \n\n                        val inputDf \u003d rdd.map (s \u003d\u003e s.split(\",\"))\n                                    .map(arr \u003d\u003e (arr(0),arr(1),arr(2),arr(3),arr(4)) )\n                                    .toDF(\"id\",\"timest\",\"lat\",\"lon\",\"ttl\").na.drop //ttl \u003d Time till landing, pttl also but predicted\n                                    \n                        //option 1 just have a quick but flickering, missing animation\n                        //z.angularBind(\"planelocations\", inputDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //option 2 group by plane and get the latest location\n                        //val maxTimeStampDf \u003d inputDf.groupBy($\"id\").agg(max($\"timest\") as \"maxtimestamp\").withColumnRenamed(\"id\", \"id2\")\n                        //val latestLocationDf \u003d inputDf.join(maxTimeStampDf,inputDf(\"id\") \u003d\u003d\u003d maxTimeStampDf(\"id2\")).filter($\"timest\" \u003d\u003d\u003d $\"maxtimestamp\")  //.orderBy($\"id\".asc,$\"timestamp\".asc).cache\n                        //z.angularBind(\"planelocations\", latestLocationDf.select($\"id\",$\"lat\",$\"lon\",$\"timest\").collect)\n                        \n                        //Option 3 get a minute field from 1 row and filter all rows with it (and make sure the data is in a bit quicker then the stream interval)\n                        val window \u003d Window.partitionBy($\"id\").orderBy($\"timest\".asc)\n                        z.angularBind(\"planelocations\", inputDf.withColumn(\"rank\", row_number().over(window)).where($\"rank\" \u003d\u003d\u003d 1).select($\"id\",$\"lat\",$\"lon\",$\"timest\",$\"ttl\").collect  ) //.where($\"rank\" \u003d\u003d\u003d 1)\n                        \n}                       \n                                                        \nssc.start()\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 7:24:42 PM",
+      "dateUpdated": "Feb 4, 2018 12:38:58 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -842,7 +842,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "import org.apache.spark.streaming.{Milliseconds, Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@f595ff5\nflightDStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] \u003d org.apache.spark.streaming.dstream.PluggableInputDStream@370e5dd8\nwindowFlightDStream: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.WindowedDStream@1bfc339d\n"
+            "data": "import org.apache.spark.streaming.{Milliseconds, Seconds, StreamingContext}\nimport org.apache.spark.SparkContext._\nimport org.apache.spark.rdd.RDD\nimport org.apache.spark.sql.expressions.Window\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@50a7e344\nflightDStream: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] \u003d org.apache.spark.streaming.dstream.PluggableInputDStream@2fbf8c19\nwindowFlightDStream: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.WindowedDStream@7b6ad402\n"
           }
         ]
       },
@@ -850,8 +850,8 @@
       "jobName": "paragraph_1517152936459_1414713736",
       "id": "20180128-152216_2052035651",
       "dateCreated": "Jan 28, 2018 3:22:16 PM",
-      "dateStarted": "Jan 28, 2018 6:12:49 PM",
-      "dateFinished": "Jan 28, 2018 6:12:51 PM",
+      "dateStarted": "Feb 4, 2018 12:38:58 PM",
+      "dateFinished": "Feb 4, 2018 12:39:01 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -933,9 +933,9 @@
     },
     {
       "title": "Test by throwing this input to our model",
-      "text": "%spark\n\nimport org.apache.spark.ml._\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\n\n//Test by throwing some input to the model. Right column shows prediction\nz.show(pipelineModel.transform(spark.sql(\"select heading, sum_hour_touchdown, distance_to_runway,altitude,speed,runway_touchdown from flightmunged limit 1 \")).select(\"prediction\").toDF  )   //.registerTempTable(\"flightpredictionsrealtime\")",
+      "text": "%spark\n\nimport org.apache.spark.ml._\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\n\n//Test by throwing some input to the model. Right column shows prediction\u003d\u003d\nz.show(pipelineModel.transform(spark.sql(\"select heading, sum_hour_touchdown, distance_to_runway,altitude,speed,runway_touchdown from flightmunged limit 1 \")).select(\"prediction\").toDF  )   //.registerTempTable(\"flightpredictionsrealtime\")",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 8:19:18 PM",
+      "dateUpdated": "Jan 30, 2018 1:14:36 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -971,9 +971,9 @@
     },
     {
       "title": "Lets stream our input and create online predictions using structured streaming",
-      "text": "%spark\n\nimport org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.ml._\n\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\nval mlDf \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")\n\n//INPUT\nval streamingInputDF \u003d pipelineModel.transform(spark.readStream\n                            .format(\"parquet\")\n                            .schema(mlDf.schema)\n                            .option(\"maxFilesPerTrigger\", 1)\n                            .load(\"/tmp/somedir/ml_df.parquet\")\n                            .select(\"flight\",\"heading\", \"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\")  )\n\n//OUTPUT THIS WORKS BUT NOT FOR THI TEST, HANDY FOR GROUPING\n//val streamingCountsDF \u003d streamingInputDF.groupBy($\"flight\").count()   //PEr 2 seconds print number a flight was seen\n//val query \u003d streamingCountsDF.writeStream.format(\"console\").trigger(ProcessingTime(2.seconds)).outputMode(Complete).queryName(\"counts\").start().awaitTermination() \n\n\n//OUTPUT (WORKS)\nval query \u003d streamingInputDF.select(\"flight\",\"prediction\")\n                            .writeStream.format(\"console\")\n                            .trigger(ProcessingTime(2.seconds))\n                            .queryName(\"minutesland\")\n                            .start().awaitTermination() \n//to kill run bash on Docker and kill spark. Timeout does not work within zeppelin icm structured streaming (it does with dstreams)",
+      "text": "%spark\n\nimport org.apache.spark.sql.types._ \nimport org.apache.spark.sql.functions._ \nimport scala.concurrent.duration._ \nimport org.apache.spark.sql.streaming.ProcessingTime \nimport org.apache.spark.sql.streaming.OutputMode.Complete \nimport org.apache.spark.ml._\n\nval pipelineModel \u003d PipelineModel.read.load(\"/tmp/somedir/flight-pipeline\")\nval mlDf \u003d spark.read.parquet(\"/tmp/somedir/ml_df.parquet\")\n\n//INPUT\nval streamingInputDF \u003d pipelineModel.transform(spark.readStream\n                            .format(\"parquet\")\n                            .schema(mlDf.schema)\n                            .option(\"maxFilesPerTrigger\", 1)\n                            .load(\"/tmp/somedir/ml_df.parquet\")\n                            .select(\"flight\",\"minute\", \"heading\", \"sum_hour_touchdown\", \"distance_to_runway\",\"altitude\",\"speed\",\"runway_touchdown\")  )\n\n//OUTPUT THIS WORKS BUT NOT FOR THI TEST, HANDY FOR GROUPING\n//val streamingCountsDF \u003d streamingInputDF.groupBy($\"flight\").count()   //PEr 2 seconds print number a flight was seen\n//val query \u003d streamingCountsDF.writeStream.format(\"console\").trigger(ProcessingTime(2.seconds)).outputMode(Complete).queryName(\"counts\").start().awaitTermination() \n\n//OUTPUT (WORKS)\nval query \u003d streamingInputDF.select(\"flight\",\"minute\",\"prediction\")\n                            .writeStream.format(\"memory\")   //or console\n                            .trigger(ProcessingTime(2.seconds))\n                            .queryName(\"minutesland\")\n                            .start() //.awaitTermination() \n//to kill run bash on Docker and kill spark. Timeout does not work within zeppelin icm structured streaming (it does with dstreams)\n//If you use memory as output, just use sql to query output, and query.stop to stop stream",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 8:23:42 PM",
+      "dateUpdated": "Feb 4, 2018 12:27:43 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -989,21 +989,64 @@
         "params": {},
         "forms": {}
       },
-      "results": "org.apache.thrift.transport.TTransportException",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.types._\nimport org.apache.spark.sql.functions._\nimport scala.concurrent.duration._\nimport org.apache.spark.sql.streaming.ProcessingTime\nimport org.apache.spark.sql.streaming.OutputMode.Complete\nimport org.apache.spark.ml._\npipelineModel: org.apache.spark.ml.PipelineModel \u003d pipeline_26b15f3ba2db\nmlDf: org.apache.spark.sql.DataFrame \u003d [flight: string, sum_hour_touchdown: bigint ... 13 more fields]\nstreamingInputDF: org.apache.spark.sql.DataFrame \u003d [flight: string, minute: string ... 8 more fields]\nwarning: there was one deprecation warning; re-run with -deprecation for details\nquery: org.apache.spark.sql.streaming.StreamingQuery \u003d org.apache.spark.sql.execution.streaming.StreamingQueryWrapper@106b97a6\n"
+          }
+        ]
+      },
       "apps": [],
       "jobName": "paragraph_1517163162151_-1438028698",
       "id": "20180128-181242_1333594297",
       "dateCreated": "Jan 28, 2018 6:12:42 PM",
-      "dateStarted": "Jan 28, 2018 8:20:09 PM",
-      "dateFinished": "Jan 28, 2018 8:21:03 PM",
-      "status": "ERROR",
-      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "dateStarted": "Feb 4, 2018 12:27:43 PM",
+      "dateFinished": "Feb 4, 2018 12:27:46 PM",
+      "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%spark\n\nhelp()",
+      "text": "%sql\n\nselect * from minutesland where flight\u003d\"KL888\" order by minute asc\n",
       "user": "anonymous",
-      "dateUpdated": "Jan 28, 2018 8:08:11 PM",
+      "dateUpdated": "Feb 4, 2018 12:28:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "flight\tminute\tprediction\nKL888\t2016-06-24 04:29\t699.1541666666667\nKL888\t2016-06-24 04:30\t710.3666666666667\nKL888\t2016-06-24 04:31\t699.7583333333332\nKL888\t2016-06-24 04:32\t699.6777777777776\nKL888\t2016-06-24 04:33\t699.1541666666667\nKL888\t2016-06-24 04:34\t701.4888888888887\nKL888\t2016-06-24 04:35\t701.4888888888887\nKL888\t2016-06-24 04:36\t701.4888888888887\nKL888\t2016-06-24 04:37\t702.833333333333\nKL888\t2016-06-24 04:38\t696.2699999999999\nKL888\t2016-06-24 04:39\t699.6777777777776\nKL888\t2016-06-24 04:40\t696.2699999999999\nKL888\t2016-06-24 04:42\t696.2699999999999\nKL888\t2016-06-24 04:43\t702.833333333333\nKL888\t2016-06-24 04:44\t696.2699999999999\nKL888\t2016-06-24 04:45\t699.1541666666667\nKL888\t2016-06-24 04:45\t699.6777777777776\nKL888\t2016-06-24 04:47\t701.4888888888887\nKL888\t2016-06-24 04:48\t692.3166666666667\nKL888\t2016-06-24 04:49\t699.1541666666667\nKL888\t2016-06-24 04:50\t699.6777777777776\nKL888\t2016-06-24 04:51\t692.3166666666667\nKL888\t2016-06-24 04:52\t699.6777777777776\nKL888\t2016-06-24 04:53\t699.1541666666667\nKL888\t2016-06-24 04:54\t699.6777777777776\nKL888\t2016-06-24 04:56\t696.2699999999999\nKL888\t2016-06-24 04:57\t683.5833333333334\nKL888\t2016-06-24 04:58\t645.6333333333333\nKL888\t2016-06-24 04:59\t681.4666666666667\nKL888\t2016-06-24 05:00\t680.35\nKL888\t2016-06-24 05:01\t679.3333333333334\nKL888\t2016-06-24 05:02\t678.3166666666667\nKL888\t2016-06-24 05:03\t677.25\nKL888\t2016-06-24 05:04\t676.1666666666666\nKL888\t2016-06-24 05:05\t675.2\nKL888\t2016-06-24 05:06\t674.1\nKL888\t2016-06-24 05:07\t673.15\nKL888\t2016-06-24 05:08\t672.1\nKL888\t2016-06-24 05:09\t670.9666666666667\nKL888\t2016-06-24 05:10\t670.0\nKL888\t2016-06-24 05:11\t613.7277777777778\nKL888\t2016-06-24 05:12\t663.7\nKL888\t2016-06-24 05:13\t663.7\nKL888\t2016-06-24 05:14\t665.8\nKL888\t2016-06-24 05:15\t663.7\nKL888\t2016-06-24 05:16\t663.7\nKL888\t2016-06-24 05:18\t624.5166666666664\nKL888\t2016-06-24 05:18\t663.7\nKL888\t2016-06-24 05:20\t657.0916666666667\nKL888\t2016-06-24 05:21\t657.0916666666667\nKL888\t2016-06-24 05:22\t657.0916666666667\nKL888\t2016-06-24 05:23\t657.0916666666667\nKL888\t2016-06-24 05:24\t657.0916666666667\nKL888\t2016-06-24 05:25\t657.0916666666667\nKL888\t2016-06-24 05:26\t586.2166666666666\nKL888\t2016-06-24 05:27\t653.2\nKL888\t2016-06-24 05:28\t650.55\nKL888\t2016-06-24 05:29\t650.55\nKL888\t2016-06-24 05:30\t650.55\nKL888\t2016-06-24 05:31\t635.8777777777777\nKL888\t2016-06-24 05:32\t632.4833333333333\nKL888\t2016-06-24 05:33\t632.4833333333333\nKL888\t2016-06-24 05:34\t645.7\nKL888\t2016-06-24 05:35\t639.0595238095237\nKL888\t2016-06-24 05:37\t639.0595238095237\nKL888\t2016-06-24 05:37\t639.0595238095237\nKL888\t2016-06-24 05:39\t639.0595238095237\nKL888\t2016-06-24 05:40\t639.0595238095237\nKL888\t2016-06-24 05:41\t639.0595238095237\nKL888\t2016-06-24 05:42\t639.0595238095237\nKL888\t2016-06-24 05:43\t639.0595238095237\nKL888\t2016-06-24 05:44\t639.0595238095237\nKL888\t2016-06-24 05:45\t632.4833333333333\nKL888\t2016-06-24 05:46\t632.8999999999996\nKL888\t2016-06-24 05:47\t632.8999999999996\nKL888\t2016-06-24 05:48\t632.8999999999996\nKL888\t2016-06-24 05:49\t639.0595238095237\nKL888\t2016-06-24 05:50\t635.8777777777777\nKL888\t2016-06-24 05:51\t635.8777777777777\nKL888\t2016-06-24 05:53\t632.4833333333333\nKL888\t2016-06-24 05:54\t632.4833333333333\nKL888\t2016-06-24 05:55\t632.4833333333333\nKL888\t2016-06-24 05:56\t620.9\nKL888\t2016-06-24 05:57\t620.9\nKL888\t2016-06-24 05:58\t620.9\nKL888\t2016-06-24 05:59\t620.9\nKL888\t2016-06-24 06:00\t620.9\nKL888\t2016-06-24 06:01\t620.9\nKL888\t2016-06-24 06:02\t620.9\nKL888\t2016-06-24 06:03\t620.9\nKL888\t2016-06-24 06:04\t615.9333333333333\nKL888\t2016-06-24 06:05\t613.825\nKL888\t2016-06-24 06:06\t613.825\nKL888\t2016-06-24 06:07\t613.825\nKL888\t2016-06-24 06:08\t567.5625\nKL888\t2016-06-24 06:09\t610.1999999999999\nKL888\t2016-06-24 06:10\t610.1999999999999\nKL888\t2016-06-24 06:11\t610.1999999999999\nKL888\t2016-06-24 06:12\t610.1999999999999\nKL888\t2016-06-24 06:14\t605.9916666666667\nKL888\t2016-06-24 06:15\t605.9916666666667\nKL888\t2016-06-24 06:16\t605.9916666666667\nKL888\t2016-06-24 06:17\t603.3999999999999\nKL888\t2016-06-24 06:18\t597.1666666666667\nKL888\t2016-06-24 06:19\t601.4166666666666\nKL888\t2016-06-24 06:20\t599.7416666666667\nKL888\t2016-06-24 06:21\t599.7416666666667\nKL888\t2016-06-24 06:22\t599.7416666666667\nKL888\t2016-06-24 06:23\t597.1666666666667\nKL888\t2016-06-24 06:24\t583.1333333333333\nKL888\t2016-06-24 06:25\t583.1333333333333\nKL888\t2016-06-24 06:26\t583.1333333333333\nKL888\t2016-06-24 06:27\t583.1333333333333\nKL888\t2016-06-24 06:28\t579.1555555555555\nKL888\t2016-06-24 06:29\t579.1555555555555\nKL888\t2016-06-24 06:30\t579.1555555555555\nKL888\t2016-06-24 06:32\t579.1555555555555\nKL888\t2016-06-24 06:33\t573.95\nKL888\t2016-06-24 06:34\t573.95\nKL888\t2016-06-24 06:35\t573.95\nKL888\t2016-06-24 06:36\t573.95\nKL888\t2016-06-24 06:37\t573.95\nKL888\t2016-06-24 06:38\t573.95\nKL888\t2016-06-24 06:39\t579.1555555555555\nKL888\t2016-06-24 06:40\t579.1555555555555\nKL888\t2016-06-24 06:41\t579.1555555555555\nKL888\t2016-06-24 06:42\t579.1555555555555\nKL888\t2016-06-24 06:43\t579.1555555555555\nKL888\t2016-06-24 06:44\t579.1555555555555\nKL888\t2016-06-24 06:45\t579.1555555555555\nKL888\t2016-06-24 06:46\t583.1333333333333\nKL888\t2016-06-24 06:47\t583.1333333333333\nKL888\t2016-06-24 06:49\t583.1333333333333\nKL888\t2016-06-24 06:50\t583.1333333333333\nKL888\t2016-06-24 06:51\t583.1333333333333\nKL888\t2016-06-24 06:52\t579.1555555555555\nKL888\t2016-06-24 06:53\t540.5833333333334\nKL888\t2016-06-24 06:54\t583.1333333333333\nKL888\t2016-06-24 06:55\t567.5625\nKL888\t2016-06-24 06:56\t567.5625\nKL888\t2016-06-24 06:57\t567.5625\nKL888\t2016-06-24 06:58\t567.5625\nKL888\t2016-06-24 06:59\t567.5625\nKL888\t2016-06-24 07:00\t567.5625\nKL888\t2016-06-24 07:01\t567.5625\nKL888\t2016-06-24 07:02\t567.5625\nKL888\t2016-06-24 07:03\t567.5625\nKL888\t2016-06-24 07:04\t555.7666666666667\nKL888\t2016-06-24 07:05\t555.7666666666667\nKL888\t2016-06-24 07:06\t552.0833333333334\nKL888\t2016-06-24 07:08\t552.0833333333334\nKL888\t2016-06-24 07:09\t552.0833333333334\nKL888\t2016-06-24 07:10\t552.0833333333334\nKL888\t2016-06-24 07:11\t549.5166666666664\nKL888\t2016-06-24 07:12\t546.4083333333333\nKL888\t2016-06-24 07:13\t546.4083333333333\nKL888\t2016-06-24 07:14\t546.4083333333333\nKL888\t2016-06-24 07:15\t546.4083333333333\nKL888\t2016-06-24 07:16\t546.4083333333333\nKL888\t2016-06-24 07:17\t543.1999999999998\nKL888\t2016-06-24 07:18\t573.95\nKL888\t2016-06-24 07:19\t540.5833333333334\nKL888\t2016-06-24 07:20\t540.5833333333334\nKL888\t2016-06-24 07:21\t537.9666666666672\nKL888\t2016-06-24 07:22\t537.9666666666672\nKL888\t2016-06-24 07:23\t536.8999999999999\nKL888\t2016-06-24 07:24\t535.8666666666668\nKL888\t2016-06-24 07:25\t528.7933333333333\nKL888\t2016-06-24 07:26\t528.7933333333333\nKL888\t2016-06-24 07:27\t528.7933333333333\nKL888\t2016-06-24 07:28\t528.7933333333333\nKL888\t2016-06-24 07:29\t529.1722222222223\nKL888\t2016-06-24 07:31\t529.1722222222223\nKL888\t2016-06-24 07:31\t528.7933333333333\nKL888\t2016-06-24 07:33\t529.1722222222223\nKL888\t2016-06-24 07:34\t528.7933333333333\nKL888\t2016-06-24 07:35\t529.1722222222223\nKL888\t2016-06-24 07:36\t528.7933333333333\nKL888\t2016-06-24 07:37\t535.8666666666668\nKL888\t2016-06-24 07:38\t529.1722222222223\nKL888\t2016-06-24 07:39\t518.95\nKL888\t2016-06-24 07:40\t518.95\nKL888\t2016-06-24 07:41\t518.95\nKL888\t2016-06-24 07:42\t518.95\nKL888\t2016-06-24 07:43\t516.3083333333334\nKL888\t2016-06-24 07:44\t516.3083333333334\nKL888\t2016-06-24 07:46\t487.3833333333333\nKL888\t2016-06-24 07:47\t504.6266666666667\nKL888\t2016-06-24 07:48\t504.6266666666667\nKL888\t2016-06-24 07:49\t504.6266666666667\nKL888\t2016-06-24 07:50\t504.6266666666667\nKL888\t2016-06-24 07:51\t504.6266666666667\nKL888\t2016-06-24 07:52\t504.6266666666667\nKL888\t2016-06-24 07:53\t504.6266666666667\nKL888\t2016-06-24 07:54\t504.6266666666667\nKL888\t2016-06-24 07:55\t504.6266666666667\nKL888\t2016-06-24 07:56\t504.6266666666667\nKL888\t2016-06-24 07:57\t501.8055555555556\nKL888\t2016-06-24 07:58\t501.8055555555556\nKL888\t2016-06-24 07:59\t501.8055555555556\nKL888\t2016-06-24 08:00\t501.8055555555556\nKL888\t2016-06-24 08:01\t496.28888888888895\nKL888\t2016-06-24 08:03\t493.08333333333337\nKL888\t2016-06-24 08:03\t493.08333333333337\nKL888\t2016-06-24 08:05\t496.28888888888895\nKL888\t2016-06-24 08:06\t496.28888888888895\nKL888\t2016-06-24 08:07\t487.3833333333333\nKL888\t2016-06-24 08:07\t487.3833333333333\nKL888\t2016-06-24 08:09\t485.5666666666666\nKL888\t2016-06-24 08:10\t485.5666666666666\nKL888\t2016-06-24 08:11\t485.5666666666666\nKL888\t2016-06-24 08:12\t493.08333333333337\nKL888\t2016-06-24 08:13\t504.6266666666667\nKL888\t2016-06-24 08:14\t504.6266666666667\nKL888\t2016-06-24 08:15\t504.6266666666667\nKL888\t2016-06-24 08:16\t487.3833333333333\nKL888\t2016-06-24 08:17\t487.3833333333333\nKL888\t2016-06-24 08:18\t487.3833333333333\nKL888\t2016-06-24 08:19\t485.5666666666666\nKL888\t2016-06-24 08:20\t478.3499999999999\nKL888\t2016-06-24 08:21\t478.35\nKL888\t2016-06-24 08:22\t478.35\nKL888\t2016-06-24 08:23\t478.3499999999999\nKL888\t2016-06-24 08:24\t485.5666666666666\nKL888\t2016-06-24 08:26\t474.61666666666656\nKL888\t2016-06-24 08:27\t463.9777777777777\nKL888\t2016-06-24 08:28\t463.9777777777777\nKL888\t2016-06-24 08:29\t461.847619047619\nKL888\t2016-06-24 08:30\t463.9777777777777\nKL888\t2016-06-24 08:31\t467.1611111111112\nKL888\t2016-06-24 08:32\t467.1611111111112\nKL888\t2016-06-24 08:33\t467.1611111111112\nKL888\t2016-06-24 08:34\t467.1611111111112\nKL888\t2016-06-24 08:35\t463.9777777777777\nKL888\t2016-06-24 08:36\t463.9777777777777\nKL888\t2016-06-24 08:37\t461.847619047619\nKL888\t2016-06-24 08:38\t461.847619047619\nKL888\t2016-06-24 08:39\t461.847619047619\nKL888\t2016-06-24 08:40\t461.847619047619\nKL888\t2016-06-24 08:42\t461.847619047619\nKL888\t2016-06-24 08:42\t461.847619047619\nKL888\t2016-06-24 08:44\t463.9777777777777\nKL888\t2016-06-24 08:45\t463.9777777777777\nKL888\t2016-06-24 08:46\t463.9777777777777\nKL888\t2016-06-24 08:47\t447.4333333333331\nKL888\t2016-06-24 08:48\t447.4333333333331\nKL888\t2016-06-24 08:49\t447.4333333333331\nKL888\t2016-06-24 08:50\t447.4333333333331\nKL888\t2016-06-24 08:51\t447.4333333333331\nKL888\t2016-06-24 08:52\t447.4333333333331\nKL888\t2016-06-24 08:53\t447.4333333333331\nKL888\t2016-06-24 08:54\t447.4333333333331\nKL888\t2016-06-24 08:55\t447.4333333333331\nKL888\t2016-06-24 08:56\t447.4333333333331\nKL888\t2016-06-24 08:57\t447.4333333333331\nKL888\t2016-06-24 08:58\t435.5479166666666\nKL888\t2016-06-24 08:59\t435.5479166666666\nKL888\t2016-06-24 09:00\t435.5479166666666\nKL888\t2016-06-24 09:02\t435.5479166666666\nKL888\t2016-06-24 09:03\t435.5479166666666\nKL888\t2016-06-24 09:04\t435.5479166666666\nKL888\t2016-06-24 09:05\t435.5479166666666\nKL888\t2016-06-24 09:06\t435.5479166666666\nKL888\t2016-06-24 09:07\t435.5479166666666\nKL888\t2016-06-24 09:08\t429.91666666666663\nKL888\t2016-06-24 09:09\t429.91666666666663\nKL888\t2016-06-24 09:10\t429.91666666666663\nKL888\t2016-06-24 09:11\t428.64166666666665\nKL888\t2016-06-24 09:12\t428.64166666666665\nKL888\t2016-06-24 09:13\t429.91666666666663\nKL888\t2016-06-24 09:14\t429.91666666666663\nKL888\t2016-06-24 09:15\t424.96666666666664\nKL888\t2016-06-24 09:16\t421.7666666666667\nKL888\t2016-06-24 09:17\t421.7666666666667\nKL888\t2016-06-24 09:18\t421.7666666666667\nKL888\t2016-06-24 09:19\t421.7666666666667\nKL888\t2016-06-24 09:20\t435.5479166666666\nKL888\t2016-06-24 09:22\t409.1188888888888\nKL888\t2016-06-24 09:23\t409.1188888888888\nKL888\t2016-06-24 09:24\t409.1188888888888\nKL888\t2016-06-24 09:25\t409.1188888888888\nKL888\t2016-06-24 09:26\t409.1188888888888\nKL888\t2016-06-24 09:27\t409.1188888888888\nKL888\t2016-06-24 09:28\t409.1188888888888\nKL888\t2016-06-24 09:29\t409.1188888888888\nKL888\t2016-06-24 09:30\t409.1188888888888\nKL888\t2016-06-24 09:31\t409.1188888888888\nKL888\t2016-06-24 09:32\t409.1188888888888\nKL888\t2016-06-24 09:33\t409.1188888888888\nKL888\t2016-06-24 09:34\t409.1188888888888\nKL888\t2016-06-24 09:35\t409.1188888888888\nKL888\t2016-06-24 09:36\t409.1188888888888\nKL888\t2016-06-24 09:37\t409.1188888888888\nKL888\t2016-06-24 09:38\t409.1188888888888\nKL888\t2016-06-24 09:40\t409.1188888888888\nKL888\t2016-06-24 09:41\t409.1188888888888\nKL888\t2016-06-24 09:42\t409.1188888888888\nKL888\t2016-06-24 09:43\t409.1188888888888\nKL888\t2016-06-24 09:44\t409.1188888888888\nKL888\t2016-06-24 09:45\t409.1188888888888\nKL888\t2016-06-24 09:46\t409.1188888888888\nKL888\t2016-06-24 09:47\t391.8666666666667\nKL888\t2016-06-24 09:48\t391.8666666666667\nKL888\t2016-06-24 09:49\t388.8166666666667\nKL888\t2016-06-24 09:50\t388.8166666666667\nKL888\t2016-06-24 09:51\t388.8166666666667\nKL888\t2016-06-24 09:52\t388.8166666666667\nKL888\t2016-06-24 09:53\t388.8166666666667\nKL888\t2016-06-24 09:54\t388.8166666666667\nKL888\t2016-06-24 09:56\t384.63333333333344\nKL888\t2016-06-24 09:57\t383.5666666666666\nKL888\t2016-06-24 09:58\t382.55\nKL888\t2016-06-24 09:59\t380.9666666666667\nKL888\t2016-06-24 10:00\t380.9666666666667\nKL888\t2016-06-24 10:01\t379.43333333333334\nKL888\t2016-06-24 10:02\t347.16666666666674\nKL888\t2016-06-24 10:03\t376.6500000000001\nKL888\t2016-06-24 10:03\t362.5888888888889\nKL888\t2016-06-24 10:05\t376.6500000000001\nKL888\t2016-06-24 10:06\t362.5888888888889\nKL888\t2016-06-24 10:07\t362.5888888888889\nKL888\t2016-06-24 10:08\t367.9083333333333\nKL888\t2016-06-24 10:09\t367.9083333333333\nKL888\t2016-06-24 10:10\t367.9083333333333\nKL888\t2016-06-24 10:11\t367.9083333333333\nKL888\t2016-06-24 10:12\t362.5888888888889\nKL888\t2016-06-24 10:13\t367.9083333333333\nKL888\t2016-06-24 10:14\t362.5888888888889\nKL888\t2016-06-24 10:15\t364.68333333333334\nKL888\t2016-06-24 10:16\t363.68333333333334\nKL888\t2016-06-24 10:18\t362.5888888888889\nKL888\t2016-06-24 10:19\t362.5888888888889\nKL888\t2016-06-24 10:20\t362.5888888888889\nKL888\t2016-06-24 10:21\t362.5888888888889\nKL888\t2016-06-24 10:22\t362.5888888888889\nKL888\t2016-06-24 10:23\t362.5888888888889\nKL888\t2016-06-24 10:24\t362.5888888888889\nKL888\t2016-06-24 10:25\t355.18333333333334\nKL888\t2016-06-24 10:26\t353.03333333333285\nKL888\t2016-06-24 10:27\t353.03333333333285\nKL888\t2016-06-24 10:28\t352.01666666666665\nKL888\t2016-06-24 10:29\t352.01666666666665\nKL888\t2016-06-24 10:30\t353.03333333333285\nKL888\t2016-06-24 10:31\t348.78333333333336\nKL888\t2016-06-24 10:32\t348.78333333333336\nKL888\t2016-06-24 10:34\t346.4666666666667\nKL888\t2016-06-24 10:35\t345.4333333333334\nKL888\t2016-06-24 10:36\t345.4333333333334\nKL888\t2016-06-24 10:37\t342.725\nKL888\t2016-06-24 10:38\t342.725\nKL888\t2016-06-24 10:39\t337.13750000000005\nKL888\t2016-06-24 10:40\t335.82916666666665\nKL888\t2016-06-24 10:41\t335.82916666666665\nKL888\t2016-06-24 10:42\t335.82916666666665\nKL888\t2016-06-24 10:43\t337.13750000000005\nKL888\t2016-06-24 10:44\t337.13750000000005\nKL888\t2016-06-24 10:45\t337.13750000000005\nKL888\t2016-06-24 10:46\t333.75\nKL888\t2016-06-24 10:47\t335.82916666666665\nKL888\t2016-06-24 10:48\t335.82916666666665\nKL888\t2016-06-24 10:50\t319.1555555555555\nKL888\t2016-06-24 10:51\t334.4666666666667\nKL888\t2016-06-24 10:52\t323.11333333333334\nKL888\t2016-06-24 10:53\t327.4833333333336\nKL888\t2016-06-24 10:54\t323.11333333333334\nKL888\t2016-06-24 10:55\t323.11333333333334\nKL888\t2016-06-24 10:56\t323.11333333333334\nKL888\t2016-06-24 10:57\t323.11333333333334\nKL888\t2016-06-24 10:58\t323.11333333333334\nKL888\t2016-06-24 10:59\t323.11333333333334\nKL888\t2016-06-24 11:00\t323.11333333333334\nKL888\t2016-06-24 11:01\t317.54999999999995\nKL888\t2016-06-24 11:02\t317.54999999999995\nKL888\t2016-06-24 11:03\t317.54999999999995\nKL888\t2016-06-24 11:04\t317.54999999999995\nKL888\t2016-06-24 11:05\t319.1555555555555\nKL888\t2016-06-24 11:06\t319.1555555555555\nKL888\t2016-06-24 11:07\t319.1555555555555\nKL888\t2016-06-24 11:08\t311.19166666666666\nKL888\t2016-06-24 11:09\t311.19166666666666\nKL888\t2016-06-24 11:10\t311.19166666666666\nKL888\t2016-06-24 11:12\t308.6\nKL888\t2016-06-24 11:13\t308.6\nKL888\t2016-06-24 11:14\t305.8833333333333\nKL888\t2016-06-24 11:15\t305.8833333333333\nKL888\t2016-06-24 11:16\t304.29999999999995\nKL888\t2016-06-24 11:17\t302.0666666666666\nKL888\t2016-06-24 11:18\t302.0666666666666\nKL888\t2016-06-24 11:19\t295.68333333333334\nKL888\t2016-06-24 11:20\t295.68333333333334\nKL888\t2016-06-24 11:21\t298.8666666666666\nKL888\t2016-06-24 11:22\t298.8666666666666\nKL888\t2016-06-24 11:23\t298.8666666666666\nKL888\t2016-06-24 11:24\t295.68333333333334\nKL888\t2016-06-24 11:26\t289.95\nKL888\t2016-06-24 11:27\t289.2388888888889\nKL888\t2016-06-24 11:28\t281.2055555555556\nKL888\t2016-06-24 11:29\t289.2388888888889\nKL888\t2016-06-24 11:30\t289.2388888888889\nKL888\t2016-06-24 11:31\t289.95\nKL888\t2016-06-24 11:32\t302.0666666666666\nKL888\t2016-06-24 11:33\t289.95\nKL888\t2016-06-24 11:34\t289.95\nKL888\t2016-06-24 11:35\t285.0\nKL888\t2016-06-24 11:36\t289.2388888888889\nKL888\t2016-06-24 11:37\t281.2055555555556\nKL888\t2016-06-24 11:38\t281.2055555555556\nKL888\t2016-06-24 11:39\t281.2055555555556\nKL888\t2016-06-24 11:40\t281.2055555555556\nKL888\t2016-06-24 11:41\t281.2055555555556\nKL888\t2016-06-24 11:42\t277.225\nKL888\t2016-06-24 11:43\t277.225\nKL888\t2016-06-24 11:45\t275.61666666666656\nKL888\t2016-06-24 11:47\t308.6\nKL888\t2016-06-24 11:48\t272.3666666666668\nKL888\t2016-06-24 11:49\t246.95476190476188\nKL888\t2016-06-24 11:50\t267.7388888888889\nKL888\t2016-06-24 11:51\t269.1333333333333\nKL888\t2016-06-24 11:52\t269.1333333333333\nKL888\t2016-06-24 11:53\t267.7388888888889\nKL888\t2016-06-24 11:54\t267.7388888888889\nKL888\t2016-06-24 11:55\t267.7388888888889\nKL888\t2016-06-24 11:56\t267.7388888888889\nKL888\t2016-06-24 11:57\t261.74444444444447\nKL888\t2016-06-24 11:58\t261.74444444444447\nKL888\t2016-06-24 11:59\t261.74444444444447\nKL888\t2016-06-24 12:01\t256.8833333333333\nKL888\t2016-06-24 12:02\t256.8833333333333\nKL888\t2016-06-24 12:03\t257.43333333333334\nKL888\t2016-06-24 12:04\t256.8833333333333\nKL888\t2016-06-24 12:05\t256.8833333333333\nKL888\t2016-06-24 12:06\t246.95476190476188\nKL888\t2016-06-24 12:07\t246.95476190476188\nKL888\t2016-06-24 12:08\t246.95476190476188\nKL888\t2016-06-24 12:09\t246.95476190476188\nKL888\t2016-06-24 12:10\t246.95476190476188\nKL888\t2016-06-24 12:11\t246.95476190476188\nKL888\t2016-06-24 12:12\t246.95476190476188\nKL888\t2016-06-24 12:13\t246.95476190476188\nKL888\t2016-06-24 12:15\t246.95476190476188\nKL888\t2016-06-24 12:16\t246.95476190476188\nKL888\t2016-06-24 12:17\t246.95476190476188\nKL888\t2016-06-24 12:18\t246.95476190476188\nKL888\t2016-06-24 12:19\t246.95476190476188\nKL888\t2016-06-24 12:20\t246.95476190476188\nKL888\t2016-06-24 12:21\t246.95476190476188\nKL888\t2016-06-24 12:22\t246.95476190476188\nKL888\t2016-06-24 12:23\t246.95476190476188\nKL888\t2016-06-24 12:24\t230.5583333333333\nKL888\t2016-06-24 12:25\t230.5583333333333\nKL888\t2016-06-24 12:26\t230.5583333333333\nKL888\t2016-06-24 12:27\t229.35\nKL888\t2016-06-24 12:28\t229.35\nKL888\t2016-06-24 12:29\t230.5583333333333\nKL888\t2016-06-24 12:30\t230.5583333333333\nKL888\t2016-06-24 12:31\t230.5583333333333\nKL888\t2016-06-24 12:32\t230.5583333333333\nKL888\t2016-06-24 12:33\t229.35\nKL888\t2016-06-24 12:34\t230.5583333333333\nKL888\t2016-06-24 12:36\t230.5583333333333\nKL888\t2016-06-24 12:37\t223.56666666666666\nKL888\t2016-06-24 12:38\t219.5233333333333\nKL888\t2016-06-24 12:39\t219.5233333333333\nKL888\t2016-06-24 12:40\t219.5233333333333\nKL888\t2016-06-24 12:41\t218.7833333333333\nKL888\t2016-06-24 12:42\t218.7833333333333\nKL888\t2016-06-24 12:43\t219.5233333333333\nKL888\t2016-06-24 12:44\t219.5233333333333\nKL888\t2016-06-24 12:45\t215.0666666666666\nKL888\t2016-06-24 12:46\t207.51666666666665\nKL888\t2016-06-24 12:47\t211.25833333333333\nKL888\t2016-06-24 12:48\t211.25833333333333\nKL888\t2016-06-24 12:49\t211.25833333333333\nKL888\t2016-06-24 12:50\t211.25833333333333\nKL888\t2016-06-24 12:52\t211.25833333333333\nKL888\t2016-06-24 12:53\t207.51666666666665\nKL888\t2016-06-24 12:54\t204.79999999999995\nKL888\t2016-06-24 12:55\t204.79999999999995\nKL888\t2016-06-24 12:56\t204.79999999999995\nKL888\t2016-06-24 12:57\t202.08333333333334\nKL888\t2016-06-24 12:58\t202.08333333333334\nKL888\t2016-06-24 12:59\t185.49047619047616\nKL888\t2016-06-24 13:00\t185.49047619047616\nKL888\t2016-06-24 13:01\t191.1625\nKL888\t2016-06-24 13:02\t191.1625\nKL888\t2016-06-24 13:03\t191.1625\nKL888\t2016-06-24 13:04\t191.1625\nKL888\t2016-06-24 13:06\t191.1625\nKL888\t2016-06-24 13:07\t191.1625\nKL888\t2016-06-24 13:08\t191.1625\nKL888\t2016-06-24 13:09\t191.1625\nKL888\t2016-06-24 13:10\t191.1625\nKL888\t2016-06-24 13:11\t191.1625\nKL888\t2016-06-24 13:12\t187.33333333333337\nKL888\t2016-06-24 13:13\t187.33333333333337\nKL888\t2016-06-24 13:14\t191.1625\nKL888\t2016-06-24 13:15\t191.1625\nKL888\t2016-06-24 13:16\t191.1625\nKL888\t2016-06-24 13:17\t191.1625\nKL888\t2016-06-24 13:18\t185.49047619047616\nKL888\t2016-06-24 13:19\t185.49047619047616\nKL888\t2016-06-24 13:20\t185.49047619047616\nKL888\t2016-06-24 13:21\t185.49047619047616\nKL888\t2016-06-24 13:22\t191.1625\nKL888\t2016-06-24 13:23\t185.49047619047616\nKL888\t2016-06-24 13:24\t185.49047619047616\nKL888\t2016-06-24 13:25\t191.16666666666674\nKL888\t2016-06-24 13:27\t171.39444444444442\nKL888\t2016-06-24 13:28\t171.39444444444442\nKL888\t2016-06-24 13:29\t169.8166666666666\nKL888\t2016-06-24 13:30\t169.8166666666666\nKL888\t2016-06-24 13:31\t169.8166666666666\nKL888\t2016-06-24 13:32\t171.39444444444442\nKL888\t2016-06-24 13:33\t171.39444444444442\nKL888\t2016-06-24 13:34\t166.98333333333332\nKL888\t2016-06-24 13:35\t164.41666666666669\nKL888\t2016-06-24 13:36\t164.41666666666669\nKL888\t2016-06-24 13:37\t161.7277777777778\nKL888\t2016-06-24 13:38\t161.7277777777778\nKL888\t2016-06-24 13:39\t161.7277777777778\nKL888\t2016-06-24 13:41\t159.53333333333333\nKL888\t2016-06-24 13:42\t156.32222222222222\nKL888\t2016-06-24 13:43\t156.32222222222222\nKL888\t2016-06-24 13:44\t156.32222222222222\nKL888\t2016-06-24 13:45\t156.32222222222222\nKL888\t2016-06-24 13:46\t154.2166666666667\nKL888\t2016-06-24 13:47\t149.86999999999998\nKL888\t2016-06-24 13:48\t149.86999999999998\nKL888\t2016-06-24 13:49\t149.86999999999998\nKL888\t2016-06-24 13:50\t148.98333333333335\nKL888\t2016-06-24 13:51\t148.98333333333335\nKL888\t2016-06-24 13:52\t149.86999999999998\nKL888\t2016-06-24 13:53\t149.86999999999998\nKL888\t2016-06-24 13:54\t149.86999999999998\nKL888\t2016-06-24 13:55\t143.2166666666667\nKL888\t2016-06-24 13:56\t143.2166666666667\nKL888\t2016-06-24 13:57\t143.2166666666667\nKL888\t2016-06-24 13:58\t143.2166666666667\nKL888\t2016-06-24 14:00\t143.2166666666667\nKL888\t2016-06-24 14:01\t139.45\nKL888\t2016-06-24 14:02\t139.45\nKL888\t2016-06-24 14:03\t131.42916666666667\nKL888\t2016-06-24 14:04\t131.42916666666667\nKL888\t2016-06-24 14:05\t131.42916666666667\nKL888\t2016-06-24 14:06\t125.8690476190476\nKL888\t2016-06-24 14:07\t125.8690476190476\nKL888\t2016-06-24 14:08\t125.8690476190476\nKL888\t2016-06-24 14:09\t125.8690476190476\nKL888\t2016-06-24 14:10\t125.8690476190476\nKL888\t2016-06-24 14:11\t125.8690476190476\nKL888\t2016-06-24 14:12\t127.20000000000002\nKL888\t2016-06-24 14:13\t127.20000000000002\nKL888\t2016-06-24 14:15\t127.20000000000002\nKL888\t2016-06-24 14:16\t125.8690476190476\nKL888\t2016-06-24 14:17\t125.8690476190476\nKL888\t2016-06-24 14:18\t125.8690476190476\nKL888\t2016-06-24 14:19\t125.8690476190476\nKL888\t2016-06-24 14:20\t125.8690476190476\nKL888\t2016-06-24 14:21\t125.8690476190476\nKL888\t2016-06-24 14:22\t125.8690476190476\nKL888\t2016-06-24 14:23\t131.42916666666667\nKL888\t2016-06-24 14:24\t114.34166666666667\nKL888\t2016-06-24 14:25\t114.34166666666667\nKL888\t2016-06-24 14:26\t114.34166666666667\nKL888\t2016-06-24 14:27\t112.75\nKL888\t2016-06-24 14:28\t110.14166666666668\nKL888\t2016-06-24 14:29\t110.14166666666668\nKL888\t2016-06-24 14:31\t110.14166666666668\nKL888\t2016-06-24 14:32\t110.14166666666668\nKL888\t2016-06-24 14:33\t105.78333333333335\nKL888\t2016-06-24 14:34\t105.78333333333335\nKL888\t2016-06-24 14:35\t105.78333333333335\nKL888\t2016-06-24 14:36\t105.78333333333335\nKL888\t2016-06-24 14:37\t103.35000000000002\nKL888\t2016-06-24 14:38\t102.28333333333333\nKL888\t2016-06-24 14:39\t101.2\nKL888\t2016-06-24 14:40\t98.35555555555555\nKL888\t2016-06-24 14:41\t98.35555555555555\nKL888\t2016-06-24 14:42\t98.35555555555555\nKL888\t2016-06-24 14:43\t98.35555555555555\nKL888\t2016-06-24 14:44\t98.35555555555555\nKL888\t2016-06-24 14:45\t98.62777777777778\nKL888\t2016-06-24 14:46\t87.8638888888889\nKL888\t2016-06-24 14:47\t88.41666666666663\nKL888\t2016-06-24 14:49\t87.8638888888889\nKL888\t2016-06-24 14:50\t87.8638888888889\nKL888\t2016-06-24 14:51\t88.41666666666663\nKL888\t2016-06-24 14:52\t88.41666666666663\nKL888\t2016-06-24 14:53\t87.8638888888889\nKL888\t2016-06-24 14:54\t87.8638888888889\nKL888\t2016-06-24 14:55\t87.8638888888889\nKL888\t2016-06-24 14:56\t87.8638888888889\nKL888\t2016-06-24 14:57\t79.03888888888889\nKL888\t2016-06-24 14:58\t79.03888888888889\nKL888\t2016-06-24 14:59\t79.03888888888889\nKL888\t2016-06-24 15:00\t79.03888888888889\nKL888\t2016-06-24 15:01\t79.03888888888889\nKL888\t2016-06-24 15:03\t79.03888888888889\nKL888\t2016-06-24 15:04\t79.03888888888889\nKL888\t2016-06-24 15:05\t79.03888888888889\nKL888\t2016-06-24 15:06\t72.0111111111111\nKL888\t2016-06-24 15:07\t72.0111111111111\nKL888\t2016-06-24 15:08\t72.0111111111111\nKL888\t2016-06-24 15:09\t71.3\nKL888\t2016-06-24 15:10\t72.0111111111111\nKL888\t2016-06-24 15:11\t69.18333333333337\nKL888\t2016-06-24 15:12\t68.13333333333334\nKL888\t2016-06-24 15:13\t68.13333333333334\nKL888\t2016-06-24 15:14\t66.06666666666666\nKL888\t2016-06-24 15:15\t62.09583333333333\nKL888\t2016-06-24 15:16\t62.09583333333333\nKL888\t2016-06-24 15:17\t62.09583333333333\nKL888\t2016-06-24 15:18\t62.09583333333333\nKL888\t2016-06-24 15:19\t62.09583333333333\nKL888\t2016-06-24 15:20\t62.09583333333333\nKL888\t2016-06-24 15:21\t57.575\nKL888\t2016-06-24 15:23\t57.575\nKL888\t2016-06-24 15:24\t57.575\nKL888\t2016-06-24 15:25\t57.575\nKL888\t2016-06-24 15:26\t54.4\nKL888\t2016-06-24 15:27\t49.050000000000004\nKL888\t2016-06-24 15:28\t49.050000000000004\nKL888\t2016-06-24 15:29\t49.050000000000004\nKL888\t2016-06-24 15:30\t49.050000000000004\nKL888\t2016-06-24 15:31\t49.050000000000004\nKL888\t2016-06-24 15:32\t49.050000000000004\nKL888\t2016-06-24 15:33\t42.56666666666667\nKL888\t2016-06-24 15:34\t45.83333333333334\nKL888\t2016-06-24 15:35\t42.56666666666667\nKL888\t2016-06-24 15:36\t43.666666666666664\nKL888\t2016-06-24 15:38\t42.56666666666667\nKL888\t2016-06-24 15:39\t40.4\nKL888\t2016-06-24 15:40\t40.4\nKL888\t2016-06-24 15:41\t39.3\nKL888\t2016-06-24 15:42\t39.03666666666667\nKL888\t2016-06-24 15:43\t39.03666666666667\nKL888\t2016-06-24 15:44\t35.048095238095236\nKL888\t2016-06-24 15:45\t35.048095238095236\nKL888\t2016-06-24 15:46\t35.37222222222223\nKL888\t2016-06-24 15:47\t35.37222222222223\nKL888\t2016-06-24 15:48\t35.37222222222223\nKL888\t2016-06-24 15:49\t29.850000000000005\nKL888\t2016-06-24 15:50\t29.850000000000005\nKL888\t2016-06-24 15:51\t28.783333333333335\nKL888\t2016-06-24 15:52\t25.47083333333333\nKL888\t2016-06-24 15:53\t26.733333333333338\nKL888\t2016-06-24 15:55\t25.84166666666667\nKL888\t2016-06-24 15:56\t24.405555555555555\nKL888\t2016-06-24 15:57\t24.405555555555555\nKL888\t2016-06-24 15:58\t22.46666666666667\nKL888\t2016-06-24 15:59\t21.46666666666667\nKL888\t2016-06-24 16:00\t20.604166666666664\nKL888\t2016-06-24 16:01\t19.629166666666666\nKL888\t2016-06-24 16:02\t18.299999999999997\nKL888\t2016-06-24 16:03\t16.240740740740744\nKL888\t2016-06-24 16:04\t16.240740740740744\nKL888\t2016-06-24 16:05\t14.260416666666666\nKL888\t2016-06-24 16:06\t14.260416666666666\nKL888\t2016-06-24 16:07\t14.260416666666666\nKL888\t2016-06-24 16:08\t10.841666666666667\nKL888\t2016-06-24 16:09\t10.841666666666667\nKL888\t2016-06-24 16:10\t10.233333333333334\nKL888\t2016-06-24 16:11\t7.383333333333334\nKL888\t2016-06-24 16:13\t9.383333333333335\nKL888\t2016-06-24 16:14\t6.316666666666666\nKL888\t2016-06-24 16:15\t5.45\nKL888\t2016-06-24 16:16\t4.012820512820513\nKL888\t2016-06-24 16:17\t2.941666666666666\nKL888\t2016-06-24 16:18\t1.3066666666666666\nKL888\t2016-06-24 16:19\t0.0\nKL888\t2016-06-24 16:20\t0.0\nKL888\t2016-06-24 16:21\t0.0\nKL888\t2016-06-24 16:22\t0.0\nKL888\t2016-06-24 16:24\t0.0\nKL888\t2016-06-24 16:25\t0.0\nKL888\t2016-06-24 16:26\t0.0\nKL888\t2016-06-24 16:27\t0.0\nKL888\t2016-06-24 16:28\t0.0\nKL888\t2016-06-24 16:29\t0.0\nKL888\t2016-06-24 16:30\t0.0\nKL888\t2016-06-24 16:30\t0.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517747049012_1878720477",
+      "id": "20180204-122409_427847771",
+      "dateCreated": "Feb 4, 2018 12:24:09 PM",
+      "dateStarted": "Feb 4, 2018 12:28:03 PM",
+      "dateFinished": "Feb 4, 2018 12:28:03 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nquery.stop()",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:29:01 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1018,10 +1061,430 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
       "apps": [],
       "jobName": "paragraph_1517168631076_-796771430",
       "id": "20180128-194351_1986237421",
       "dateCreated": "Jan 28, 2018 7:43:51 PM",
+      "dateStarted": "Feb 4, 2018 12:29:01 PM",
+      "dateFinished": "Feb 4, 2018 12:29:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n### For future usage show some samples using online ML predictions in SkLearn\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:45:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003eFor future usage show some samples using online ML predictions in SkLearn\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517747144568_-296311027",
+      "id": "20180204-122544_1087977051",
+      "dateCreated": "Feb 4, 2018 12:25:44 PM",
+      "dateStarted": "Feb 4, 2018 12:45:14 PM",
+      "dateFinished": "Feb 4, 2018 12:45:14 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh\n\npip install sklearn\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:48:37 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Collecting sklearn\n  Downloading sklearn-0.0.tar.gz\nCollecting scikit-learn (from sklearn)\n  Downloading scikit_learn-0.19.1-cp34-cp34m-manylinux1_x86_64.whl (12.4MB)\nInstalling collected packages: scikit-learn, sklearn\n  Running setup.py install for sklearn: started\n    Running setup.py install for sklearn: finished with status \u0027done\u0027\nSuccessfully installed scikit-learn-0.19.1 sklearn-0.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748314257_-2112091040",
+      "id": "20180204-124514_2016063602",
+      "dateCreated": "Feb 4, 2018 12:45:14 PM",
+      "dateStarted": "Feb 4, 2018 12:48:37 PM",
+      "dateFinished": "Feb 4, 2018 12:48:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create some model on iris data",
+      "text": "%pyspark\n\nimport numpy as np\nfrom sklearn import datasets\niris \u003d datasets.load_iris()\niris_X \u003d iris.data\niris_y \u003d iris.target  # Set of 0 , 1 and 2\u0027s \n#np.unique(iris_y)\n\n# Split iris data in train and test data\n# A random permutation, to split the data randomly\nnp.random.seed(0)\nindices \u003d np.random.permutation(len(iris_X))\niris_X_train \u003d iris_X[indices[:-10]]\niris_y_train \u003d iris_y[indices[:-10]]\niris_X_test  \u003d iris_X[indices[-10:]]\niris_y_test  \u003d iris_y[indices[-10:]]\n# Create and fit a nearest-neighbor classifier\nfrom sklearn.neighbors import KNeighborsClassifier\nknn \u003d KNeighborsClassifier()\n#nsamples, nx, ny \u003d iris_X_train.shape\n#iris_X_train \u003d iris_X_train.reshape((nsamples,nx*ny))\n#nsamples, nx, ny \u003d iris_y_train.shape\n#iris_y_train \u003d iris_y_train.reshape((nsamples,nx*ny))\n\nknn.fit(iris_X_train, iris_y_train) \nKNeighborsClassifier(algorithm\u003d\u0027auto\u0027, leaf_size\u003d30, metric\u003d\u0027minkowski\u0027,\n           metric_params\u003dNone, n_jobs\u003d1, n_neighbors\u003d5, p\u003d2,\n           weights\u003d\u0027uniform\u0027)\nknn.predict(iris_X_test)\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:49:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "array([1, 2, 1, 0, 0, 0, 2, 1, 2, 0])\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748517615_-1512592601",
+      "id": "20180204-124837_802717680",
+      "dateCreated": "Feb 4, 2018 12:48:37 PM",
+      "dateStarted": "Feb 4, 2018 12:49:41 PM",
+      "dateFinished": "Feb 4, 2018 12:49:55 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark batch prediction using sklearn",
+      "text": "%pyspark\n\n#https://stackoverflow.com/questions/42887621/how-to-do-prediction-with-sklearn-model-inside-spark\n\nrdd \u003d sc.parallelize([[[ 7.7,  3.8,  6.7,  2.2]]]) #1 entry \n#rdd \u003d sc.parallelize([[[ 7.7,  3.8,  6.7,  2.2],[ 5.5,  2.6,  4.4,  1.2]]]) #multiple entries \n\nregr_bc \u003d sc.broadcast(knn) #broadcast model to workers\n\npredictions_list \u003d rdd.map(lambda x: (x, regr_bc.value.predict(x))).collect()\n\n#show prediction\nprint(predictions_list)\nfor x,predictions in predictions_list:\n    for count in range(0,len(predictions)):\n        print (\"input set \" + str(x[count]) + \" gives prediction : \" + str(predictions[count]))\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:50:34 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {},
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[([[7.7, 3.8, 6.7, 2.2]], array([2]))]\ninput set [7.7, 3.8, 6.7, 2.2] gives prediction : 2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748581656_1336011634",
+      "id": "20180204-124941_423898452",
+      "dateCreated": "Feb 4, 2018 12:49:41 PM",
+      "dateStarted": "Feb 4, 2018 12:50:34 PM",
+      "dateFinished": "Feb 4, 2018 12:50:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create file with entry so we can test spark streaming",
+      "text": "%sh\n\nmkdir /tmp/test\necho [[[ 7.7,  3.8,  6.7,  2.2]]] \u003e /tmp/test/input.csv\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:51:38 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748634703_-2068353903",
+      "id": "20180204-125034_1509285486",
+      "dateCreated": "Feb 4, 2018 12:50:34 PM",
+      "dateStarted": "Feb 4, 2018 12:51:38 PM",
+      "dateFinished": "Feb 4, 2018 12:51:38 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Test if this file can be used by spark batch",
+      "text": "%pyspark\n\n#Yes it can be used but requires literal loading of the array, otherwise\n#it will be seen as string\nimport ast\n\nfrom pyspark.sql.types import StructType\nimport json\n\nuserSchema \u003d StructType().add(\"value\", \"string\")\n#Use non , delimter as we want whole record\nlines \u003d spark.read.format(\"csv\").option(\"delimiter\",\"|\").schema(userSchema).load(\"/tmp/test\")\nrdd \u003d sc.parallelize( ast.literal_eval( lines.first()[\"value\"] ) )\n\nrdd.map(lambda x: (x, regr_bc.value.predict(x))).collect()\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:53:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[([[7.7, 3.8, 6.7, 2.2]], array([2]))]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748698731_-1610225232",
+      "id": "20180204-125138_1235395620",
+      "dateCreated": "Feb 4, 2018 12:51:38 PM",
+      "dateStarted": "Feb 4, 2018 12:52:59 PM",
+      "dateFinished": "Feb 4, 2018 12:53:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Start and test spark streaming (structured) without prediction",
+      "text": "%pyspark\r\n\r\nfrom pyspark.sql.types import StructType\r\n\r\nuserSchema \u003d StructType().add(\"value\", \"string\")\r\nlines \u003d spark.readStream.format(\"csv\").option(\"delimiter\",\"|\").schema(userSchema).load(\"/tmp/test\")\r\n\r\ncounts \u003d lines.groupBy(\"value\").count()\r\n\r\n#rdd \u003d sc.parallelize( ast.literal_eval( lines.first()[\"value\"] ) )\r\n#lines \u003d lines.select ( lines.rdd.map(lambda x: (x, regr_bc.value.predict( x ))).collect() ).alias(\"prediction\")\r\n\r\n\r\nquery \u003d (counts\r\n  .writeStream\r\n  .outputMode(\"complete\")\r\n  .format(\"memory\")\r\n  .queryName(\"some_name\")\r\n  .start())",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:55:57 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748722695_2054554014",
+      "id": "20180204-125202_1607993858",
+      "dateCreated": "Feb 4, 2018 12:52:02 PM",
+      "dateStarted": "Feb 4, 2018 12:54:04 PM",
+      "dateFinished": "Feb 4, 2018 12:54:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n\nselect * from some_name\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:54:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "value\tcount\n[[[ 7.7, 3.8, 6.7, 2.2]]]\t1\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748844396_-404052231",
+      "id": "20180204-125404_1307507231",
+      "dateCreated": "Feb 4, 2018 12:54:04 PM",
+      "dateStarted": "Feb 4, 2018 12:54:23 PM",
+      "dateFinished": "Feb 4, 2018 12:54:23 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "add new data (run query again afterwards)",
+      "text": "%sh\n\nls /tmp/test\ncp /tmp/test/input.csv /tmp/test/inputme.csv\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:57:37 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "input.csv\ninputmd.csv\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748882397_-419949529",
+      "id": "20180204-125442_1024157324",
+      "dateCreated": "Feb 4, 2018 12:54:42 PM",
+      "dateStarted": "Feb 4, 2018 12:57:37 PM",
+      "dateFinished": "Feb 4, 2018 12:57:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use spark streaming to predict (add new file within 20 seconds! to show result)",
+      "text": "%pyspark\n\nimport ast\nfrom pyspark.streaming import StreamingContext\n\nssc \u003d StreamingContext(sc, 2)\n \nlines \u003d ssc.textFileStream(\"/tmp/test\")\n\ndef process_rdd(rdd):\n    rdd_transformed \u003d rdd.map(lambda x: (x, regr_bc.value.predict( ast.literal_eval(x)[0])))\n    print (rdd_transformed.take(1))\n\ndef empty_rdd():\n    print (\"###The current RDD is empty. Wait for the next complete RDD ###\")\n    \n        \nlines.foreachRDD(lambda rdd: process_rdd(rdd) if rdd.count() \u003e 0 else empty_rdd())\n\n\nssc.start()\nssc.awaitTerminationOrTimeout(20)\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:57:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n[(\u0027[[[ 7.7, 3.8, 6.7, 2.2]]]\u0027, array([2]))]\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\n###The current RDD is empty. Wait for the next complete RDD ###\nFalse\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1517748905070_1859348928",
+      "id": "20180204-125505_1442852996",
+      "dateCreated": "Feb 4, 2018 12:55:05 PM",
+      "dateStarted": "Feb 4, 2018 12:57:31 PM",
+      "dateFinished": "Feb 4, 2018 12:57:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Structured streaming does not work yet with sklearn",
+      "text": "%pyspark\r\n\r\n#https://docs.databricks.com/spark/latest/structured-streaming/examples.html\r\n\r\nfrom pyspark.sql.functions import lit\r\n\r\nfrom pyspark.sql.types import StructType,IntegerType\r\nfrom pyspark.sql.types import *\r\n\r\n\r\nuserSchema \u003d StructType().add(\"value\", \"string\")\r\nlines \u003d spark.readStream.format(\"csv\").option(\"delimiter\",\"|\").schema(userSchema).load(\"/tmp/test\").selectExpr(\"CAST(value AS string)\")\r\n\r\n#rdd \u003d sc.parallelize( ast.literal_eval( lines.first()[\"value\"] ) )\r\n#pred \u003d rdd.map(lambda x: (x, regr_bc.value.predict(x))).collect()\r\n\r\nfrom pyspark.sql.functions import udf\r\n\r\n#lines.rdd.map(lambda x: (x, regr_bc.value.predict(x)))\r\n\r\n#predict_udf \u003d udf(regr_bc.value.predict, IntegerType())\r\n#predict_udf \u003d udf(regr_bc.value.predict, IntegerType())\r\n\r\nquery \u003d (lines\r\n  .writeStream\r\n  .format(\"memory\")\r\n  .queryName(\"some_pred6\")\r\n  .outputMode(\"append\")\r\n  .start())\r\n  \r\n#  .outputMode(\"append\")\r\n#  .trigger(processingTime\u003d\"2 seconds\")\r\n# .withColumn(\"prediction\",lines[\"value\"]  )\r\n#.withColumn(\"prediction\",  predict_udf(lines.value   ) )\r\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\r\n\r\nz.show(spark.table(\"some_pred6\"))\r\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:58:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1517749046421_-1375852976",
+      "id": "20180204-125726_487284713",
+      "dateCreated": "Feb 4, 2018 12:57:26 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\nquery.stop()\n",
+      "user": "anonymous",
+      "dateUpdated": "Feb 4, 2018 12:58:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1517749130541_1171123446",
+      "id": "20180204-125850_1252438679",
+      "dateCreated": "Feb 4, 2018 12:58:50 PM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
